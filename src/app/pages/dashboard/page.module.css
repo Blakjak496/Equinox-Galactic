@@ -1,0 +1,247 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  column-gap: var(--space-6);
+  width: 100%;
+  max-width: var(--container-max);
+  padding: var(--page-padding);
+}
+
+.columnLeft,
+.columnRight {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-5);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+}
+
+.banner {
+  background-image: url(/star-field.png);
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+
+.bannerLogo {
+  height: auto;
+  width: 100%;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  font-size: var(--text-2xl);
+}
+
+.subheading {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--text-muted);
+}
+
+.contractValues,
+.contractLocations {
+  display: flex;
+  column-gap: var(--space-5);
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-1);
+  width: 50%;
+
+  label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  input,
+  select {
+    height: 3.25rem;
+    padding: var(--space-3) 0.9rem;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  select {
+    display: flex;
+    align-items: center;
+  }
+
+  select:hover {
+    border-color: var(--primary-hover);
+  }
+
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+
+  select::picker-icon {
+    color: #999999;
+    transition: 0.4s rotate;
+  }
+  select:open::picker-icon {
+    rotate: 180deg;
+  }
+
+  option {
+    color: var(--text);
+  }
+
+  optgroup {
+    color: var(--text-muted);
+  }
+}
+
+.totalPrice {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.pillLabel {
+  color: var(--text);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.pillValue {
+  color: var(--text-muted);
+}
+
+.pillSubLabel {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+.pillLabelWithSub {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.checkboxContainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: var(--surface-elevated);
+  border-radius: var(--radius-sm);
+}
+
+.checkboxContainer:hover .checkbox ~ .checkmark {
+  border: 1px solid var(--primary-hover);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkboxContainer input:checked ~ .checkmark:after {
+  display: flex;
+}
+
+.checkboxContainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--secondary);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.contractSetting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contractSettingLabel,
+.contractSettingValue {
+  font-size: var(--text-md);
+}
+
+.contractSettingLabel {
+  color: var(--text);
+}
+
+.contractSettingValueGroup {
+  display: flex;
+  column-gap: var(--space-3);
+}
+
+.contractSettingValue {
+  color: var(--text-muted);
+}
+
+@media only screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 100%;
+    row-gap: var(--space-5);
+  }
+
+  .contractValues,
+  .contractLocations {
+    flex-direction: column;
+    row-gap: var(--space-5);
+  }
+
+  .inputWrapper {
+    width: 100%;
+  }
+
+  .toggle {
+    width: 2rem;
+    height: 1rem;
+  }
+
+  .slider::before {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
