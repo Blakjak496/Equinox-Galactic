@@ -130,6 +130,7 @@
   color: var(--text-muted);
   font-size: var(--text-sm);
   font-style: italic;
+  width: 90%;
 }
 
 .pillLabelWithSub {
@@ -138,9 +139,16 @@
   justify-content: center;
 }
 
+.checkWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
 .checkboxContainer {
   display: block;
-  position: relative;
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
@@ -149,6 +157,11 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateY(50%);
+  height: 100%;
 }
 
 .checkbox {
@@ -167,6 +180,7 @@
   width: 25px;
   background-color: var(--surface-elevated);
   border-radius: var(--radius-sm);
+  border: 1px solid var(--primary);
 }
 
 .checkboxContainer:hover .checkbox ~ .checkmark {

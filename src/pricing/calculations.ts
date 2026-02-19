@@ -7,6 +7,8 @@ export const contractPriceCalc = (
 ): number => {
   const rules = ROUTE_RULES[route];
 
+  if (!rules) return 0;
+
   const min = rules.minPrice;
   const base = rules.flatRate > 0 ? rules.flatRate : volume * rules.ratePerM3;
   const extra = rush ? rules.rushRate : 0;

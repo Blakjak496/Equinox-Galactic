@@ -7,86 +7,86 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { contractPriceCalc } from "@/pricing/calculations";
 import PillCard from "@/components/ui/PillCard/PillCard";
 import { ROUTE_RULES } from "@/pricing/route-rules";
-import { copyTextToClipboard, numberWithCommas } from "@/utils";
+import {
+  branchSystems,
+  checkRouteCompatibility,
+  copyTextToClipboard,
+  numberWithCommas,
+} from "@/utils";
 import IconButton from "@/components/ui/IconButton/IconButton";
 
 export default function Dashboard() {
   const [pickup, setPickup] = useState("BKG-Q2");
   const [dropoff, setDropoff] = useState("4-HWWF");
-  const [volume, setVolume] = useState(0);
-  const [collateral, setCollateral] = useState(0);
+  const [volume, setVolume] = useState<number | undefined>();
+  const [collateral, setCollateral] = useState<number | undefined>();
   const [rush, setRush] = useState(false);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    let incompatible = false;
-    const route = `${pickup}|${dropoff}`;
+    const compatible = checkRouteCompatibility(pickup, dropoff);
 
-    switch (route) {
-      case "Branch|Branch":
-        incompatible = true;
-        break;
-      case "Branch|4-HWWF":
-        incompatible = true;
-        break;
-      case "4-HWWF|Branch":
-        incompatible = true;
-        break;
-      default:
-        break;
-    }
-    if (!incompatible)
-      setTotal(contractPriceCalc(`${pickup}|${dropoff}`, volume, rush));
+    if (compatible)
+      setTotal(
+        contractPriceCalc(
+          `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`,
+          volume || 0,
+          rush,
+        ),
+      );
   }, [pickup, dropoff, volume, rush]);
 
   const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setVolume(parseInt(e.target.value || "0"));
+    if (e.target.value === "") setVolume(undefined);
+    else {
+      const inputVolume = parseInt(e.target.value);
+
+      setVolume(
+        parseInt(
+          inputVolume
+            ? inputVolume > 340000
+              ? `${340000}`
+              : inputVolume.toString()
+            : "0",
+        ),
+      );
+    }
   };
 
   const handleCollateralChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCollateral(parseInt(e.target.value));
+    if (e.target.value === "") setCollateral(undefined);
+    else {
+      const inputValue = parseInt(e.target.value);
+
+      setCollateral(
+        parseInt(
+          inputValue
+            ? inputValue > 10000000000
+              ? `${10000000000}`
+              : inputValue.toString()
+            : "0",
+        ),
+      );
+    }
   };
 
   const handlePickupChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
     setPickup(e.target.value);
-    if (e.target.value === dropoff) {
-      switch (true) {
-        case e.target.value === "BKG-Q2":
-          setDropoff("4-HWWF");
-          break;
-        case e.target.value === "4-HWWF":
-          setDropoff("BKG-Q2");
-          break;
-        case e.target.value === "Branch":
-          setDropoff("BKG-Q2");
-          break;
-        default:
-          break;
-      }
-    } else {
-      if (e.target.value === "Branch" && dropoff === "4-HWWF")
+    switch (true) {
+      case e.target.value === "BKG-Q2":
+        setDropoff("4-HWWF");
+        break;
+      case e.target.value === "4-HWWF":
         setDropoff("BKG-Q2");
+        break;
+      default:
+        setDropoff("BKG-Q2");
+        break;
     }
   };
 
   const handleDropoffChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setDropoff(e.target.value);
-    if (e.target.value === pickup) {
-      switch (true) {
-        case e.target.value === "BKG-Q2":
-          setDropoff("4-HWWF");
-          break;
-        case e.target.value === "4-HWWF":
-          setDropoff("BKG-Q2");
-          break;
-        case e.target.value === "Branch":
-          setDropoff("BKG-Q2");
-          break;
-        default:
-          break;
-      }
-    }
   };
 
   const handleRushChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +94,8 @@ export default function Dashboard() {
   };
 
   const getRuleValue = (rule: string): number => {
-    const rules = ROUTE_RULES[`${pickup}|${dropoff}`];
+    const route = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
+    const rules = ROUTE_RULES[route];
     let ruleValue: number = 0;
     if (rules) {
       if (rule === "volume") ruleValue = rules.ratePerM3;
@@ -139,6 +140,7 @@ export default function Dashboard() {
                     id="volume"
                     type="number"
                     max={340000}
+                    value={volume ?? ""}
                     placeholder={`e.g ${numberWithCommas(340000)}`}
                     onChange={handleVolumeChange}
                   />
@@ -151,6 +153,7 @@ export default function Dashboard() {
                     id="collateral"
                     type="number"
                     max={10000000000}
+                    value={collateral ?? ""}
                     placeholder={`e.g ${numberWithCommas(2000000000)}`}
                     onChange={handleCollateralChange}
                   />
@@ -172,7 +175,13 @@ export default function Dashboard() {
                       <option value="4-HWWF">4-HWWF</option>
                     </optgroup>
                     <optgroup label="Branch">
-                      <option value="Branch">Non-BKG Branch System</option>
+                      {branchSystems.sort().map((system, idx) => {
+                        return (
+                          <option key={idx} value={system}>
+                            {system}
+                          </option>
+                        );
+                      })}
                     </optgroup>
                   </select>
                 </div>
@@ -196,7 +205,13 @@ export default function Dashboard() {
                     )}
                     {pickup === "BKG-Q2" && (
                       <optgroup label="Branch">
-                        <option value="Branch">Non-BKG Branch System</option>
+                        {branchSystems.sort().map((system, idx) => {
+                          return (
+                            <option key={idx} value={system}>
+                              {system}
+                            </option>
+                          );
+                        })}
                       </optgroup>
                     )}
                   </select>
@@ -212,14 +227,16 @@ export default function Dashboard() {
                     Priority contract. Aims to deliver within 24h where possible
                   </span>
                 </div>
-                <label className={styles.checkboxContainer}>
-                  <input
-                    type="checkbox"
-                    className={styles.checkbox}
-                    onChange={handleRushChange}
-                  />
-                  <span className={styles.checkmark}></span>
-                </label>
+                <div className={styles.checkWrapper}>
+                  <label className={styles.checkboxContainer}>
+                    <input
+                      type="checkbox"
+                      className={styles.checkbox}
+                      onChange={handleRushChange}
+                    />
+                    <span className={styles.checkmark}></span>
+                  </label>
+                </div>
               </PillCard>
             </div>
           </Card>
@@ -230,8 +247,11 @@ export default function Dashboard() {
               <PillCard>
                 <span className={styles.pillLabel}>Volume</span>
                 <span className={styles.pillValue}>
-                  {numberWithCommas(getRuleValue("volume") * volume)} ISK (
-                  {getRuleValue("volume")}/m³)
+                  {getRuleValue("flat") === 0
+                    ? `${numberWithCommas(getRuleValue("volume") * (volume || 0))} ISK`
+                    : "N/A"}
+                  {getRuleValue("flat") === 0 &&
+                    `(${getRuleValue("volume")}/m³)`}
                 </span>
               </PillCard>
               <PillCard>
@@ -241,14 +261,15 @@ export default function Dashboard() {
                 </span>
               </PillCard>
               <PillCard>
-                <span className={styles.pillLabel}>
-                  Minimum ({`${pickup} <-> ${dropoff}`})
-                </span>
+                <span className={styles.pillLabel}>Minimum</span>
                 <span className={styles.pillValue}>
-                  {numberWithCommas(getRuleValue("min"))} ISK
+                  {getRuleValue("flat") === 0
+                    ? `${numberWithCommas(getRuleValue("min"))} ISK`
+                    : "N/A"}
                 </span>
               </PillCard>
-              {(pickup === "Branch" || dropoff === "Branch") && (
+              {(branchSystems.includes(pickup) ||
+                branchSystems.includes(dropoff)) && (
                 <PillCard>
                   <span className={styles.pillLabel}>
                     Flat Fee ({`${pickup} <-> ${dropoff}`})
@@ -297,7 +318,7 @@ export default function Dashboard() {
                 <span className={styles.contractSettingLabel}>Collateral:</span>
                 <div className={styles.contractSettingValueGroup}>
                   <span className={styles.contractSettingValue}>
-                    {numberWithCommas(collateral)} ISK
+                    {numberWithCommas(collateral || 0)} ISK
                   </span>
                   <IconButton
                     src="/copy-icon-secondary.png"

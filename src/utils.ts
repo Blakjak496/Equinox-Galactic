@@ -1,3 +1,5 @@
+import { ROUTE_RULES } from "./pricing/route-rules";
+
 export const copyTextToClipboard = (text: string): void => {
   navigator.clipboard.writeText(text);
 };
@@ -5,3 +7,112 @@ export const copyTextToClipboard = (text: string): void => {
 export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+
+export const checkRouteCompatibility = (
+  pickup: string,
+  dropoff: string,
+): boolean => {
+  const routeOptions = Object.keys(ROUTE_RULES).map((route) =>
+    route.split("|"),
+  );
+
+  return routeOptions.some((route) => {
+    return route.some((system) => system === pickup || system === dropoff);
+  });
+};
+
+export const branchSystems = [
+  "Z-K495",
+  "LXWN-W",
+  "XM-4L0",
+  "8-4GQM",
+  "C-LP3N",
+  "QCWA-Z",
+  "LRWD-B",
+  "1G-MJE",
+  "KV-8SN",
+  "52G-NZ",
+  "T-Q2DD",
+  "S-B7IT",
+  "5LJ-MD",
+  "6-O5GY",
+  "O-JPKH",
+  "B8O-KJ",
+  "9F-7PZ",
+  "B-GC1T",
+  "I-7RIS",
+  "UB-UQZ",
+  "0P9Z-I",
+  "QXQ-BA",
+  "WO-AIJ",
+  "HB7R-F",
+  "CS-ZGD",
+  "A-G1FM",
+  "V8W-QS",
+  "X7R-JW",
+  "JRZ-B9",
+  "C-HCGU",
+  "YG-82V",
+  "4DTQ-K",
+  "XW-2XP",
+  "P7Z-R3",
+  "4-BE0M",
+  "OJ-A8M",
+  "NTV0-1",
+  "ZIU-EP",
+  "M-HU4V",
+  "3-N3OO",
+  "Q-FEEJ",
+  "F-9F6Q",
+  "2B7A-3",
+  "MA-VDX",
+  "AH-B84",
+  "JTAU-5",
+  "4-48K1",
+  "J9-5MQ",
+  "X4UV-Z",
+  "R4O-I6",
+  "3F-JZF",
+  "EQI2-2",
+  "KL3O-J",
+  "D4R-H7",
+  "RO90-H",
+  "C-4ZOS",
+  "Q-4DEC",
+  "Q-NJZ4",
+  "BWI1-9",
+  "J7YR-1",
+  "313I-B",
+  "O94U-A",
+  "NEH-CS",
+  "C-VGYO",
+  "C-LBQS",
+  "3-TD6L",
+  "J52-BH",
+  "K-8SQS",
+  "CX-1XF",
+  "5-0WB9",
+  "XW-JHT",
+  "W-4FA9",
+  "EWN-2U",
+  "NLPB-0",
+  "PKG4-7",
+  "PUWL-4",
+  "DCI7-7",
+  "5-P1Y2",
+  "VL3I-M",
+  "UQ9-3C",
+  "1IX-C0",
+  "Y-1918",
+  "KMC-WI",
+  "KMQ4-V",
+  "KJ-QWL",
+  "9-B1DS",
+  "SVB-RE",
+  "CH9L-K",
+  "ME-4IU",
+  "I-7JR4",
+  "BU-IU4",
+  "3KNA-N",
+  "QYZM-W",
+];
