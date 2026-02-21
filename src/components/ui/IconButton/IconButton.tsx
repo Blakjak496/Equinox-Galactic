@@ -9,7 +9,9 @@ export default function IconButton(props: {
 }) {
   return (
     <button className={styles.button} onClick={props.onClick}>
-      <img src={props.src} alt={props.alt} className={styles.icon} />
+      <a>
+        <img src={props.src} alt={props.alt} className={styles.icon} />
+      </a>
     </button>
   );
 }

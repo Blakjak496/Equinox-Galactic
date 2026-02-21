@@ -8,6 +8,13 @@ export const numberWithCommas = (num: number) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+export const createUniqueId = (): string => {
+  const UUID = crypto.randomUUID();
+  console.log("UUID: ", UUID);
+
+  return UUID;
+};
+
 export const checkRouteCompatibility = (
   pickup: string,
   dropoff: string,

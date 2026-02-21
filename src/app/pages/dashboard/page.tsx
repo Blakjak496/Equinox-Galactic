@@ -3,7 +3,7 @@
 import styles from "./page.module.css";
 import Card from "../../../components/ui/Card/Card";
 import SubCard from "@/components/ui/SubCard/SubCard";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { contractPriceCalc } from "@/pricing/calculations";
 import PillCard from "@/components/ui/PillCard/PillCard";
 import { ROUTE_RULES } from "@/pricing/route-rules";
@@ -14,30 +14,24 @@ import {
   numberWithCommas,
 } from "@/utils";
 import IconButton from "@/components/ui/IconButton/IconButton";
+import Button from "@/components/ui/Button/Button";
+import { saveQuoteRecord } from "@/app/api/quotes";
 
 export default function Dashboard() {
   const [pickup, setPickup] = useState("BKG-Q2");
   const [dropoff, setDropoff] = useState("4-HWWF");
-  const [volume, setVolume] = useState<number | undefined>();
-  const [collateral, setCollateral] = useState<number | undefined>();
+  const [volume, setVolume] = useState<number>(0);
+  const [collateral, setCollateral] = useState<number>(0);
   const [rush, setRush] = useState(false);
+  const [volumeFee, setVolumeFee] = useState<number>(0);
+  const [rushFee, setRushFee] = useState<number>();
+  const [minimumFee, setMinimumFee] = useState<number>(0);
+  const [flatFee, setFlatFee] = useState<number>(0);
   const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    const compatible = checkRouteCompatibility(pickup, dropoff);
-
-    if (compatible)
-      setTotal(
-        contractPriceCalc(
-          `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`,
-          volume || 0,
-          rush,
-        ),
-      );
-  }, [pickup, dropoff, volume, rush]);
+  const [quoteId, setQuoteId] = useState("");
 
   const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") setVolume(undefined);
+    if (e.target.value === "") setVolume(0);
     else {
       const inputVolume = parseInt(e.target.value);
 
@@ -54,7 +48,7 @@ export default function Dashboard() {
   };
 
   const handleCollateralChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") setCollateral(undefined);
+    if (e.target.value === "") setCollateral(0);
     else {
       const inputValue = parseInt(e.target.value);
 
@@ -107,6 +101,37 @@ export default function Dashboard() {
     return ruleValue;
   };
 
+  const calculate = async (): Promise<void> => {
+    const compatible = checkRouteCompatibility(pickup, dropoff);
+    const route = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
+
+    if (compatible) {
+      const newVolumeFee = ROUTE_RULES[route].ratePerM3 * volume;
+      const newRushFee = rush ? ROUTE_RULES[route].rushRate : 0;
+      const newMinimumFee = ROUTE_RULES[route].minPrice;
+      const newFlatFee = ROUTE_RULES[route].flatRate;
+      const totalReward = contractPriceCalc(route, volume, rush);
+
+      setVolumeFee(newVolumeFee);
+      setRushFee(newRushFee);
+      setMinimumFee(newMinimumFee);
+      setFlatFee(newFlatFee);
+      setTotal(totalReward);
+
+      const payload = {
+        routeKey: route,
+        volumeM3: volume,
+        collateral: collateral,
+        isRush: rush,
+        rushRate: newRushFee,
+        flatRate: newFlatFee,
+        reward: totalReward,
+      };
+
+      setQuoteId(await saveQuoteRecord(payload));
+    }
+  };
+
   return (
     <div className={styles.dashboard}>
       <div className={styles.grid}>
@@ -140,7 +165,7 @@ export default function Dashboard() {
                     id="volume"
                     type="number"
                     max={340000}
-                    value={volume ?? ""}
+                    value={volume > 0 ? volume : ""}
                     placeholder={`e.g ${numberWithCommas(340000)}`}
                     onChange={handleVolumeChange}
                   />
@@ -153,7 +178,7 @@ export default function Dashboard() {
                     id="collateral"
                     type="number"
                     max={10000000000}
-                    value={collateral ?? ""}
+                    value={collateral > 0 ? collateral : ""}
                     placeholder={`e.g ${numberWithCommas(2000000000)}`}
                     onChange={handleCollateralChange}
                   />
@@ -238,6 +263,7 @@ export default function Dashboard() {
                   </label>
                 </div>
               </PillCard>
+              <Button type={1} text="Calculate" onClick={calculate} />
             </div>
           </Card>
         </div>
@@ -248,37 +274,35 @@ export default function Dashboard() {
                 <span className={styles.pillLabel}>Volume</span>
                 <span className={styles.pillValue}>
                   {getRuleValue("flat") === 0
-                    ? `${numberWithCommas(getRuleValue("volume") * (volume || 0))} ISK`
+                    ? `${numberWithCommas(volumeFee || 0)} ISK`
                     : "N/A"}
-                  {getRuleValue("flat") === 0 &&
-                    `(${getRuleValue("volume")}/m³)`}
                 </span>
               </PillCard>
               <PillCard>
                 <span className={styles.pillLabel}>Rush fee</span>
                 <span className={styles.pillValue}>
-                  {numberWithCommas(rush ? getRuleValue("rush") : 0)} ISK
+                  {numberWithCommas(rushFee || 0)} ISK
                 </span>
               </PillCard>
               <PillCard>
                 <span className={styles.pillLabel}>Minimum</span>
                 <span className={styles.pillValue}>
                   {getRuleValue("flat") === 0
-                    ? `${numberWithCommas(getRuleValue("min"))} ISK`
+                    ? `${numberWithCommas(minimumFee || 0)} ISK`
                     : "N/A"}
                 </span>
               </PillCard>
-              {(branchSystems.includes(pickup) ||
-                branchSystems.includes(dropoff)) && (
-                <PillCard>
-                  <span className={styles.pillLabel}>
-                    Flat Fee ({`${pickup} <-> ${dropoff}`})
-                  </span>
-                  <span className={styles.pillValue}>
-                    {numberWithCommas(getRuleValue("flat"))} ISK
-                  </span>
-                </PillCard>
-              )}
+              <PillCard>
+                <span className={styles.pillLabel}>
+                  Flat Fee ({`${pickup} <-> ${dropoff}`})
+                </span>
+                <span className={styles.pillValue}>
+                  {branchSystems.includes(pickup) ||
+                  branchSystems.includes(dropoff)
+                    ? `${numberWithCommas(flatFee || 0)} ISK`
+                    : "N/A"}
+                </span>
+              </PillCard>
               <SubCard mainTitle="Total reward">
                 <span className={styles.totalPrice}>
                   {numberWithCommas(total)} ISK
@@ -298,6 +322,19 @@ export default function Dashboard() {
                     src="/copy-icon-secondary.png"
                     alt="Copy to clipboard"
                     onClick={() => copyTextToClipboard("Equinox Galactic")}
+                  />
+                </div>
+              </div>
+              <div className={styles.contractSetting}>
+                <span className={styles.contractSettingLabel}>
+                  Description:
+                </span>
+                <div className={styles.contractSettingValueGroup}>
+                  <span className={styles.contractSettingValue}>{quoteId}</span>
+                  <IconButton
+                    src="/copy-icon-secondary.png"
+                    alt="Copy to clipboard"
+                    onClick={() => copyTextToClipboard(`${quoteId}`)}
                   />
                 </div>
               </div>

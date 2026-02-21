@@ -87,6 +87,9 @@
 
   select:hover {
     border-color: var(--primary-hover);
+    cursor: pointer;
+    -webkit-cursor: pointer;
+    -moz-cursor: pointer;
   }
 
   select,

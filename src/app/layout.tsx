@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Orbitron } from "next/font/google";
+import AppCheckInit from "@/components/AppCheckInit";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -21,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${orbitron.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AppCheckInit />
+        {children}
+      </body>
     </html>
   );
 }

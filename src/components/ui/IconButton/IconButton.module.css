@@ -7,6 +7,13 @@
   background: none;
 }
 
+.button:hover {
+  cursor: pointer;
+  -webkit-cursor: pointer;
+  -moz-cursor: pointer;
+  box-shadow: var(--glow-primary);
+}
+
 .icon {
   height: 1rem;
   width: auto;
