@@ -1,0 +1,11 @@
+.shell {
+  min-height: 100vh;
+}
+
+.main {
+  padding-top: var(--topbar-height);
+  padding-left: var(--sidebar-width);
+
+  padding-right: 24px;
+  padding-bottom: 24px;
+}

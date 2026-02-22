@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "equinox-galactic"
-  }
+  },
+  "targets": {
+    "equinox-galactic": {
+      "hosting": {
+        "calculator": [
+          "equinox-galactic"
+        ],
+        "admin": [
+          "equinox-galactic-admin"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
