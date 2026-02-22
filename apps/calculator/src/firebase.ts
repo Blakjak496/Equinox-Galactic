@@ -8,12 +8,12 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA3x3NYG7HWVwkeXlcQTVH6T4IA9F2_2T4",
-  authDomain: "equinox-galactic.firebaseapp.com",
-  projectId: "equinox-galactic",
-  storageBucket: "equinox-galactic.firebasestorage.app",
-  messagingSenderId: "534200641170",
-  appId: "1:534200641170:web:fef6df37289c8019aee84b",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
 };
 
 // Initialize Firebase
