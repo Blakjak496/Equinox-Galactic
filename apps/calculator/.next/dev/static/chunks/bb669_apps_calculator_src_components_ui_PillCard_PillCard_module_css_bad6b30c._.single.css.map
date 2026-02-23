@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/PillCard/PillCard.module.css"],"sourcesContent":[".card {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: var(--border);\n  border-radius: var(--radius-md);\n  padding: var(--space-4);\n}\n"],"names":[],"mappings":"AAAA"}}]
+}

@@ -112,12 +112,6 @@ export default function Dashboard() {
       const newFlatFee = ROUTE_RULES[route].flatRate;
       const totalReward = contractPriceCalc(route, volume, rush);
 
-      setVolumeFee(newVolumeFee);
-      setRushFee(newRushFee);
-      setMinimumFee(newMinimumFee);
-      setFlatFee(newFlatFee);
-      setTotal(totalReward);
-
       const payload = {
         routeKey: route,
         volumeM3: volume,
@@ -128,7 +122,18 @@ export default function Dashboard() {
         reward: totalReward,
       };
 
-      setQuoteId(await saveQuoteRecord(payload));
+      try {
+        const newQuoteId = await saveQuoteRecord(payload);
+
+        setQuoteId(newQuoteId);
+        setVolumeFee(newVolumeFee);
+        setRushFee(newRushFee);
+        setMinimumFee(newMinimumFee);
+        setFlatFee(newFlatFee);
+        setTotal(totalReward);
+      } catch (e: any) {
+        window.alert(e.message);
+      }
     }
   };
 
@@ -242,6 +247,10 @@ export default function Dashboard() {
                   </select>
                 </div>
               </div>
+              <span className={styles.note}>
+                NOTE: Currently not servicing NPC stations. Contracts with an
+                NPC pickup or drop-off station will be rejected
+              </span>
               <PillCard>
                 <div className={styles.pillLabelWithSub}>
                   <span className={styles.pillLabel}>

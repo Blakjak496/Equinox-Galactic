@@ -1,0 +1,56 @@
+/* [project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/Button/Button.module.css [app-client] (css) */
+.Button-module__YRY-nG__button {
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.Button-module__YRY-nG__button:hover {
+  cursor: pointer;
+  -webkit-cursor: pointer;
+  -moz-cursor: pointer;
+  box-shadow: var(--glow-primary);
+}
+
+.Button-module__YRY-nG__primary {
+  color: var(--text);
+  background: var(--primary);
+  font-size: var(--text-md);
+  font-family: var(--font-heading);
+  border: 1px solid var(--secondary);
+}
+
+.Button-module__YRY-nG__primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--secondary-hover);
+}
+
+.Button-module__YRY-nG__secondary {
+  color: var(--primary);
+  background: var(--secondary);
+  font-size: var(--text-md);
+  font-family: var(--font-heading);
+  border: 1px solid var(--primary);
+}
+
+.Button-module__YRY-nG__secondary:hover {
+  background: var(--secondary-hover);
+  border-color: var(--primary-hover);
+}
+
+.Button-module__YRY-nG__tertiary {
+  color: var(--text);
+  border: 1px solid var(--primary);
+  font-size: var(--text-md);
+  font-family: var(--font-heading);
+  background: none;
+}
+
+.Button-module__YRY-nG__tertiary:hover {
+  border-color: var(--primary-hover);
+}
+
+/*# sourceMappingURL=bb669_apps_calculator_src_components_ui_Button_Button_module_css_bad6b30c._.single.css.map*/

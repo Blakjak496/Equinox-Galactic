@@ -1,18 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import styles from "./NavItem.module.css";
+import { ReactNode } from "react";
 
-export default function NavItem(props: {
-  name: string;
-  callback: () => void;
+type Props = {
+  route: string;
   active: boolean;
-}) {
+  children: ReactNode;
+};
+
+export default function NavItem({ route, active, children }: Props) {
   return (
-    <button
-      className={`${styles.navItem} ${props.active ? styles.active : ""}`}
-      onClick={props.callback}
+    <Link
+      href={route}
+      className={`${styles.navItem} ${active ? styles.active : ""}`}
     >
-      <label className={styles.label}>{props.name}</label>
-    </button>
+      {children}
+    </Link>
   );
 }

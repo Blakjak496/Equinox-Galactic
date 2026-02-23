@@ -114,6 +114,14 @@
   }
 }
 
+.note {
+  text-align: left;
+  padding: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--secondary);
+  font-family: var(--font-body);
+}
+
 .totalPrice {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);

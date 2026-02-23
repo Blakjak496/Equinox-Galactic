@@ -1,0 +1,315 @@
+.container {
+  padding: var(--space-5);
+  font-family: var(--font-body);
+  color: var(--text);
+}
+
+.loading {
+  padding: var(--space-5);
+  color: var(--muted);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: var(--leading-tight);
+}
+
+.meta {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.section {
+  margin-top: var(--space-6);
+}
+
+.subtitle {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-sm);
+}
+
+.primaryButton {
+  border-color: rgba(243, 156, 45, 0.45);
+}
+
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.rowBody {
+  flex: 1;
+}
+
+.rowTitle {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-md);
+}
+
+.rowMeta {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.empty {
+  padding: var(--space-4);
+  border: 1px dashed var(--hairline);
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  background: var(--surface);
+}
+
+.runCard {
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--surface-2);
+  box-shadow: var(--shadow-panel);
+}
+
+.runTop {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.runTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-md);
+}
+
+.pills {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.pill {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  border: 1px solid var(--hairline);
+  background: rgba(16, 24, 40, 0.6);
+  color: var(--text);
+}
+
+.completePanel {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--hairline-soft);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.formRow {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.input {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--hairline);
+  background: rgba(7, 11, 19, 0.55);
+  color: var(--text);
+  font-family: var(--font-body);
+}
+
+.input:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.summaryLine {
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+/* Make header stack nicely on narrow screens */
+@media (max-width: 900px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Slightly nicer button hover/active without changing your design language */
+.primaryButton:hover,
+.secondaryButton:hover {
+  border-color: var(--hairline);
+  box-shadow: var(--shadow-panel);
+}
+
+.primaryButton:hover {
+  border-color: rgba(243, 156, 45, 0.75);
+  box-shadow:
+    0 0 0 0.125rem rgba(243, 156, 45, 0.18),
+    var(--shadow-panel);
+}
+
+.primaryButton:active,
+.secondaryButton:active {
+  transform: translateY(1px);
+}
+
+/* Checkbox alignment so rows look consistent */
+.row input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--orange);
+}
+
+/* Prevent long IDs from exploding the layout */
+.rowTitle {
+  word-break: break-word;
+}
+
+/* Completion panel gets a subtle inset look */
+.completePanel {
+  background: rgba(7, 11, 19, 0.18);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.rowWarning {
+  border-color: rgba(243, 156, 45, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(243, 156, 45, 0.12),
+    var(--shadow-soft);
+}
+
+.rowFail {
+  border-color: rgba(243, 80, 80, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(243, 80, 80, 0.12),
+    var(--shadow-soft);
+}
+
+.reasonPills {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+.pillOk {
+  border-color: rgba(79, 163, 227, 0.35);
+}
+
+.pillWarn {
+  border-color: rgba(243, 156, 45, 0.45);
+}
+
+.pillFail {
+  border-color: rgba(243, 80, 80, 0.45);
+}
+
+.pillMuted {
+  opacity: 0.75;
+}
+
+.rowControls {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.miniButton {
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--hairline);
+  background: rgba(7, 11, 19, 0.35);
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--text-xs);
+}
+
+.miniButton:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.select {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--hairline);
+  background: rgba(7, 11, 19, 0.55);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+}
+
+.select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}

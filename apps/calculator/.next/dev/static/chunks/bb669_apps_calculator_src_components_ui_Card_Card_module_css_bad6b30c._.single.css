@@ -1,0 +1,35 @@
+/* [project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/Card/Card.module.css [app-client] (css) */
+.Card-module__388Xka__card {
+  background: var(--card-bg);
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+  row-gap: var(--space-4);
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.Card-module__388Xka__header {
+  row-gap: var(--space-1);
+  flex-direction: column;
+  display: flex;
+}
+
+.Card-module__388Xka__mainTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.Card-module__388Xka__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/*# sourceMappingURL=bb669_apps_calculator_src_components_ui_Card_Card_module_css_bad6b30c._.single.css.map*/

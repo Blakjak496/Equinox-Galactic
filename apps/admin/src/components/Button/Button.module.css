@@ -27,6 +27,7 @@
 
 .btn {
   appearance: none;
+  width: 100%;
   border: 0.0625rem solid rgba(255, 255, 255, 0.16);
   background: rgba(17, 27, 46, 0.55);
   color: var(--text);
@@ -56,6 +57,8 @@
 .btn:hover {
   transform: translateY(-0.0625rem);
   border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(17, 27, 46, 0.75);
+  color: white;
 } /* -1px */
 .btn:active {
   transform: translateY(0);
@@ -125,7 +128,7 @@
   border-color: rgba(79, 163, 227, 0.3);
 }
 .btn-primary:hover {
-  background: rgba(79, 163, 227, 0.12);
+  background: rgba(79, 163, 227, 0.52);
   box-shadow:
     var(--shadow-soft),
     0 0 1.125rem rgba(79, 163, 227, 0.22); /* 18px */
