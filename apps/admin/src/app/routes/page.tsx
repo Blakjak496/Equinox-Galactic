@@ -325,8 +325,8 @@ export default function Routes() {
                 {calcResult.options[0].mode === "detour" ? (
                   <>
                     {" "}
-                    via {calcResult.options[0].detail.mainRouteName} (+
-                    {calcResult.options[0].detail.extraDistanceLY?.toFixed(2)} LY)
+                    via {calcResult.options[0].detail.mainRouteName} —{" "}
+                    {calcResult.options[0].detail.distanceLY?.toFixed(2)} LY
                   </>
                 ) : (
                   <>
@@ -376,8 +376,8 @@ export default function Routes() {
                       {option.mode === "detour" ? (
                         <>
                           {" "}
-                          via {option.detail.mainRouteName} (+
-                          {option.detail.extraDistanceLY?.toFixed(2)} LY)
+                          via {option.detail.mainRouteName} —{" "}
+                          {option.detail.distanceLY?.toFixed(2)} LY
                         </>
                       ) : (
                         <>
