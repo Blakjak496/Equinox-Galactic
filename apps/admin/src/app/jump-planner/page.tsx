@@ -118,27 +118,33 @@ export default function JumpPlanner() {
                   onChange={(value) => setWaypoint(index, value)}
                   placeholder="System name, e.g. Jita"
                 />
-                <Button
-                  callback={() => moveWaypoint(index, -1)}
-                  color="blue"
-                  disabled={index === 0}
-                >
-                  ↑
-                </Button>
-                <Button
-                  callback={() => moveWaypoint(index, 1)}
-                  color="blue"
-                  disabled={index === waypoints.length - 1}
-                >
-                  ↓
-                </Button>
-                <Button
-                  callback={() => removeWaypoint(index)}
-                  color="red"
-                  disabled={waypoints.length <= 2}
-                >
-                  Remove
-                </Button>
+                <div className={styles.waypointBtn}>
+                  <Button
+                    callback={() => moveWaypoint(index, -1)}
+                    color="blue"
+                    disabled={index === 0}
+                  >
+                    ↑
+                  </Button>
+                </div>
+                <div className={styles.waypointBtn}>
+                  <Button
+                    callback={() => moveWaypoint(index, 1)}
+                    color="blue"
+                    disabled={index === waypoints.length - 1}
+                  >
+                    ↓
+                  </Button>
+                </div>
+                <div className={styles.waypointBtn}>
+                  <Button
+                    callback={() => removeWaypoint(index)}
+                    color="red"
+                    disabled={waypoints.length <= 2}
+                  >
+                    Remove
+                  </Button>
+                </div>
               </div>
             ))}
           </div>

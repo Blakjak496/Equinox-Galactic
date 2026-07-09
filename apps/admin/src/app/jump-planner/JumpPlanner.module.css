@@ -109,15 +109,9 @@
   width: 1.5rem;
 }
 
-.waypointRow input[type="text"] {
-  flex: 1;
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  padding: var(--space-2) var(--space-3);
-  font-family: var(--font-body);
-  font-size: 0.875rem;
+.waypointBtn {
+  flex: 0 0 auto;
+  width: 5.5rem;
 }
 
 .formButtons {
