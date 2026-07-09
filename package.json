@@ -2,13 +2,18 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "functions"
+    "packages/*"
   ],
   "scripts": {
     "build:calculator": "npm -w apps/calculator run build",
     "build:admin": "npm -w apps/admin run build",
     "deploy:calculator": "npm run build:calculator && firebase deploy --only hosting:calculator",
     "deploy:admin": "npm run build:admin && firebase deploy --only hosting:admin"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.8",
+    "@mui/material": "^7.3.8"
   }
 }

@@ -2,13 +2,16 @@
 "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.module.css [app-client] (css module)", ((__turbopack_context__) => {
 
 __turbopack_context__.v({
+  "appraisalWrapper": "page-module__Y1QpfW__appraisalWrapper",
   "banner": "page-module__Y1QpfW__banner",
   "bannerLogo": "page-module__Y1QpfW__bannerLogo",
+  "bannerWrapper": "page-module__Y1QpfW__bannerWrapper",
+  "baseValue": "page-module__Y1QpfW__baseValue",
+  "baseValueName": "page-module__Y1QpfW__baseValueName",
+  "baseValueNumber": "page-module__Y1QpfW__baseValueNumber",
+  "baseValues": "page-module__Y1QpfW__baseValues",
+  "breakdownDetail": "page-module__Y1QpfW__breakdownDetail",
   "cardContent": "page-module__Y1QpfW__cardContent",
-  "checkWrapper": "page-module__Y1QpfW__checkWrapper",
-  "checkbox": "page-module__Y1QpfW__checkbox",
-  "checkboxContainer": "page-module__Y1QpfW__checkboxContainer",
-  "checkmark": "page-module__Y1QpfW__checkmark",
   "columnLeft": "page-module__Y1QpfW__columnLeft",
   "columnRight": "page-module__Y1QpfW__columnRight",
   "contractLocations": "page-module__Y1QpfW__contractLocations",
@@ -26,6 +29,7 @@ __turbopack_context__.v({
   "pillLabelWithSub": "page-module__Y1QpfW__pillLabelWithSub",
   "pillSubLabel": "page-module__Y1QpfW__pillSubLabel",
   "pillValue": "page-module__Y1QpfW__pillValue",
+  "placeholder": "page-module__Y1QpfW__placeholder",
   "slider": "page-module__Y1QpfW__slider",
   "subheading": "page-module__Y1QpfW__subheading",
   "toggle": "page-module__Y1QpfW__toggle",
@@ -211,9 +215,15 @@ __turbopack_context__.s([
     ()=>ROUTE_RULES
 ]);
 const ROUTE_RULES = {
+    "BKG-Q2|Jita": {
+        ratePerM3: 700,
+        minPrice: 20000000,
+        flatRate: 0,
+        rushRate: 125000000
+    },
     "BKG-Q2|4-HWWF": {
         ratePerM3: 325,
-        minPrice: 60000000,
+        minPrice: 50000000,
         flatRate: 0,
         rushRate: 100000000
     },
@@ -221,559 +231,559 @@ const ROUTE_RULES = {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 8000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|LXWN-W": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 9000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|XM-4L0": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 9000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|8-4GQM": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 11000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-LP3N": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 11000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|QCWA-Z": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 11000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|LRWD-B": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 13000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|1G-MJE": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 13000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KV-8SN": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 13000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|52G-NZ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 14000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|T-Q2DD": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 14000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|S-B7IT": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 15000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|5LJ-MD": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 15000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|6-O5GY": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 15000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|O-JPKH": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 16000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|B8O-KJ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 16000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|9F-7PZ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 16000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|B-GC1T": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 17000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|I-7RIS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 17000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|UB-UQZ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|0P9Z-I": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|QXQ-BA": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|WO-AIJ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|HB7R-F": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|CS-ZGD": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 19000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|A-G1FM": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 19000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|V8W-QS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 19000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|X7R-JW": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|JRZ-B9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-HCGU": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|YG-82V": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|4DTQ-K": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|XW-2XP": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|P7Z-R3": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|4-BE0M": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|OJ-A8M": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|NTV0-1": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|ZIU-EP": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|M-HU4V": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3-N3OO": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Q-FEEJ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|F-9F6Q": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|2B7A-3": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|MA-VDX": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|AH-B84": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|JTAU-5": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|4-48K1": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|J9-5MQ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 24000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|X4UV-Z": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 24000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|R4O-I6": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 24000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3F-JZF": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|EQI2-2": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KL3O-J": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|D4R-H7": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|RO90-H": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-4ZOS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Q-4DEC": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 26000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Q-NJZ4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 26000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|BWI1-9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 26000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|J7YR-1": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|313I-B": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|O94U-A": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|NEH-CS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-VGYO": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-LBQS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3-TD6L": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|J52-BH": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|K-8SQS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|CX-1XF": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|5-0WB9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|XW-JHT": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|W-4FA9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|EWN-2U": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 29000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|NLPB-0": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 29000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|PKG4-7": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 30000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|PUWL-4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 30000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|DCI7-7": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|5-P1Y2": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|VL3I-M": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|UQ9-3C": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|1IX-C0": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 32000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Y-1918": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 34000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KMC-WI": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 35000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KMQ4-V": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 36000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KJ-QWL": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 36000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|9-B1DS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 38000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|SVB-RE": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 38000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|CH9L-K": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 39000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|ME-4IU": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 40000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|I-7JR4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 40000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|BU-IU4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 40000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3KNA-N": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 41000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|QYZM-W": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 42000000,
-        rushRate: 50000000
+        rushRate: 75000000
     }
 };
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -1029,11 +1039,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal
 ;
 function IconButton(props) {
     const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(7);
-    if ($[0] !== "64c18324b6d9df229c1f7f2905768fbd37f92c07b48b7839aaab23a5813e1864") {
+    if ($[0] !== "364398e8f04fc4158f244847c614ac9ab668f415e36c25a89580a7dbd1a4fa16") {
         for(let $i = 0; $i < 7; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "64c18324b6d9df229c1f7f2905768fbd37f92c07b48b7839aaab23a5813e1864";
+        $[0] = "364398e8f04fc4158f244847c614ac9ab668f415e36c25a89580a7dbd1a4fa16";
     }
     let t0;
     if ($[1] !== props.alt || $[2] !== props.src) {
@@ -1107,40 +1117,43 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal
 ;
 ;
 ;
-function Button(props) {
-    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(5);
-    if ($[0] !== "c0ec0bab7fb35d1b50314647ce2152e6106265c6110ba2ea1d01c5fc4120a743") {
-        for(let $i = 0; $i < 5; $i += 1){
+function Button(t0) {
+    const $ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$compiler$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["c"])(6);
+    if ($[0] !== "bcb3f0d7238c0a412f039fccdb456ff17b9a704d355e8f264abb7de3a8d77ff3") {
+        for(let $i = 0; $i < 6; $i += 1){
             $[$i] = Symbol.for("react.memo_cache_sentinel");
         }
-        $[0] = "c0ec0bab7fb35d1b50314647ce2152e6106265c6110ba2ea1d01c5fc4120a743";
+        $[0] = "bcb3f0d7238c0a412f039fccdb456ff17b9a704d355e8f264abb7de3a8d77ff3";
     }
+    const { type, onClick, children, disabled } = t0;
     let ButtonType = /*#__PURE__*/ function(ButtonType) {
         ButtonType[ButtonType["primary"] = 1] = "primary";
         ButtonType[ButtonType["secondary"] = 2] = "secondary";
         ButtonType[ButtonType["tertiary"] = 3] = "tertiary";
         return ButtonType;
     }({});
-    const t0 = `${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].button} ${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"][ButtonType[props.type]]}`;
-    let t1;
-    if ($[1] !== props.onClick || $[2] !== props.text || $[3] !== t0) {
-        t1 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-            className: t0,
-            onClick: props.onClick,
-            children: props.text
+    const t1 = `${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].button} ${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"][ButtonType[type]]}`;
+    let t2;
+    if ($[1] !== children || $[2] !== disabled || $[3] !== onClick || $[4] !== t1) {
+        t2 = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+            className: t1,
+            disabled: disabled,
+            onClick: onClick,
+            children: children
         }, void 0, false, {
             fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/Button/Button.tsx",
-            lineNumber: 21,
+            lineNumber: 34,
             columnNumber: 10
         }, this);
-        $[1] = props.onClick;
-        $[2] = props.text;
-        $[3] = t0;
+        $[1] = children;
+        $[2] = disabled;
+        $[3] = onClick;
         $[4] = t1;
+        $[5] = t2;
     } else {
-        t1 = $[4];
+        t2 = $[5];
     }
-    return t1;
+    return t2;
 }
 _c = Button;
 var _c;
@@ -1196,6 +1209,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/IconButton/IconButton.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/Button/Button.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$api$2f$quotes$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/api/quotes.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Switch$2f$Switch$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Switch$3e$__ = __turbopack_context__.i("[project]/Documents/Dev/personal/equinox-galactic/node_modules/@mui/material/esm/Switch/Switch.js [app-client] (ecmascript) <export default as Switch>");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -1210,56 +1224,103 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 function Dashboard() {
     _s();
-    const [pickup, setPickup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("BKG-Q2");
-    const [dropoff, setDropoff] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("4-HWWF");
+    const [pickup, setPickup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [dropoff, setDropoff] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [volume, setVolume] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [collateral, setCollateral] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [rush, setRush] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [volumeFee, setVolumeFee] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [rushFee, setRushFee] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])();
     const [minimumFee, setMinimumFee] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
-    const [flatFee, setFlatFee] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [total, setTotal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [quoteId, setQuoteId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [iskm3, setIskm3] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [manual, setManual] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [appraisalInput, setAppraisalInput] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [appraisalResponse, setAppraisalResponse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const resetValues = ()=>{
+        setVolumeFee(0);
+        setRushFee(0);
+        setMinimumFee(0);
+        setTotal(0);
+        setIskm3(0);
+        setQuoteId("");
+        setMinimumFee(0);
+    };
     const handleVolumeChange = (e)=>{
         if (e.target.value === "") setVolume(0);
         else {
             const inputVolume = parseInt(e.target.value);
-            setVolume(parseInt(inputVolume ? inputVolume > 340000 ? `${340000}` : inputVolume.toString() : "0"));
+            setVolume(Math.ceil(parseInt(inputVolume ? inputVolume > 340000 ? `${340000}` : inputVolume.toString() : "0")));
         }
     };
     const handleCollateralChange = (e_0)=>{
         if (e_0.target.value === "") setCollateral(0);
         else {
             const inputValue = parseInt(e_0.target.value);
-            setCollateral(parseInt(inputValue ? inputValue > 10000000000 ? `${10000000000}` : inputValue.toString() : "0"));
+            setCollateral(Math.ceil(parseInt(inputValue ? inputValue > 10000000000 ? `${10000000000}` : inputValue.toString() : "0")));
         }
     };
     const handlePickupChange = (e_1)=>{
+        resetValues();
+        const newPickup = e_1.target.value;
         setPickup(e_1.target.value);
+        let newDropoff = dropoff;
         switch(true){
-            case e_1.target.value === "BKG-Q2":
+            case newPickup === "BKG-Q2":
                 setDropoff("4-HWWF");
+                newDropoff = "4-HWWF";
                 break;
-            case e_1.target.value === "4-HWWF":
+            case newPickup === "4-HWWF":
                 setDropoff("BKG-Q2");
+                newDropoff = "BKG-Q2";
                 break;
             default:
                 setDropoff("BKG-Q2");
+                newDropoff = "BKG-Q2";
                 break;
+        }
+        const compatible = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkRouteCompatibility"])(newPickup, newDropoff);
+        if (newPickup !== "" && newDropoff !== "" && compatible) {
+            const route = `BKG-Q2|${newPickup !== "BKG-Q2" ? newPickup : newDropoff}`;
+            const volumeRate = getRuleValue("volume", route);
+            setIskm3(volumeRate);
+            const flat = getRuleValue("flat", route);
+            const min = getRuleValue("min", route);
+            flat > 0 ? setMinimumFee(flat) : setMinimumFee(min);
+            if (rush) {
+                const newRushFee = getRuleValue("rush", route);
+                setRushFee(newRushFee);
+            }
         }
     };
     const handleDropoffChange = (e_2)=>{
+        resetValues();
+        const newDropoff_0 = e_2.target.value;
         setDropoff(e_2.target.value);
+        if (pickup !== "" && newDropoff_0 !== "") {
+            const route_0 = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : newDropoff_0}`;
+            const volumeRate_0 = getRuleValue("volume", route_0);
+            setIskm3(volumeRate_0);
+            const flat_0 = getRuleValue("flat", route_0);
+            const min_0 = getRuleValue("min", route_0);
+            flat_0 > 0 ? setMinimumFee(flat_0) : setMinimumFee(min_0);
+            if (rush) {
+                const newRushFee_0 = getRuleValue("rush", route_0);
+                setRushFee(newRushFee_0);
+            }
+        }
     };
     const handleRushChange = (e_3)=>{
         setRush(e_3.target.checked);
     };
-    const getRuleValue = (rule)=>{
-        const route = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
-        const rules = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route];
+    const getRuleValue = (rule, selectedRoute)=>{
+        const route_1 = selectedRoute ? selectedRoute : `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
+        const rules = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_1];
         let ruleValue = 0;
         if (rules) {
             if (rule === "volume") ruleValue = rules.ratePerM3;
@@ -1270,162 +1331,173 @@ function Dashboard() {
         return ruleValue;
     };
     const calculate = async ()=>{
-        const compatible = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkRouteCompatibility"])(pickup, dropoff);
-        const route_0 = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
-        if (compatible) {
-            const newVolumeFee = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_0].ratePerM3 * volume;
-            const newRushFee = rush ? __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_0].rushRate : 0;
-            const newMinimumFee = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_0].minPrice;
-            const newFlatFee = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_0].flatRate;
-            const totalReward = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$calculations$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["contractPriceCalc"])(route_0, volume, rush);
+        const compatible_0 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["checkRouteCompatibility"])(pickup, dropoff);
+        const route_2 = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
+        if (compatible_0) {
+            const newVolumeFee = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_2].ratePerM3 * volume;
+            const newRushFee_1 = rush ? __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_2].rushRate : 0;
+            const newMinimumFee = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_2].minPrice;
+            const newFlatFee = __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$route$2d$rules$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ROUTE_RULES"][route_2].flatRate;
+            const totalReward = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$pricing$2f$calculations$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["contractPriceCalc"])(route_2, volume, rush);
             const payload = {
-                routeKey: route_0,
+                routeKey: route_2,
                 volumeM3: volume,
                 collateral: collateral,
                 isRush: rush,
-                rushRate: newRushFee,
+                rushRate: newRushFee_1,
                 flatRate: newFlatFee,
                 reward: totalReward
             };
             try {
+                setLoading(true);
                 const newQuoteId = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$api$2f$quotes$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["saveQuoteRecord"])(payload);
                 setQuoteId(newQuoteId);
                 setVolumeFee(newVolumeFee);
-                setRushFee(newRushFee);
-                setMinimumFee(newMinimumFee);
-                setFlatFee(newFlatFee);
+                setRushFee(newRushFee_1);
+                setMinimumFee(newFlatFee > 0 ? newFlatFee : newMinimumFee);
                 setTotal(totalReward);
+                setLoading(false);
             } catch (e_4) {
                 window.alert(e_4.message);
             }
         }
     };
+    const handleCopyClick = (e_5, text)=>{
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copyTextToClipboard"])(text);
+        const target = e_5.currentTarget;
+        const currentContent = target.innerHTML;
+        e_5.currentTarget.innerHTML = "✓";
+        setTimeout(()=>{
+            target.innerHTML = currentContent;
+        }, 2000);
+    };
+    const getAppraisalPlaceholder = ()=>{
+        return "Enter your list of items for appraisal\n\neg.\n\nTritanium 22222\nPyerite 8000\nMexallon 2444";
+    };
+    const handleManualChange = (e_6)=>{
+        setManual(e_6.target.checked);
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].dashboard,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].grid,
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].columnLeft,
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].cardContent,
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].banner,
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                            src: "/banner-logo.png",
-                                            alt: "Equinox Galaxtic Banner Logo",
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].bannerLogo
-                                        }, void 0, false, {
-                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                            lineNumber: 107,
-                                            columnNumber: 17
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 106,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].heading,
-                                        children: "Courier Contract Calculator"
-                                    }, void 0, false, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 109,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].subheading,
-                                        children: "Coalition Space Hauling For Therapy. Members"
-                                    }, void 0, false, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 112,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                lineNumber: 105,
-                                columnNumber: 13
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                            lineNumber: 104,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].bannerWrapper,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                    src: "/banner-logo.png",
+                    alt: "Equinox Galaxtic Banner Logo",
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].bannerLogo
+                }, void 0, false, {
+                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                    lineNumber: 166,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                lineNumber: 165,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].grid,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].columnLeft,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             mainTitle: "Contract Details",
                             subtitle: "Enter contract details to calculate a quote",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].cardContent,
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractValues,
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValues,
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inputWrapper,
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValue,
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        htmlFor: "volume",
-                                                        children: "Volume (m³) - max: 340,000"
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueName,
+                                                        children: "isk/m3"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 121,
+                                                        lineNumber: 174,
                                                         columnNumber: 19
                                                     }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        id: "volume",
-                                                        type: "number",
-                                                        max: 340000,
-                                                        value: volume > 0 ? volume : "",
-                                                        placeholder: `e.g ${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(340000)}`,
-                                                        onChange: handleVolumeChange
-                                                    }, void 0, false, {
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueNumber,
+                                                        children: [
+                                                            iskm3,
+                                                            " ISK"
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 122,
+                                                        lineNumber: 175,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 120,
+                                                lineNumber: 173,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inputWrapper,
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValue,
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        htmlFor: "collateral",
-                                                        children: "Collateral (isk) - max: 10,000,000,000"
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueName,
+                                                        children: "Collateral"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 125,
+                                                        lineNumber: 178,
                                                         columnNumber: 19
                                                     }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        id: "collateral",
-                                                        type: "number",
-                                                        max: 10000000000,
-                                                        value: collateral > 0 ? collateral : "",
-                                                        placeholder: `e.g ${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(2000000000)}`,
-                                                        onChange: handleCollateralChange
-                                                    }, void 0, false, {
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueNumber,
+                                                        children: [
+                                                            0,
+                                                            "%"
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 128,
+                                                        lineNumber: 179,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 124,
+                                                lineNumber: 177,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValue,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueName,
+                                                        children: "Minimum"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 182,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueNumber,
+                                                        children: [
+                                                            minimumFee.toLocaleString(),
+                                                            " ISK"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 183,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                lineNumber: 181,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 119,
+                                        lineNumber: 172,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1439,15 +1511,25 @@ function Dashboard() {
                                                         children: "Pick-up"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 133,
+                                                        lineNumber: 190,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                         id: "pick-up",
                                                         name: "locations",
-                                                        defaultValue: pickup,
+                                                        defaultValue: "",
                                                         onChange: handlePickupChange,
+                                                        className: pickup === "" ? __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].placeholder : "",
                                                         children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "",
+                                                                disabled: true,
+                                                                children: "Select Pick-up"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                                lineNumber: 192,
+                                                                columnNumber: 21
+                                                            }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
                                                                 label: "Alliance Staging",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1455,12 +1537,12 @@ function Dashboard() {
                                                                     children: "BKG-Q2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                    lineNumber: 136,
+                                                                    lineNumber: 196,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                lineNumber: 135,
+                                                                lineNumber: 195,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
@@ -1470,12 +1552,12 @@ function Dashboard() {
                                                                     children: "4-HWWF"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                    lineNumber: 139,
+                                                                    lineNumber: 199,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                lineNumber: 138,
+                                                                lineNumber: 198,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
@@ -1486,25 +1568,25 @@ function Dashboard() {
                                                                         children: system
                                                                     }, idx, false, {
                                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                        lineNumber: 143,
+                                                                        lineNumber: 203,
                                                                         columnNumber: 30
                                                                     }, this);
                                                                 })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                lineNumber: 141,
+                                                                lineNumber: 201,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 134,
+                                                        lineNumber: 191,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 132,
+                                                lineNumber: 189,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1515,15 +1597,25 @@ function Dashboard() {
                                                         children: "Drop-off"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 151,
+                                                        lineNumber: 211,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                         id: "drop-off",
                                                         name: "locations",
-                                                        defaultValue: dropoff,
+                                                        defaultValue: "",
                                                         onChange: handleDropoffChange,
+                                                        className: dropoff === "" ? __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].placeholder : "",
                                                         children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "",
+                                                                disabled: true,
+                                                                children: "Select Drop-off"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                                lineNumber: 213,
+                                                                columnNumber: 21
+                                                            }, this),
                                                             pickup !== "BKG-Q2" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
                                                                 label: "Alliance Staging",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1531,12 +1623,12 @@ function Dashboard() {
                                                                     children: "BKG-Q2"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                    lineNumber: 154,
+                                                                    lineNumber: 217,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                lineNumber: 153,
+                                                                lineNumber: 216,
                                                                 columnNumber: 45
                                                             }, this),
                                                             pickup === "BKG-Q2" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
@@ -1546,12 +1638,12 @@ function Dashboard() {
                                                                     children: "4-HWWF"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                    lineNumber: 157,
+                                                                    lineNumber: 220,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                lineNumber: 156,
+                                                                lineNumber: 219,
                                                                 columnNumber: 45
                                                             }, this),
                                                             pickup === "BKG-Q2" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("optgroup", {
@@ -1562,39 +1654,181 @@ function Dashboard() {
                                                                         children: system_0
                                                                     }, idx_0, false, {
                                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                        lineNumber: 161,
+                                                                        lineNumber: 224,
                                                                         columnNumber: 30
                                                                     }, this);
                                                                 })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                                lineNumber: 159,
+                                                                lineNumber: 222,
                                                                 columnNumber: 45
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 152,
+                                                        lineNumber: 212,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 150,
+                                                lineNumber: 210,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 131,
+                                        lineNumber: 188,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: `${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inputWrapper} ${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].appraisalWrapper}`,
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                            name: "appraisal",
+                                            id: "appraisal",
+                                            placeholder: getAppraisalPlaceholder(),
+                                            disabled: manual
+                                        }, void 0, false, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 233,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                        lineNumber: 232,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].manualEntryOption,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                children: "Or enter manually"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                lineNumber: 236,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f40$mui$2f$material$2f$esm$2f$Switch$2f$Switch$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Switch$3e$__["Switch"], {
+                                                onChange: handleManualChange
+                                            }, void 0, false, {
+                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                lineNumber: 237,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                        lineNumber: 235,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractValues,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inputWrapper,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        htmlFor: "volume",
+                                                        children: "Volume (m³) - max: 340,000"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 253,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        id: "volume",
+                                                        type: "number",
+                                                        max: 340000,
+                                                        value: volume > 0 ? volume : "",
+                                                        placeholder: `e.g ${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(340000)}`,
+                                                        onChange: handleVolumeChange,
+                                                        disabled: !manual
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 254,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                lineNumber: 252,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].inputWrapper,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        htmlFor: "collateral",
+                                                        children: "Collateral (isk) - max: 10,000,000,000"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 257,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        id: "collateral",
+                                                        type: "number",
+                                                        max: 10000000000,
+                                                        value: collateral > 0 ? collateral : "",
+                                                        placeholder: `e.g ${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(2000000000)}`,
+                                                        onChange: handleCollateralChange,
+                                                        disabled: !manual
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 260,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                lineNumber: 256,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                        lineNumber: 251,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].note,
-                                        children: "NOTE: Currently not servicing NPC stations. Contracts with an NPC pickup or drop-off station will be rejected"
-                                    }, void 0, false, {
+                                        children: [
+                                            "NOTE:",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
+                                                                children: "Not"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                                lineNumber: 268,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            " currently servicing NPC stations. Contracts with an NPC pickup or drop-off station will be rejected"
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 267,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                        children: "Structures must be WinterCo owned structures to ensure docking is possible"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                        lineNumber: 271,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                lineNumber: 266,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 264,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$PillCard$2f$PillCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1611,27 +1845,27 @@ function Dashboard() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 175,
+                                                        lineNumber: 279,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillSubLabel,
-                                                        children: "Priority contract. Aims to deliver within 24h where possible"
+                                                        children: "Priority contract. Puts your contract at the front of the queue. Aims to deliver within 24h where possible."
                                                     }, void 0, false, {
                                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 283,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 174,
+                                                lineNumber: 278,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].checkWrapper,
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].checkboxContainer,
+                                                    className: `${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].checkboxContainer} ${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].rushCheckbox}`,
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                             type: "checkbox",
@@ -1639,463 +1873,439 @@ function Dashboard() {
                                                             onChange: handleRushChange
                                                         }, void 0, false, {
                                                             fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                            lineNumber: 185,
+                                                            lineNumber: 290,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].checkmark
                                                         }, void 0, false, {
                                                             fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                            lineNumber: 186,
+                                                            lineNumber: 291,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                    lineNumber: 184,
+                                                    lineNumber: 289,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 183,
+                                                lineNumber: 288,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 173,
+                                        lineNumber: 277,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         type: 1,
-                                        text: "Calculate",
-                                        onClick: calculate
+                                        onClick: calculate,
+                                        disabled: volume <= 0 || collateral <= 0 || pickup === "" || dropoff === "" || loading,
+                                        children: loading ? "Loading..." : "Calculate"
                                     }, void 0, false, {
                                         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 190,
+                                        lineNumber: 295,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                lineNumber: 118,
+                                lineNumber: 171,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                            lineNumber: 117,
+                            lineNumber: 170,
                             columnNumber: 11
                         }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                    lineNumber: 103,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].columnRight,
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            mainTitle: "Quote",
-                            subtitle: "Total and breakdown",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].cardContent,
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$PillCard$2f$PillCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillLabel,
-                                                children: "Volume"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 198,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillValue,
-                                                children: getRuleValue("flat") === 0 ? `${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(volumeFee || 0)} ISK` : "N/A"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 199,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 197,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$PillCard$2f$PillCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillLabel,
-                                                children: "Rush fee"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 204,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillValue,
+                    }, void 0, false, {
+                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                        lineNumber: 169,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].columnRight,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                mainTitle: "Quote",
+                                subtitle: "Total and breakdown",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].cardContent,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValue,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueName,
+                                                    children: "Volume"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 305,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueNumber,
+                                                    children: `${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(volumeFee || 0)} ISK`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 306,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 304,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValue,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueName,
+                                                    children: "Rush fee"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 311,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueNumber,
+                                                    children: [
+                                                        total > 0 ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(rushFee || 0) : 0,
+                                                        " ISK"
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 312,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 310,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValue,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueName,
+                                                    children: "Minimum"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 317,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].baseValueNumber,
+                                                    children: `${total > 0 ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(minimumFee || 0) : 0} ISK`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 318,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 316,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$SubCard$2f$SubCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            mainTitle: "Total reward",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].totalPrice,
                                                 children: [
-                                                    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(rushFee || 0),
+                                                    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(total),
                                                     " ISK"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 205,
+                                                lineNumber: 323,
                                                 columnNumber: 17
                                             }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 203,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$PillCard$2f$PillCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillLabel,
-                                                children: "Minimum"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 210,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillValue,
-                                                children: getRuleValue("flat") === 0 ? `${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(minimumFee || 0)} ISK` : "N/A"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 211,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 209,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$PillCard$2f$PillCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillLabel,
-                                                children: [
-                                                    "Flat Fee (",
-                                                    `${pickup} <-> ${dropoff}`,
-                                                    ")"
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 216,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].pillValue,
-                                                children: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["branchSystems"].includes(pickup) || __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["branchSystems"].includes(dropoff) ? `${(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(flatFee || 0)} ISK` : "N/A"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 219,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 215,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$SubCard$2f$SubCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        mainTitle: "Total reward",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].totalPrice,
+                                        }, void 0, false, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 322,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                    lineNumber: 303,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                lineNumber: 302,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                mainTitle: "Contract Settings",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].cardContent,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
                                             children: [
-                                                (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(total),
-                                                " ISK"
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
+                                                    children: "Availability:"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 332,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
+                                                            children: "Equinox Galactic"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 336,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                            src: "/copy-icon-secondary.png",
+                                                            alt: "Copy to clipboard",
+                                                            onClick: (e_7)=>handleCopyClick(e_7, "Equinox Galactic")
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 339,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 335,
+                                                    columnNumber: 17
+                                                }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                            lineNumber: 224,
-                                            columnNumber: 17
+                                            lineNumber: 331,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
+                                                    children: "Description:"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 343,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
+                                                            children: quoteId
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 347,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                            src: "/copy-icon-secondary.png",
+                                                            alt: "Copy to clipboard",
+                                                            onClick: (e_8)=>handleCopyClick(e_8, `${quoteId}`)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 348,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 346,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 342,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
+                                                    children: "Reward:"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 352,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
+                                                            children: [
+                                                                (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(total),
+                                                                " ISK"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 354,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                            src: "/copy-icon-secondary.png",
+                                                            alt: "Copy to clipboard",
+                                                            onClick: (e_9)=>handleCopyClick(e_9, `${total}`)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 357,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 353,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 351,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
+                                                    children: "Collateral:"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 361,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
+                                                            children: [
+                                                                (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(collateral || 0),
+                                                                " ISK"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 363,
+                                                            columnNumber: 19
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                            src: "/copy-icon-secondary.png",
+                                                            alt: "Copy to clipboard",
+                                                            onClick: (e_10)=>handleCopyClick(e_10, `${collateral}`)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                            lineNumber: 366,
+                                                            columnNumber: 19
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 362,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 360,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
+                                                    children: "Expiration:"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 370,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
+                                                    children: "2 Weeks"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 371,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 369,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
+                                                    children: "Days to complete:"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 374,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
+                                                    children: "7"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                                    lineNumber: 377,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                            lineNumber: 373,
+                                            columnNumber: 15
                                         }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 223,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                                    lineNumber: 330,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                lineNumber: 196,
-                                columnNumber: 13
+                                lineNumber: 329,
+                                columnNumber: 11
                             }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                            lineNumber: 195,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Card$2f$Card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                            mainTitle: "Contract Settings",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].cardContent,
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
-                                                children: "Issue to:"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 233,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
-                                                        children: "Equinox Galactic"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 235,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        src: "/copy-icon-secondary.png",
-                                                        alt: "Copy to clipboard",
-                                                        onClick: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copyTextToClipboard"])("Equinox Galactic")
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 238,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 234,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 232,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
-                                                children: "Description:"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 242,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
-                                                        children: quoteId
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 246,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        src: "/copy-icon-secondary.png",
-                                                        alt: "Copy to clipboard",
-                                                        onClick: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copyTextToClipboard"])(`${quoteId}`)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 247,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 245,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 241,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
-                                                children: "Reward:"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 251,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
-                                                        children: [
-                                                            (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(total),
-                                                            " ISK"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 253,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        src: "/copy-icon-secondary.png",
-                                                        alt: "Copy to clipboard",
-                                                        onClick: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copyTextToClipboard"])(`${total}`)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 256,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 252,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 250,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
-                                                children: "Collateral:"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 260,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValueGroup,
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
-                                                        children: [
-                                                            (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["numberWithCommas"])(collateral || 0),
-                                                            " ISK"
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 262,
-                                                        columnNumber: 19
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$IconButton$2f$IconButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        src: "/copy-icon-secondary.png",
-                                                        alt: "Copy to clipboard",
-                                                        onClick: ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["copyTextToClipboard"])(`${collateral}`)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                        lineNumber: 265,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 261,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 259,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
-                                                children: "Expiration:"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 269,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
-                                                children: "7 days"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 270,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 268,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSetting,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingLabel,
-                                                children: "Days to complete:"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 273,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$app$2f$pages$2f$dashboard$2f$page$2e$module$2e$css__$5b$app$2d$client$5d$__$28$css__module$29$__["default"].contractSettingValue,
-                                                children: "7"
-                                            }, void 0, false, {
-                                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                                lineNumber: 276,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                        lineNumber: 272,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                                lineNumber: 231,
-                                columnNumber: 13
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                            lineNumber: 230,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-                    lineNumber: 194,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-            lineNumber: 102,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                        lineNumber: 301,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
+                lineNumber: 168,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx",
-        lineNumber: 101,
+        lineNumber: 164,
         columnNumber: 10
     }, this);
 }
-_s(Dashboard, "1tiKCl4LTj0PwI7pAeKofxjayA0=");
+_s(Dashboard, "zJIsgpNIghrIkMDFDIjHmYHEY/0=");
 _c = Dashboard;
 var _c;
 __turbopack_context__.k.register(_c, "Dashboard");

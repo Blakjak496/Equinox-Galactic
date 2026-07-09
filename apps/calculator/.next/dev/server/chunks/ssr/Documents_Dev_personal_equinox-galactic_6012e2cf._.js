@@ -2,8 +2,15 @@ module.exports = [
 "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.module.css [app-ssr] (css module)", ((__turbopack_context__) => {
 
 __turbopack_context__.v({
+  "appraisalWrapper": "page-module__Y1QpfW__appraisalWrapper",
   "banner": "page-module__Y1QpfW__banner",
   "bannerLogo": "page-module__Y1QpfW__bannerLogo",
+  "bannerWrapper": "page-module__Y1QpfW__bannerWrapper",
+  "baseValue": "page-module__Y1QpfW__baseValue",
+  "baseValueName": "page-module__Y1QpfW__baseValueName",
+  "baseValueNumber": "page-module__Y1QpfW__baseValueNumber",
+  "baseValues": "page-module__Y1QpfW__baseValues",
+  "breakdownDetail": "page-module__Y1QpfW__breakdownDetail",
   "cardContent": "page-module__Y1QpfW__cardContent",
   "checkWrapper": "page-module__Y1QpfW__checkWrapper",
   "checkbox": "page-module__Y1QpfW__checkbox",
@@ -21,10 +28,15 @@ __turbopack_context__.v({
   "grid": "page-module__Y1QpfW__grid",
   "heading": "page-module__Y1QpfW__heading",
   "inputWrapper": "page-module__Y1QpfW__inputWrapper",
+  "manualEntryCheckbox": "page-module__Y1QpfW__manualEntryCheckbox",
+  "manualEntryOption": "page-module__Y1QpfW__manualEntryOption",
+  "note": "page-module__Y1QpfW__note",
   "pillLabel": "page-module__Y1QpfW__pillLabel",
   "pillLabelWithSub": "page-module__Y1QpfW__pillLabelWithSub",
   "pillSubLabel": "page-module__Y1QpfW__pillSubLabel",
   "pillValue": "page-module__Y1QpfW__pillValue",
+  "placeholder": "page-module__Y1QpfW__placeholder",
+  "rushCheckbox": "page-module__Y1QpfW__rushCheckbox",
   "slider": "page-module__Y1QpfW__slider",
   "subheading": "page-module__Y1QpfW__subheading",
   "toggle": "page-module__Y1QpfW__toggle",
@@ -145,9 +157,15 @@ __turbopack_context__.s([
     ()=>ROUTE_RULES
 ]);
 const ROUTE_RULES = {
+    "BKG-Q2|Jita": {
+        ratePerM3: 700,
+        minPrice: 20000000,
+        flatRate: 0,
+        rushRate: 125000000
+    },
     "BKG-Q2|4-HWWF": {
         ratePerM3: 325,
-        minPrice: 60000000,
+        minPrice: 50000000,
         flatRate: 0,
         rushRate: 100000000
     },
@@ -155,559 +173,559 @@ const ROUTE_RULES = {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 8000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|LXWN-W": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 9000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|XM-4L0": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 9000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|8-4GQM": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 11000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-LP3N": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 11000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|QCWA-Z": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 11000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|LRWD-B": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 13000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|1G-MJE": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 13000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KV-8SN": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 13000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|52G-NZ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 14000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|T-Q2DD": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 14000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|S-B7IT": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 15000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|5LJ-MD": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 15000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|6-O5GY": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 15000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|O-JPKH": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 16000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|B8O-KJ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 16000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|9F-7PZ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 16000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|B-GC1T": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 17000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|I-7RIS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 17000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|UB-UQZ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|0P9Z-I": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|QXQ-BA": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|WO-AIJ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|HB7R-F": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 18000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|CS-ZGD": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 19000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|A-G1FM": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 19000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|V8W-QS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 19000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|X7R-JW": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|JRZ-B9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-HCGU": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|YG-82V": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|4DTQ-K": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 20000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|XW-2XP": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|P7Z-R3": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|4-BE0M": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|OJ-A8M": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 21000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|NTV0-1": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|ZIU-EP": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|M-HU4V": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3-N3OO": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Q-FEEJ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|F-9F6Q": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 22000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|2B7A-3": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|MA-VDX": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|AH-B84": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|JTAU-5": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|4-48K1": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 23000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|J9-5MQ": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 24000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|X4UV-Z": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 24000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|R4O-I6": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 24000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3F-JZF": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|EQI2-2": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KL3O-J": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|D4R-H7": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|RO90-H": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-4ZOS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 25000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Q-4DEC": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 26000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Q-NJZ4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 26000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|BWI1-9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 26000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|J7YR-1": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|313I-B": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|O94U-A": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|NEH-CS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-VGYO": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|C-LBQS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3-TD6L": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|J52-BH": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 27000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|K-8SQS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|CX-1XF": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|5-0WB9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|XW-JHT": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|W-4FA9": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 28000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|EWN-2U": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 29000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|NLPB-0": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 29000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|PKG4-7": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 30000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|PUWL-4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 30000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|DCI7-7": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|5-P1Y2": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|VL3I-M": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|UQ9-3C": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 31000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|1IX-C0": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 32000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|Y-1918": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 34000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KMC-WI": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 35000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KMQ4-V": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 36000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|KJ-QWL": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 36000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|9-B1DS": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 38000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|SVB-RE": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 38000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|CH9L-K": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 39000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|ME-4IU": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 40000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|I-7JR4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 40000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|BU-IU4": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 40000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|3KNA-N": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 41000000,
-        rushRate: 50000000
+        rushRate: 75000000
     },
     "BKG-Q2|QYZM-W": {
         ratePerM3: 0,
         minPrice: 0,
         flatRate: 42000000,
-        rushRate: 50000000
+        rushRate: 75000000
     }
 };
 }),
@@ -974,7 +992,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal
 "use client";
 ;
 ;
-function Button(props) {
+function Button({ type, onClick, children, disabled }) {
     let ButtonType = /*#__PURE__*/ function(ButtonType) {
         ButtonType[ButtonType["primary"] = 1] = "primary";
         ButtonType[ButtonType["secondary"] = 2] = "secondary";
@@ -982,12 +1000,13 @@ function Button(props) {
         return ButtonType;
     }({});
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-        className: `${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].button} ${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"][ButtonType[props.type]]}`,
-        onClick: props.onClick,
-        children: props.text
+        className: `${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].button} ${__TURBOPACK__imported__module__$5b$project$5d2f$Documents$2f$Dev$2f$personal$2f$equinox$2d$galactic$2f$apps$2f$calculator$2f$src$2f$components$2f$ui$2f$Button$2f$Button$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"][ButtonType[type]]}`,
+        disabled: disabled,
+        onClick: onClick,
+        children: children
     }, void 0, false, {
         fileName: "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/components/ui/Button/Button.tsx",
-        lineNumber: 17,
+        lineNumber: 21,
         columnNumber: 5
     }, this);
 }
@@ -1019,7 +1038,7 @@ async function saveQuoteRecord(payload) {
 }),
 "[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx [app-ssr] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-const e = new Error("Could not parse module '[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx'\n\nUnexpected token `)`. Expected an identifier, void, yield, null, await, break, a string literal, a numeric literal, true, false, `, -, import, this, typeof, {, [, (");
+const e = new Error("Could not parse module '[project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.tsx'\n\nExpected '</', got 'jsx text'");
 e.code = 'MODULE_UNPARSABLE';
 throw e;
 }),

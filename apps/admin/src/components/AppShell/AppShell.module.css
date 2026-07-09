@@ -1,11 +1,17 @@
 .shell {
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .main {
   padding-top: var(--topbar-height);
   padding-left: var(--sidebar-width);
 
-  padding-right: 24px;
-  padding-bottom: 24px;
+  padding-right: var(--space-5);
+  padding-bottom: var(--space-5);
+}
+
+@media only screen and (max-width: 768px) {
+  .main {
+    padding-left: var(--space-5);
+  }
 }

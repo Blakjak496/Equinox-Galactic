@@ -1,0 +1,56 @@
+.button {
+  position: absolute;
+  top: var(--padding-4);
+  left: var(--padding-4);
+  width: 2.5rem;
+  height: 2.5rem;
+  background: black;
+  border-radius: var(--radius-sm);
+  border: none;
+  display: none;
+  z-index: 11;
+  overflow: hidden;
+}
+
+.lineOne,
+.lineTwo,
+.lineThree {
+  height: 2px;
+  background: white;
+  width: 80%;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  transition: transform 1s ease;
+}
+
+.top {
+  top: 30%;
+}
+
+.middle {
+  top: 50%;
+}
+
+.bottom {
+  top: 70%;
+}
+
+.diagonalUp {
+  transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+}
+
+.diagonalDown {
+  transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}
+
+.out {
+  transform: translateX(100%) translateY(-50%);
+}
+
+@media only screen and (max-width: 768px) {
+  .button {
+    display: flex;
+  }
+}

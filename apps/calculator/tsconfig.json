@@ -14,9 +14,10 @@
     "jsx": "react-jsx",
     "incremental": true,
 
-    "baseUrl": ".",
+    "rootDir": "../../",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["../../shared/*"]
     },
 
     "plugins": [{ "name": "next" }]
@@ -27,7 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "../../shared/quote/calculations.ts",
+    "../../shared/quote/route-rules.ts"
   ],
   "exclude": ["node_modules"]
 }

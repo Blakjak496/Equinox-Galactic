@@ -3,16 +3,20 @@
 import Panel from "../Panel/Panel";
 import styles from "./MetricCard.module.css";
 
-export default function MetricCard(props: {
+type Props = {
   name: string;
   value: string | number;
-}) {
+};
+
+export default function MetricCard({ name, value }: Props) {
   return (
-    <Panel>
-      <div className={styles.name}>
-        <h3>{props.name}</h3>
-      </div>
-      <div className={styles.value}>{props.value}</div>
-    </Panel>
+    <div className={styles.wrapper}>
+      <Panel>
+        <div className={styles.name}>
+          <span>{name}</span>
+        </div>
+        <div className={styles.value}>{value.toLocaleString()}</div>
+      </Panel>
+    </div>
   );
 }

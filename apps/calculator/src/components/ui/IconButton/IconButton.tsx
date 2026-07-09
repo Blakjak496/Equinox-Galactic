@@ -5,7 +5,7 @@ import styles from "./IconButton.module.css";
 export default function IconButton(props: {
   src: string;
   alt: string;
-  onClick: () => void;
+  onClick: (e: any) => void;
 }) {
   return (
     <button className={styles.button} onClick={props.onClick}>

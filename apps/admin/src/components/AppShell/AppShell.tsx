@@ -12,13 +12,7 @@ import {
   signInWithPopup,
   signOut,
   User,
-  UserCredential,
 } from "firebase/auth";
-
-import { httpsCallable, getFunctions } from "firebase/functions";
-
-const functions = getFunctions(app, "europe-west2");
-const exchangeEveCode = httpsCallable(functions, "exchangeEveCode");
 
 export default function AppShell(props: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -56,10 +50,14 @@ export default function AppShell(props: { children: ReactNode }) {
         return;
       }
 
-      await exchangeEveCode({
-        code,
-        codeVerifier: verifier,
-        redirectUri: "https://equinox-galactic-admin.web.app/",
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/eve`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code,
+          codeVerifier: verifier,
+          redirectUri: "https://equinox-galactic-admin.web.app/",
+        }),
       });
 
       // cleanup

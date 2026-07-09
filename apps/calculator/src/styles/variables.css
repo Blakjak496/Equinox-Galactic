@@ -9,18 +9,22 @@
      Brand Colors
      ------------------------- */
   --bg: #0b1220; /* deep space background */
-  --surface: #111a2e; /* cards, panels */
+  --surface: rgb(16, 24, 40); /* cards, panels */
   --surface-elevated: #16233b; /* elevated panels, nav, modals */
 
-  --primary: #2e6fa3; /* orbit blue */
-  --primary-hover: #4fa3e3; /* orbit blue light */
+  --primary: rgba(243, 156, 45, 1); /* orbit blue */
+  --primary-hover: rgba(243, 156, 45, 0.6); /* orbit blue light */
 
-  --secondary: #f39c2d; /* solar orange */
-  --secondary-hover: #ffb75e; /* solar orange soft */
+  --secondary: rgba(79, 163, 227, 1); /* solar orange */
+  --secondary-hover: rgba(79, 163, 227, 0.55); /* solar orange soft */
 
   --text: #e6eef8; /* star white */
-  --text-muted: #9fb3c8; /* muted text */
+  --text-muted: rgb(216, 216, 216); /* muted text */
   --border: rgba(255, 183, 0, 0.3);
+
+  --danger: rgb(242 134 139);
+  --warning: rgb(240 155 74);
+  --success: rgb(153 193 139);
 
   /* Starfield usage (optional layering) */
   --starfield-opacity: 0.1; /* 0.08–0.12 recommended */

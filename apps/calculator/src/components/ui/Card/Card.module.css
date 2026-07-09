@@ -1,6 +1,6 @@
 .card {
   position: relative;
-  background: var(--card-bg);
+  background: var(--surface);
   padding: var(--card-padding);
   border-radius: var(--card-radius);
   box-shadow: var(--card-shadow);
@@ -30,4 +30,12 @@
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--text-muted);
+}
+
+@media only screen and (max-width: 768px) {
+  .card {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
 }

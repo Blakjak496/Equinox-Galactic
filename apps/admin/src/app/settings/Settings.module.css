@@ -1,0 +1,66 @@
+.container {
+  padding: var(--space-5);
+}
+
+.section {
+  padding: var(--space-4);
+  width: 100%;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: var(--space-4);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 360px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.inputGroup label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inputGroup input {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.error {
+  color: var(--danger, #e05252);
+  font-size: 0.875rem;
+}
+
+.success {
+  color: var(--primary);
+  font-size: 0.875rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.875rem;
+}

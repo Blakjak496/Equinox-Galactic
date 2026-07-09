@@ -17,63 +17,9 @@
 
   display: flex;
   column-gap: var(--space-5);
-}
-
-.brandTab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20rem;
-  padding: var(--padding-3);
+  padding-left: calc(var(--sidebar-width) + var(--space-7));
   background: rgba(16, 24, 40, 1);
-  border-right: 2px solid var(--glow-blue);
-  position: relative;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% calc(100% - var(--space-5) + 2px),
-    calc(100% - var(--space-5) + 2px) 100%,
-    0 100%
-  );
-  box-shadow: var(--card-shadow);
-}
-
-.brandTab::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: none;
-
-  /* Match the exact same shape */
-  clip-path: inherit;
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  pointer-events: none;
-}
-
-.brandTab::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: var(--space-3) solid transparent;
-  border-top: var(--space-3) solid transparent;
-  border-bottom: var(--space-3) solid var(--glow-blue);
-  border-right: var(--space-3) solid var(--glow-blue);
-  /* transform: rotate(135deg); */
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
-.bannerLogo {
-  height: 100%;
-  width: auto;
+  z-index: 10;
 }
 
 .title {
@@ -82,4 +28,10 @@
   justify-content: center;
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
+}
+
+@media only screen and (max-width: 768px) {
+  .bar {
+    padding-left: calc(var(--space-6) * 2 + 2.5rem);
+  }
 }

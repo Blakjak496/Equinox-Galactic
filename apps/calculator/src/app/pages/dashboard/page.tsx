@@ -2,85 +2,173 @@
 
 import styles from "./page.module.css";
 import Card from "../../../components/ui/Card/Card";
-import SubCard from "../../../components/ui/SubCard/SubCard";
-import { ChangeEvent, useState } from "react";
-import { contractPriceCalc } from "../../../pricing/calculations";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { contractPriceCalc } from "@shared/quote/calculations";
 import PillCard from "../../../components/ui/PillCard/PillCard";
-import { ROUTE_RULES } from "../../../pricing/route-rules";
+import {
+  Route,
+  getRoute,
+  getRouteTerms,
+  sanitizeLocation,
+} from "@shared/quote/route-rules";
 import {
   branchSystems,
-  checkRouteCompatibility,
+  COALITION_STAGING_ORIGINS,
   copyTextToClipboard,
-  numberWithCommas,
+  extractQuoteInputsFromJanice,
+  getDropdownOptions,
+  INDUSTRY_PARKS,
 } from "../../../utils";
 import IconButton from "../../../components/ui/IconButton/IconButton";
 import Button from "../../../components/ui/Button/Button";
-import { saveQuoteRecord } from "../../api/quotes";
+import { handleGetAppraisal } from "@/app/api/janice";
+import { JaniceAppraisal } from "@/types";
+import { Switch } from "@mui/material";
+import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
+import { createTranslator, type Locale } from "@/lib/i18n";
+
+const STORAGE_KEY = "contract-calculator-locale";
+const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+
+const formatIsk = (n: number): string => {
+  if (n >= 1_000_000_000) return `${+(n / 1_000_000_000).toFixed(1)}b`;
+  if (n >= 1_000_000) return `${+(n / 1_000_000).toFixed(1)}m`;
+  if (n >= 1_000) return `${+(n / 1_000).toFixed(1)}k`;
+  return n.toLocaleString();
+};
 
 export default function Dashboard() {
-  const [pickup, setPickup] = useState("BKG-Q2");
-  const [dropoff, setDropoff] = useState("4-HWWF");
+  const [routes, setRoutes] = useState<Route[]>([]);
+  const [pickup, setPickup] = useState<string>("");
+  const [destination, setDestination] = useState<string>("");
   const [volume, setVolume] = useState<number>(0);
   const [collateral, setCollateral] = useState<number>(0);
+  const [collateralFeePercent, setCollateralFeePercent] = useState<number>(0);
   const [rush, setRush] = useState(false);
-  const [volumeFee, setVolumeFee] = useState<number>(0);
-  const [rushFee, setRushFee] = useState<number>();
   const [minimumFee, setMinimumFee] = useState<number>(0);
-  const [flatFee, setFlatFee] = useState<number>(0);
   const [total, setTotal] = useState(0);
-  const [quoteId, setQuoteId] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [iskm3, setIskm3] = useState<number>(0);
+  const [manual, setManual] = useState<boolean>(false);
+  const [appraisalInput, setAppraisalInput] = useState<string>("");
+  const [appraisal, setAppraisal] = useState<JaniceAppraisal | null>(null);
+  const [appraisalRef, setAppraisalRef] = useState<string>("");
+  const [maxVolume, setMaxVolume] = useState<number>(375000);
+  const [route, setRoute] = useState<Route | null>(null);
+  const [locale, setLocale] = useState<Locale>("en");
+  const [corpMember, setCorpMember] = useState<boolean>(false);
 
-  const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") setVolume(0);
-    else {
-      const inputVolume = parseInt(e.target.value);
+  const MAX_COLLATERAL = 15_000_000_000;
 
-      setVolume(
-        parseInt(
-          inputVolume
-            ? inputVolume > 340000
-              ? `${340000}`
-              : inputVolume.toString()
-            : "0",
+  useEffect(() => {
+    fetch(`${API_URL}/routes`)
+      .then((res) => res.json())
+      .then((json) => setRoutes(json.data ?? []))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
+
+    if (saved === "en" || saved === "ru" || saved === "zh") {
+      setLocale(saved);
+      return;
+    }
+
+    const browserLang = navigator.language.toLowerCase();
+
+    if (browserLang.startsWith("ru")) {
+      setLocale("ru");
+      return;
+    }
+
+    if (browserLang.startsWith("zh")) {
+      setLocale("zh");
+      return;
+    }
+
+    setLocale("en");
+  }, []);
+
+  const t = useMemo(() => createTranslator(locale), [locale]);
+
+  useEffect(() => {
+    if (route && destination) {
+      setTotal(
+        contractPriceCalc(
+          route,
+          volume,
+          rush,
+          corpMember ? "corp" : "public",
+          collateral,
         ),
       );
     }
+  }, [destination, volume, rush, route, corpMember, collateral]);
+
+  useEffect(() => {
+    if (route) {
+      const terms = getRouteTerms(route, corpMember ? "corp" : "public");
+      setIskm3(terms.rate);
+      setMinimumFee(terms.minReward);
+      setMaxVolume(terms.maxVolume);
+      setCollateralFeePercent(terms.collateralFeePercent);
+    }
+  }, [corpMember, route]);
+
+  const handleLocaleChange = (nextLocale: Locale) => {
+    setLocale(nextLocale);
+    window.localStorage.setItem(STORAGE_KEY, nextLocale);
+  };
+
+  const resetValues = (): void => {
+    setMinimumFee(0);
+    setTotal(0);
+    setIskm3(0);
+    setCollateralFeePercent(0);
+    setRoute(null);
+  };
+
+  const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    setVolume(raw === "" ? 0 : Math.ceil(Number(raw)));
   };
 
   const handleCollateralChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") setCollateral(0);
-    else {
-      const inputValue = parseInt(e.target.value);
-
-      setCollateral(
-        parseInt(
-          inputValue
-            ? inputValue > 10000000000
-              ? `${10000000000}`
-              : inputValue.toString()
-            : "0",
-        ),
-      );
-    }
+    const raw = e.target.value;
+    setCollateral(Number(raw));
   };
 
   const handlePickupChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setPickup(e.target.value);
-    switch (true) {
-      case e.target.value === "BKG-Q2":
-        setDropoff("4-HWWF");
-        break;
-      case e.target.value === "4-HWWF":
-        setDropoff("BKG-Q2");
-        break;
-      default:
-        setDropoff("BKG-Q2");
-        break;
+    resetValues();
+
+    if (destination) {
+      setDestination("");
     }
+
+    setPickup(e.target.value);
   };
 
   const handleDropoffChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDropoff(e.target.value);
+    const newDestination: string = e.target.value;
+
+    const newRoute = getRoute(
+      routes,
+      sanitizeLocation(pickup),
+      sanitizeLocation(newDestination),
+    );
+
+    setRoute(newRoute ?? null);
+
+    if (newRoute) {
+      const terms = getRouteTerms(newRoute, corpMember ? "corp" : "public");
+      setIskm3(terms.rate);
+      setMinimumFee(terms.minReward);
+      setMaxVolume(terms.maxVolume);
+      setCollateralFeePercent(terms.collateralFeePercent);
+    }
+
+    setDestination(newDestination);
   };
 
   const handleRushChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,122 +176,190 @@ export default function Dashboard() {
   };
 
   const getRuleValue = (rule: string): number => {
-    const route = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
-    const rules = ROUTE_RULES[route];
-    let ruleValue: number = 0;
-    if (rules) {
-      if (rule === "volume") ruleValue = rules.ratePerM3;
-      if (rule === "min") ruleValue = rules.minPrice;
-      if (rule === "flat") ruleValue = rules.flatRate;
-      if (rule === "rush") ruleValue = rules.rushRate;
+    if (!pickup || !destination || !route) {
+      return 0;
     }
 
-    return ruleValue;
+    const terms = getRouteTerms(route, corpMember ? "corp" : "public");
+    if (rule === "volume") return terms.rate;
+    if (rule === "min") return terms.minReward;
+    if (rule === "rush") return terms.rushPrice;
+
+    return 0;
   };
 
-  const calculate = async (): Promise<void> => {
-    const compatible = checkRouteCompatibility(pickup, dropoff);
-    const route = `BKG-Q2|${pickup !== "BKG-Q2" ? pickup : dropoff}`;
+  const handleCopyClick = (e: React.MouseEvent, text: string): void => {
+    copyTextToClipboard(text);
+    const target = e.currentTarget;
+    const currentContent = target.innerHTML;
 
-    if (compatible) {
-      const newVolumeFee = ROUTE_RULES[route].ratePerM3 * volume;
-      const newRushFee = rush ? ROUTE_RULES[route].rushRate : 0;
-      const newMinimumFee = ROUTE_RULES[route].minPrice;
-      const newFlatFee = ROUTE_RULES[route].flatRate;
-      const totalReward = contractPriceCalc(route, volume, rush);
+    e.currentTarget.innerHTML = "✓";
 
-      const payload = {
-        routeKey: route,
-        volumeM3: volume,
-        collateral: collateral,
-        isRush: rush,
-        rushRate: newRushFee,
-        flatRate: newFlatFee,
-        reward: totalReward,
-      };
+    setTimeout(() => {
+      target.innerHTML = currentContent;
+    }, 2000);
+  };
 
-      try {
-        const newQuoteId = await saveQuoteRecord(payload);
+  const getAppraisalPlaceholder = (): string => {
+    return t("appraisalPlaceholder");
+  };
 
-        setQuoteId(newQuoteId);
-        setVolumeFee(newVolumeFee);
-        setRushFee(newRushFee);
-        setMinimumFee(newMinimumFee);
-        setFlatFee(newFlatFee);
-        setTotal(totalReward);
-      } catch (e: any) {
-        window.alert(e.message);
-      }
-    }
+  const handleAppraisalInputChange = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ): void => {
+    setAppraisalInput(e.target.value);
+  };
+
+  const handleManualChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setManual(e.target.checked);
+  };
+
+  const handleGetAppraisalClick = async (): Promise<void> => {
+    setLoading(true);
+
+    const janiceData = await handleGetAppraisal(appraisalInput);
+    const data = extractQuoteInputsFromJanice(janiceData);
+
+    const volumeM3 = data.volumeM3;
+    const janiceCollateral = data.collateral;
+    const janiceRef = data.appraisalRef;
+
+    const roundedCollateral = parseFloat(
+      (Math.ceil(janiceCollateral * 100) / 100).toFixed(2),
+    );
+
+    setVolume(volumeM3);
+    setCollateral(roundedCollateral);
+    setAppraisal(janiceData);
+    setAppraisalRef(janiceRef);
+    setLoading(false);
+  };
+
+  const handleCorpMemberToggle = (e: ChangeEvent<HTMLInputElement>): void => {
+    setCorpMember(e.target.checked);
   };
 
   return (
     <div className={styles.dashboard}>
+      <div className={styles.languageSelectWrapper}>
+        <label htmlFor="language" className={styles.languageSelectLabel}>
+          {t("language")}
+        </label>
+        <select
+          id="language"
+          name="languages"
+          value={locale}
+          onChange={(e) => handleLocaleChange(e.target.value as Locale)}
+          className={styles.languageSelect}
+        >
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="zh">简体中文</option>
+        </select>
+      </div>
+      <div className={styles.bannerWrapper}>
+        <img
+          src="/banner-logo.png"
+          alt="Equinox Galactic Banner Logo"
+          className={styles.bannerLogo}
+        />
+      </div>
+
+      <div className={styles.corpToggleRow}>
+        <span className={styles.corpToggleLabel}>{t("corpMember")}</span>
+        <Switch
+          checked={corpMember}
+          onChange={handleCorpMemberToggle}
+          sx={{
+            "& .MuiSwitch-switchBase.Mui-checked": {
+              color: "var(--primary)",
+            },
+            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+              backgroundColor: "var(--primary)",
+            },
+            "& .MuiSwitch-track": {
+              backgroundColor: "var(--text)",
+            },
+          }}
+        />
+      </div>
+
       <div className={styles.grid}>
         <div className={styles.columnLeft}>
-          <Card>
-            <div className={styles.cardContent}>
-              <div className={styles.banner}>
-                <img
-                  src="/banner-logo.png"
-                  alt="Equinox Galaxtic Banner Logo"
-                  className={styles.bannerLogo}
-                />
-              </div>
-              <span className={styles.heading}>
-                Courier Contract Calculator
-              </span>
-              <span className={styles.subheading}>
-                Coalition Space Hauling For Therapy. Members
-              </span>
-            </div>
-          </Card>
           <Card
-            mainTitle="Contract Details"
-            subtitle="Enter contract details to calculate a quote"
+            mainTitle={t("contractDetailsTitle")}
+            subtitle={t("contractDetailsSubtitle")}
           >
             <div className={styles.cardContent}>
-              <div className={styles.contractValues}>
-                <div className={styles.inputWrapper}>
-                  <label htmlFor="volume">Volume (m³) - max: 340,000</label>
-                  <input
-                    id="volume"
-                    type="number"
-                    max={340000}
-                    value={volume > 0 ? volume : ""}
-                    placeholder={`e.g ${numberWithCommas(340000)}`}
-                    onChange={handleVolumeChange}
-                  />
+              <div className={styles.baseValues}>
+                <div className={styles.baseValue}>
+                  <span className={styles.baseValueName}>{t("ratePerM3")}</span>
+                  <span className={styles.baseValueNumber}>{iskm3} ISK</span>
                 </div>
-                <div className={styles.inputWrapper}>
-                  <label htmlFor="collateral">
-                    Collateral (isk) - max: 10,000,000,000
-                  </label>
-                  <input
-                    id="collateral"
-                    type="number"
-                    max={10000000000}
-                    value={collateral > 0 ? collateral : ""}
-                    placeholder={`e.g ${numberWithCommas(2000000000)}`}
-                    onChange={handleCollateralChange}
-                  />
+
+                <div className={styles.baseValue}>
+                  <span className={styles.baseValueName}>
+                    {t("collateralPercent")}
+                  </span>
+                  <span className={styles.baseValueNumber}>
+                    {collateralFeePercent}%
+                  </span>
+                </div>
+
+                <div className={styles.baseValue}>
+                  <span className={styles.baseValueName}>{t("minimum")}</span>
+                  <span className={styles.baseValueNumber}>
+                    {minimumFee.toLocaleString()} ISK
+                  </span>
                 </div>
               </div>
+
               <div className={styles.contractLocations}>
                 <div className={styles.inputWrapper}>
-                  <label htmlFor="pick-up">Pick-up</label>
+                  <label htmlFor="pick-up">
+                    {t("origin")}{" "}
+                    <IconButton
+                      src="/copy-icon-secondary.png"
+                      alt={t("copyToClipboard")}
+                      onClick={(e) => handleCopyClick(e, `${pickup}`)}
+                    />
+                  </label>
+
                   <select
                     id="pick-up"
                     name="locations"
-                    defaultValue={pickup}
+                    value={pickup}
                     onChange={handlePickupChange}
+                    className={pickup === "" ? styles.placeholder : ""}
                   >
-                    <optgroup label="Alliance Staging">
-                      <option value="BKG-Q2">BKG-Q2</option>
+                    <option value="" disabled>
+                      {t("selectOrigin")}
+                    </option>
+
+                    <option value="Jita IV - Moon 4 - Caldari Navy Assembly Plant">
+                      Jita IV - Moon 4 - Caldari Navy Assembly Plant
+                    </option>
+
+                    <optgroup label="WinterCo">
+                      {COALITION_STAGING_ORIGINS.map((origin, idx) => {
+                        return (
+                          <option key={idx} value={origin.station}>
+                            {origin.station}
+                          </option>
+                        );
+                      })}
                     </optgroup>
-                    <optgroup label="Coalition Staging">
-                      <option value="4-HWWF">4-HWWF</option>
+
+                    <optgroup label="Industry">
+                      {INDUSTRY_PARKS.map((origin, idx) => {
+                        return (
+                          <option key={idx} value={origin.station}>
+                            {origin.station}
+                          </option>
+                        );
+                      })}
                     </optgroup>
+
                     <optgroup label="Branch">
                       {branchSystems.sort().map((system, idx) => {
                         return (
@@ -215,178 +371,322 @@ export default function Dashboard() {
                     </optgroup>
                   </select>
                 </div>
+
                 <div className={styles.inputWrapper}>
-                  <label htmlFor="drop-off">Drop-off</label>
+                  <label htmlFor="drop-off">
+                    {t("destination")}{" "}
+                    <IconButton
+                      src="/copy-icon-secondary.png"
+                      alt={t("copyToClipboard")}
+                      onClick={(e) => handleCopyClick(e, `${destination}`)}
+                    />
+                  </label>
+
                   <select
                     id="drop-off"
                     name="locations"
-                    defaultValue={dropoff}
+                    value={destination}
                     onChange={handleDropoffChange}
+                    className={!destination ? styles.placeholder : ""}
                   >
-                    {pickup !== "BKG-Q2" && (
-                      <optgroup label="Alliance Staging">
-                        <option value="BKG-Q2">BKG-Q2</option>
-                      </optgroup>
-                    )}
-                    {pickup === "BKG-Q2" && (
-                      <optgroup label="Coalition Staging">
-                        <option value="4-HWWF">4-HWWF</option>
-                      </optgroup>
-                    )}
-                    {pickup === "BKG-Q2" && (
-                      <optgroup label="Branch">
-                        {branchSystems.sort().map((system, idx) => {
-                          return (
-                            <option key={idx} value={system}>
-                              {system}
-                            </option>
-                          );
-                        })}
-                      </optgroup>
-                    )}
+                    <option value="" disabled>
+                      {t("selectDestination")}
+                    </option>
+                    {getDropdownOptions(sanitizeLocation(pickup), routes)}
                   </select>
                 </div>
               </div>
+
+              <div
+                className={`${styles.inputWrapper} ${styles.appraisalWrapper}`}
+              >
+                <textarea
+                  name="appraisal"
+                  id="appraisal"
+                  placeholder={getAppraisalPlaceholder()}
+                  disabled={manual}
+                  onChange={handleAppraisalInputChange}
+                />
+              </div>
+
+              <div className={styles.appraisalButtons}>
+                <div className={styles.appraisalButtonWrapper}>
+                  <Button
+                    type={3}
+                    onClick={handleGetAppraisalClick}
+                    disabled={loading}
+                  >
+                    {loading ? t("loading") : t("getAppraisal")}
+                  </Button>
+                </div>
+
+                {appraisal && appraisalRef && !loading && (
+                  <span className={styles.appraisalLink}>
+                    <a
+                      href={`https://janice.e-351.com/a/${appraisalRef}`}
+                      target="blank"
+                      rel="noopener noreferrer"
+                    >
+                      <OpenInNewOutlinedIcon /> {t("viewAppraisalOnJanice")}
+                    </a>
+                  </span>
+                )}
+              </div>
+
+              <div className={styles.manualEntryOption}>
+                <span>{t("orEnterManually")}</span>
+                <Switch
+                  checked={manual}
+                  onChange={handleManualChange}
+                  sx={{
+                    "& .MuiSwitch-switchBase.Mui-checked": {
+                      color: "var(--primary)",
+                    },
+                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                      backgroundColor: "var(--primary)",
+                    },
+                    "& .MuiSwitch-track": {
+                      backgroundColor: "var(--text)",
+                    },
+                  }}
+                />
+              </div>
+
+              {volume > maxVolume && (
+                <PillCard type="warning">
+                  <div className={styles.warningContent}>
+                    <span>
+                      <b>{t("volumeOverMaxTitle")}</b>
+                    </span>
+                    <span>{t("volumeOverMaxBody")}</span>
+                  </div>
+                </PillCard>
+              )}
+
+              {collateral > MAX_COLLATERAL && (
+                <PillCard type="warning">
+                  <div className={styles.warningContent}>
+                    <span>
+                      <b>{t("collateralOverMaxTitle")}</b>
+                    </span>
+                    <span>{t("collateralOverMaxBody")}</span>
+                  </div>
+                </PillCard>
+              )}
+
+              <div className={styles.contractValues}>
+                <div className={styles.inputWrapper}>
+                  <label htmlFor="volume">
+                    {t("volume")} -{" "}
+                    {t("volumeMax", { max: maxVolume.toLocaleString() })}
+                  </label>
+                  <input
+                    id="volume"
+                    type="number"
+                    inputMode="numeric"
+                    value={volume > 0 ? volume : ""}
+                    placeholder={t("volumePlaceholder")}
+                    onChange={handleVolumeChange}
+                    disabled={!manual}
+                    className={volume > maxVolume ? styles.invalidInput : ""}
+                  />
+                </div>
+
+                <div className={styles.inputWrapper}>
+                  <label htmlFor="collateral">
+                    {t("collateralIsh")} - {t("collateralMax")}
+                  </label>
+                  <input
+                    id="collateral"
+                    type="number"
+                    step={0.1}
+                    inputMode="decimal"
+                    value={collateral > 0 ? collateral : ""}
+                    placeholder={`e.g ${MAX_COLLATERAL.toLocaleString()}`}
+                    onChange={handleCollateralChange}
+                    disabled={!manual}
+                    className={
+                      collateral > MAX_COLLATERAL ? styles.invalidInput : ""
+                    }
+                  />
+                </div>
+              </div>
+
               <span className={styles.note}>
-                NOTE: Currently not servicing NPC stations. Contracts with an
-                NPC pickup or drop-off station will be rejected
+                {t("note")}
+                <ul>
+                  <li>{t("noteNpcStations")}</li>
+                  <li>{t("noteStructures")}</li>
+                </ul>
               </span>
+
               <PillCard>
                 <div className={styles.pillLabelWithSub}>
                   <span className={styles.pillLabel}>
-                    Rush (+
-                    {`${numberWithCommas(getRuleValue("rush"))} ISK`})
+                    {t("rush", {
+                      amount: getRuleValue("rush").toLocaleString(),
+                    })}
                   </span>
                   <span className={styles.pillSubLabel}>
-                    Priority contract. Aims to deliver within 24h where possible
+                    {t("rushDescriptionShort")}
                   </span>
                 </div>
-                <div className={styles.checkWrapper}>
-                  <label className={styles.checkboxContainer}>
-                    <input
-                      type="checkbox"
-                      className={styles.checkbox}
-                      onChange={handleRushChange}
-                    />
-                    <span className={styles.checkmark}></span>
-                  </label>
-                </div>
+
+                <Switch
+                  checked={rush}
+                  onChange={handleRushChange}
+                  sx={{
+                    "& .MuiSwitch-switchBase.Mui-checked": {
+                      color: "var(--primary)",
+                    },
+                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                      backgroundColor: "var(--primary)",
+                    },
+                    "& .MuiSwitch-track": {
+                      backgroundColor: "var(--text)",
+                    },
+                  }}
+                />
               </PillCard>
-              <Button type={1} text="Calculate" onClick={calculate} />
             </div>
           </Card>
         </div>
+
         <div className={styles.columnRight}>
-          <Card mainTitle="Quote" subtitle="Total and breakdown">
-            <div className={styles.cardContent}>
-              <PillCard>
-                <span className={styles.pillLabel}>Volume</span>
-                <span className={styles.pillValue}>
-                  {getRuleValue("flat") === 0
-                    ? `${numberWithCommas(volumeFee || 0)} ISK`
-                    : "N/A"}
-                </span>
-              </PillCard>
-              <PillCard>
-                <span className={styles.pillLabel}>Rush fee</span>
-                <span className={styles.pillValue}>
-                  {numberWithCommas(rushFee || 0)} ISK
-                </span>
-              </PillCard>
-              <PillCard>
-                <span className={styles.pillLabel}>Minimum</span>
-                <span className={styles.pillValue}>
-                  {getRuleValue("flat") === 0
-                    ? `${numberWithCommas(minimumFee || 0)} ISK`
-                    : "N/A"}
-                </span>
-              </PillCard>
-              <PillCard>
-                <span className={styles.pillLabel}>
-                  Flat Fee ({`${pickup} <-> ${dropoff}`})
-                </span>
-                <span className={styles.pillValue}>
-                  {branchSystems.includes(pickup) ||
-                  branchSystems.includes(dropoff)
-                    ? `${numberWithCommas(flatFee || 0)} ISK`
-                    : "N/A"}
-                </span>
-              </PillCard>
-              <SubCard mainTitle="Total reward">
-                <span className={styles.totalPrice}>
-                  {numberWithCommas(total)} ISK
-                </span>
-              </SubCard>
-            </div>
-          </Card>
-          <Card mainTitle="Contract Settings">
+          <Card mainTitle={t("contractSettings")}>
             <div className={styles.cardContent}>
               <div className={styles.contractSetting}>
-                <span className={styles.contractSettingLabel}>Issue to:</span>
-                <div className={styles.contractSettingValueGroup}>
-                  <span className={styles.contractSettingValue}>
-                    Equinox Galactic
-                  </span>
-                  <IconButton
-                    src="/copy-icon-secondary.png"
-                    alt="Copy to clipboard"
-                    onClick={() => copyTextToClipboard("Equinox Galactic")}
-                  />
-                </div>
-              </div>
-              <div className={styles.contractSetting}>
                 <span className={styles.contractSettingLabel}>
-                  Description:
+                  {t("availability")}
                 </span>
                 <div className={styles.contractSettingValueGroup}>
-                  <span className={styles.contractSettingValue}>{quoteId}</span>
-                  <IconButton
-                    src="/copy-icon-secondary.png"
-                    alt="Copy to clipboard"
-                    onClick={() => copyTextToClipboard(`${quoteId}`)}
-                  />
-                </div>
-              </div>
-              <div className={styles.contractSetting}>
-                <span className={styles.contractSettingLabel}>Reward:</span>
-                <div className={styles.contractSettingValueGroup}>
                   <span className={styles.contractSettingValue}>
-                    {numberWithCommas(total)} ISK
+                    {t("issuer")}
                   </span>
                   <IconButton
                     src="/copy-icon-secondary.png"
-                    alt="Copy to clipboard"
-                    onClick={() => copyTextToClipboard(`${total}`)}
+                    alt={t("copyToClipboard")}
+                    onClick={(e) => handleCopyClick(e, "Equinox Galactic")}
                   />
                 </div>
               </div>
-              <div className={styles.contractSetting}>
-                <span className={styles.contractSettingLabel}>Collateral:</span>
-                <div className={styles.contractSettingValueGroup}>
-                  <span className={styles.contractSettingValue}>
-                    {numberWithCommas(collateral || 0)} ISK
-                  </span>
-                  <IconButton
-                    src="/copy-icon-secondary.png"
-                    alt="Copy to clipboard"
-                    onClick={() => copyTextToClipboard(`${collateral}`)}
-                  />
-                </div>
-              </div>
-              <div className={styles.contractSetting}>
-                <span className={styles.contractSettingLabel}>Expiration:</span>
-                <span className={styles.contractSettingValue}>7 days</span>
-              </div>
+
               <div className={styles.contractSetting}>
                 <span className={styles.contractSettingLabel}>
-                  Days to complete:
+                  {t("reward")}
                 </span>
-                <span className={styles.contractSettingValue}>7</span>
+                <div className={styles.contractSettingValueGroup}>
+                  <span className={styles.contractSettingValue}>
+                    {route ? `${total.toLocaleString()} ISK` : "—"}
+                  </span>
+                  {route && (
+                    <IconButton
+                      src="/copy-icon-secondary.png"
+                      alt={t("copyToClipboard")}
+                      onClick={(e) => handleCopyClick(e, `${total}`)}
+                    />
+                  )}
+                </div>
+              </div>
+
+              {rush && (
+                <div className={styles.contractSetting}>
+                  <span className={styles.contractSettingLabel}>
+                    {t("description")}
+                  </span>
+                  <div className={styles.contractSettingValueGroup}>
+                    <span className={styles.contractSettingValue}>
+                      {t("rushLabel")}
+                    </span>
+                    <IconButton
+                      src="/copy-icon-secondary.png"
+                      alt={t("copyToClipboard")}
+                      onClick={(e) => handleCopyClick(e, t("rushLabel"))}
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className={styles.contractSetting}>
+                <span className={styles.contractSettingLabel}>
+                  {t("collateralLabel")}
+                </span>
+                <div className={styles.contractSettingValueGroup}>
+                  <span className={styles.contractSettingValue}>
+                    {route ? `${(collateral || 0).toLocaleString()} ISK` : "—"}
+                  </span>
+                  {route && (
+                    <IconButton
+                      src="/copy-icon-secondary.png"
+                      alt={t("copyToClipboard")}
+                      onClick={(e) => handleCopyClick(e, `${collateral}`)}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.contractSetting}>
+                <span className={styles.contractSettingLabel}>
+                  {t("expiration")}
+                </span>
+                <span className={styles.contractSettingValue}>
+                  {t("expirationValue")}
+                </span>
+              </div>
+
+              <div className={styles.contractSetting}>
+                <span className={styles.contractSettingLabel}>
+                  {t("daysToComplete")}
+                </span>
+                <span className={styles.contractSettingValue}>
+                  {t("daysToCompleteValue")}
+                </span>
               </div>
             </div>
+
+            <ul className={styles.contractRules}>
+              <li>No fitted ships</li>
+              <li>No containers</li>
+            </ul>
           </Card>
         </div>
       </div>
+
+      <Card>
+        <div className={styles.routes}>
+          <div className={styles.routesBanner}>
+            <span className={styles.routesHeader}>{t("allRoutesTitle")}</span>
+          </div>
+          <table>
+            <tbody>
+              <tr className={styles.tableHead}>
+                <th>{t("route")}</th>
+                <th>{t("ratePerM3Table")}</th>
+                <th>{t("minimumReward")}</th>
+                <th>{t("rushPrice")}</th>
+                <th>{t("collateralFee")}</th>
+                <th>{t("maxVolume")}</th>
+              </tr>
+              {routes.map((r, idx) => {
+                const terms = getRouteTerms(
+                  r,
+                  corpMember ? "corp" : "public",
+                );
+                return (
+                  <tr key={idx} className={idx % 2 === 1 ? styles.tableRowAlt : ""}>
+                    <td>{`${r.systems[0]} ${r.oneWay ? "→" : "↔"} ${r.systems[1]}`}</td>
+                    <td>{terms.rate > 0 ? `${terms.rate.toLocaleString()} ISK/m³` : "—"}</td>
+                    <td>{formatIsk(terms.minReward)}</td>
+                    <td>{formatIsk(terms.rushPrice)}</td>
+                    <td>{terms.collateralFeePercent > 0 ? `${terms.collateralFeePercent}%` : "—"}</td>
+                    <td>{formatIsk(terms.maxVolume)} m³</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </Card>
     </div>
   );
 }

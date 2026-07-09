@@ -3,6 +3,15 @@
 import { ReactNode } from "react";
 import styles from "./PillCard.module.css";
 
-export default function PillCard(props: { children?: ReactNode }) {
-  return <div className={styles.card}>{props.children}</div>;
+type Props = {
+  children?: ReactNode;
+  type?: "warning" | "success" | "danger";
+};
+
+export default function PillCard({ children, type }: Props) {
+  return (
+    <div className={`${styles.card} ${type ? styles[type] : ""}`}>
+      {children}
+    </div>
+  );
 }

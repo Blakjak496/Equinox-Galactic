@@ -1,19 +1,46 @@
 /* [project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/app/pages/dashboard/page.module.css [app-client] (css) */
 .page-module__Y1QpfW__dashboard {
-  background-color: #000;
-  justify-content: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  padding: var(--page-padding);
+  align-items: center;
+  row-gap: var(--space-5);
+  flex-direction: column;
   display: flex;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.page-module__Y1QpfW__dashboard:before {
+  content: "";
+  opacity: .4;
+  filter: blur(1px);
+  background-image: url("/star-field.png");
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.page-module__Y1QpfW__topbar {
+  opacity: 1;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.page-module__Y1QpfW__status {
+  font-weight: 700;
 }
 
 .page-module__Y1QpfW__grid {
   column-gap: var(--space-6);
   width: 100%;
   max-width: var(--container-max);
-  padding: var(--page-padding);
-  grid-template-columns: 1.2fr .8fr;
-  display: grid;
+  justify-content: center;
+  display: flex;
 }
 
 .page-module__Y1QpfW__columnLeft, .page-module__Y1QpfW__columnRight {
@@ -22,10 +49,19 @@
   display: flex;
 }
 
+.page-module__Y1QpfW__columnRight {
+  width: 30%;
+}
+
 .page-module__Y1QpfW__cardContent {
   row-gap: var(--space-3);
   flex-direction: column;
   display: flex;
+}
+
+.page-module__Y1QpfW__bannerWrapper {
+  z-index: 1;
+  width: 30%;
 }
 
 .page-module__Y1QpfW__banner {
@@ -64,11 +100,14 @@
 }
 
 .page-module__Y1QpfW__inputWrapper label {
+  column-gap: var(--space-3);
   font-size: var(--text-xs);
   color: var(--text-muted);
+  align-items: center;
+  display: flex;
 }
 
-.page-module__Y1QpfW__inputWrapper input, .page-module__Y1QpfW__inputWrapper select {
+.page-module__Y1QpfW__inputWrapper input, .page-module__Y1QpfW__inputWrapper select, .page-module__Y1QpfW__inputWrapper textarea {
   height: 3.25rem;
   padding: var(--space-3) .9rem;
   background: var(--surface-elevated);
@@ -77,6 +116,23 @@
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--text-muted);
+}
+
+.page-module__Y1QpfW__inputWrapper input:disabled, .page-module__Y1QpfW__inputWrapper textarea:disabled {
+  background: #0003;
+}
+
+.page-module__Y1QpfW__inputWrapper .page-module__Y1QpfW__invalidInput {
+  border-color: red;
+}
+
+.page-module__Y1QpfW__inputWrapper textarea {
+  width: 100%;
+  height: 9rem;
+}
+
+.page-module__Y1QpfW__inputWrapper input::placeholder, .page-module__Y1QpfW__inputWrapper textarea::placeholder, .page-module__Y1QpfW__inputWrapper .page-module__Y1QpfW__placeholder {
+  color: #d8d8d8cc;
 }
 
 .page-module__Y1QpfW__inputWrapper select {
@@ -112,16 +168,73 @@
   color: var(--text);
 }
 
+.page-module__Y1QpfW__inputWrapper option:disabled {
+  color: var(--text-muted);
+  opacity: .6;
+}
+
 .page-module__Y1QpfW__inputWrapper optgroup {
   color: var(--text-muted);
 }
 
+.page-module__Y1QpfW__appraisalWrapper {
+  width: 100%;
+}
+
+.page-module__Y1QpfW__appraisalButtons {
+  align-items: center;
+  column-gap: var(--space-6);
+  display: flex;
+}
+
+.page-module__Y1QpfW__appraisalLink {
+  color: var(--secondary);
+}
+
+.page-module__Y1QpfW__appraisalLink a {
+  align-items: center;
+  column-gap: var(--space-2);
+  display: flex;
+}
+
+.page-module__Y1QpfW__baseValues {
+  justify-content: space-evenly;
+  align-items: center;
+  display: flex;
+}
+
+.page-module__Y1QpfW__baseValue {
+  row-gap: var(--space-2);
+  color: var(--text-muted);
+  flex-direction: column;
+  display: flex;
+}
+
+.page-module__Y1QpfW__baseValueName {
+  font-size: var(--text-sm);
+}
+
+.page-module__Y1QpfW__baseValueNumber {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+}
+
 .page-module__Y1QpfW__note {
   text-align: left;
-  padding: var(--space-1);
+  padding: var(--space-2);
+  margin-left: var(--space-3);
   font-size: var(--text-sm);
-  color: var(--secondary);
+  color: var(--text-muted);
   font-family: var(--font-body);
+  row-gap: var(--space-1);
+  flex-direction: column;
+  display: flex;
+}
+
+.page-module__Y1QpfW__breakdownDetail {
+  flex-direction: column;
+  display: flex;
 }
 
 .page-module__Y1QpfW__totalPrice {
@@ -142,7 +255,7 @@
 .page-module__Y1QpfW__pillSubLabel {
   color: var(--text-muted);
   font-size: var(--text-sm);
-  width: 90%;
+  font-weight: var(--font-weight-semibold);
   font-style: italic;
 }
 
@@ -150,72 +263,6 @@
   flex-direction: column;
   justify-content: center;
   display: flex;
-}
-
-.page-module__Y1QpfW__checkWrapper {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  display: flex;
-  position: relative;
-}
-
-.page-module__Y1QpfW__checkboxContainer {
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-  height: 100%;
-  margin-bottom: 12px;
-  padding-left: 35px;
-  font-size: 22px;
-  display: block;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translateY(50%);
-}
-
-.page-module__Y1QpfW__checkbox {
-  opacity: 0;
-  cursor: pointer;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-
-.page-module__Y1QpfW__checkmark {
-  background-color: var(--surface-elevated);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--primary);
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.page-module__Y1QpfW__checkboxContainer:hover .page-module__Y1QpfW__checkbox ~ .page-module__Y1QpfW__checkmark {
-  border: 1px solid var(--primary-hover);
-}
-
-.page-module__Y1QpfW__checkmark:after {
-  content: "";
-  display: none;
-  position: absolute;
-}
-
-.page-module__Y1QpfW__checkboxContainer input:checked ~ .page-module__Y1QpfW__checkmark:after {
-  display: flex;
-}
-
-.page-module__Y1QpfW__checkboxContainer .page-module__Y1QpfW__checkmark:after {
-  border: solid var(--secondary);
-  border-width: 0 3px 3px 0;
-  width: 5px;
-  height: 10px;
-  top: 5px;
-  left: 9px;
-  transform: rotate(45deg);
 }
 
 .page-module__Y1QpfW__contractSetting {
@@ -239,12 +286,109 @@
 
 .page-module__Y1QpfW__contractSettingValue {
   color: var(--text-muted);
+  text-align: right;
+}
+
+.page-module__Y1QpfW__warningContent {
+  column-gap: var(--space-1);
+  flex-direction: column;
+  display: flex;
+}
+
+.page-module__Y1QpfW__languageSelectWrapper {
+  top: var(--page-padding);
+  right: var(--page-padding);
+  column-gap: var(--space-4);
+  align-items: center;
+  display: flex;
+  position: absolute;
+}
+
+.page-module__Y1QpfW__languageSelect {
+  padding: var(--space-3) .9rem;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.page-module__Y1QpfW__contractRules {
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.page-module__Y1QpfW__routes {
+  row-gap: var(--space-4);
+  width: 100%;
+  font-family: var(--font-body);
+  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.page-module__Y1QpfW__routes table {
+  width: 100%;
+}
+
+.page-module__Y1QpfW__routes .page-module__Y1QpfW__tableHead {
+  background: var(--surface-elevated);
+}
+
+.page-module__Y1QpfW__routes tr {
+  border-bottom: 1px solid var(--border);
+  justify-content: space-evenly;
+  width: 100%;
+  min-height: 3rem;
+  display: flex;
+}
+
+.page-module__Y1QpfW__routes td, .page-module__Y1QpfW__routes th {
+  word-wrap: normal;
+  justify-content: center;
+  align-items: center;
+  width: 16.5%;
+  display: flex;
+}
+
+.page-module__Y1QpfW__routesBanner {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.page-module__Y1QpfW__routesHeader {
+  font-size: var(--text-xl);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
 }
 
 @media only screen and (max-width: 768px) {
+  .page-module__Y1QpfW__dashboard {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .page-module__Y1QpfW__bannerWrapper {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+    width: 100%;
+  }
+
   .page-module__Y1QpfW__grid {
     row-gap: var(--space-5);
+    padding: var(--page-padding) 0;
+    flex-direction: column;
     grid-template-columns: 100%;
+  }
+
+  .page-module__Y1QpfW__columnRight {
+    width: 100%;
   }
 
   .page-module__Y1QpfW__contractValues, .page-module__Y1QpfW__contractLocations {
@@ -264,6 +408,16 @@
   .page-module__Y1QpfW__slider:before {
     width: .8rem;
     height: .8rem;
+  }
+
+  .page-module__Y1QpfW__languageSelectWrapper {
+    position: relative;
+    top: 0;
+    right: 0;
+  }
+
+  .page-module__Y1QpfW__routes table tr {
+    margin-bottom: var(--space-2);
   }
 }
 

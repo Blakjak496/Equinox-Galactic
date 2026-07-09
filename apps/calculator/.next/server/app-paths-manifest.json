@@ -1,6 +1,7 @@
 {
   "/_global-error/page": "app/_global-error/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/bot/register-complete/page": "app/bot/register-complete/page.js",
   "/icon.png/route": "app/icon.png/route.js",
   "/page": "app/page.js",
   "/pages/dashboard/page": "app/pages/dashboard/page.js"

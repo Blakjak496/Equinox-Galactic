@@ -6,6 +6,8 @@ import styles from "./Sidebar.module.css";
 import { UserCredential } from "firebase/auth";
 import { startEveSso } from "@/lib/eveSso";
 import { usePathname } from "next/navigation";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import { useState } from "react";
 
 type Props = {
   signedIn: boolean;
@@ -14,21 +16,62 @@ type Props = {
 };
 
 export default function Sidebar({ signedIn, login, logout }: Props) {
+  const [open, setOpen] = useState<boolean>(false);
+
   const pathname = usePathname();
-  return (
-    <div className={styles.sidebar}>
+
+  return [
+    <BurgerMenu key={0} open={open} onClick={() => setOpen(!open)} />,
+    <div key={1} className={`${styles.sidebar} ${open ? styles.open : ""}`}>
+      <div className={styles.brandTab}>
+        <img
+          className={styles.bannerLogo}
+          src="/banner-logo.png"
+          alt="Equinox Galactic Banner Logo"
+        />
+      </div>
       {signedIn && (
         <div className={styles.sidebarContent}>
-          <NavItem active={pathname === "/dashboard"} route="/dashboard">
+          <NavItem
+            active={pathname === "/dashboard"}
+            route="/dashboard"
+            onClick={() => setOpen(false)}
+          >
             Dashboard
           </NavItem>
-          <NavItem active={pathname === "/runs"} route="/runs">
-            Runs
+          <NavItem
+            active={pathname === "/routes"}
+            route="/routes"
+            onClick={() => setOpen(false)}
+          >
+            Routes
           </NavItem>
-          <NavItem active={pathname === "/analytics"} route="/analytics">
-            Analytics
+          <NavItem
+            active={pathname === "/main-routes"}
+            route="/main-routes"
+            onClick={() => setOpen(false)}
+          >
+            Main Routes
           </NavItem>
-          <NavItem active={pathname === "/settings"} route="/settings">
+          <NavItem
+            active={pathname === "/ship-categories"}
+            route="/ship-categories"
+            onClick={() => setOpen(false)}
+          >
+            Ship Categories
+          </NavItem>
+          <NavItem
+            active={pathname === "/jump-planner"}
+            route="/jump-planner"
+            onClick={() => setOpen(false)}
+          >
+            Jump Planner
+          </NavItem>
+          <NavItem
+            active={pathname === "/settings"}
+            route="/settings"
+            onClick={() => setOpen(false)}
+          >
             Settings
           </NavItem>
         </div>
@@ -49,6 +92,6 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
           </Button>
         )}
       </div>
-    </div>
-  );
+    </div>,
+  ];
 }

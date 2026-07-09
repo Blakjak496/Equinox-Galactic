@@ -41,6 +41,12 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/bot/register-complete",
+      "regex": "^/bot/register\\-complete(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/bot/register\\-complete(?:/)?$"
+    },
+    {
       "page": "/icon.png",
       "regex": "^/icon\\.png(?:/)?$",
       "routeKeys": {},

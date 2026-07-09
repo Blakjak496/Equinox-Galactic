@@ -35,6 +35,10 @@ a {
   text-decoration: none;
 }
 
+.MuiSwitch-track {
+  background: red;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     --lightningcss-light: ;

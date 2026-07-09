@@ -1,6 +1,7 @@
 {
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
+  "/bot/register-complete/page": "/bot/register-complete",
   "/icon.png/route": "/icon.png",
   "/page": "/",
   "/pages/dashboard/page": "/pages/dashboard"

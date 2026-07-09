@@ -1,4 +1,16 @@
 .container {
+  height: 100%;
+  width: 100%;
+  padding: var(--space-5);
+}
+
+.metrics {
   display: flex;
-  height: fit-content;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: var(--space-4);
+  column-gap: var(--space-6);
+}
+
+@media only screen and (max-width: 768px) {
 }

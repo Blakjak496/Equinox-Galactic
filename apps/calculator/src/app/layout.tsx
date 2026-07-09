@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Orbitron, Inter } from "next/font/google";
-import AppCheckInit from "../components/AppCheckInit";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -19,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Equinox Galactic",
-  description: "Courier Contract Calculator",
+  description: "Jump Freighter Hauling",
 };
 
 export default function RootLayout({
@@ -29,10 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${orbitron.variable} ${inter.variable}`}>
-      <body>
-        <AppCheckInit />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

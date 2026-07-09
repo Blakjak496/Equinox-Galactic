@@ -1,12 +1,16 @@
 "use client";
 
+import { ReactNode } from "react";
 import styles from "./Button.module.css";
 
-export default function Button(props: {
+type Props = {
   type: 1 | 2 | 3;
-  text: string;
+  children: ReactNode;
   onClick: () => any;
-}) {
+  disabled: boolean;
+};
+
+export default function Button({ type, onClick, children, disabled }: Props) {
   enum ButtonType {
     "primary" = 1,
     "secondary",
@@ -15,10 +19,11 @@ export default function Button(props: {
 
   return (
     <button
-      className={`${styles.button} ${styles[ButtonType[props.type]]}`}
-      onClick={props.onClick}
+      className={`${styles.button} ${styles[ButtonType[type]]}`}
+      disabled={disabled}
+      onClick={onClick}
     >
-      {props.text}
+      {children}
     </button>
   );
 }

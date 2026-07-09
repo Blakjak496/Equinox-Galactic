@@ -1,15 +1,18 @@
 /* [project]/Documents/Dev/personal/equinox-galactic/apps/calculator/src/styles/variables.css [app-client] (css) */
 :root {
   --bg: #0b1220;
-  --surface: #111a2e;
+  --surface: #101828;
   --surface-elevated: #16233b;
-  --primary: #2e6fa3;
-  --primary-hover: #4fa3e3;
-  --secondary: #f39c2d;
-  --secondary-hover: #ffb75e;
+  --primary: #f39c2d;
+  --primary-hover: #f39c2d99;
+  --secondary: #4fa3e3;
+  --secondary-hover: #4fa3e38c;
   --text: #e6eef8;
-  --text-muted: #9fb3c8;
+  --text-muted: #d8d8d8;
   --border: #ffb7004d;
+  --danger: #f2868b;
+  --warning: #f09b4a;
+  --success: #99c18b;
   --starfield-opacity: .1;
   --starfield-blend-mode: screen;
   --font-heading: var(--font-orbitron);
