@@ -4,13 +4,7 @@ import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
 import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
-import {
-  api,
-  Route,
-  RouteCostResult,
-  ShipCategory,
-  SystemLookup,
-} from "@/lib/api";
+import { api, Route, RouteCostResult, ShipCategory } from "@/lib/api";
 import styles from "./Routes.module.css";
 
 const EMPTY_TERMS = {
@@ -41,10 +35,6 @@ export default function Routes() {
   const [error, setError] = useState<string | null>(null);
 
   const [calcResult, setCalcResult] = useState<RouteCostResult | null>(null);
-  const [pickupSystem, setPickupSystem] = useState<SystemLookup | null>(null);
-  const [dropoffSystem, setDropoffSystem] = useState<SystemLookup | null>(
-    null,
-  );
   const [calculating, setCalculating] = useState(false);
   const [calcError, setCalcError] = useState<string | null>(null);
   const [shipCategories, setShipCategories] = useState<ShipCategory[]>([]);
@@ -89,8 +79,6 @@ export default function Routes() {
 
   const clearCalculation = () => {
     setCalcResult(null);
-    setPickupSystem(null);
-    setDropoffSystem(null);
     setCalcError(null);
   };
 
@@ -105,19 +93,18 @@ export default function Routes() {
     }
 
     try {
-      const [pickupRes, dropoffRes, calcRes] = await Promise.all([
-        api.resolveSystem(form.systemA),
-        api.resolveSystem(form.systemB),
-        api.calculateRouteCost(form.systemA, form.systemB, shipCategoryId),
-      ]);
+      const { data } = await api.calculateRouteCost(
+        form.systemA,
+        form.systemB,
+        shipCategoryId,
+      );
 
-      setPickupSystem(pickupRes.data);
-      setDropoffSystem(dropoffRes.data);
-      setCalcResult(calcRes.data);
+      setCalcResult(data);
       setForm((prev) => ({
         ...prev,
-        rate: Math.round(calcRes.data.pricePerM3),
-        minReward: calcRes.data.minimum,
+        rate: Math.round(data.pricePerM3),
+        minReward: data.minimum,
+        collateralFeePercent: data.suggestChargeCollateral ? 1 : 0,
       }));
     } catch (err) {
       setCalcError(
@@ -125,22 +112,6 @@ export default function Routes() {
       );
     } finally {
       setCalculating(false);
-    }
-  };
-
-  const toggleTetherable = async (which: "pickup" | "dropoff") => {
-    const system = which === "pickup" ? pickupSystem : dropoffSystem;
-    if (!system) return;
-
-    try {
-      const { data } = await api.updateSystemFlag(
-        system.systemId,
-        !system.hasTetherableStructure,
-      );
-      if (which === "pickup") setPickupSystem(data);
-      else setDropoffSystem(data);
-    } catch {
-      setCalcError("Failed to update system");
     }
   };
 
@@ -353,33 +324,8 @@ export default function Routes() {
                 Suggested rate {calcResult.pricePerM3.toFixed(2)} ISK/m³, minimum{" "}
                 {calcResult.minimum.toLocaleString()} ISK
               </p>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={calcResult.suggestChargeCollateral}
-                  readOnly
-                />
-                Suggest charging collateral fee
-              </label>
-              {pickupSystem && (
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={pickupSystem.hasTetherableStructure}
-                    onChange={() => toggleTetherable("pickup")}
-                  />
-                  {pickupSystem.name} has a tetherable structure
-                </label>
-              )}
-              {dropoffSystem && (
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={dropoffSystem.hasTetherableStructure}
-                    onChange={() => toggleTetherable("dropoff")}
-                  />
-                  {dropoffSystem.name} has a tetherable structure
-                </label>
+              {calcResult.suggestChargeCollateral && (
+                <p>Collateral Fee (%) has been set to 1% below.</p>
               )}
               <Button callback={handleCalculate} color="blue" disabled={calculating}>
                 Recalculate

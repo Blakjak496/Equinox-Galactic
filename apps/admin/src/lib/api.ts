@@ -74,15 +74,6 @@ export const api = {
   getSystem: (systemId: number) =>
     apiFetch<{ ok: boolean; data: SystemLookup }>(`/admin/systems/${systemId}`),
 
-  updateSystemFlag: (systemId: number, hasTetherableStructure: boolean) =>
-    apiFetch<{ ok: boolean; data: SystemLookup }>(
-      `/admin/systems/${systemId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ hasTetherableStructure }),
-      },
-    ),
-
   calculateRouteCost: (
     pickupSystemName: string,
     dropoffSystemName: string,
@@ -157,7 +148,6 @@ export type SystemLookup = {
   name: string;
   position: { x: number; y: number; z: number } | null;
   securityStatus: number | null;
-  hasTetherableStructure: boolean;
 };
 
 export type MainRoute = {
