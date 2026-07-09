@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
 import {
   api,
   Route,
@@ -202,13 +203,24 @@ export default function Routes() {
               : "Add Route"}
           </h2>
 
+          {(calculating || saving) && (
+            <div className={styles.loadingOverlay}>
+              <span className={styles.spinner} />
+              {calculating ? "Calculating route cost…" : "Saving…"}
+            </div>
+          )}
+
+          <fieldset
+            className={styles.fieldsetReset}
+            disabled={calculating || saving}
+          >
           <div className={styles.formGrid}>
             <div className={styles.inputGroup}>
               <label>System A</label>
-              <input
+              <SystemAutocomplete
                 value={form.systemA}
-                onChange={(e) => {
-                  setForm({ ...form, systemA: e.target.value });
+                onChange={(value) => {
+                  setForm({ ...form, systemA: value });
                   clearCalculation();
                 }}
                 placeholder="e.g. Jita"
@@ -217,10 +229,10 @@ export default function Routes() {
             </div>
             <div className={styles.inputGroup}>
               <label>System B</label>
-              <input
+              <SystemAutocomplete
                 value={form.systemB}
-                onChange={(e) => {
-                  setForm({ ...form, systemB: e.target.value });
+                onChange={(value) => {
+                  setForm({ ...form, systemB: value });
                   clearCalculation();
                 }}
                 placeholder="e.g. BKG-Q2"
@@ -327,15 +339,16 @@ export default function Routes() {
                 {calcResult.mode === "detour" ? (
                   <>
                     {" "}
-                    via {calcResult.detail.mainRouteName}, inserted between{" "}
-                    {calcResult.detail.insertBetween?.[0]} and{" "}
-                    {calcResult.detail.insertBetween?.[1]} (+
+                    via {calcResult.detail.mainRouteName} (+
                     {calcResult.detail.extraDistanceLY?.toFixed(2)} LY)
                   </>
                 ) : (
                   <> — round trip {calcResult.detail.directRoundTripLY?.toFixed(2)} LY</>
                 )}
               </p>
+              {calcResult.mode === "detour" && calcResult.detail.path && (
+                <p>Route: {calcResult.detail.path.join(" → ")}</p>
+              )}
               <p>
                 Suggested rate {calcResult.pricePerM3.toFixed(2)} ISK/m³, minimum{" "}
                 {calcResult.minimum.toLocaleString()} ISK
@@ -390,6 +403,7 @@ export default function Routes() {
               </Button>
             )}
           </div>
+          </fieldset>
         </div>
       </Panel>
 

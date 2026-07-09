@@ -1,0 +1,43 @@
+.wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.wrapper input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  max-height: 220px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: var(--space-1) 0;
+}
+
+.option {
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.option:hover,
+.option:focus {
+  background: var(--hairline-soft);
+}

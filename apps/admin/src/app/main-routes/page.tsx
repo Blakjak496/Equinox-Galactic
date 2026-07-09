@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
 import { api, MainRoute } from "@/lib/api";
 import styles from "./MainRoutes.module.css";
 
@@ -200,10 +201,9 @@ export default function MainRoutes() {
             {form.waypoints.map((waypoint, index) => (
               <div key={index} className={styles.waypointRow}>
                 <span className={styles.waypointIndex}>{index + 1}</span>
-                <input
-                  type="text"
+                <SystemAutocomplete
                   value={waypoint}
-                  onChange={(e) => setWaypoint(index, e.target.value)}
+                  onChange={(value) => setWaypoint(index, value)}
                   placeholder="System name, e.g. Jita"
                 />
                 <Button

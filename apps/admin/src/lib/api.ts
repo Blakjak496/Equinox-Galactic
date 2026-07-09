@@ -66,6 +66,11 @@ export const api = {
       `/admin/systems/resolve?name=${encodeURIComponent(name)}`,
     ),
 
+  searchSystems: (query: string) =>
+    apiFetch<{ ok: boolean; data: SystemNameMatch[] }>(
+      `/admin/systems/search?q=${encodeURIComponent(query)}`,
+    ),
+
   getSystem: (systemId: number) =>
     apiFetch<{ ok: boolean; data: SystemLookup }>(`/admin/systems/${systemId}`),
 
@@ -142,6 +147,11 @@ export const api = {
     }),
 };
 
+export type SystemNameMatch = {
+  systemId: number;
+  name: string;
+};
+
 export type SystemLookup = {
   systemId: number;
   name: string;
@@ -177,6 +187,7 @@ export type RouteCostResult = {
     mainRouteName?: string;
     insertBetween?: [string, string];
     extraDistanceLY?: number;
+    path?: string[];
     directRoundTripLY?: number;
   };
 };
