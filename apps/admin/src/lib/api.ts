@@ -168,18 +168,21 @@ export type JumpRoutePlan = {
   totalDistanceLY: number;
 };
 
-export type RouteCostResult = {
+export type RouteCostOption = {
   mode: "detour" | "direct";
   pricePerM3: number;
   minimum: number;
-  suggestChargeCollateral: boolean;
   detail: {
     mainRouteName?: string;
-    insertBetween?: [string, string];
     extraDistanceLY?: number;
     path?: string[];
     directRoundTripLY?: number;
   };
+};
+
+export type RouteCostResult = {
+  suggestChargeCollateral: boolean;
+  options: RouteCostOption[];
 };
 
 export type Route = {

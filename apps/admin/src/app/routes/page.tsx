@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
 import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
-import { api, Route, RouteCostResult, ShipCategory } from "@/lib/api";
+import {
+  api,
+  Route,
+  RouteCostOption,
+  RouteCostResult,
+  ShipCategory,
+} from "@/lib/api";
 import styles from "./Routes.module.css";
 
 const EMPTY_TERMS = {
@@ -35,6 +41,7 @@ export default function Routes() {
   const [error, setError] = useState<string | null>(null);
 
   const [calcResult, setCalcResult] = useState<RouteCostResult | null>(null);
+  const [appliedOptionIndex, setAppliedOptionIndex] = useState(0);
   const [calculating, setCalculating] = useState(false);
   const [calcError, setCalcError] = useState<string | null>(null);
   const [shipCategories, setShipCategories] = useState<ShipCategory[]>([]);
@@ -80,6 +87,16 @@ export default function Routes() {
   const clearCalculation = () => {
     setCalcResult(null);
     setCalcError(null);
+    setAppliedOptionIndex(0);
+  };
+
+  const applyOption = (option: RouteCostOption, suggestChargeCollateral: boolean) => {
+    setForm((prev) => ({
+      ...prev,
+      rate: Math.round(option.pricePerM3),
+      minReward: option.minimum,
+      collateralFeePercent: suggestChargeCollateral ? 1 : 0,
+    }));
   };
 
   const handleCalculate = async () => {
@@ -100,12 +117,8 @@ export default function Routes() {
       );
 
       setCalcResult(data);
-      setForm((prev) => ({
-        ...prev,
-        rate: Math.round(data.pricePerM3),
-        minReward: data.minimum,
-        collateralFeePercent: data.suggestChargeCollateral ? 1 : 0,
-      }));
+      setAppliedOptionIndex(0);
+      applyOption(data.options[0], data.suggestChargeCollateral);
     } catch (err) {
       setCalcError(
         err instanceof Error ? err.message : "Failed to calculate route cost",
@@ -303,27 +316,97 @@ export default function Routes() {
 
           {calcError && <p className={styles.error}>{calcError}</p>}
 
-          {calcResult && (
+          {calcResult && calcResult.options.length === 1 && (
             <div className={styles.calcResult}>
               <p>
-                <strong>{calcResult.mode === "detour" ? "Detour" : "Direct"}</strong>
-                {calcResult.mode === "detour" ? (
+                <strong>
+                  {calcResult.options[0].mode === "detour" ? "Detour" : "Direct"}
+                </strong>
+                {calcResult.options[0].mode === "detour" ? (
                   <>
                     {" "}
-                    via {calcResult.detail.mainRouteName} (+
-                    {calcResult.detail.extraDistanceLY?.toFixed(2)} LY)
+                    via {calcResult.options[0].detail.mainRouteName} (+
+                    {calcResult.options[0].detail.extraDistanceLY?.toFixed(2)} LY)
                   </>
                 ) : (
-                  <> — round trip {calcResult.detail.directRoundTripLY?.toFixed(2)} LY</>
+                  <>
+                    {" "}
+                    — round trip{" "}
+                    {calcResult.options[0].detail.directRoundTripLY?.toFixed(2)} LY
+                  </>
                 )}
               </p>
-              {calcResult.mode === "detour" && calcResult.detail.path && (
-                <p>Route: {calcResult.detail.path.join(" → ")}</p>
-              )}
+              {calcResult.options[0].mode === "detour" &&
+                calcResult.options[0].detail.path && (
+                  <p>Route: {calcResult.options[0].detail.path.join(" → ")}</p>
+                )}
               <p>
-                Suggested rate {calcResult.pricePerM3.toFixed(2)} ISK/m³, minimum{" "}
-                {calcResult.minimum.toLocaleString()} ISK
+                Suggested rate {calcResult.options[0].pricePerM3.toFixed(2)} ISK/m³,
+                minimum {calcResult.options[0].minimum.toLocaleString()} ISK
               </p>
+              {calcResult.suggestChargeCollateral && (
+                <p>Collateral Fee (%) has been set to 1% below.</p>
+              )}
+              <Button callback={handleCalculate} color="blue" disabled={calculating}>
+                Recalculate
+              </Button>
+            </div>
+          )}
+
+          {calcResult && calcResult.options.length > 1 && (
+            <div className={styles.calcResult}>
+              <p>
+                Multiple main routes offer a cheaper detour than a dedicated direct
+                trip. Choose which one to apply:
+              </p>
+              <div className={styles.optionList}>
+                {calcResult.options.map((option, index) => (
+                  <div
+                    key={index}
+                    className={
+                      index === appliedOptionIndex
+                        ? `${styles.optionCard} ${styles.optionCardApplied}`
+                        : styles.optionCard
+                    }
+                  >
+                    <p>
+                      <strong>
+                        {option.mode === "detour" ? "Detour" : "Direct"}
+                      </strong>
+                      {option.mode === "detour" ? (
+                        <>
+                          {" "}
+                          via {option.detail.mainRouteName} (+
+                          {option.detail.extraDistanceLY?.toFixed(2)} LY)
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          — round trip {option.detail.directRoundTripLY?.toFixed(2)}{" "}
+                          LY
+                        </>
+                      )}
+                    </p>
+                    {option.mode === "detour" && option.detail.path && (
+                      <p>Route: {option.detail.path.join(" → ")}</p>
+                    )}
+                    <p>
+                      Suggested rate {option.pricePerM3.toFixed(2)} ISK/m³, minimum{" "}
+                      {option.minimum.toLocaleString()} ISK
+                    </p>
+                    <Button
+                      callback={() => {
+                        setAppliedOptionIndex(index);
+                        applyOption(option, calcResult.suggestChargeCollateral);
+                      }}
+                      color={index === appliedOptionIndex ? "green" : "blue"}
+                      disabled={calculating}
+                    >
+                      {index === appliedOptionIndex ? "Applied" : "Use this option"}
+                    </Button>
+                  </div>
+                ))}
+              </div>
               {calcResult.suggestChargeCollateral && (
                 <p>Collateral Fee (%) has been set to 1% below.</p>
               )}

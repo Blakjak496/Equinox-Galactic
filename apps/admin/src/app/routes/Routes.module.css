@@ -120,6 +120,26 @@
   gap: var(--space-2);
 }
 
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.optionCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--background);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+}
+
+.optionCardApplied {
+  border-color: var(--primary);
+}
+
 .error {
   color: var(--danger, #e05252);
   font-size: 0.875rem;
