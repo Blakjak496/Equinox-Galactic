@@ -6,6 +6,7 @@
   box-shadow: var(--card-shadow);
 
   border: 1px solid var(--card-border);
+  border-top: 2px solid var(--primary);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -24,18 +25,11 @@
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  color: var(--primary);
 }
 
 .subtitle {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--text-muted);
-}
-
-@media only screen and (max-width: 768px) {
-  .card {
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-  }
 }

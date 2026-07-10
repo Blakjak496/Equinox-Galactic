@@ -7,35 +7,25 @@
   justify-content: center;
   align-items: center;
   outline: none;
-  border: 1px solid;
-  border-image: linear-gradient(
-      90deg,
-      rgba(79, 163, 227, 0) 0%,
-      var(--glow-blue) 20%,
-      rgba(255, 255, 255, 1) 50%,
-      var(--glow-blue) 80%,
-      rgba(79, 163, 227, 0) 100%
-    )
-    0 0 1 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   background: none;
+  color: var(--text-muted);
+  transition:
+    background 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
 }
 
 .navItem:hover {
-  background: var(--glow-orange);
+  background: var(--surface-elevated);
+  color: var(--text);
 }
 
 .navItem.active {
-  background: var(--glow-orange);
-  border: 2px solid;
-  border-image: linear-gradient(
-      90deg,
-      rgba(79, 163, 227, 0) 0%,
-      var(--glow-orange) 20%,
-      rgba(255, 255, 255, 1) 50%,
-      var(--glow-orange) 80%,
-      rgba(79, 163, 227, 0) 100%
-    )
-    1 0 1 0;
+  background: var(--surface-elevated);
+  border-color: var(--primary);
+  color: var(--text);
   font-weight: var(--font-weight-semibold);
 }
 

@@ -5,11 +5,12 @@ export default function RegisterComplete() {
   return (
     <div className={styles.page}>
       <div className={styles.bannerWrapper}>
-        <img
-          src="/banner-logo.png"
-          alt="Equinox Galactic Banner Logo"
-          className={styles.bannerLogo}
-        />
+        <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
+        <span className={styles.wordmark}>
+          Equinox
+          <br />
+          Runners
+        </span>
       </div>
       <div className={styles.content}>
         <Card

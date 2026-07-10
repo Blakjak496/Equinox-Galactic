@@ -2,7 +2,6 @@ const ru = {
   language: "Язык",
   contractDetailsTitle: "Параметры контракта",
   contractDetailsSubtitle: "Введите параметры контракта для расчёта стоимости",
-  corpMember: "Therapy. Участник",
   ratePerM3: "ISK/m³",
   collateralPercent: "Коллатерал",
   minimum: "Минимум",

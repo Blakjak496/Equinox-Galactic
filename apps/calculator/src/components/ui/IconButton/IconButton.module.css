@@ -5,16 +5,23 @@
   align-items: center;
   justify-content: center;
   background: none;
+  color: var(--text-muted);
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition:
+    color 120ms ease,
+    background 120ms ease;
 }
 
 .button:hover {
   cursor: pointer;
   -webkit-cursor: pointer;
   -moz-cursor: pointer;
-  box-shadow: var(--glow-primary);
+  color: var(--primary);
+  background: var(--surface-elevated);
 }
 
 .icon {
   height: 1rem;
-  width: auto;
+  width: 1rem;
 }

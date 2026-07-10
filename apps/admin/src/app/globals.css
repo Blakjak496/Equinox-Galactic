@@ -19,18 +19,7 @@ body {
   min-height: 100vh;
   color: var(--text);
   font-family: var(--font-body);
-  background:
-    radial-gradient(
-      68.75rem 37.5rem at 50% -10%,
-      rgba(79, 163, 227, 0.14),
-      transparent 60%
-    ),
-    radial-gradient(
-      56.25rem 32.5rem at 90% 10%,
-      rgba(243, 156, 45, 0.1),
-      transparent 55%
-    ),
-    var(--bg);
+  background: var(--bg);
 }
 
 * {
@@ -49,19 +38,6 @@ a {
   html {
     color-scheme: dark;
   }
-}
-
-.starfield-overlay::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.7;
-  mix-blend-mode: screen;
-  background-image: url("../../public//starfield-tile.png");
-  background-repeat: repeat;
-  background-size: 47.5rem 47.5rem; /* 760px */
-  filter: blur(1px);
 }
 
 /* ---------- Layout helpers ---------- */

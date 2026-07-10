@@ -2,7 +2,6 @@ const en = {
   language: "Language",
   contractDetailsTitle: "Contract Details",
   contractDetailsSubtitle: "Enter contract details to calculate a quote",
-  corpMember: "Therapy. Member",
   ratePerM3: "ISK/m³",
   collateralPercent: "Collateral",
   minimum: "Minimum",

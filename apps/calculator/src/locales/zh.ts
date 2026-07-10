@@ -2,7 +2,6 @@ const zh = {
   language: "语言",
   contractDetailsTitle: "合同详情",
   contractDetailsSubtitle: "输入合同信息以计算价格",
-  corpMember: "Therapy. 成员",
   ratePerM3: "ISK/m³",
   collateralPercent: "担保",
   minimum: "最低价格",

@@ -56,7 +56,6 @@ export default function Dashboard() {
   const [maxVolume, setMaxVolume] = useState<number>(375000);
   const [route, setRoute] = useState<Route | null>(null);
   const [locale, setLocale] = useState<Locale>("en");
-  const [corpMember, setCorpMember] = useState<boolean>(false);
 
   const MAX_COLLATERAL = 15_000_000_000;
 
@@ -94,27 +93,19 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (route && destination) {
-      setTotal(
-        contractPriceCalc(
-          route,
-          volume,
-          rush,
-          corpMember ? "corp" : "public",
-          collateral,
-        ),
-      );
+      setTotal(contractPriceCalc(route, volume, rush, undefined, collateral));
     }
-  }, [destination, volume, rush, route, corpMember, collateral]);
+  }, [destination, volume, rush, route, collateral]);
 
   useEffect(() => {
     if (route) {
-      const terms = getRouteTerms(route, corpMember ? "corp" : "public");
+      const terms = getRouteTerms(route);
       setIskm3(terms.rate);
       setMinimumFee(terms.minReward);
       setMaxVolume(terms.maxVolume);
       setCollateralFeePercent(terms.collateralFeePercent);
     }
-  }, [corpMember, route]);
+  }, [route]);
 
   const handleLocaleChange = (nextLocale: Locale) => {
     setLocale(nextLocale);
@@ -161,7 +152,7 @@ export default function Dashboard() {
     setRoute(newRoute ?? null);
 
     if (newRoute) {
-      const terms = getRouteTerms(newRoute, corpMember ? "corp" : "public");
+      const terms = getRouteTerms(newRoute);
       setIskm3(terms.rate);
       setMinimumFee(terms.minReward);
       setMaxVolume(terms.maxVolume);
@@ -175,12 +166,13 @@ export default function Dashboard() {
     setRush(e.target.checked);
   };
 
+
   const getRuleValue = (rule: string): number => {
     if (!pickup || !destination || !route) {
       return 0;
     }
 
-    const terms = getRouteTerms(route, corpMember ? "corp" : "public");
+    const terms = getRouteTerms(route);
     if (rule === "volume") return terms.rate;
     if (rule === "min") return terms.minReward;
     if (rule === "rush") return terms.rushPrice;
@@ -235,10 +227,6 @@ export default function Dashboard() {
     setLoading(false);
   };
 
-  const handleCorpMemberToggle = (e: ChangeEvent<HTMLInputElement>): void => {
-    setCorpMember(e.target.checked);
-  };
-
   return (
     <div className={styles.dashboard}>
       <div className={styles.languageSelectWrapper}>
@@ -258,30 +246,12 @@ export default function Dashboard() {
         </select>
       </div>
       <div className={styles.bannerWrapper}>
-        <img
-          src="/banner-logo.png"
-          alt="Equinox Galactic Banner Logo"
-          className={styles.bannerLogo}
-        />
-      </div>
-
-      <div className={styles.corpToggleRow}>
-        <span className={styles.corpToggleLabel}>{t("corpMember")}</span>
-        <Switch
-          checked={corpMember}
-          onChange={handleCorpMemberToggle}
-          sx={{
-            "& .MuiSwitch-switchBase.Mui-checked": {
-              color: "var(--primary)",
-            },
-            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-              backgroundColor: "var(--primary)",
-            },
-            "& .MuiSwitch-track": {
-              backgroundColor: "var(--text)",
-            },
-          }}
-        />
+        <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
+        <span className={styles.wordmark}>
+          Equinox
+          <br />
+          Runners
+        </span>
       </div>
 
       <div className={styles.grid}>
@@ -319,7 +289,6 @@ export default function Dashboard() {
                   <label htmlFor="pick-up">
                     {t("origin")}{" "}
                     <IconButton
-                      src="/copy-icon-secondary.png"
                       alt={t("copyToClipboard")}
                       onClick={(e) => handleCopyClick(e, `${pickup}`)}
                     />
@@ -376,7 +345,6 @@ export default function Dashboard() {
                   <label htmlFor="drop-off">
                     {t("destination")}{" "}
                     <IconButton
-                      src="/copy-icon-secondary.png"
                       alt={t("copyToClipboard")}
                       onClick={(e) => handleCopyClick(e, `${destination}`)}
                     />
@@ -412,7 +380,7 @@ export default function Dashboard() {
               <div className={styles.appraisalButtons}>
                 <div className={styles.appraisalButtonWrapper}>
                   <Button
-                    type={3}
+                    type={1}
                     onClick={handleGetAppraisalClick}
                     disabled={loading}
                   >
@@ -554,7 +522,7 @@ export default function Dashboard() {
 
         <div className={styles.columnRight}>
           <Card mainTitle={t("contractSettings")}>
-            <div className={styles.cardContent}>
+            <div className={styles.settingsList}>
               <div className={styles.contractSetting}>
                 <span className={styles.contractSettingLabel}>
                   {t("availability")}
@@ -564,7 +532,6 @@ export default function Dashboard() {
                     {t("issuer")}
                   </span>
                   <IconButton
-                    src="/copy-icon-secondary.png"
                     alt={t("copyToClipboard")}
                     onClick={(e) => handleCopyClick(e, "Equinox Galactic")}
                   />
@@ -581,7 +548,6 @@ export default function Dashboard() {
                   </span>
                   {route && (
                     <IconButton
-                      src="/copy-icon-secondary.png"
                       alt={t("copyToClipboard")}
                       onClick={(e) => handleCopyClick(e, `${total}`)}
                     />
@@ -599,7 +565,6 @@ export default function Dashboard() {
                       {t("rushLabel")}
                     </span>
                     <IconButton
-                      src="/copy-icon-secondary.png"
                       alt={t("copyToClipboard")}
                       onClick={(e) => handleCopyClick(e, t("rushLabel"))}
                     />
@@ -617,7 +582,6 @@ export default function Dashboard() {
                   </span>
                   {route && (
                     <IconButton
-                      src="/copy-icon-secondary.png"
                       alt={t("copyToClipboard")}
                       onClick={(e) => handleCopyClick(e, `${collateral}`)}
                     />
@@ -657,34 +621,33 @@ export default function Dashboard() {
           <div className={styles.routesBanner}>
             <span className={styles.routesHeader}>{t("allRoutesTitle")}</span>
           </div>
-          <table>
-            <tbody>
-              <tr className={styles.tableHead}>
-                <th>{t("route")}</th>
-                <th>{t("ratePerM3Table")}</th>
-                <th>{t("minimumReward")}</th>
-                <th>{t("rushPrice")}</th>
-                <th>{t("collateralFee")}</th>
-                <th>{t("maxVolume")}</th>
-              </tr>
-              {routes.map((r, idx) => {
-                const terms = getRouteTerms(
-                  r,
-                  corpMember ? "corp" : "public",
-                );
-                return (
-                  <tr key={idx} className={idx % 2 === 1 ? styles.tableRowAlt : ""}>
-                    <td>{`${r.systems[0]} ${r.oneWay ? "→" : "↔"} ${r.systems[1]}`}</td>
-                    <td>{terms.rate > 0 ? `${terms.rate.toLocaleString()} ISK/m³` : "—"}</td>
-                    <td>{formatIsk(terms.minReward)}</td>
-                    <td>{formatIsk(terms.rushPrice)}</td>
-                    <td>{terms.collateralFeePercent > 0 ? `${terms.collateralFeePercent}%` : "—"}</td>
-                    <td>{formatIsk(terms.maxVolume)} m³</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className={styles.tableScroll}>
+            <table>
+              <tbody>
+                <tr className={styles.tableHead}>
+                  <th>{t("route")}</th>
+                  <th>{t("ratePerM3Table")}</th>
+                  <th>{t("minimumReward")}</th>
+                  <th>{t("rushPrice")}</th>
+                  <th>{t("collateralFee")}</th>
+                  <th>{t("maxVolume")}</th>
+                </tr>
+                {routes.map((r, idx) => {
+                  const terms = getRouteTerms(r);
+                  return (
+                    <tr key={idx} className={idx % 2 === 1 ? styles.tableRowAlt : ""}>
+                      <td>{`${r.systems[0]} ${r.oneWay ? "→" : "↔"} ${r.systems[1]}`}</td>
+                      <td>{terms.rate > 0 ? `${terms.rate.toLocaleString()} ISK/m³` : "—"}</td>
+                      <td>{formatIsk(terms.minReward)}</td>
+                      <td>{formatIsk(terms.rushPrice)}</td>
+                      <td>{terms.collateralFeePercent > 0 ? `${terms.collateralFeePercent}%` : "—"}</td>
+                      <td>{formatIsk(terms.maxVolume)} m³</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Card>
     </div>

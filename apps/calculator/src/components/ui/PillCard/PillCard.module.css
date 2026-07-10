@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--secondary-hover);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
   color: var(--text);
@@ -10,7 +11,7 @@
 }
 
 .warning {
-  background: rgba(240, 155, 74, 0.6);
+  background: var(--warning);
 }
 
 .danger {

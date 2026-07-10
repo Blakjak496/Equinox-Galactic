@@ -4,21 +4,12 @@
   right: 0;
   left: 0;
   height: var(--topbar-height);
-  border: 2px solid;
-  border-image: linear-gradient(
-      90deg,
-      rgba(79, 163, 227, 0) 0%,
-      var(--glow-blue) 20%,
-      rgba(255, 255, 255, 1) 50%,
-      var(--glow-blue) 80%,
-      rgba(79, 163, 227, 0) 100%
-    )
-    1 0 1 0;
+  border-bottom: 1px solid var(--hairline);
 
   display: flex;
   column-gap: var(--space-5);
   padding-left: calc(var(--sidebar-width) + var(--space-7));
-  background: rgba(16, 24, 40, 1);
+  background: var(--surface);
   z-index: 10;
 }
 

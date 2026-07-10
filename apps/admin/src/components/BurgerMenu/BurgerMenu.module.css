@@ -4,7 +4,7 @@
   left: var(--padding-4);
   width: 2.5rem;
   height: 2.5rem;
-  background: black;
+  background: var(--surface-elevated);
   border-radius: var(--radius-sm);
   border: none;
   display: none;
@@ -16,7 +16,7 @@
 .lineTwo,
 .lineThree {
   height: 2px;
-  background: white;
+  background: var(--text);
   width: 80%;
   border-radius: 50%;
   position: absolute;

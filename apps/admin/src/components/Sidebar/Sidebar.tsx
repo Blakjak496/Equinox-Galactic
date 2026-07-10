@@ -24,11 +24,12 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
     <BurgerMenu key={0} open={open} onClick={() => setOpen(!open)} />,
     <div key={1} className={`${styles.sidebar} ${open ? styles.open : ""}`}>
       <div className={styles.brandTab}>
-        <img
-          className={styles.bannerLogo}
-          src="/banner-logo.png"
-          alt="Equinox Galactic Banner Logo"
-        />
+        <img className={styles.crest} src="/crest.png" alt="Equinox Galactic crest" />
+        <span className={styles.wordmark}>
+          Equinox
+          <br />
+          Galactic
+        </span>
       </div>
       {signedIn && (
         <div className={styles.sidebarContent}>

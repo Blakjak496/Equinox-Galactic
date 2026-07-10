@@ -29,7 +29,7 @@
 }
 
 .primary:hover:disabled {
-  background: rgba(46, 111, 163, 0.6);
+  background: var(--primary-hover);
   border-color: var(--primary-hover);
   box-shadow: none;
 }

@@ -8,23 +8,23 @@
   /* -------------------------
      Brand Colors
      ------------------------- */
-  --bg: #0b1220; /* deep space background */
-  --surface: rgb(16, 24, 40); /* cards, panels */
-  --surface-elevated: #16233b; /* elevated panels, nav, modals */
+  --bg: rgb(12, 12, 13); /* neutral charcoal-black base */
+  --surface: rgb(21, 21, 23); /* cards, panels — neutral charcoal */
+  --surface-elevated: rgb(30, 30, 33); /* elevated panels, nav, modals */
 
-  --primary: rgba(243, 156, 45, 1); /* orbit blue */
-  --primary-hover: rgba(243, 156, 45, 0.6); /* orbit blue light */
+  --primary: rgb(168, 34, 34); /* crimson */
+  --primary-hover: rgba(168, 34, 34, 0.6); /* crimson, soft */
 
-  --secondary: rgba(79, 163, 227, 1); /* solar orange */
-  --secondary-hover: rgba(79, 163, 227, 0.55); /* solar orange soft */
+  --secondary: rgb(210, 212, 210); /* dirty white — cool, not warm/bone */
+  --secondary-hover: rgba(210, 212, 210, 0.55); /* dirty white, soft */
 
-  --text: #e6eef8; /* star white */
-  --text-muted: rgb(216, 216, 216); /* muted text */
-  --border: rgba(255, 183, 0, 0.3);
+  --text: rgb(220, 222, 220); /* dirty white */
+  --text-muted: rgb(150, 152, 152); /* muted neutral grey */
+  --border: rgba(255, 255, 255, 0.12); /* neutral hairline */
 
-  --danger: rgb(242 134 139);
-  --warning: rgb(240 155 74);
-  --success: rgb(153 193 139);
+  --danger: rgb(196, 64, 48); /* distinct from primary crimson */
+  --warning: rgb(196, 149, 79); /* amber */
+  --success: rgb(122, 158, 110); /* muted green */
 
   /* Starfield usage (optional layering) */
   --starfield-opacity: 0.1; /* 0.08–0.12 recommended */
@@ -34,7 +34,7 @@
      Typography
      ------------------------- */
   --font-heading: var(--font-orbitron);
-  --font-body: var(---font-inter);
+  --font-body: var(--font-inter);
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -84,7 +84,7 @@
   --shadow-lg: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.45);
 
   /* Optional glow (use sparingly) */
-  --glow-primary: 0 0 0.75rem rgba(79, 163, 227, 1);
+  --glow-primary: 0 0 0.75rem rgba(168, 34, 34, 0.7);
 
   /* -------------------------
      Layout
@@ -111,6 +111,6 @@
 
   /* Top Navigation / Banner */
   --nav-height: 5rem;
-  --nav-bg: rgba(11, 18, 32, 0.85);
+  --nav-bg: rgba(12, 12, 13, 0.85);
   --nav-blur: 6px;
 }
