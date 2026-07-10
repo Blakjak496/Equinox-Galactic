@@ -94,17 +94,22 @@
   color: var(--muted);
 }
 
-.status-discrepancy {
-  color: var(--danger);
-  border-color: var(--danger);
-}
-
 .status-matched {
   color: var(--success, var(--text));
 }
 
 .status-pending_contract {
   color: var(--muted);
+}
+
+.discrepancyBadge {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 0.125rem var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  color: var(--danger);
+  border: 1px solid var(--danger);
 }
 
 .detailCell {

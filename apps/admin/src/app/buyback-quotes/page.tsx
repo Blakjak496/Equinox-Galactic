@@ -14,7 +14,6 @@ const STATUS_FILTERS = [
 ];
 
 const STATUS_LABELS: Record<string, string> = {
-  discrepancy: "discrepancy",
   pending_contract: "no contract",
   matched: "matched",
   expired: "expired",
@@ -80,11 +79,7 @@ export default function BuybackQuotes() {
                 {quotes.map((quote) => (
                   <Fragment key={quote._id}>
                     <tr
-                      className={
-                        quote.status === "discrepancy"
-                          ? styles.discrepancyRow
-                          : ""
-                      }
+                      className={quote.discrepancy ? styles.discrepancyRow : ""}
                       onClick={() =>
                         setExpandedId(
                           expandedId === quote._id ? null : quote._id,
@@ -98,6 +93,14 @@ export default function BuybackQuotes() {
                         >
                           {STATUS_LABELS[quote.status] ?? quote.status}
                         </span>
+                        {quote.discrepancy && (
+                          <span
+                            className={styles.discrepancyBadge}
+                            title="Contract contents or value don't match this quote"
+                          >
+                            ⚠ needs attention
+                          </span>
+                        )}
                       </td>
                       <td>{formatIsk(quote.totalOfferValue)}</td>
                       <td>{quote.items.length}</td>

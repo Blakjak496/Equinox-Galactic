@@ -278,7 +278,8 @@ export type BuybackQuote = {
   totalOfferValue: number;
   blendedPercent: number;
   pickupFee: number | null;
-  status: "pending_contract" | "matched" | "discrepancy" | "expired";
+  status: "pending_contract" | "matched" | "expired";
+  discrepancy: boolean;
   matchedContractId: number | null;
   createdAt: string;
   expiresAt: string;
