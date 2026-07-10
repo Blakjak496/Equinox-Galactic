@@ -1,0 +1,131 @@
+.container {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.section {
+  width: 100%;
+  padding: var(--space-4);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: var(--space-4);
+}
+
+.filterRow {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.filterButton {
+  appearance: none;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.filterButtonActive {
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-3);
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+}
+
+.table th {
+  text-align: left;
+  color: var(--muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.table tbody tr:not(.detailCell):hover {
+  cursor: pointer;
+  background: var(--surface);
+}
+
+.table td {
+  padding: var(--space-2) var(--space-3);
+  color: var(--text);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.discrepancyRow {
+  background: rgba(196, 64, 48, 0.08);
+}
+
+.statusPill {
+  display: inline-block;
+  padding: 0.125rem var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  border: 1px solid var(--hairline);
+  color: var(--muted);
+}
+
+.status-discrepancy {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.status-matched {
+  color: var(--success, var(--text));
+}
+
+.status-pending_contract {
+  color: var(--muted);
+}
+
+.detailCell {
+  background: var(--bg);
+  padding: var(--space-3) !important;
+}
+
+.itemsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.itemsTable th {
+  text-align: left;
+  color: var(--muted);
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.itemsTable td {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--hairline-soft);
+}

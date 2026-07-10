@@ -1,4 +1,4 @@
-import Card from "@/components/ui/Card/Card";
+import Card from "@shared/ui/Card/Card";
 import styles from "./page.module.css";
 
 export default function RegisterComplete() {

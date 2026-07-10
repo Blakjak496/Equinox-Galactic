@@ -1,1 +1,87 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  padding: var(--page-padding);
+  row-gap: var(--space-7);
+  background: var(--bg);
+}
 
+.bannerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--space-3);
+}
+
+.crest {
+  height: 4.5rem;
+  width: auto;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.tiles {
+  display: flex;
+  column-gap: var(--space-6);
+  row-gap: var(--space-6);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: var(--space-3);
+  width: 16rem;
+  height: 16rem;
+  background: var(--surface);
+  border: 1px solid var(--card-border);
+  border-top: 2px solid var(--primary);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  text-decoration: none;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.tile:hover {
+  background: var(--surface-elevated);
+  border-color: var(--primary);
+}
+
+.tileTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  text-align: center;
+}
+
+.tileSubtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+@media only screen and (max-width: 600px) {
+  .tile {
+    width: 80vw;
+    height: 12rem;
+  }
+}

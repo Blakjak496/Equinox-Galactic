@@ -1,0 +1,176 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  padding: var(--page-padding);
+  row-gap: var(--space-5);
+}
+
+.bannerWrapper {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--space-3);
+}
+
+.crest {
+  height: 3.5rem;
+  width: auto;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-5);
+  width: 100%;
+  max-width: var(--container-max);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+}
+
+.itemsInput {
+  width: 100%;
+  height: 10rem;
+  padding: var(--space-3) 0.9rem;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  resize: vertical;
+}
+
+.itemsInput::placeholder {
+  color: var(--text-muted);
+}
+
+.error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+}
+
+.capExceededNote {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--text-muted);
+}
+
+.capExceededValue {
+  display: block;
+  margin-top: var(--space-3);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--danger);
+}
+
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    min-width: 60rem;
+  }
+
+  .tableHead {
+    background: var(--surface-elevated);
+  }
+
+  tr {
+    display: flex;
+    justify-content: space-evenly;
+    min-height: 3rem;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td,
+  th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12.5%;
+    white-space: nowrap;
+    padding: 0 var(--space-2);
+  }
+
+  td:first-child,
+  th:first-child {
+    width: 20%;
+    justify-content: flex-start;
+    padding-left: var(--space-4);
+  }
+}
+
+.tableRowAlt {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.rejectedRow {
+  color: var(--text-muted);
+}
+
+.rejectedRow td {
+  opacity: 0.7;
+}
+
+.rejectedStatus {
+  color: var(--danger);
+  font-size: var(--text-sm);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.summaryLabel {
+  font-size: var(--text-md);
+  color: var(--text);
+}
+
+.summaryValue {
+  font-size: var(--text-md);
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.valueGroup {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-3);
+}
+
+.referenceIdNote {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard {
+    padding: var(--space-4);
+  }
+}

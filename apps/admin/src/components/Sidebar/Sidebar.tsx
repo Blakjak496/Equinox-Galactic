@@ -69,6 +69,27 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
             Jump Planner
           </NavItem>
           <NavItem
+            active={pathname === "/buyback-categories"}
+            route="/buyback-categories"
+            onClick={() => setOpen(false)}
+          >
+            Buyback Categories
+          </NavItem>
+          <NavItem
+            active={pathname === "/buyback-items"}
+            route="/buyback-items"
+            onClick={() => setOpen(false)}
+          >
+            Buyback Items
+          </NavItem>
+          <NavItem
+            active={pathname === "/buyback-quotes"}
+            route="/buyback-quotes"
+            onClick={() => setOpen(false)}
+          >
+            Buyback Quotes
+          </NavItem>
+          <NavItem
             active={pathname === "/settings"}
             route="/settings"
             onClick={() => setOpen(false)}

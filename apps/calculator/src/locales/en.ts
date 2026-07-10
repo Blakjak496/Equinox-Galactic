@@ -58,6 +58,38 @@ const en = {
   collateralFee: "Collateral Fee",
   rushPrice: "Rush Price (ISK)",
   maxVolume: "Max Volume (m³)",
+
+  buybackPageTitle: "Buyback Quote",
+  buybackPageSubtitle: "Paste your item list to get an itemised buyback offer",
+  getQuote: "Get Quote",
+
+  itemizedTitle: "Itemised Results",
+  colItem: "Item",
+  colCategory: "Category",
+  colQuantity: "Qty",
+  colJbvPerUnit: "JBV / Unit",
+  colTotalJbv: "Total JBV",
+  colPercentOffered: "% Offered",
+  colOfferValue: "Offer Value",
+  colStatus: "Status",
+  statusAccepted: "Accepted",
+  statusNotAccepted: "Not currently accepted",
+
+  summaryTitle: "Quote Summary",
+  totalJbv: "Total JBV",
+  totalOfferValue: "Total Offer Value",
+  blendedPercent: "Blended % Offered",
+
+  referenceId: "Reference ID",
+  referenceIdNote: "Include this reference in your in-game contract title",
+  finalValue: "Contract Value",
+
+  capExceededTitle: "Submission Too Large",
+  capExceededNote:
+    "This submission's offer value exceeds the 20,000,000,000 ISK cap. Please split it into multiple submissions and submit each separately.",
+
+  buybackErrorGeneric:
+    "Something went wrong getting your quote. Please try again.",
 } as const;
 
 export default en;

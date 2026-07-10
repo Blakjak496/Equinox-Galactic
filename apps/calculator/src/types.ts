@@ -92,3 +92,31 @@ export type JaniceAppraisal = {
     };
   }[];
 };
+
+export type BuybackQuoteItem = {
+  typeId: number;
+  name: string;
+  categoryName: string;
+  quantity: number;
+  jbvPerUnit: number;
+  totalJbv: number;
+  percentOffered: number;
+  offerValue: number;
+  accepted: boolean;
+  rejectReason: string | null;
+};
+
+export type BuybackQuoteResponse =
+  | {
+      capExceeded: true;
+      totalOfferValue: number;
+      message: string;
+    }
+  | {
+      capExceeded: false;
+      referenceId: string;
+      items: BuybackQuoteItem[];
+      totalJbv: number;
+      totalOfferValue: number;
+      blendedPercent: number;
+    };

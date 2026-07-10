@@ -58,6 +58,39 @@ const ru = {
   collateralFee: "Комиссия за коллатерал",
   rushPrice: "Цена срочности (ISK)",
   maxVolume: "Макс. объём (m³)",
+
+  buybackPageTitle: "Расчёт скупки",
+  buybackPageSubtitle:
+    "Вставьте список предметов, чтобы получить постатейное предложение по скупке",
+  getQuote: "Рассчитать",
+
+  itemizedTitle: "Постатейные результаты",
+  colItem: "Предмет",
+  colCategory: "Категория",
+  colQuantity: "Кол-во",
+  colJbvPerUnit: "JBV / шт.",
+  colTotalJbv: "Итого JBV",
+  colPercentOffered: "% предложения",
+  colOfferValue: "Сумма предложения",
+  colStatus: "Статус",
+  statusAccepted: "Принято",
+  statusNotAccepted: "Сейчас не принимается",
+
+  summaryTitle: "Итог по расчёту",
+  totalJbv: "Итого JBV",
+  totalOfferValue: "Итоговая сумма предложения",
+  blendedPercent: "Средний % предложения",
+
+  referenceId: "Номер ссылки",
+  referenceIdNote: "Укажите этот номер в названии контракта в игре",
+  finalValue: "Сумма контракта",
+
+  capExceededTitle: "Заявка слишком большая",
+  capExceededNote:
+    "Сумма предложения по этой заявке превышает лимит в 20 000 000 000 ISK. Пожалуйста, разделите заявку на несколько отдельных заявок.",
+
+  buybackErrorGeneric:
+    "Что-то пошло не так при расчёте. Пожалуйста, попробуйте снова.",
 } as const;
 
 export default ru;

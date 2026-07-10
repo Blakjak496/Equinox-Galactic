@@ -6,6 +6,7 @@
 
   --text: rgb(220, 222, 220);
   --text-muted: rgb(150, 152, 152);
+  --muted: var(--text-muted); /* alias - some page CSS still uses this name */
 
   --primary: rgb(168, 34, 34); /* crimson */
   --primary-hover: rgba(168, 34, 34, 0.6);

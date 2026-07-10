@@ -1,10 +1,10 @@
 "use client";
 
 import styles from "./page.module.css";
-import Card from "../../../components/ui/Card/Card";
+import Card from "@shared/ui/Card/Card";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { contractPriceCalc } from "@shared/quote/calculations";
-import PillCard from "../../../components/ui/PillCard/PillCard";
+import PillCard from "@shared/ui/PillCard/PillCard";
 import {
   Route,
   getRoute,
@@ -19,8 +19,8 @@ import {
   getDropdownOptions,
   INDUSTRY_PARKS,
 } from "../../../utils";
-import IconButton from "../../../components/ui/IconButton/IconButton";
-import Button from "../../../components/ui/Button/Button";
+import IconButton from "@shared/ui/IconButton/IconButton";
+import Button from "@shared/ui/Button/Button";
 import { handleGetAppraisal } from "@/app/api/janice";
 import { JaniceAppraisal } from "@/types";
 import { Switch } from "@mui/material";

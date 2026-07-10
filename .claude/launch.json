@@ -5,7 +5,15 @@
       "name": "admin",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "-w", "apps/admin"],
-      "port": 3000
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "calculator",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "-w", "apps/calculator"],
+      "port": 3001,
+      "autoPort": true
     }
   ]
 }

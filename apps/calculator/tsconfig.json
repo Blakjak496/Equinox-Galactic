@@ -30,7 +30,8 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "../../shared/quote/calculations.ts",
-    "../../shared/quote/route-rules.ts"
+    "../../shared/quote/route-rules.ts",
+    "../../shared/ui/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

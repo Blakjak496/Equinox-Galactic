@@ -53,6 +53,37 @@ const zh = {
   collateralFee: "担保费用",
   rushPrice: "加急价格 (ISK)",
   maxVolume: "最大体积 (m³)",
+
+  buybackPageTitle: "回收报价",
+  buybackPageSubtitle: "粘贴你的物品列表以获取逐项回收报价",
+  getQuote: "获取报价",
+
+  itemizedTitle: "逐项结果",
+  colItem: "物品",
+  colCategory: "类别",
+  colQuantity: "数量",
+  colJbvPerUnit: "单价 JBV",
+  colTotalJbv: "总 JBV",
+  colPercentOffered: "回收比例",
+  colOfferValue: "回收金额",
+  colStatus: "状态",
+  statusAccepted: "已接受",
+  statusNotAccepted: "当前不接受",
+
+  summaryTitle: "报价汇总",
+  totalJbv: "总 JBV",
+  totalOfferValue: "总回收金额",
+  blendedPercent: "综合回收比例",
+
+  referenceId: "参考编号",
+  referenceIdNote: "请在游戏内合同标题中包含此参考编号",
+  finalValue: "合同金额",
+
+  capExceededTitle: "提交金额过大",
+  capExceededNote:
+    "本次提交的回收金额超过 20,000,000,000 ISK 上限。请拆分为多次提交并分别提交。",
+
+  buybackErrorGeneric: "获取报价时出现问题，请重试。",
 } as const;
 
 export default zh;

@@ -136,6 +136,43 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ waypointNames, shipCategoryId }),
     }),
+
+  getBuybackCategories: () =>
+    apiFetch<{ ok: boolean; data: BuybackCategory[] }>(
+      "/admin/buyback-categories",
+    ),
+
+  updateBuybackCategory: (
+    id: string,
+    update: { accepted?: boolean; percentOffered?: number },
+  ) =>
+    apiFetch<{ ok: boolean; data: BuybackCategory }>(
+      `/admin/buyback-categories/${id}`,
+      { method: "PATCH", body: JSON.stringify(update) },
+    ),
+
+  searchBuybackItems: (params: { q?: string; categoryId?: string }) => {
+    const query = new URLSearchParams();
+    if (params.q) query.set("q", params.q);
+    if (params.categoryId) query.set("categoryId", params.categoryId);
+    return apiFetch<{ ok: boolean; data: BuybackItem[] }>(
+      `/admin/buyback-items?${query.toString()}`,
+    );
+  },
+
+  updateBuybackItem: (
+    id: string,
+    update: { accepted?: boolean | null; rateOverride?: number | null; notes?: string | null },
+  ) =>
+    apiFetch<{ ok: boolean; data: BuybackItem }>(
+      `/admin/buyback-items/${id}`,
+      { method: "PATCH", body: JSON.stringify(update) },
+    ),
+
+  getBuybackQuotes: (status?: string) =>
+    apiFetch<{ ok: boolean; data: BuybackQuote[] }>(
+      `/admin/buyback-quotes${status ? `?status=${status}` : ""}`,
+    ),
 };
 
 export type SystemNameMatch = {
@@ -200,4 +237,49 @@ export type Route = {
     tier: "public" | "corp";
     terms: Partial<Route["terms"]>;
   }[];
+};
+
+export type BuybackCategory = {
+  _id: string;
+  groupId: number;
+  name: string;
+  accepted: boolean;
+  percentOffered: number;
+};
+
+export type BuybackItem = {
+  _id: string;
+  typeId: number;
+  name: string;
+  categoryId: BuybackCategory;
+  accepted: boolean | null;
+  rateOverride: number | null;
+  notes: string | null;
+};
+
+export type BuybackQuoteItem = {
+  typeId: number;
+  name: string;
+  categoryName: string;
+  quantity: number;
+  jbvPerUnit: number;
+  totalJbv: number;
+  percentOffered: number;
+  offerValue: number;
+  accepted: boolean;
+  rejectReason: string | null;
+};
+
+export type BuybackQuote = {
+  _id: string;
+  referenceId: string;
+  items: BuybackQuoteItem[];
+  totalJbv: number;
+  totalOfferValue: number;
+  blendedPercent: number;
+  pickupFee: number | null;
+  status: "pending_contract" | "matched" | "discrepancy" | "expired";
+  matchedContractId: number | null;
+  createdAt: string;
+  expiresAt: string;
 };
