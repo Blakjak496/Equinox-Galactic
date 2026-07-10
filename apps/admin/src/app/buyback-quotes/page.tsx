@@ -6,12 +6,19 @@ import { api, BuybackQuote } from "@/lib/api";
 import styles from "./BuybackQuotes.module.css";
 
 const STATUS_FILTERS = [
-  { value: "", label: "All" },
   { value: "discrepancy", label: "Discrepancy" },
-  { value: "pending_contract", label: "Pending Contract" },
+  { value: "pending_contract", label: "No Contract" },
   { value: "matched", label: "Matched" },
   { value: "expired", label: "Expired" },
+  { value: "", label: "All" },
 ];
+
+const STATUS_LABELS: Record<string, string> = {
+  discrepancy: "discrepancy",
+  pending_contract: "no contract",
+  matched: "matched",
+  expired: "expired",
+};
 
 function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
@@ -19,7 +26,7 @@ function formatIsk(n: number): string {
 
 export default function BuybackQuotes() {
   const [quotes, setQuotes] = useState<BuybackQuote[]>([]);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("matched");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -89,7 +96,7 @@ export default function BuybackQuotes() {
                         <span
                           className={`${styles.statusPill} ${styles[`status-${quote.status}`]}`}
                         >
-                          {quote.status.replace("_", " ")}
+                          {STATUS_LABELS[quote.status] ?? quote.status}
                         </span>
                       </td>
                       <td>{formatIsk(quote.totalOfferValue)}</td>

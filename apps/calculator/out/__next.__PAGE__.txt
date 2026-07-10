@@ -1,8 +1,0 @@
-1:"$Sreact.fragment"
-2:I[12970,["/_next/static/chunks/f15264c27f264936.js"],""]
-3:I[72988,["/_next/static/chunks/3e2b3e49026f720c.js","/_next/static/chunks/4461753456801fad.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-:HL["/crest.png","image"]
-:HL["/_next/static/chunks/cf23b1bac9135428.css","style"]
-0:{"buildId":"Eu5wsu1asb3pIJ8eEpITr","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"page-module__Kw8lSq__page","children":[["$","div",null,{"className":"page-module__Kw8lSq__bannerWrapper","children":[["$","img",null,{"src":"/crest.png","alt":"Equinox crest","className":"page-module__Kw8lSq__crest"}],["$","span",null,{"className":"page-module__Kw8lSq__wordmark","children":["Equinox",["$","br",null,{}],"Galactic"]}]]}],["$","div",null,{"className":"page-module__Kw8lSq__tiles","children":[["$","$L2",null,{"href":"/pages/dashboard","className":"page-module__Kw8lSq__tile","children":[["$","span",null,{"className":"page-module__Kw8lSq__tileTitle","children":"Equinox Runners"}],["$","span",null,{"className":"page-module__Kw8lSq__tileSubtitle","children":"Hauling Quotes"}]]}],["$","$L2",null,{"href":"/pages/buyback","className":"page-module__Kw8lSq__tile","children":[["$","span",null,{"className":"page-module__Kw8lSq__tileTitle","children":"Equinox Cartel"}],["$","span",null,{"className":"page-module__Kw8lSq__tileSubtitle","children":"Buyback Quotes"}]]}]]}]]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/cf23b1bac9135428.css","precedence":"next"}],["$","script","script-0",{"src":"/_next/static/chunks/f15264c27f264936.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null

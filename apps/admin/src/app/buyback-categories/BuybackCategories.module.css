@@ -90,3 +90,64 @@
 .rateInput:disabled {
   opacity: 0.4;
 }
+
+.searchRow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.searchRow .search {
+  margin-bottom: 0;
+  max-width: 24rem;
+}
+
+.notesInput {
+  width: 10rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.expandButton {
+  appearance: none;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  width: 1.5rem;
+}
+
+.detailCell {
+  background: var(--bg);
+  padding: var(--space-3) !important;
+}
+
+.itemsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.itemsTable th {
+  text-align: left;
+  color: var(--muted);
+  font-family: var(--font-heading);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.itemsTable td {
+  padding: var(--space-1) var(--space-2);
+  color: var(--text);
+  border-bottom: 1px solid var(--hairline-soft);
+}
