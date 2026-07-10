@@ -11,31 +11,65 @@ type Props = {
   disabled?: boolean;
 };
 
+const MAX_SUGGESTIONS = 20;
+
+// Shared across every SystemAutocomplete instance on the page - fetched once
+// and reused, instead of querying the backend on every keystroke.
+let systemsCache: Promise<SystemNameMatch[]> | null = null;
+
+function getAllSystemsCached(): Promise<SystemNameMatch[]> {
+  if (!systemsCache) {
+    systemsCache = api.getAllSystems().then(
+      ({ data }) => data,
+      (err) => {
+        systemsCache = null; // allow a retry on the next mount if this failed
+        throw err;
+      },
+    );
+  }
+  return systemsCache;
+}
+
 export default function SystemAutocomplete({
   value,
   onChange,
   placeholder,
   disabled,
 }: Props) {
+  const [allSystems, setAllSystems] = useState<SystemNameMatch[] | null>(
+    null,
+  );
   const [suggestions, setSuggestions] = useState<SystemNameMatch[]>([]);
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!value || value.length < 2) {
+    let cancelled = false;
+    getAllSystemsCached()
+      .then((systems) => {
+        if (!cancelled) setAllSystems(systems);
+      })
+      .catch(() => {
+        if (!cancelled) setAllSystems([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!allSystems || !value || value.length < 2) {
       setSuggestions([]);
       return;
     }
 
-    const timeout = setTimeout(() => {
-      api
-        .searchSystems(value)
-        .then(({ data }) => setSuggestions(data))
-        .catch(() => setSuggestions([]));
-    }, 200);
-
-    return () => clearTimeout(timeout);
-  }, [value]);
+    const q = value.toLowerCase();
+    setSuggestions(
+      allSystems
+        .filter((system) => system.name.toLowerCase().startsWith(q))
+        .slice(0, MAX_SUGGESTIONS),
+    );
+  }, [allSystems, value]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

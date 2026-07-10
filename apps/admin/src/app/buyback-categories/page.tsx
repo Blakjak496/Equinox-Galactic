@@ -17,14 +17,19 @@ function acceptedToValue(accepted: boolean | null): string {
   return String(accepted);
 }
 
-type ItemDraft = { rateOverride: string; notes: string };
+type CategoryEdit = Partial<{ accepted: boolean; percentOffered: string }>;
+type ItemEdit = Partial<{
+  accepted: boolean | null;
+  rateOverride: string;
+  notes: string;
+}>;
 
 export default function BuybackCategories() {
   const [categories, setCategories] = useState<BuybackCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categorySearch, setCategorySearch] = useState("");
-  const [savingId, setSavingId] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const [itemsByCategory, setItemsByCategory] = useState<
@@ -33,7 +38,11 @@ export default function BuybackCategories() {
   const [loadingItemsFor, setLoadingItemsFor] = useState<Set<string>>(
     new Set(),
   );
-  const [drafts, setDrafts] = useState<Record<string, ItemDraft>>({});
+
+  const [categoryEdits, setCategoryEdits] = useState<
+    Record<string, CategoryEdit>
+  >({});
+  const [itemEdits, setItemEdits] = useState<Record<string, ItemEdit>>({});
 
   const [itemQuery, setItemQuery] = useState("");
   const [itemSearchResults, setItemSearchResults] = useState<
@@ -57,20 +66,8 @@ export default function BuybackCategories() {
     );
   }, [categories, categorySearch]);
 
-  const seedDraftsFor = (items: BuybackItem[]) => {
-    setDrafts((prev) => ({
-      ...prev,
-      ...Object.fromEntries(
-        items.map((item) => [
-          item._id,
-          {
-            rateOverride: item.rateOverride?.toString() ?? "",
-            notes: item.notes ?? "",
-          },
-        ]),
-      ),
-    }));
-  };
+  const dirtyCount =
+    Object.keys(categoryEdits).length + Object.keys(itemEdits).length;
 
   const toggleExpanded = async (category: BuybackCategory) => {
     const next = new Set(expandedIds);
@@ -92,7 +89,6 @@ export default function BuybackCategories() {
         categoryId: category._id,
       });
       setItemsByCategory((prev) => ({ ...prev, [category._id]: data }));
-      seedDraftsFor(data);
     } catch {
       setError(`Failed to load items for "${category.name}"`);
     } finally {
@@ -119,82 +115,18 @@ export default function BuybackCategories() {
     );
   };
 
-  const handleToggleAccepted = async (category: BuybackCategory) => {
-    setSavingId(category._id);
-    try {
-      const { data } = await api.updateBuybackCategory(category._id, {
-        accepted: !category.accepted,
-      });
-      setCategories((prev) =>
-        prev.map((c) => (c._id === data._id ? data : c)),
-      );
-    } catch {
-      setError(`Failed to update "${category.name}"`);
-    } finally {
-      setSavingId(null);
-    }
+  const setCategoryEdit = (categoryId: string, edit: CategoryEdit) => {
+    setCategoryEdits((prev) => ({
+      ...prev,
+      [categoryId]: { ...prev[categoryId], ...edit },
+    }));
   };
 
-  const handleRateBlur = async (category: BuybackCategory, value: string) => {
-    const percentOffered = Number(value);
-    if (
-      !Number.isFinite(percentOffered) ||
-      percentOffered === category.percentOffered
-    )
-      return;
-
-    setSavingId(category._id);
-    try {
-      const { data } = await api.updateBuybackCategory(category._id, {
-        percentOffered,
-      });
-      setCategories((prev) =>
-        prev.map((c) => (c._id === data._id ? data : c)),
-      );
-    } catch {
-      setError(`Failed to update "${category.name}"`);
-    } finally {
-      setSavingId(null);
-    }
-  };
-
-  const handleItemAcceptedChange = async (
-    item: BuybackItem,
-    value: string,
-  ) => {
-    const accepted = value === "inherit" ? null : value === "true";
-
-    setSavingId(item._id);
-    try {
-      const { data } = await api.updateBuybackItem(item._id, { accepted });
-      patchItemInPlace(data);
-    } catch {
-      setError(`Failed to update "${item.name}"`);
-    } finally {
-      setSavingId(null);
-    }
-  };
-
-  const handleItemSaveDraft = async (item: BuybackItem) => {
-    const draft = drafts[item._id];
-    if (!draft) return;
-
-    const rateOverride =
-      draft.rateOverride.trim() === "" ? null : Number(draft.rateOverride);
-    const notes = draft.notes.trim() === "" ? null : draft.notes.trim();
-
-    setSavingId(item._id);
-    try {
-      const { data } = await api.updateBuybackItem(item._id, {
-        rateOverride,
-        notes,
-      });
-      patchItemInPlace(data);
-    } catch {
-      setError(`Failed to update "${item.name}"`);
-    } finally {
-      setSavingId(null);
-    }
+  const setItemEdit = (itemId: string, edit: ItemEdit) => {
+    setItemEdits((prev) => ({
+      ...prev,
+      [itemId]: { ...prev[itemId], ...edit },
+    }));
   };
 
   const runItemSearch = async () => {
@@ -205,7 +137,6 @@ export default function BuybackCategories() {
     try {
       const { data } = await api.searchBuybackItems({ q: itemQuery.trim() });
       setItemSearchResults(data);
-      seedDraftsFor(data);
     } catch {
       setError("Failed to search buyback items");
     } finally {
@@ -218,66 +149,139 @@ export default function BuybackCategories() {
     setItemSearchResults(null);
   };
 
-  const renderItemRow = (item: BuybackItem, showCategory: boolean) => (
-    <tr
-      key={item._id}
-      className={savingId === item._id ? styles.rowSaving : ""}
-    >
-      <td>{item.name}</td>
-      {showCategory && <td>{item.categoryId.name}</td>}
-      <td>
-        <select
-          value={acceptedToValue(item.accepted)}
-          onChange={(e) => handleItemAcceptedChange(item, e.target.value)}
-        >
-          {ACCEPTED_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <input
-          type="number"
-          className={styles.rateInput}
-          placeholder="inherit"
-          value={drafts[item._id]?.rateOverride ?? ""}
-          onChange={(e) =>
-            setDrafts((prev) => ({
-              ...prev,
-              [item._id]: {
-                ...prev[item._id],
-                rateOverride: e.target.value,
-              },
-            }))
-          }
-        />
-      </td>
-      <td>
-        <input
-          type="text"
-          className={styles.notesInput}
-          value={drafts[item._id]?.notes ?? ""}
-          onChange={(e) =>
-            setDrafts((prev) => ({
-              ...prev,
-              [item._id]: { ...prev[item._id], notes: e.target.value },
-            }))
-          }
-        />
-      </td>
-      <td>
-        <Button
-          callback={() => handleItemSaveDraft(item)}
-          color="green"
-          disabled={savingId === item._id}
-        >
-          Save
-        </Button>
-      </td>
-    </tr>
-  );
+  const handleSaveChanges = async () => {
+    setSaving(true);
+    setError(null);
+
+    const categoryIds = Object.keys(categoryEdits);
+    const itemIds = Object.keys(itemEdits);
+
+    const categoryResults = await Promise.allSettled(
+      categoryIds.map((id) => {
+        const edit = categoryEdits[id];
+        const payload: { accepted?: boolean; percentOffered?: number } = {};
+        if (edit.accepted !== undefined) payload.accepted = edit.accepted;
+        if (edit.percentOffered !== undefined)
+          payload.percentOffered = Number(edit.percentOffered);
+        return api.updateBuybackCategory(id, payload);
+      }),
+    );
+
+    const itemResults = await Promise.allSettled(
+      itemIds.map((id) => {
+        const edit = itemEdits[id];
+        const payload: {
+          accepted?: boolean | null;
+          rateOverride?: number | null;
+          notes?: string | null;
+        } = {};
+        if (edit.accepted !== undefined) payload.accepted = edit.accepted;
+        if (edit.rateOverride !== undefined)
+          payload.rateOverride =
+            edit.rateOverride.trim() === "" ? null : Number(edit.rateOverride);
+        if (edit.notes !== undefined)
+          payload.notes = edit.notes.trim() === "" ? null : edit.notes;
+        return api.updateBuybackItem(id, payload);
+      }),
+    );
+
+    let failures = 0;
+    const succeededCategoryIds = new Set<string>();
+    categoryResults.forEach((result, idx) => {
+      if (result.status === "fulfilled") {
+        succeededCategoryIds.add(categoryIds[idx]);
+        const updated = result.value.data;
+        setCategories((prev) =>
+          prev.map((c) => (c._id === updated._id ? updated : c)),
+        );
+      } else {
+        failures++;
+      }
+    });
+
+    const succeededItemIds = new Set<string>();
+    itemResults.forEach((result, idx) => {
+      if (result.status === "fulfilled") {
+        succeededItemIds.add(itemIds[idx]);
+        patchItemInPlace(result.value.data);
+      } else {
+        failures++;
+      }
+    });
+
+    setCategoryEdits((prev) => {
+      const next = { ...prev };
+      succeededCategoryIds.forEach((id) => delete next[id]);
+      return next;
+    });
+    setItemEdits((prev) => {
+      const next = { ...prev };
+      succeededItemIds.forEach((id) => delete next[id]);
+      return next;
+    });
+
+    if (failures > 0) {
+      setError(
+        `Failed to save ${failures} change${failures === 1 ? "" : "s"}. Unsaved changes are still shown below.`,
+      );
+    }
+
+    setSaving(false);
+  };
+
+  const renderItemRow = (item: BuybackItem, showCategory: boolean) => {
+    const edit = itemEdits[item._id];
+    const accepted = edit?.accepted !== undefined ? edit.accepted : item.accepted;
+    const rateOverride =
+      edit?.rateOverride ?? item.rateOverride?.toString() ?? "";
+    const notes = edit?.notes ?? item.notes ?? "";
+    const isDirty = Boolean(edit);
+
+    return (
+      <tr key={item._id} className={isDirty ? styles.rowDirty : ""}>
+        <td>{item.name}</td>
+        {showCategory && <td>{item.categoryId.name}</td>}
+        <td>
+          <select
+            value={acceptedToValue(accepted)}
+            onChange={(e) =>
+              setItemEdit(item._id, {
+                accepted:
+                  e.target.value === "inherit"
+                    ? null
+                    : e.target.value === "true",
+              })
+            }
+          >
+            {ACCEPTED_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td>
+          <input
+            type="number"
+            className={styles.rateInput}
+            placeholder="inherit"
+            value={rateOverride}
+            onChange={(e) =>
+              setItemEdit(item._id, { rateOverride: e.target.value })
+            }
+          />
+        </td>
+        <td>
+          <input
+            type="text"
+            className={styles.notesInput}
+            value={notes}
+            onChange={(e) => setItemEdit(item._id, { notes: e.target.value })}
+          />
+        </td>
+      </tr>
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -288,8 +292,23 @@ export default function BuybackCategories() {
             Every EVE item group is seeded here, unaccepted by default. Turn
             on the ones you buy back, set their rate, then expand a category
             to browse its items and tick/rate individual ones that need to
-            differ from the category default.
+            differ from the category default. Nothing is saved until you
+            click Save Changes.
           </p>
+
+          <div className={styles.saveBar}>
+            <Button
+              callback={handleSaveChanges}
+              color="green"
+              disabled={saving || dirtyCount === 0}
+            >
+              {saving
+                ? "Saving…"
+                : dirtyCount > 0
+                  ? `Save Changes (${dirtyCount})`
+                  : "Save Changes"}
+            </Button>
+          </div>
 
           <div className={styles.searchRow}>
             <input
@@ -328,7 +347,6 @@ export default function BuybackCategories() {
                     <th>Accepted</th>
                     <th>Rate Override</th>
                     <th>Notes</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -359,77 +377,88 @@ export default function BuybackCategories() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredCategories.map((category) => (
-                      <Fragment key={category._id}>
-                        <tr
-                          className={
-                            savingId === category._id ? styles.rowSaving : ""
-                          }
-                        >
-                          <td>
-                            <button
-                              className={styles.expandButton}
-                              onClick={() => toggleExpanded(category)}
-                            >
-                              {expandedIds.has(category._id) ? "▾" : "▸"}
-                            </button>
-                          </td>
-                          <td>{category.name}</td>
-                          <td>
-                            <input
-                              type="checkbox"
-                              checked={category.accepted}
-                              onChange={() => handleToggleAccepted(category)}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="number"
-                              className={styles.rateInput}
-                              defaultValue={category.percentOffered}
-                              key={`${category._id}-${category.percentOffered}`}
-                              onBlur={(e) =>
-                                handleRateBlur(category, e.target.value)
-                              }
-                              disabled={!category.accepted}
-                            />
-                          </td>
-                        </tr>
-                        {expandedIds.has(category._id) && (
-                          <tr key={`${category._id}-items`}>
-                            <td colSpan={4} className={styles.detailCell}>
-                              {loadingItemsFor.has(category._id) ? (
-                                <p className={styles.muted}>
-                                  Loading items…
-                                </p>
-                              ) : itemsByCategory[category._id]?.length ===
-                                0 ? (
-                                <p className={styles.muted}>
-                                  No items found in this category.
-                                </p>
-                              ) : (
-                                <table className={styles.itemsTable}>
-                                  <thead>
-                                    <tr>
-                                      <th>Name</th>
-                                      <th>Accepted</th>
-                                      <th>Rate Override</th>
-                                      <th>Notes</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    {(itemsByCategory[category._id] ?? []).map(
-                                      (item) => renderItemRow(item, false),
-                                    )}
-                                  </tbody>
-                                </table>
-                              )}
+                    {filteredCategories.map((category) => {
+                      const edit = categoryEdits[category._id];
+                      const accepted =
+                        edit?.accepted !== undefined
+                          ? edit.accepted
+                          : category.accepted;
+                      const percentOffered =
+                        edit?.percentOffered ??
+                        category.percentOffered.toString();
+                      const isDirty = Boolean(edit);
+
+                      return (
+                        <Fragment key={category._id}>
+                          <tr className={isDirty ? styles.rowDirty : ""}>
+                            <td>
+                              <button
+                                className={styles.expandButton}
+                                onClick={() => toggleExpanded(category)}
+                              >
+                                {expandedIds.has(category._id) ? "▾" : "▸"}
+                              </button>
+                            </td>
+                            <td>{category.name}</td>
+                            <td>
+                              <input
+                                type="checkbox"
+                                checked={accepted}
+                                onChange={(e) =>
+                                  setCategoryEdit(category._id, {
+                                    accepted: e.target.checked,
+                                  })
+                                }
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                className={styles.rateInput}
+                                value={percentOffered}
+                                onChange={(e) =>
+                                  setCategoryEdit(category._id, {
+                                    percentOffered: e.target.value,
+                                  })
+                                }
+                              />
                             </td>
                           </tr>
-                        )}
-                      </Fragment>
-                    ))}
+                          {expandedIds.has(category._id) && (
+                            <tr key={`${category._id}-items`}>
+                              <td colSpan={4} className={styles.detailCell}>
+                                {loadingItemsFor.has(category._id) ? (
+                                  <p className={styles.muted}>
+                                    Loading items…
+                                  </p>
+                                ) : itemsByCategory[category._id]?.length ===
+                                  0 ? (
+                                  <p className={styles.muted}>
+                                    No items found in this category.
+                                  </p>
+                                ) : (
+                                  <table className={styles.itemsTable}>
+                                    <thead>
+                                      <tr>
+                                        <th>Name</th>
+                                        <th>Accepted</th>
+                                        <th>Rate Override</th>
+                                        <th>Notes</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {(
+                                        itemsByCategory[category._id] ?? []
+                                      ).map((item) => renderItemRow(item, false))}
+                                    </tbody>
+                                  </table>
+                                )}
+                              </td>
+                            </tr>
+                          )}
+                        </Fragment>
+                      );
+                    })}
                   </tbody>
                 </table>
               )}

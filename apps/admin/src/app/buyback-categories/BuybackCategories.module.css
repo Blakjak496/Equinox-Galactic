@@ -72,8 +72,14 @@
   border-bottom: 1px solid var(--hairline-soft);
 }
 
-.rowSaving {
-  opacity: 0.5;
+.rowDirty {
+  background: rgba(196, 149, 79, 0.08);
+}
+
+.saveBar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: var(--space-4);
 }
 
 .rateInput {
@@ -85,10 +91,6 @@
   padding: var(--space-1) var(--space-2);
   font-family: var(--font-body);
   font-size: 0.875rem;
-}
-
-.rateInput:disabled {
-  opacity: 0.4;
 }
 
 .searchRow {
