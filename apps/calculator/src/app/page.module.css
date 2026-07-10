@@ -45,8 +45,8 @@
   align-items: center;
   justify-content: center;
   row-gap: var(--space-3);
-  width: 16rem;
-  height: 16rem;
+  width: clamp(14rem, 26vw, 22rem);
+  aspect-ratio: 1;
   background: var(--surface);
   border: 1px solid var(--card-border);
   border-top: 2px solid var(--primary);
@@ -77,11 +77,4 @@
   font-family: var(--font-body);
   font-size: var(--text-sm);
   color: var(--text-muted);
-}
-
-@media only screen and (max-width: 600px) {
-  .tile {
-    width: 80vw;
-    height: 12rem;
-  }
 }

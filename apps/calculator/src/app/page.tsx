@@ -14,11 +14,11 @@ export default function Home() {
       </div>
 
       <div className={styles.tiles}>
-        <Link href="/pages/dashboard" className={styles.tile}>
+        <Link href="/hauling" className={styles.tile}>
           <span className={styles.tileTitle}>Equinox Runners</span>
           <span className={styles.tileSubtitle}>Hauling Quotes</span>
         </Link>
-        <Link href="/pages/buyback" className={styles.tile}>
+        <Link href="/buyback" className={styles.tile}>
           <span className={styles.tileTitle}>Equinox Cartel</span>
           <span className={styles.tileSubtitle}>Buyback Quotes</span>
         </Link>

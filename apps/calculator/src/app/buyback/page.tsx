@@ -4,8 +4,9 @@ import { ChangeEvent, useState } from "react";
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
 import Button from "@shared/ui/Button/Button";
+import BackHomeButton from "@shared/ui/BackHomeButton/BackHomeButton";
 import IconButton from "@shared/ui/IconButton/IconButton";
-import { getBuybackQuote } from "../../api/buybackQuote";
+import { getBuybackQuote } from "@/app/api/buybackQuote";
 import { BuybackQuoteResponse } from "@/types";
 import { createTranslator } from "@/lib/i18n";
 
@@ -48,6 +49,7 @@ export default function BuybackDashboard() {
 
   return (
     <div className={styles.dashboard}>
+      <BackHomeButton />
       <div className={styles.bannerWrapper}>
         <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
         <span className={styles.wordmark}>

@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
+import BackHomeButton from "@shared/ui/BackHomeButton/BackHomeButton";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { contractPriceCalc } from "@shared/quote/calculations";
 import PillCard from "@shared/ui/PillCard/PillCard";
@@ -18,7 +19,7 @@ import {
   extractQuoteInputsFromJanice,
   getDropdownOptions,
   INDUSTRY_PARKS,
-} from "../../../utils";
+} from "@/utils";
 import IconButton from "@shared/ui/IconButton/IconButton";
 import Button from "@shared/ui/Button/Button";
 import { handleGetAppraisal } from "@/app/api/janice";
@@ -229,6 +230,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboard}>
+      <BackHomeButton />
       <div className={styles.languageSelectWrapper}>
         <label htmlFor="language" className={styles.languageSelectLabel}>
           {t("language")}

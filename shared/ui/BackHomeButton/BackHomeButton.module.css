@@ -1,0 +1,34 @@
+.button {
+  position: absolute;
+  top: var(--page-padding);
+  left: var(--page-padding);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  column-gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.button:hover {
+  color: var(--text);
+  border-color: var(--primary);
+}
+
+@media only screen and (max-width: 768px) {
+  .button {
+    position: static;
+    align-self: flex-start;
+  }
+}
