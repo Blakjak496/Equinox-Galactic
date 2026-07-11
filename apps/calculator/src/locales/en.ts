@@ -61,6 +61,8 @@ const en = {
 
   buybackPageTitle: "Buyback Quote",
   buybackPageSubtitle: "Paste your item list to get an itemised buyback offer",
+  pickupLocation: "Pickup Location",
+  selectLocation: "Select Location",
   getQuote: "Get Quote",
 
   itemizedTitle: "Itemised Results",
@@ -78,6 +80,7 @@ const en = {
   summaryTitle: "Quote Summary",
   totalJbv: "Total JBV",
   totalOfferValue: "Total Offer Value",
+  haulingFee: "Hauling Fee",
   blendedPercent: "Blended % Offered",
 
   referenceId: "Reference ID",
@@ -86,7 +89,7 @@ const en = {
 
   capExceededTitle: "Submission Too Large",
   capExceededNote:
-    "This submission's offer value exceeds the 20,000,000,000 ISK cap. Please split it into multiple submissions and submit each separately.",
+    "This submission's net total exceeds the 20,000,000,000 ISK cap. Please split it into multiple submissions and submit each separately.",
 
   buybackErrorGeneric:
     "Something went wrong getting your quote. Please try again.",

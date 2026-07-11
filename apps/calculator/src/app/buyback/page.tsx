@@ -1,13 +1,13 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
 import Button from "@shared/ui/Button/Button";
 import BackHomeButton from "@shared/ui/BackHomeButton/BackHomeButton";
 import IconButton from "@shared/ui/IconButton/IconButton";
-import { getBuybackQuote } from "@/app/api/buybackQuote";
-import { BuybackQuoteResponse } from "@/types";
+import { getBuybackQuote, getBuybackLocations } from "@/app/api/buybackQuote";
+import { BuybackLocation, BuybackQuoteResponse } from "@/types";
 import { createTranslator } from "@/lib/i18n";
 
 const t = createTranslator("en");
@@ -22,22 +22,30 @@ function copyTextToClipboard(text: string): void {
 
 export default function BuybackDashboard() {
   const [itemsText, setItemsText] = useState("");
+  const [locations, setLocations] = useState<BuybackLocation[]>([]);
+  const [locationId, setLocationId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<BuybackQuoteResponse | null>(null);
+
+  useEffect(() => {
+    getBuybackLocations()
+      .then(setLocations)
+      .catch(() => setLocations([]));
+  }, []);
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setItemsText(e.target.value);
   };
 
   const handleGetQuote = async () => {
-    if (!itemsText.trim()) return;
+    if (!itemsText.trim() || !locationId) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      const quote = await getBuybackQuote(itemsText);
+      const quote = await getBuybackQuote(itemsText, locationId);
       setResult(quote);
     } catch {
       setError(t("buybackErrorGeneric"));
@@ -65,6 +73,24 @@ export default function BuybackDashboard() {
           subtitle={t("buybackPageSubtitle")}
         >
           <div className={styles.cardContent}>
+            <div className={styles.locationWrapper}>
+              <label htmlFor="pickup-location" className={styles.locationLabel}>
+                {t("pickupLocation")}
+              </label>
+              <select
+                id="pickup-location"
+                className={styles.locationSelect}
+                value={locationId}
+                onChange={(e) => setLocationId(e.target.value)}
+              >
+                <option value="">{t("selectLocation")}</option>
+                {locations.map((location) => (
+                  <option key={location._id} value={location._id}>
+                    {location.name}
+                  </option>
+                ))}
+              </select>
+            </div>
             <textarea
               className={styles.itemsInput}
               placeholder={t("appraisalPlaceholder")}
@@ -74,7 +100,7 @@ export default function BuybackDashboard() {
             <Button
               type={1}
               onClick={handleGetQuote}
-              disabled={loading || !itemsText.trim()}
+              disabled={loading || !itemsText.trim() || !locationId}
             >
               {loading ? t("loading") : t("getQuote")}
             </Button>
@@ -86,7 +112,7 @@ export default function BuybackDashboard() {
           <Card mainTitle={t("capExceededTitle")}>
             <p className={styles.capExceededNote}>{t("capExceededNote")}</p>
             <span className={styles.capExceededValue}>
-              {formatIsk(result.totalOfferValue)}
+              {formatIsk(result.netTotalPrice)}
             </span>
           </Card>
         )}
@@ -151,6 +177,12 @@ export default function BuybackDashboard() {
                 </span>
               </div>
               <div className={styles.summaryRow}>
+                <span className={styles.summaryLabel}>{t("haulingFee")}</span>
+                <span className={styles.summaryValue}>
+                  {formatIsk(result.haulingFee)}
+                </span>
+              </div>
+              <div className={styles.summaryRow}>
                 <span className={styles.summaryLabel}>
                   {t("blendedPercent")}
                 </span>
@@ -180,13 +212,13 @@ export default function BuybackDashboard() {
                 <span className={styles.summaryLabel}>{t("finalValue")}</span>
                 <div className={styles.valueGroup}>
                   <span className={styles.summaryValue}>
-                    {formatIsk(result.totalOfferValue)}
+                    {formatIsk(result.netTotalPrice)}
                   </span>
                   <IconButton
                     alt={t("copyToClipboard")}
                     onClick={() =>
                       copyTextToClipboard(
-                        String(Math.round(result.totalOfferValue)),
+                        String(Math.round(result.netTotalPrice)),
                       )
                     }
                   />

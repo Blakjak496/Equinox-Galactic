@@ -9,6 +9,7 @@ import styles from "./Settings.module.css";
 export default function Settings() {
   const [maxCollateral, setMaxCollateral] = useState<number>(0);
   const [isotopePrice, setIsotopePrice] = useState<number>(0);
+  const [salesTaxPercent, setSalesTaxPercent] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,9 +20,10 @@ export default function Settings() {
       .getConfig()
       .then(({ data }) => {
         setMaxCollateral(data.maxCollateral);
-        // existing Config docs predate this field, so it may come back
+        // existing Config docs predate these fields, so they may come back
         // undefined until an admin saves a value here for the first time
         setIsotopePrice(data.isotopePrice ?? 650);
+        setSalesTaxPercent((data.salesTaxRate ?? 0.042) * 100);
       })
       .catch(() => setError("Failed to load config"))
       .finally(() => setLoading(false));
@@ -33,7 +35,11 @@ export default function Settings() {
     setSaving(true);
 
     try {
-      await api.updateConfig({ maxCollateral, isotopePrice });
+      await api.updateConfig({
+        maxCollateral,
+        isotopePrice,
+        salesTaxRate: salesTaxPercent / 100,
+      });
       setSaved(true);
     } catch {
       setError("Failed to save config");
@@ -79,6 +85,23 @@ export default function Settings() {
                 />
                 <span className={styles.hint}>
                   {isotopePrice.toLocaleString()} ISK per isotope
+                </span>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Sales Tax Rate (%)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={salesTaxPercent}
+                  onChange={(e) => {
+                    setSalesTaxPercent(Number(e.target.value));
+                    setSaved(false);
+                  }}
+                />
+                <span className={styles.hint}>
+                  Used only for the buyback margin safety net, not a direct
+                  deduction
                 </span>
               </div>
 

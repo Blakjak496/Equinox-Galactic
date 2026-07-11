@@ -56,6 +56,8 @@ const zh = {
 
   buybackPageTitle: "回收报价",
   buybackPageSubtitle: "粘贴你的物品列表以获取逐项回收报价",
+  pickupLocation: "提货地点",
+  selectLocation: "选择地点",
   getQuote: "获取报价",
 
   itemizedTitle: "逐项结果",
@@ -73,6 +75,7 @@ const zh = {
   summaryTitle: "报价汇总",
   totalJbv: "总 JBV",
   totalOfferValue: "总回收金额",
+  haulingFee: "运输费",
   blendedPercent: "综合回收比例",
 
   referenceId: "参考编号",
@@ -81,7 +84,7 @@ const zh = {
 
   capExceededTitle: "提交金额过大",
   capExceededNote:
-    "本次提交的回收金额超过 20,000,000,000 ISK 上限。请拆分为多次提交并分别提交。",
+    "本次提交的净总额超过 20,000,000,000 ISK 上限。请拆分为多次提交并分别提交。",
 
   buybackErrorGeneric: "获取报价时出现问题，请重试。",
 } as const;

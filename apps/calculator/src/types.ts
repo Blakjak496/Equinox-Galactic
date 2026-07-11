@@ -109,7 +109,7 @@ export type BuybackQuoteItem = {
 export type BuybackQuoteResponse =
   | {
       capExceeded: true;
-      totalOfferValue: number;
+      netTotalPrice: number;
       message: string;
     }
   | {
@@ -119,4 +119,12 @@ export type BuybackQuoteResponse =
       totalJbv: number;
       totalOfferValue: number;
       blendedPercent: number;
+      haulingFee: number;
+      netTotalPrice: number;
     };
+
+export type BuybackLocation = {
+  _id: string;
+  name: string;
+  isHub: boolean;
+};

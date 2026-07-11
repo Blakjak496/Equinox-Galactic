@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
-import { api, BuybackCategory, BuybackItem } from "@/lib/api";
+import { api, BuybackCategory, BuybackItem, BuybackLocation } from "@/lib/api";
 import styles from "./BuybackCategories.module.css";
 
 const ACCEPTED_OPTIONS = [
@@ -17,15 +17,25 @@ function acceptedToValue(accepted: boolean | null): string {
   return String(accepted);
 }
 
-type CategoryEdit = Partial<{ accepted: boolean; percentOffered: string }>;
+type CategoryEdit = Partial<{
+  accepted: boolean;
+  percentOffered: string;
+  variable: boolean;
+  haulable: boolean;
+  acceptedLocationIds: string[] | null;
+}>;
 type ItemEdit = Partial<{
   accepted: boolean | null;
   rateOverride: string;
   notes: string;
+  variable: boolean | null;
+  haulable: boolean | null;
+  acceptedLocationIds: string[] | null;
 }>;
 
 export default function BuybackCategories() {
   const [categories, setCategories] = useState<BuybackCategory[]>([]);
+  const [locations, setLocations] = useState<BuybackLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categorySearch, setCategorySearch] = useState("");
@@ -56,6 +66,11 @@ export default function BuybackCategories() {
       .then(({ data }) => setCategories(data))
       .catch(() => setError("Failed to load buyback categories"))
       .finally(() => setLoading(false));
+
+    api
+      .getBuybackLocations()
+      .then(({ data }) => setLocations(data))
+      .catch(() => {});
   }, []);
 
   const filteredCategories = useMemo(() => {
@@ -159,10 +174,20 @@ export default function BuybackCategories() {
     const categoryResults = await Promise.allSettled(
       categoryIds.map((id) => {
         const edit = categoryEdits[id];
-        const payload: { accepted?: boolean; percentOffered?: number } = {};
+        const payload: {
+          accepted?: boolean;
+          percentOffered?: number;
+          variable?: boolean;
+          haulable?: boolean;
+          acceptedLocationIds?: string[] | null;
+        } = {};
         if (edit.accepted !== undefined) payload.accepted = edit.accepted;
         if (edit.percentOffered !== undefined)
           payload.percentOffered = Number(edit.percentOffered);
+        if (edit.variable !== undefined) payload.variable = edit.variable;
+        if (edit.haulable !== undefined) payload.haulable = edit.haulable;
+        if (edit.acceptedLocationIds !== undefined)
+          payload.acceptedLocationIds = edit.acceptedLocationIds;
         return api.updateBuybackCategory(id, payload);
       }),
     );
@@ -174,6 +199,9 @@ export default function BuybackCategories() {
           accepted?: boolean | null;
           rateOverride?: number | null;
           notes?: string | null;
+          variable?: boolean | null;
+          haulable?: boolean | null;
+          acceptedLocationIds?: string[] | null;
         } = {};
         if (edit.accepted !== undefined) payload.accepted = edit.accepted;
         if (edit.rateOverride !== undefined)
@@ -181,6 +209,10 @@ export default function BuybackCategories() {
             edit.rateOverride.trim() === "" ? null : Number(edit.rateOverride);
         if (edit.notes !== undefined)
           payload.notes = edit.notes.trim() === "" ? null : edit.notes;
+        if (edit.variable !== undefined) payload.variable = edit.variable;
+        if (edit.haulable !== undefined) payload.haulable = edit.haulable;
+        if (edit.acceptedLocationIds !== undefined)
+          payload.acceptedLocationIds = edit.acceptedLocationIds;
         return api.updateBuybackItem(id, payload);
       }),
     );
@@ -229,12 +261,49 @@ export default function BuybackCategories() {
     setSaving(false);
   };
 
+  const renderLocationsSelect = (
+    acceptedLocationIds: string[] | null,
+    onChange: (ids: string[] | null) => void,
+  ) => (
+    <div className={styles.locationsCell}>
+      <select
+        multiple
+        size={3}
+        className={styles.locationsSelect}
+        value={acceptedLocationIds ?? []}
+        onChange={(e) => {
+          const selected = Array.from(e.target.selectedOptions).map(
+            (o) => o.value,
+          );
+          onChange(selected.length === 0 ? null : selected);
+        }}
+      >
+        {locations.map((location) => (
+          <option key={location._id} value={location._id}>
+            {location.name}
+            {location.isHub ? " (hub)" : ""}
+          </option>
+        ))}
+      </select>
+      <span className={styles.locationsHint}>
+        {acceptedLocationIds ? `${acceptedLocationIds.length} selected` : "All"}
+      </span>
+    </div>
+  );
+
   const renderItemRow = (item: BuybackItem, showCategory: boolean) => {
     const edit = itemEdits[item._id];
-    const accepted = edit?.accepted !== undefined ? edit.accepted : item.accepted;
+    const accepted =
+      edit?.accepted !== undefined ? edit.accepted : item.accepted;
     const rateOverride =
       edit?.rateOverride ?? item.rateOverride?.toString() ?? "";
     const notes = edit?.notes ?? item.notes ?? "";
+    const variable = edit?.variable !== undefined ? edit.variable : item.variable;
+    const haulable = edit?.haulable !== undefined ? edit.haulable : item.haulable;
+    const acceptedLocationIds =
+      edit?.acceptedLocationIds !== undefined
+        ? edit.acceptedLocationIds
+        : item.acceptedLocationIds;
     const isDirty = Boolean(edit);
 
     return (
@@ -279,6 +348,49 @@ export default function BuybackCategories() {
             onChange={(e) => setItemEdit(item._id, { notes: e.target.value })}
           />
         </td>
+        <td>
+          <select
+            value={acceptedToValue(variable)}
+            onChange={(e) =>
+              setItemEdit(item._id, {
+                variable:
+                  e.target.value === "inherit"
+                    ? null
+                    : e.target.value === "true",
+              })
+            }
+          >
+            {ACCEPTED_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td>
+          <select
+            value={acceptedToValue(haulable)}
+            onChange={(e) =>
+              setItemEdit(item._id, {
+                haulable:
+                  e.target.value === "inherit"
+                    ? null
+                    : e.target.value === "true",
+              })
+            }
+          >
+            {ACCEPTED_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td>
+          {renderLocationsSelect(acceptedLocationIds, (ids) =>
+            setItemEdit(item._id, { acceptedLocationIds: ids }),
+          )}
+        </td>
       </tr>
     );
   };
@@ -292,8 +404,11 @@ export default function BuybackCategories() {
             Every EVE item group is seeded here, unaccepted by default. Turn
             on the ones you buy back, set their rate, then expand a category
             to browse its items and tick/rate individual ones that need to
-            differ from the category default. Nothing is saved until you
-            click Save Changes.
+            differ from the category default. Variable gates the liquidity
+            modifier and margin safety net; Haulable controls whether an
+            item's volume counts toward the hauling fee; Locations restricts
+            which pickup locations this category/item can be quoted from
+            (empty = all). Nothing is saved until you click Save Changes.
           </p>
 
           <div className={styles.saveBar}>
@@ -339,20 +454,25 @@ export default function BuybackCategories() {
             itemSearchResults.length === 0 ? (
               <p className={styles.muted}>No items matched.</p>
             ) : (
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Accepted</th>
-                    <th>Rate Override</th>
-                    <th>Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {itemSearchResults.map((item) => renderItemRow(item, true))}
-                </tbody>
-              </table>
+              <div className={styles.tableScroll}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Accepted</th>
+                      <th>Rate Override</th>
+                      <th>Notes</th>
+                      <th>Variable</th>
+                      <th>Haulable</th>
+                      <th>Locations</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {itemSearchResults.map((item) => renderItemRow(item, true))}
+                  </tbody>
+                </table>
+              </div>
             )
           ) : (
             <>
@@ -367,100 +487,155 @@ export default function BuybackCategories() {
               {loading ? (
                 <p className={styles.muted}>Loading…</p>
               ) : (
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Name</th>
-                      <th>Accepted</th>
-                      <th>% Offered</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredCategories.map((category) => {
-                      const edit = categoryEdits[category._id];
-                      const accepted =
-                        edit?.accepted !== undefined
-                          ? edit.accepted
-                          : category.accepted;
-                      const percentOffered =
-                        edit?.percentOffered ??
-                        category.percentOffered.toString();
-                      const isDirty = Boolean(edit);
+                <div className={styles.tableScroll}>
+                  <table className={styles.table}>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Accepted</th>
+                        <th>% Offered</th>
+                        <th>Variable</th>
+                        <th>Haulable</th>
+                        <th>Locations</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredCategories.map((category) => {
+                        const edit = categoryEdits[category._id];
+                        const accepted =
+                          edit?.accepted !== undefined
+                            ? edit.accepted
+                            : category.accepted;
+                        const percentOffered =
+                          edit?.percentOffered ??
+                          category.percentOffered.toString();
+                        const variable =
+                          edit?.variable !== undefined
+                            ? edit.variable
+                            : category.variable;
+                        const haulable =
+                          edit?.haulable !== undefined
+                            ? edit.haulable
+                            : category.haulable;
+                        const acceptedLocationIds =
+                          edit?.acceptedLocationIds !== undefined
+                            ? edit.acceptedLocationIds
+                            : category.acceptedLocationIds;
+                        const isDirty = Boolean(edit);
 
-                      return (
-                        <Fragment key={category._id}>
-                          <tr className={isDirty ? styles.rowDirty : ""}>
-                            <td>
-                              <button
-                                className={styles.expandButton}
-                                onClick={() => toggleExpanded(category)}
-                              >
-                                {expandedIds.has(category._id) ? "▾" : "▸"}
-                              </button>
-                            </td>
-                            <td>{category.name}</td>
-                            <td>
-                              <input
-                                type="checkbox"
-                                checked={accepted}
-                                onChange={(e) =>
-                                  setCategoryEdit(category._id, {
-                                    accepted: e.target.checked,
-                                  })
-                                }
-                              />
-                            </td>
-                            <td>
-                              <input
-                                type="number"
-                                className={styles.rateInput}
-                                value={percentOffered}
-                                onChange={(e) =>
-                                  setCategoryEdit(category._id, {
-                                    percentOffered: e.target.value,
-                                  })
-                                }
-                              />
-                            </td>
-                          </tr>
-                          {expandedIds.has(category._id) && (
-                            <tr key={`${category._id}-items`}>
-                              <td colSpan={4} className={styles.detailCell}>
-                                {loadingItemsFor.has(category._id) ? (
-                                  <p className={styles.muted}>
-                                    Loading items…
-                                  </p>
-                                ) : itemsByCategory[category._id]?.length ===
-                                  0 ? (
-                                  <p className={styles.muted}>
-                                    No items found in this category.
-                                  </p>
-                                ) : (
-                                  <table className={styles.itemsTable}>
-                                    <thead>
-                                      <tr>
-                                        <th>Name</th>
-                                        <th>Accepted</th>
-                                        <th>Rate Override</th>
-                                        <th>Notes</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {(
-                                        itemsByCategory[category._id] ?? []
-                                      ).map((item) => renderItemRow(item, false))}
-                                    </tbody>
-                                  </table>
+                        return (
+                          <Fragment key={category._id}>
+                            <tr className={isDirty ? styles.rowDirty : ""}>
+                              <td>
+                                <button
+                                  className={styles.expandButton}
+                                  onClick={() => toggleExpanded(category)}
+                                >
+                                  {expandedIds.has(category._id) ? "▾" : "▸"}
+                                </button>
+                              </td>
+                              <td>{category.name}</td>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  checked={accepted}
+                                  onChange={(e) =>
+                                    setCategoryEdit(category._id, {
+                                      accepted: e.target.checked,
+                                    })
+                                  }
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="number"
+                                  className={styles.rateInput}
+                                  value={percentOffered}
+                                  onChange={(e) =>
+                                    setCategoryEdit(category._id, {
+                                      percentOffered: e.target.value,
+                                    })
+                                  }
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  checked={variable}
+                                  onChange={(e) =>
+                                    setCategoryEdit(category._id, {
+                                      variable: e.target.checked,
+                                    })
+                                  }
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="checkbox"
+                                  checked={haulable}
+                                  onChange={(e) =>
+                                    setCategoryEdit(category._id, {
+                                      haulable: e.target.checked,
+                                    })
+                                  }
+                                />
+                              </td>
+                              <td>
+                                {renderLocationsSelect(
+                                  acceptedLocationIds,
+                                  (ids) =>
+                                    setCategoryEdit(category._id, {
+                                      acceptedLocationIds: ids,
+                                    }),
                                 )}
                               </td>
                             </tr>
-                          )}
-                        </Fragment>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            {expandedIds.has(category._id) && (
+                              <tr key={`${category._id}-items`}>
+                                <td colSpan={7} className={styles.detailCell}>
+                                  {loadingItemsFor.has(category._id) ? (
+                                    <p className={styles.muted}>
+                                      Loading items…
+                                    </p>
+                                  ) : itemsByCategory[category._id]?.length ===
+                                    0 ? (
+                                    <p className={styles.muted}>
+                                      No items found in this category.
+                                    </p>
+                                  ) : (
+                                    <div className={styles.tableScroll}>
+                                      <table className={styles.itemsTable}>
+                                        <thead>
+                                          <tr>
+                                            <th>Name</th>
+                                            <th>Accepted</th>
+                                            <th>Rate Override</th>
+                                            <th>Notes</th>
+                                            <th>Variable</th>
+                                            <th>Haulable</th>
+                                            <th>Locations</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {(
+                                            itemsByCategory[category._id] ?? []
+                                          ).map((item) =>
+                                            renderItemRow(item, false),
+                                          )}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  )}
+                                </td>
+                              </tr>
+                            )}
+                          </Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               )}
             </>
           )}

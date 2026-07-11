@@ -31,10 +31,18 @@ export const api = {
   getConfig: () =>
     apiFetch<{
       ok: boolean;
-      data: { maxCollateral: number; isotopePrice: number };
+      data: {
+        maxCollateral: number;
+        isotopePrice: number;
+        salesTaxRate: number;
+      };
     }>("/admin/config"),
 
-  updateConfig: (data: { maxCollateral?: number; isotopePrice?: number }) =>
+  updateConfig: (data: {
+    maxCollateral?: number;
+    isotopePrice?: number;
+    salesTaxRate?: number;
+  }) =>
     apiFetch<{ ok: boolean }>("/admin/config", {
       method: "PATCH",
       body: JSON.stringify(data),
@@ -171,6 +179,31 @@ export const api = {
     apiFetch<{ ok: boolean; data: BuybackQuote[] }>(
       `/admin/buyback-quotes${status ? `?status=${status}` : ""}`,
     ),
+
+  getBuybackLocations: () =>
+    apiFetch<{ ok: boolean; data: BuybackLocation[] }>(
+      "/admin/buyback-locations",
+    ),
+
+  createBuybackLocation: (location: Omit<BuybackLocation, "_id">) =>
+    apiFetch<{ ok: boolean; data: BuybackLocation }>(
+      "/admin/buyback-locations",
+      { method: "POST", body: JSON.stringify(location) },
+    ),
+
+  updateBuybackLocation: (
+    id: string,
+    location: Omit<BuybackLocation, "_id">,
+  ) =>
+    apiFetch<{ ok: boolean; data: BuybackLocation }>(
+      `/admin/buyback-locations/${id}`,
+      { method: "PUT", body: JSON.stringify(location) },
+    ),
+
+  deleteBuybackLocation: (id: string) =>
+    apiFetch<{ ok: boolean }>(`/admin/buyback-locations/${id}`, {
+      method: "DELETE",
+    }),
 };
 
 export type SystemNameMatch = {
@@ -243,6 +276,9 @@ export type BuybackCategory = {
   name: string;
   accepted: boolean;
   percentOffered: number;
+  variable: boolean;
+  haulable: boolean;
+  acceptedLocationIds: string[] | null;
 };
 
 export type BuybackItem = {
@@ -253,6 +289,16 @@ export type BuybackItem = {
   accepted: boolean | null;
   rateOverride: number | null;
   notes: string | null;
+  variable: boolean | null;
+  haulable: boolean | null;
+  acceptedLocationIds: string[] | null;
+};
+
+export type BuybackLocation = {
+  _id: string;
+  name: string;
+  isHub: boolean;
+  distance: number;
 };
 
 export type BuybackQuoteItem = {
@@ -275,7 +321,11 @@ export type BuybackQuote = {
   totalJbv: number;
   totalOfferValue: number;
   blendedPercent: number;
-  pickupFee: number | null;
+  locationId: string;
+  locationName: string;
+  haulingRatePerM3: number;
+  haulingFee: number;
+  netTotalPrice: number;
   status: "pending_contract" | "matched" | "expired";
   discrepancy: boolean;
   matchedContractId: number | null;
