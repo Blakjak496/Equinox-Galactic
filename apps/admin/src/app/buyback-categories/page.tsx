@@ -25,6 +25,23 @@ function acceptedToValue(accepted: boolean | null): string {
   return String(accepted);
 }
 
+function formatLiquidityInfo(item: BuybackItem): string {
+  if (item.liquidityModifier === null || item.liquidityUpdatedAt === null) {
+    return "Liquidity: not yet computed";
+  }
+  const lm = item.liquidityModifier.toFixed(2);
+  const li = item.jitaLiquidityIndex?.toFixed(2) ?? "—";
+  const ageMs = Date.now() - new Date(item.liquidityUpdatedAt).getTime();
+  const ageHours = Math.round(ageMs / (60 * 60 * 1000));
+  const age =
+    ageHours < 1
+      ? "just now"
+      : ageHours < 24
+        ? `${ageHours}h ago`
+        : `${Math.round(ageHours / 24)}d ago`;
+  return `Liquidity: LM ${lm} · LI ${li} · updated ${age}`;
+}
+
 type CategoryEdit = Partial<{
   accepted: boolean;
   percentOffered: string;
@@ -129,6 +146,9 @@ const ItemRow = memo(function ItemRow(props: {
           value={rateOverride}
           onChange={(e) => onEdit(item._id, { rateOverride: e.target.value })}
         />
+        <div className={styles.liquidityInfo}>
+          {formatLiquidityInfo(item)}
+        </div>
       </td>
       <td>
         <input

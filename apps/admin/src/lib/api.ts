@@ -292,6 +292,9 @@ export type BuybackItem = {
   variable: boolean | null;
   haulable: boolean | null;
   acceptedLocationIds: string[] | null;
+  liquidityModifier: number | null;
+  jitaLiquidityIndex: number | null;
+  liquidityUpdatedAt: string | null;
 };
 
 export type BuybackLocation = {

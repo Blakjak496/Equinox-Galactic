@@ -93,6 +93,13 @@
   font-size: 0.875rem;
 }
 
+.liquidityInfo {
+  margin-top: var(--space-1);
+  color: var(--muted);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+
 .searchRow {
   display: flex;
   gap: var(--space-3);
