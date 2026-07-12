@@ -68,23 +68,24 @@ const ru = {
 
   itemizedTitle: "Постатейные результаты",
   colItem: "Предмет",
-  colCategory: "Категория",
+  colVolume: "Объём (м³)",
   colQuantity: "Кол-во",
   colJbvPerUnit: "JBV / шт.",
   colTotalJbv: "Итого JBV",
   colPercentOffered: "% предложения",
   colOfferValue: "Сумма предложения",
-  colStatus: "Статус",
+  colAccepted: "Принято",
   statusAccepted: "Принято",
   statusNotAccepted: "Сейчас не принимается",
 
   summaryTitle: "Итог по расчёту",
   notAcceptedWarning:
-    "{count} предмет(ов) в вашем списке сейчас не принимаются. Проверьте детализацию ниже.",
+    "{count} предмет(ов) в вашем списке сейчас не принимаются. Проверьте детализацию выше и удалите их перед созданием контракта.",
   itemsNotAccepted: "Не принято предметов",
   itemsAccepted: "Принято предметов",
+  volumeAccepted: "Объём (принятые)",
   totalJbvAccepted: "Итого JBV (принятые)",
-  haulingFee: "Плата за доставку",
+  haulingFee: "Плата за м³",
   pickupFee: "Плата за забор груза",
   totalOfferFinal: "Итоговое предложение",
 

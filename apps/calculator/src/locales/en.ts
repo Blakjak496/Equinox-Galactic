@@ -67,23 +67,24 @@ const en = {
 
   itemizedTitle: "Itemised Results",
   colItem: "Item",
-  colCategory: "Category",
+  colVolume: "Volume (m³)",
   colQuantity: "Qty",
   colJbvPerUnit: "JBV / Unit",
   colTotalJbv: "Total JBV",
   colPercentOffered: "% Offered",
   colOfferValue: "Offer Value",
-  colStatus: "Status",
+  colAccepted: "Accepted",
   statusAccepted: "Accepted",
   statusNotAccepted: "Not currently accepted",
 
   summaryTitle: "Quote Summary",
   notAcceptedWarning:
-    "{count} item(s) in your list are not currently accepted. Check the itemised results below.",
+    "{count} item(s) in your list are not currently accepted. Check the itemised results above and remove them before creating your contract.",
   itemsNotAccepted: "Items Not Accepted",
   itemsAccepted: "Items Accepted",
+  volumeAccepted: "Volume (Accepted)",
   totalJbvAccepted: "Total JBV (Accepted)",
-  haulingFee: "Hauling Fee",
+  haulingFee: "M³ Fee",
   pickupFee: "Pickup Fee",
   totalOfferFinal: "Total Offer",
 

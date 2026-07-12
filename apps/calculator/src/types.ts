@@ -100,6 +100,7 @@ export type BuybackQuoteItem = {
   quantity: number;
   jbvPerUnit: number;
   totalJbv: number;
+  volume: number;
   percentOffered: number;
   offerValue: number;
   accepted: boolean;

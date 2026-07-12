@@ -16,6 +16,10 @@ function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
 }
 
+function formatVolume(n: number): string {
+  return `${n.toLocaleString(undefined, { maximumFractionDigits: 2 })} m³`;
+}
+
 function copyTextToClipboard(text: string): void {
   navigator.clipboard.writeText(text);
 }
@@ -125,13 +129,13 @@ export default function BuybackDashboard() {
                   <tbody>
                     <tr className={styles.tableHead}>
                       <th>{t("colItem")}</th>
-                      <th>{t("colCategory")}</th>
+                      <th>{t("colVolume")}</th>
                       <th>{t("colQuantity")}</th>
                       <th>{t("colJbvPerUnit")}</th>
                       <th>{t("colTotalJbv")}</th>
                       <th>{t("colPercentOffered")}</th>
                       <th>{t("colOfferValue")}</th>
-                      <th>{t("colStatus")}</th>
+                      <th>{t("colAccepted")}</th>
                     </tr>
                     {result.items.map((item, idx) => (
                       <tr
@@ -139,20 +143,27 @@ export default function BuybackDashboard() {
                         className={`${idx % 2 === 1 ? styles.tableRowAlt : ""} ${!item.accepted ? styles.rejectedRow : ""}`}
                       >
                         <td>{item.name}</td>
-                        <td>{item.categoryName}</td>
+                        <td>{formatVolume(item.volume)}</td>
                         <td>{item.quantity.toLocaleString()}</td>
                         <td>{formatIsk(item.jbvPerUnit)}</td>
                         <td>{formatIsk(item.totalJbv)}</td>
                         <td>{item.accepted ? `${item.percentOffered}%` : "—"}</td>
                         <td>{item.accepted ? formatIsk(item.offerValue) : "—"}</td>
-                        <td
-                          className={
-                            !item.accepted ? styles.rejectedStatus : undefined
-                          }
-                        >
-                          {item.accepted
-                            ? t("statusAccepted")
-                            : (item.rejectReason ?? t("statusNotAccepted"))}
+                        <td>
+                          <span
+                            className={
+                              item.accepted
+                                ? styles.statusIconAccepted
+                                : styles.statusIconRejected
+                            }
+                            title={
+                              item.accepted
+                                ? t("statusAccepted")
+                                : (item.rejectReason ?? t("statusNotAccepted"))
+                            }
+                          >
+                            {item.accepted ? "✓" : "✗"}
+                          </span>
                         </td>
                       </tr>
                     ))}
@@ -169,6 +180,10 @@ export default function BuybackDashboard() {
               const rejectedCount = result.items.length - acceptedCount;
               const acceptedTotalJbv = acceptedItems.reduce(
                 (sum, item) => sum + item.totalJbv,
+                0,
+              );
+              const acceptedVolume = acceptedItems.reduce(
+                (sum, item) => sum + item.volume,
                 0,
               );
 
@@ -193,6 +208,14 @@ export default function BuybackDashboard() {
                     </span>
                     <span className={styles.summaryValue}>
                       {acceptedCount}
+                    </span>
+                  </div>
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("volumeAccepted")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {formatVolume(acceptedVolume)}
                     </span>
                   </div>
                   <div className={styles.summaryRow}>

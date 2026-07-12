@@ -62,22 +62,24 @@ const zh = {
 
   itemizedTitle: "逐项结果",
   colItem: "物品",
-  colCategory: "类别",
+  colVolume: "体积 (m³)",
   colQuantity: "数量",
   colJbvPerUnit: "单价 JBV",
   colTotalJbv: "总 JBV",
   colPercentOffered: "回收比例",
   colOfferValue: "回收金额",
-  colStatus: "状态",
+  colAccepted: "已接受",
   statusAccepted: "已接受",
   statusNotAccepted: "当前不接受",
 
   summaryTitle: "报价汇总",
-  notAcceptedWarning: "您列表中有 {count} 件物品当前不被接受。请查看下方的逐项结果。",
+  notAcceptedWarning:
+    "您列表中有 {count} 件物品当前不被接受。请查看上方的逐项结果，并在创建合同前将其移除。",
   itemsNotAccepted: "未接受物品数",
   itemsAccepted: "已接受物品数",
+  volumeAccepted: "体积（已接受）",
   totalJbvAccepted: "总 JBV（已接受）",
-  haulingFee: "运输费",
+  haulingFee: "立方米费用",
   pickupFee: "取件费",
   totalOfferFinal: "总回收金额",
 
