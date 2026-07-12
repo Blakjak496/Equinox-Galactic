@@ -76,6 +76,7 @@ const zh = {
   totalJbv: "总 JBV",
   totalOfferValue: "总回收金额",
   haulingFee: "运输费",
+  pickupFee: "取件费",
   blendedPercent: "综合回收比例",
 
   referenceId: "参考编号",

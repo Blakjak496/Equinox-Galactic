@@ -299,6 +299,7 @@ export type BuybackLocation = {
   name: string;
   isHub: boolean;
   distance: number;
+  distanceFromHub: number | null;
 };
 
 export type BuybackQuoteItem = {

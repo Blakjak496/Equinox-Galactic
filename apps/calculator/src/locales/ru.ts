@@ -82,6 +82,7 @@ const ru = {
   totalJbv: "Итого JBV",
   totalOfferValue: "Итоговая сумма предложения",
   haulingFee: "Плата за доставку",
+  pickupFee: "Плата за забор груза",
   blendedPercent: "Средний % предложения",
 
   referenceId: "Номер ссылки",

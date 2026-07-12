@@ -182,6 +182,16 @@ export default function BuybackDashboard() {
                   {formatIsk(result.haulingFee)}
                 </span>
               </div>
+              {result.pickupFee > 0 && (
+                <div className={styles.summaryRow}>
+                  <span className={styles.summaryLabel}>
+                    {t("pickupFee")}
+                  </span>
+                  <span className={styles.summaryValue}>
+                    {formatIsk(result.pickupFee)}
+                  </span>
+                </div>
+              )}
               <div className={styles.summaryRow}>
                 <span className={styles.summaryLabel}>
                   {t("blendedPercent")}

@@ -120,6 +120,7 @@ export type BuybackQuoteResponse =
       totalOfferValue: number;
       blendedPercent: number;
       haulingFee: number;
+      pickupFee: number;
       netTotalPrice: number;
     };
 

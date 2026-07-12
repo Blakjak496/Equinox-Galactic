@@ -10,6 +10,7 @@ const EMPTY_FORM = {
   name: "",
   isHub: false,
   distance: 0,
+  distanceFromHub: "",
 };
 
 export default function BuybackLocations() {
@@ -38,6 +39,10 @@ export default function BuybackLocations() {
       name: location.name,
       isHub: location.isHub,
       distance: location.distance,
+      distanceFromHub:
+        location.distanceFromHub != null
+          ? String(location.distanceFromHub)
+          : "",
     });
     setError(null);
   };
@@ -70,6 +75,10 @@ export default function BuybackLocations() {
       name: form.name.trim(),
       isHub: form.isHub,
       distance: Number(form.distance),
+      distanceFromHub:
+        form.distanceFromHub.trim() === ""
+          ? null
+          : Number(form.distanceFromHub),
     };
 
     try {
@@ -121,6 +130,18 @@ export default function BuybackLocations() {
                 }
               />
             </div>
+            <div className={styles.inputGroup}>
+              <label>Pickup Distance</label>
+              <input
+                type="number"
+                step="0.01"
+                value={form.distanceFromHub}
+                onChange={(e) =>
+                  setForm({ ...form, distanceFromHub: e.target.value })
+                }
+                placeholder="Leave blank for no pickup service"
+              />
+            </div>
             <div className={styles.checkboxGroup}>
               <label>
                 <input
@@ -134,6 +155,12 @@ export default function BuybackLocations() {
               </label>
             </div>
           </div>
+
+          <p className={styles.hint}>
+            Pickup Distance is the LY from this location to its hub. Only set
+            it for satellite locations with a pickup service - leave it
+            blank for hubs or locations you don&apos;t offer pickup from.
+          </p>
 
           {error && <p className={styles.error}>{error}</p>}
 
@@ -172,6 +199,7 @@ export default function BuybackLocations() {
                   <th>Name</th>
                   <th>Hub</th>
                   <th>Distance</th>
+                  <th>Pickup Distance</th>
                   <th></th>
                 </tr>
               </thead>
@@ -181,6 +209,7 @@ export default function BuybackLocations() {
                     <td>{location.name}</td>
                     <td>{location.isHub ? "Yes" : "No"}</td>
                     <td>{location.distance}</td>
+                    <td>{location.distanceFromHub ?? "—"}</td>
                     <td className={styles.actions}>
                       <Button
                         callback={() => handleEdit(location)}

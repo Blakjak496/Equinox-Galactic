@@ -81,6 +81,7 @@ const en = {
   totalJbv: "Total JBV",
   totalOfferValue: "Total Offer Value",
   haulingFee: "Hauling Fee",
+  pickupFee: "Pickup Fee",
   blendedPercent: "Blended % Offered",
 
   referenceId: "Reference ID",
