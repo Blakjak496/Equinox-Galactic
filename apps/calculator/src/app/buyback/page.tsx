@@ -161,50 +161,81 @@ export default function BuybackDashboard() {
               </div>
             </Card>
 
-            <Card mainTitle={t("summaryTitle")}>
-              <div className={styles.summaryRow}>
-                <span className={styles.summaryLabel}>{t("totalJbv")}</span>
-                <span className={styles.summaryValue}>
-                  {formatIsk(result.totalJbv)}
-                </span>
-              </div>
-              <div className={styles.summaryRow}>
-                <span className={styles.summaryLabel}>
-                  {t("totalOfferValue")}
-                </span>
-                <span className={styles.summaryValue}>
-                  {formatIsk(result.totalOfferValue)}
-                </span>
-              </div>
-              <div className={styles.summaryRow}>
-                <span className={styles.summaryLabel}>{t("haulingFee")}</span>
-                <span className={styles.summaryValue}>
-                  {formatIsk(result.haulingFee)}
-                </span>
-              </div>
-              {result.pickupFee > 0 && (
-                <div className={styles.summaryRow}>
-                  <span className={styles.summaryLabel}>
-                    {t("pickupFee")}
-                  </span>
-                  <span className={styles.summaryValue}>
-                    {formatIsk(result.pickupFee)}
-                  </span>
-                </div>
-              )}
-              <div className={styles.summaryRow}>
-                <span className={styles.summaryLabel}>
-                  {t("blendedPercent")}
-                </span>
-                <span className={styles.summaryValue}>
-                  {result.blendedPercent.toFixed(1)}%
-                </span>
-              </div>
-            </Card>
+            {(() => {
+              const acceptedItems = result.items.filter(
+                (item) => item.accepted,
+              );
+              const acceptedCount = acceptedItems.length;
+              const rejectedCount = result.items.length - acceptedCount;
+              const acceptedTotalJbv = acceptedItems.reduce(
+                (sum, item) => sum + item.totalJbv,
+                0,
+              );
+
+              return (
+                <Card mainTitle={t("summaryTitle")}>
+                  {rejectedCount > 0 && (
+                    <p className={styles.notAcceptedWarning}>
+                      {t("notAcceptedWarning", { count: rejectedCount })}
+                    </p>
+                  )}
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("itemsNotAccepted")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {rejectedCount}
+                    </span>
+                  </div>
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("itemsAccepted")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {acceptedCount}
+                    </span>
+                  </div>
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("totalJbvAccepted")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {formatIsk(acceptedTotalJbv)}
+                    </span>
+                  </div>
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("haulingFee")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {formatIsk(result.haulingFee)}
+                    </span>
+                  </div>
+                  {result.pickupFee > 0 && (
+                    <div className={styles.summaryRow}>
+                      <span className={styles.summaryLabel}>
+                        {t("pickupFee")}
+                      </span>
+                      <span className={styles.summaryValue}>
+                        {formatIsk(result.pickupFee)}
+                      </span>
+                    </div>
+                  )}
+                  <div className={styles.summaryRowFinal}>
+                    <span className={styles.summaryLabel}>
+                      {t("totalOfferFinal")}
+                    </span>
+                    <span className={styles.summaryValueFinal}>
+                      {formatIsk(result.netTotalPrice)}
+                    </span>
+                  </div>
+                </Card>
+              );
+            })()}
 
             <Card mainTitle={t("contractDetailsTitle")}>
               <div className={styles.summaryRow}>
-                <span className={styles.summaryLabel}>{t("referenceId")}</span>
+                <span className={styles.summaryLabel}>{t("description")}</span>
                 <div className={styles.valueGroup}>
                   <span className={styles.summaryValue}>
                     {result.referenceId}
@@ -216,10 +247,26 @@ export default function BuybackDashboard() {
                 </div>
               </div>
               <span className={styles.referenceIdNote}>
-                {t("referenceIdNote")}
+                {t("referenceIdRejectedNote")}
               </span>
               <div className={styles.summaryRow}>
-                <span className={styles.summaryLabel}>{t("finalValue")}</span>
+                <span className={styles.summaryLabel}>
+                  {t("availability")}
+                </span>
+                <div className={styles.valueGroup}>
+                  <span className={styles.summaryValue}>
+                    {t("privateAvailability")}
+                  </span>
+                  <IconButton
+                    alt={t("copyToClipboard")}
+                    onClick={() => copyTextToClipboard(t("issuer"))}
+                  />
+                </div>
+              </div>
+              <div className={styles.summaryRow}>
+                <span className={styles.summaryLabel}>
+                  {t("iWillReceive")}
+                </span>
                 <div className={styles.valueGroup}>
                   <span className={styles.summaryValue}>
                     {formatIsk(result.netTotalPrice)}
@@ -233,6 +280,14 @@ export default function BuybackDashboard() {
                     }
                   />
                 </div>
+              </div>
+              <div className={styles.summaryRow}>
+                <span className={styles.summaryLabel}>
+                  {t("expiration")}
+                </span>
+                <span className={styles.summaryValue}>
+                  {t("buybackExpirationValue")}
+                </span>
               </div>
             </Card>
           </>

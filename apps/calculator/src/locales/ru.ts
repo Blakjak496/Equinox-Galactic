@@ -79,15 +79,20 @@ const ru = {
   statusNotAccepted: "Сейчас не принимается",
 
   summaryTitle: "Итог по расчёту",
-  totalJbv: "Итого JBV",
-  totalOfferValue: "Итоговая сумма предложения",
+  notAcceptedWarning:
+    "{count} предмет(ов) в вашем списке сейчас не принимаются. Проверьте детализацию ниже.",
+  itemsNotAccepted: "Не принято предметов",
+  itemsAccepted: "Принято предметов",
+  totalJbvAccepted: "Итого JBV (принятые)",
   haulingFee: "Плата за доставку",
   pickupFee: "Плата за забор груза",
-  blendedPercent: "Средний % предложения",
+  totalOfferFinal: "Итоговое предложение",
 
-  referenceId: "Номер ссылки",
-  referenceIdNote: "Укажите этот номер в названии контракта в игре",
-  finalValue: "Сумма контракта",
+  referenceIdRejectedNote:
+    "Укажите этот номер ссылки в описании контракта. Контракты без него будут отклонены.",
+  privateAvailability: "Приватно для Equinox Galactic",
+  iWillReceive: "Я получу",
+  buybackExpirationValue: "4 недели",
 
   capExceededTitle: "Заявка слишком большая",
   capExceededNote:

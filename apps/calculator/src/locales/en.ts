@@ -78,15 +78,20 @@ const en = {
   statusNotAccepted: "Not currently accepted",
 
   summaryTitle: "Quote Summary",
-  totalJbv: "Total JBV",
-  totalOfferValue: "Total Offer Value",
+  notAcceptedWarning:
+    "{count} item(s) in your list are not currently accepted. Check the itemised results below.",
+  itemsNotAccepted: "Items Not Accepted",
+  itemsAccepted: "Items Accepted",
+  totalJbvAccepted: "Total JBV (Accepted)",
   haulingFee: "Hauling Fee",
   pickupFee: "Pickup Fee",
-  blendedPercent: "Blended % Offered",
+  totalOfferFinal: "Total Offer",
 
-  referenceId: "Reference ID",
-  referenceIdNote: "Include this reference in your in-game contract title",
-  finalValue: "Contract Value",
+  referenceIdRejectedNote:
+    "Paste this reference ID into your contract's description. Contracts missing it will be rejected.",
+  privateAvailability: "Private to Equinox Galactic",
+  iWillReceive: "I will receive",
+  buybackExpirationValue: "4 Weeks",
 
   capExceededTitle: "Submission Too Large",
   capExceededNote:

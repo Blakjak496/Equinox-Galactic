@@ -73,15 +73,19 @@ const zh = {
   statusNotAccepted: "当前不接受",
 
   summaryTitle: "报价汇总",
-  totalJbv: "总 JBV",
-  totalOfferValue: "总回收金额",
+  notAcceptedWarning: "您列表中有 {count} 件物品当前不被接受。请查看下方的逐项结果。",
+  itemsNotAccepted: "未接受物品数",
+  itemsAccepted: "已接受物品数",
+  totalJbvAccepted: "总 JBV（已接受）",
   haulingFee: "运输费",
   pickupFee: "取件费",
-  blendedPercent: "综合回收比例",
+  totalOfferFinal: "总回收金额",
 
-  referenceId: "参考编号",
-  referenceIdNote: "请在游戏内合同标题中包含此参考编号",
-  finalValue: "合同金额",
+  referenceIdRejectedNote:
+    "请将此参考编号粘贴到合同的描述中。缺少此编号的合同将被拒绝。",
+  privateAvailability: "仅限 Equinox Galactic",
+  iWillReceive: "我将收到",
+  buybackExpirationValue: "4 周",
 
   capExceededTitle: "提交金额过大",
   capExceededNote:
