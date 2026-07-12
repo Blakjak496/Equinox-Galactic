@@ -165,15 +165,28 @@
   gap: var(--space-1);
 }
 
-.locationsSelect {
-  width: 9rem;
+.locationsCheckboxList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-height: 5.5rem;
+  overflow-y: auto;
+  width: 11rem;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
-  color: var(--text);
   padding: var(--space-1);
+}
+
+.locationsCheckboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--text);
   font-family: var(--font-body);
   font-size: 0.75rem;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 .locationsHint {

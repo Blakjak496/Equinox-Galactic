@@ -264,32 +264,42 @@ export default function BuybackCategories() {
   const renderLocationsSelect = (
     acceptedLocationIds: string[] | null,
     onChange: (ids: string[] | null) => void,
-  ) => (
-    <div className={styles.locationsCell}>
-      <select
-        multiple
-        size={3}
-        className={styles.locationsSelect}
-        value={acceptedLocationIds ?? []}
-        onChange={(e) => {
-          const selected = Array.from(e.target.selectedOptions).map(
-            (o) => o.value,
-          );
-          onChange(selected.length === 0 ? null : selected);
-        }}
-      >
-        {locations.map((location) => (
-          <option key={location._id} value={location._id}>
-            {location.name}
-            {location.isHub ? " (hub)" : ""}
-          </option>
-        ))}
-      </select>
-      <span className={styles.locationsHint}>
-        {acceptedLocationIds ? `${acceptedLocationIds.length} selected` : "All"}
-      </span>
-    </div>
-  );
+  ) => {
+    const selected = acceptedLocationIds ?? [];
+
+    const toggleLocation = (locationId: string) => {
+      const next = selected.includes(locationId)
+        ? selected.filter((id) => id !== locationId)
+        : [...selected, locationId];
+      onChange(next.length === 0 ? null : next);
+    };
+
+    return (
+      <div className={styles.locationsCell}>
+        <div className={styles.locationsCheckboxList}>
+          {locations.map((location) => (
+            <label
+              key={location._id}
+              className={styles.locationsCheckboxLabel}
+            >
+              <input
+                type="checkbox"
+                checked={selected.includes(location._id)}
+                onChange={() => toggleLocation(location._id)}
+              />
+              {location.name}
+              {location.isHub ? " (hub)" : ""}
+            </label>
+          ))}
+        </div>
+        <span className={styles.locationsHint}>
+          {acceptedLocationIds
+            ? `${acceptedLocationIds.length} selected`
+            : "All"}
+        </span>
+      </div>
+    );
+  };
 
   const renderItemRow = (item: BuybackItem, showCategory: boolean) => {
     const edit = itemEdits[item._id];
