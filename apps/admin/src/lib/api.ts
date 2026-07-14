@@ -28,6 +28,15 @@ export const api = {
   getStats: () =>
     apiFetch<{ ok: boolean; data: Record<string, number> }>("/admin/stats"),
 
+  getStatsTrends: () =>
+    apiFetch<{
+      ok: boolean;
+      data: {
+        hauling: TrendPoint[];
+        buyback: TrendPoint[];
+      };
+    }>("/admin/stats/trends"),
+
   getConfig: () =>
     apiFetch<{
       ok: boolean;
@@ -220,6 +229,12 @@ export const api = {
     apiFetch<{ ok: boolean }>(`/admin/buyback-locations/${id}`, {
       method: "DELETE",
     }),
+};
+
+export type TrendPoint = {
+  date: string;
+  count: number;
+  value: number;
 };
 
 export type SystemNameMatch = {

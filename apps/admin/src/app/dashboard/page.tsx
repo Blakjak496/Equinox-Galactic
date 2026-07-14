@@ -2,12 +2,24 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Panel from "@/components/Panel/Panel";
 import styles from "./Dashboard.module.css";
 import MetricCard from "@/components/MetricCard/MetricCard";
-import { api } from "@/lib/api";
+import TrendChart from "@/components/TrendChart/TrendChart";
+import { api, TrendPoint } from "@/lib/api";
 
 function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
+}
+
+// No "ISK" suffix - the card label already says "Revenue", and the compact
+// notation (e.g. 45.2B) is already tight against the card width at this
+// font size without it.
+function formatIskCompact(n: number): string {
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(n);
 }
 
 function ActionCard(props: {
@@ -19,79 +31,37 @@ function ActionCard(props: {
 }) {
   const { label, value, sub, accent, href } = props;
   const card = (
-    <div
-      className={`${styles.actionCard} ${href ? styles.actionCardLink : ""}`}
-      style={{ borderTopColor: accent }}
-    >
+    <div className={styles.actionCard} style={{ borderTopColor: accent }}>
       <span className={styles.actionCardLabel}>{label}</span>
       <span className={styles.actionCardValue}>{value}</span>
       {sub && <span className={styles.actionCardSub}>{sub}</span>}
     </div>
   );
-  return href ? <Link href={href}>{card}</Link> : card;
-}
-
-function ProportionBar(props: {
-  segments: { label: string; value: number; color: string }[];
-}) {
-  const { segments } = props;
-  const total = segments.reduce((sum, s) => sum + s.value, 0);
-
-  let cursor = 0;
-  const rects =
-    total === 0 ? (
-      <rect x={0} y={0} width={1000} height={28} style={{ fill: "var(--hairline)" }} />
-    ) : (
-      segments.map((s) => {
-        const width = (s.value / total) * 1000;
-        const rect = (
-          <rect
-            key={s.label}
-            x={cursor}
-            y={0}
-            width={width}
-            height={28}
-            style={{ fill: s.color }}
-          />
-        );
-        cursor += width;
-        return rect;
-      })
-    );
-
-  return (
-    <div className={styles.barWrapper}>
-      <div className={styles.barTrack}>
-        <svg
-          viewBox="0 0 1000 28"
-          preserveAspectRatio="none"
-          className={styles.barSvg}
-        >
-          {rects}
-        </svg>
-      </div>
-      <div className={styles.barLegend}>
-        {segments.map((s) => (
-          <span key={s.label} className={styles.legendItem}>
-            <span
-              className={styles.legendSwatch}
-              style={{ background: s.color }}
-            />
-            {s.label}: {s.value.toLocaleString()}
-          </span>
-        ))}
-      </div>
-    </div>
+  return href ? (
+    <Link href={href} className={styles.actionCardLink}>
+      {card}
+    </Link>
+  ) : (
+    card
   );
 }
 
 export default function Dashboard() {
   const [stats, setStats] = useState<Record<string, number> | null>(null);
+  const [trends, setTrends] = useState<{
+    hauling: TrendPoint[];
+    buyback: TrendPoint[];
+  } | null>(null);
 
   useEffect(() => {
     api
       .getStats()
       .then(({ data }) => setStats(data))
+      .catch(() => {});
+
+    api
+      .getStatsTrends()
+      .then(({ data }) => setTrends(data))
       .catch(() => {});
   }, []);
 
@@ -128,16 +98,26 @@ export default function Dashboard() {
           <MetricCard name="In Progress" value={inProgressCount} />
           <MetricCard name="Completed" value={completedTotal} />
           <MetricCard name="Avg Time To Complete" value={avgCompletionHours} />
-          <MetricCard name="Revenue" value={revenueLifetime} />
+          <MetricCard name="Revenue" value={formatIskCompact(revenueLifetime)} />
         </div>
 
-        <ProportionBar
-          segments={[
-            { label: "Outstanding", value: outstandingCount, color: "var(--danger)" },
-            { label: "In Progress", value: inProgressCount, color: "var(--warning)" },
-            { label: "Completed", value: completedTotal, color: "var(--success)" },
-          ]}
-        />
+        <Panel>
+          <div className={styles.chartHeader}>
+            <span className={styles.chartTitle}>
+              Completed Contracts &amp; Revenue - Last 30 Days
+            </span>
+          </div>
+          {trends ? (
+            <TrendChart
+              data={trends.hauling}
+              countLabel="Completed"
+              valueLabel="Revenue"
+              valueFormatter={formatIsk}
+            />
+          ) : (
+            <p className={styles.muted}>Loading…</p>
+          )}
+        </Panel>
       </div>
 
       <div className={styles.section}>
@@ -167,15 +147,26 @@ export default function Dashboard() {
 
         <div className={styles.metrics}>
           <MetricCard name="Matched Contracts" value={matchedBuybackContracts} />
+          <MetricCard name="Expired Contracts" value={expiredBuybackContracts} />
         </div>
 
-        <ProportionBar
-          segments={[
-            { label: "Pending", value: pendingBuybackContracts, color: "var(--danger)" },
-            { label: "Matched", value: matchedBuybackContracts, color: "var(--success)" },
-            { label: "Expired", value: expiredBuybackContracts, color: "var(--muted)" },
-          ]}
-        />
+        <Panel>
+          <div className={styles.chartHeader}>
+            <span className={styles.chartTitle}>
+              Quotes &amp; Quoted Value - Last 30 Days
+            </span>
+          </div>
+          {trends ? (
+            <TrendChart
+              data={trends.buyback}
+              countLabel="Quotes"
+              valueLabel="Quoted Value"
+              valueFormatter={formatIsk}
+            />
+          ) : (
+            <p className={styles.muted}>Loading…</p>
+          )}
+        </Panel>
       </div>
     </div>
   );

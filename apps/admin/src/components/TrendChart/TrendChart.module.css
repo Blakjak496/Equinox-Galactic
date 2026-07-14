@@ -1,0 +1,11 @@
+.chartWrapper {
+  position: relative;
+  width: 100%;
+  height: 16rem;
+}
+
+@media only screen and (max-width: 640px) {
+  .chartWrapper {
+    height: 13rem;
+  }
+}
