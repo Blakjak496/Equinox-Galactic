@@ -376,7 +376,7 @@ export default function BuybackCategories() {
             Every EVE item group is seeded here, unaccepted by default. Turn
             on the ones you buy back, then expand a category to browse its
             items and tick individual ones that need to differ from the
-            category default. Pricing, the haulable flag, notes and
+            category default. Pricing, the Haul flag, notes and
             locations are set on the Buyback Pricing page for accepted items
             only. Nothing is saved until you click Save Changes.
           </p>
