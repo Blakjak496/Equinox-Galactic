@@ -26,6 +26,21 @@ function resolveAccepted(item: BuybackItem): boolean {
   return (item.accepted ?? item.categoryId.accepted) === true;
 }
 
+function acceptRecommendationPatch(item: BuybackItem) {
+  return {
+    rateOverride: item.recommendedRate,
+    recommendationPending: false,
+    dismissedRecommendedRate: null,
+  };
+}
+
+function ignoreRecommendationPatch(item: BuybackItem) {
+  return {
+    dismissedRecommendedRate: item.recommendedRate,
+    recommendationPending: false,
+  };
+}
+
 function formatRecommendedMeta(item: BuybackItem): string | null {
   if (item.recommendedRateUpdatedAt === null) return null;
   const ageMs = Date.now() - new Date(item.recommendedRateUpdatedAt).getTime();
@@ -253,11 +268,14 @@ const CategoryRow = memo(function CategoryRow(props: {
   items: BuybackItem[];
   itemEdits: Record<string, ItemEdit>;
   actionPendingIds: Set<string>;
+  categoryActionPending: boolean;
   onToggleExpanded: (categoryId: string) => void;
   onCategoryEdit: (categoryId: string, edit: CategoryEdit) => void;
   onItemEdit: (itemId: string, edit: ItemEdit) => void;
   onAccept: (item: BuybackItem) => void;
   onIgnore: (item: BuybackItem) => void;
+  onAcceptCategory: (categoryId: string, items: BuybackItem[]) => void;
+  onIgnoreCategory: (categoryId: string, items: BuybackItem[]) => void;
 }) {
   const {
     category,
@@ -267,11 +285,14 @@ const CategoryRow = memo(function CategoryRow(props: {
     items,
     itemEdits,
     actionPendingIds,
+    categoryActionPending,
     onToggleExpanded,
     onCategoryEdit,
     onItemEdit,
     onAccept,
     onIgnore,
+    onAcceptCategory,
+    onIgnoreCategory,
   } = props;
 
   const accepted =
@@ -304,6 +325,24 @@ const CategoryRow = memo(function CategoryRow(props: {
           {category.name}
           {pendingCount > 0 && (
             <span className={styles.pendingBadge}>{pendingCount} pending</span>
+          )}
+          {pendingCount > 0 && (
+            <div className={styles.recommendationActions}>
+              <button
+                className={styles.acceptBtn}
+                disabled={categoryActionPending}
+                onClick={() => onAcceptCategory(category._id, items)}
+              >
+                Accept All
+              </button>
+              <button
+                className={styles.ignoreBtn}
+                disabled={categoryActionPending}
+                onClick={() => onIgnoreCategory(category._id, items)}
+              >
+                Ignore All
+              </button>
+            </div>
           )}
         </td>
         <td>
@@ -414,6 +453,9 @@ export default function BuybackPricing() {
   const [actionPendingIds, setActionPendingIds] = useState<Set<string>>(
     new Set(),
   );
+  const [categoryActionPendingIds, setCategoryActionPendingIds] = useState<
+    Set<string>
+  >(new Set());
 
   const [pendingOnly, setPendingOnly] = useState(false);
   const [pendingResults, setPendingResults] = useState<BuybackItem[] | null>(
@@ -531,11 +573,10 @@ export default function BuybackPricing() {
     setActionPendingIds((prev) => new Set(prev).add(item._id));
     setError(null);
     try {
-      const { data } = await api.updateBuybackItem(item._id, {
-        rateOverride: item.recommendedRate,
-        recommendationPending: false,
-        dismissedRecommendedRate: null,
-      });
+      const { data } = await api.updateBuybackItem(
+        item._id,
+        acceptRecommendationPatch(item),
+      );
       mergeItem(data);
       setItemEdits((prev) => {
         const next = { ...prev };
@@ -557,10 +598,10 @@ export default function BuybackPricing() {
     setActionPendingIds((prev) => new Set(prev).add(item._id));
     setError(null);
     try {
-      const { data } = await api.updateBuybackItem(item._id, {
-        dismissedRecommendedRate: item.recommendedRate,
-        recommendationPending: false,
-      });
+      const { data } = await api.updateBuybackItem(
+        item._id,
+        ignoreRecommendationPatch(item),
+      );
       mergeItem(data);
     } catch {
       setError(`Failed to ignore the recommendation for ${item.name}`);
@@ -572,6 +613,83 @@ export default function BuybackPricing() {
       });
     }
   };
+
+  // Shared by both category-level batch actions below: fires one PATCH per
+  // pending item in the category in parallel, rather than requiring the
+  // operator to click Accept/Ignore on each row individually.
+  const runCategoryRecommendationAction = async (
+    categoryId: string,
+    categoryItems: BuybackItem[],
+    buildPatch: (item: BuybackItem) => Record<string, unknown>,
+    actionLabel: string,
+  ) => {
+    const pendingItems = categoryItems.filter(
+      (item) => item.recommendationPending,
+    );
+    if (pendingItems.length === 0) return;
+
+    setCategoryActionPendingIds((prev) => new Set(prev).add(categoryId));
+    setActionPendingIds((prev) => {
+      const next = new Set(prev);
+      pendingItems.forEach((item) => next.add(item._id));
+      return next;
+    });
+    setError(null);
+
+    const results = await Promise.allSettled(
+      pendingItems.map((item) =>
+        api.updateBuybackItem(item._id, buildPatch(item)),
+      ),
+    );
+
+    let failures = 0;
+    results.forEach((result, idx) => {
+      const itemId = pendingItems[idx]._id;
+      if (result.status === "fulfilled") {
+        mergeItem(result.value.data);
+        setItemEdits((prev) => {
+          const next = { ...prev };
+          delete next[itemId];
+          return next;
+        });
+      } else {
+        failures++;
+      }
+    });
+
+    if (failures > 0) {
+      setError(
+        `Failed to ${actionLabel} ${failures} recommendation${failures === 1 ? "" : "s"} in this category.`,
+      );
+    }
+
+    setCategoryActionPendingIds((prev) => {
+      const next = new Set(prev);
+      next.delete(categoryId);
+      return next;
+    });
+    setActionPendingIds((prev) => {
+      const next = new Set(prev);
+      pendingItems.forEach((item) => next.delete(item._id));
+      return next;
+    });
+  };
+
+  const handleAcceptCategory = (categoryId: string, categoryItems: BuybackItem[]) =>
+    runCategoryRecommendationAction(
+      categoryId,
+      categoryItems,
+      acceptRecommendationPatch,
+      "accept",
+    );
+
+  const handleIgnoreCategory = (categoryId: string, categoryItems: BuybackItem[]) =>
+    runCategoryRecommendationAction(
+      categoryId,
+      categoryItems,
+      ignoreRecommendationPatch,
+      "ignore",
+    );
 
   const handleSaveChanges = async () => {
     setSaving(true);
@@ -804,11 +922,16 @@ export default function BuybackPricing() {
                           items={group.items}
                           itemEdits={itemEdits}
                           actionPendingIds={actionPendingIds}
+                          categoryActionPending={categoryActionPendingIds.has(
+                            group.category._id,
+                          )}
                           onToggleExpanded={toggleExpanded}
                           onCategoryEdit={setCategoryEdit}
                           onItemEdit={setItemEdit}
                           onAccept={handleAccept}
                           onIgnore={handleIgnore}
+                          onAcceptCategory={handleAcceptCategory}
+                          onIgnoreCategory={handleIgnoreCategory}
                         />
                       ))}
                     </tbody>

@@ -76,7 +76,7 @@ export default function Dashboard() {
   const pendingBuybackContracts = stats?.pendingBuybackContracts ?? 0;
   const pendingBuybackValue = stats?.pendingBuybackValue ?? 0;
   const matchedBuybackContracts = stats?.matchedBuybackContracts ?? 0;
-  const expiredBuybackContracts = stats?.expiredBuybackContracts ?? 0;
+  const expiredBuybackQuotes = stats?.expiredBuybackQuotes ?? 0;
   const discrepancyCount = stats?.discrepancyCount ?? 0;
   const itemsWithPendingRecommendation =
     stats?.itemsWithPendingRecommendation ?? 0;
@@ -147,7 +147,7 @@ export default function Dashboard() {
 
         <div className={styles.metrics}>
           <MetricCard name="Matched Contracts" value={matchedBuybackContracts} />
-          <MetricCard name="Expired Contracts" value={expiredBuybackContracts} />
+          <MetricCard name="Expired Quotes" value={expiredBuybackQuotes} />
         </div>
 
         <Panel>
