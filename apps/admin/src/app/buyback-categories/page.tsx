@@ -11,7 +11,7 @@ import {
 } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
-import { api, BuybackCategory, BuybackItem, BuybackLocation } from "@/lib/api";
+import { api, BuybackCategory, BuybackItem } from "@/lib/api";
 import styles from "./BuybackCategories.module.css";
 
 const ACCEPTED_OPTIONS = [
@@ -25,96 +25,17 @@ function acceptedToValue(accepted: boolean | null): string {
   return String(accepted);
 }
 
-function formatLiquidityInfo(item: BuybackItem): string {
-  if (item.liquidityModifier === null || item.liquidityUpdatedAt === null) {
-    return "Liquidity: not yet computed";
-  }
-  const lm = item.liquidityModifier.toFixed(2);
-  const li = item.jitaLiquidityIndex?.toFixed(2) ?? "—";
-  const ageMs = Date.now() - new Date(item.liquidityUpdatedAt).getTime();
-  const ageHours = Math.round(ageMs / (60 * 60 * 1000));
-  const age =
-    ageHours < 1
-      ? "just now"
-      : ageHours < 24
-        ? `${ageHours}h ago`
-        : `${Math.round(ageHours / 24)}d ago`;
-  return `Liquidity: LM ${lm} · LI ${li} · updated ${age}`;
-}
-
-type CategoryEdit = Partial<{
-  accepted: boolean;
-  percentOffered: string;
-  variable: boolean;
-  haulable: boolean;
-  acceptedLocationIds: string[] | null;
-}>;
-type ItemEdit = Partial<{
-  accepted: boolean | null;
-  rateOverride: string;
-  notes: string;
-  variable: boolean | null;
-  haulable: boolean | null;
-  acceptedLocationIds: string[] | null;
-}>;
-
-const LocationsCheckboxList = memo(function LocationsCheckboxList(props: {
-  locations: BuybackLocation[];
-  acceptedLocationIds: string[] | null;
-  onChange: (ids: string[] | null) => void;
-}) {
-  const { locations, acceptedLocationIds, onChange } = props;
-  const selected = acceptedLocationIds ?? [];
-
-  const toggleLocation = (locationId: string) => {
-    const next = selected.includes(locationId)
-      ? selected.filter((id) => id !== locationId)
-      : [...selected, locationId];
-    onChange(next.length === 0 ? null : next);
-  };
-
-  return (
-    <div className={styles.locationsCell}>
-      <div className={styles.locationsCheckboxList}>
-        {locations.map((location) => (
-          <label key={location._id} className={styles.locationsCheckboxLabel}>
-            <input
-              type="checkbox"
-              checked={selected.includes(location._id)}
-              onChange={() => toggleLocation(location._id)}
-            />
-            {location.name}
-            {location.isHub ? " (hub)" : ""}
-          </label>
-        ))}
-      </div>
-      <span className={styles.locationsHint}>
-        {acceptedLocationIds ? `${acceptedLocationIds.length} selected` : "All"}
-      </span>
-    </div>
-  );
-});
+type CategoryEdit = Partial<{ accepted: boolean }>;
+type ItemEdit = Partial<{ accepted: boolean | null }>;
 
 const ItemRow = memo(function ItemRow(props: {
   item: BuybackItem;
   edit: ItemEdit | undefined;
   showCategory: boolean;
-  locations: BuybackLocation[];
   onEdit: (itemId: string, edit: ItemEdit) => void;
 }) {
-  const { item, edit, showCategory, locations, onEdit } = props;
+  const { item, edit, showCategory, onEdit } = props;
   const accepted = edit?.accepted !== undefined ? edit.accepted : item.accepted;
-  const rateOverride =
-    edit?.rateOverride ?? item.rateOverride?.toString() ?? "";
-  const notes = edit?.notes ?? item.notes ?? "";
-  const variable =
-    edit?.variable !== undefined ? edit.variable : item.variable;
-  const haulable =
-    edit?.haulable !== undefined ? edit.haulable : item.haulable;
-  const acceptedLocationIds =
-    edit?.acceptedLocationIds !== undefined
-      ? edit.acceptedLocationIds
-      : item.acceptedLocationIds;
   const isDirty = Boolean(edit);
 
   return (
@@ -138,67 +59,6 @@ const ItemRow = memo(function ItemRow(props: {
           ))}
         </select>
       </td>
-      <td>
-        <input
-          type="number"
-          className={styles.rateInput}
-          placeholder="inherit"
-          value={rateOverride}
-          onChange={(e) => onEdit(item._id, { rateOverride: e.target.value })}
-        />
-        <div className={styles.liquidityInfo}>
-          {formatLiquidityInfo(item)}
-        </div>
-      </td>
-      <td>
-        <input
-          type="text"
-          className={styles.notesInput}
-          value={notes}
-          onChange={(e) => onEdit(item._id, { notes: e.target.value })}
-        />
-      </td>
-      <td>
-        <select
-          value={acceptedToValue(variable)}
-          onChange={(e) =>
-            onEdit(item._id, {
-              variable:
-                e.target.value === "inherit" ? null : e.target.value === "true",
-            })
-          }
-        >
-          {ACCEPTED_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <select
-          value={acceptedToValue(haulable)}
-          onChange={(e) =>
-            onEdit(item._id, {
-              haulable:
-                e.target.value === "inherit" ? null : e.target.value === "true",
-            })
-          }
-        >
-          {ACCEPTED_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <LocationsCheckboxList
-          locations={locations}
-          acceptedLocationIds={acceptedLocationIds}
-          onChange={(ids) => onEdit(item._id, { acceptedLocationIds: ids })}
-        />
-      </td>
     </tr>
   );
 });
@@ -206,7 +66,6 @@ const ItemRow = memo(function ItemRow(props: {
 const CategoryRow = memo(function CategoryRow(props: {
   category: BuybackCategory;
   edit: CategoryEdit | undefined;
-  locations: BuybackLocation[];
   expanded: boolean;
   items: BuybackItem[] | undefined;
   itemEdits: Record<string, ItemEdit>;
@@ -218,7 +77,6 @@ const CategoryRow = memo(function CategoryRow(props: {
   const {
     category,
     edit,
-    locations,
     expanded,
     items,
     itemEdits,
@@ -230,16 +88,6 @@ const CategoryRow = memo(function CategoryRow(props: {
 
   const accepted =
     edit?.accepted !== undefined ? edit.accepted : category.accepted;
-  const percentOffered =
-    edit?.percentOffered ?? category.percentOffered.toString();
-  const variable =
-    edit?.variable !== undefined ? edit.variable : category.variable;
-  const haulable =
-    edit?.haulable !== undefined ? edit.haulable : category.haulable;
-  const acceptedLocationIds =
-    edit?.acceptedLocationIds !== undefined
-      ? edit.acceptedLocationIds
-      : category.acceptedLocationIds;
   const isDirty = Boolean(edit);
 
   return (
@@ -263,47 +111,10 @@ const CategoryRow = memo(function CategoryRow(props: {
             }
           />
         </td>
-        <td>
-          <input
-            type="number"
-            className={styles.rateInput}
-            value={percentOffered}
-            onChange={(e) =>
-              onCategoryEdit(category._id, { percentOffered: e.target.value })
-            }
-          />
-        </td>
-        <td>
-          <input
-            type="checkbox"
-            checked={variable}
-            onChange={(e) =>
-              onCategoryEdit(category._id, { variable: e.target.checked })
-            }
-          />
-        </td>
-        <td>
-          <input
-            type="checkbox"
-            checked={haulable}
-            onChange={(e) =>
-              onCategoryEdit(category._id, { haulable: e.target.checked })
-            }
-          />
-        </td>
-        <td>
-          <LocationsCheckboxList
-            locations={locations}
-            acceptedLocationIds={acceptedLocationIds}
-            onChange={(ids) =>
-              onCategoryEdit(category._id, { acceptedLocationIds: ids })
-            }
-          />
-        </td>
       </tr>
       {expanded && (
         <tr>
-          <td colSpan={7} className={styles.detailCell}>
+          <td colSpan={3} className={styles.detailCell}>
             {loadingItems ? (
               <p className={styles.muted}>Loading items…</p>
             ) : items?.length === 0 ? (
@@ -315,11 +126,6 @@ const CategoryRow = memo(function CategoryRow(props: {
                     <tr>
                       <th>Name</th>
                       <th>Accepted</th>
-                      <th>Rate Override</th>
-                      <th>Notes</th>
-                      <th>Variable</th>
-                      <th>Haulable</th>
-                      <th>Locations</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -329,7 +135,6 @@ const CategoryRow = memo(function CategoryRow(props: {
                         item={item}
                         edit={itemEdits[item._id]}
                         showCategory={false}
-                        locations={locations}
                         onEdit={onItemEdit}
                       />
                     ))}
@@ -346,7 +151,6 @@ const CategoryRow = memo(function CategoryRow(props: {
 
 export default function BuybackCategories() {
   const [categories, setCategories] = useState<BuybackCategory[]>([]);
-  const [locations, setLocations] = useState<BuybackLocation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categorySearch, setCategorySearch] = useState("");
@@ -377,11 +181,6 @@ export default function BuybackCategories() {
       .then(({ data }) => setCategories(data))
       .catch(() => setError("Failed to load buyback categories"))
       .finally(() => setLoading(false));
-
-    api
-      .getBuybackLocations()
-      .then(({ data }) => setLocations(data))
-      .catch(() => {});
   }, []);
 
   const filteredCategories = useMemo(() => {
@@ -509,20 +308,8 @@ export default function BuybackCategories() {
     const categoryResults = await Promise.allSettled(
       categoryIds.map((id) => {
         const edit = categoryEdits[id];
-        const payload: {
-          accepted?: boolean;
-          percentOffered?: number;
-          variable?: boolean;
-          haulable?: boolean;
-          acceptedLocationIds?: string[] | null;
-        } = {};
+        const payload: { accepted?: boolean } = {};
         if (edit.accepted !== undefined) payload.accepted = edit.accepted;
-        if (edit.percentOffered !== undefined)
-          payload.percentOffered = Number(edit.percentOffered);
-        if (edit.variable !== undefined) payload.variable = edit.variable;
-        if (edit.haulable !== undefined) payload.haulable = edit.haulable;
-        if (edit.acceptedLocationIds !== undefined)
-          payload.acceptedLocationIds = edit.acceptedLocationIds;
         return api.updateBuybackCategory(id, payload);
       }),
     );
@@ -530,24 +317,8 @@ export default function BuybackCategories() {
     const itemResults = await Promise.allSettled(
       itemIds.map((id) => {
         const edit = itemEdits[id];
-        const payload: {
-          accepted?: boolean | null;
-          rateOverride?: number | null;
-          notes?: string | null;
-          variable?: boolean | null;
-          haulable?: boolean | null;
-          acceptedLocationIds?: string[] | null;
-        } = {};
+        const payload: { accepted?: boolean | null } = {};
         if (edit.accepted !== undefined) payload.accepted = edit.accepted;
-        if (edit.rateOverride !== undefined)
-          payload.rateOverride =
-            edit.rateOverride.trim() === "" ? null : Number(edit.rateOverride);
-        if (edit.notes !== undefined)
-          payload.notes = edit.notes.trim() === "" ? null : edit.notes;
-        if (edit.variable !== undefined) payload.variable = edit.variable;
-        if (edit.haulable !== undefined) payload.haulable = edit.haulable;
-        if (edit.acceptedLocationIds !== undefined)
-          payload.acceptedLocationIds = edit.acceptedLocationIds;
         return api.updateBuybackItem(id, payload);
       }),
     );
@@ -600,16 +371,14 @@ export default function BuybackCategories() {
     <div className={styles.container}>
       <Panel>
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Buyback Items by Category</h2>
+          <h2 className={styles.sectionTitle}>Buyback Acceptance</h2>
           <p className={styles.hint}>
             Every EVE item group is seeded here, unaccepted by default. Turn
-            on the ones you buy back, set their rate, then expand a category
-            to browse its items and tick/rate individual ones that need to
-            differ from the category default. Variable gates the liquidity
-            modifier and margin safety net; Haulable controls whether an
-            item's volume counts toward the hauling fee; Locations restricts
-            which pickup locations this category/item can be quoted from
-            (empty = all). Nothing is saved until you click Save Changes.
+            on the ones you buy back, then expand a category to browse its
+            items and tick individual ones that need to differ from the
+            category default. Pricing, variable/haulable flags, notes and
+            locations are set on the Buyback Pricing page for accepted items
+            only. Nothing is saved until you click Save Changes.
           </p>
 
           <div className={styles.saveBar}>
@@ -662,11 +431,6 @@ export default function BuybackCategories() {
                       <th>Name</th>
                       <th>Category</th>
                       <th>Accepted</th>
-                      <th>Rate Override</th>
-                      <th>Notes</th>
-                      <th>Variable</th>
-                      <th>Haulable</th>
-                      <th>Locations</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -676,7 +440,6 @@ export default function BuybackCategories() {
                         item={item}
                         edit={itemEdits[item._id]}
                         showCategory={true}
-                        locations={locations}
                         onEdit={setItemEdit}
                       />
                     ))}
@@ -704,10 +467,6 @@ export default function BuybackCategories() {
                         <th></th>
                         <th>Name</th>
                         <th>Accepted</th>
-                        <th>% Offered</th>
-                        <th>Variable</th>
-                        <th>Haulable</th>
-                        <th>Locations</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -716,7 +475,6 @@ export default function BuybackCategories() {
                           key={category._id}
                           category={category}
                           edit={categoryEdits[category._id]}
-                          locations={locations}
                           expanded={expandedIds.has(category._id)}
                           items={itemsByCategory[category._id]}
                           itemEdits={itemEdits}

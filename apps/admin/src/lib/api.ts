@@ -157,10 +157,17 @@ export const api = {
       { method: "PATCH", body: JSON.stringify(update) },
     ),
 
-  searchBuybackItems: (params: { q?: string; categoryId?: string }) => {
+  searchBuybackItems: (params: {
+    q?: string;
+    categoryId?: string;
+    recommendationPending?: boolean;
+    accepted?: boolean;
+  }) => {
     const query = new URLSearchParams();
     if (params.q) query.set("q", params.q);
     if (params.categoryId) query.set("categoryId", params.categoryId);
+    if (params.recommendationPending) query.set("recommendationPending", "true");
+    if (params.accepted) query.set("accepted", "true");
     return apiFetch<{ ok: boolean; data: BuybackItem[] }>(
       `/admin/buyback-items?${query.toString()}`,
     );
@@ -168,7 +175,16 @@ export const api = {
 
   updateBuybackItem: (
     id: string,
-    update: { accepted?: boolean | null; rateOverride?: number | null; notes?: string | null },
+    update: {
+      accepted?: boolean | null;
+      rateOverride?: number | null;
+      notes?: string | null;
+      variable?: boolean | null;
+      haulable?: boolean | null;
+      acceptedLocationIds?: string[] | null;
+      recommendationPending?: boolean;
+      dismissedRecommendedRate?: number | null;
+    },
   ) =>
     apiFetch<{ ok: boolean; data: BuybackItem }>(
       `/admin/buyback-items/${id}`,
@@ -292,9 +308,16 @@ export type BuybackItem = {
   variable: boolean | null;
   haulable: boolean | null;
   acceptedLocationIds: string[] | null;
-  liquidityModifier: number | null;
-  jitaLiquidityIndex: number | null;
-  liquidityUpdatedAt: string | null;
+  packagedVolume: number | null;
+  avgVolume: number | null;
+  stdDev: number | null;
+  sActive: number | null;
+  demandVelocity: number | null;
+  marketMultiplier: number | null;
+  recommendedRate: number | null;
+  recommendedRateUpdatedAt: string | null;
+  recommendationPending: boolean;
+  dismissedRecommendedRate: number | null;
 };
 
 export type BuybackLocation = {
