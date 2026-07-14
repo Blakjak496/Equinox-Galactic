@@ -188,7 +188,6 @@ export const api = {
       accepted?: boolean | null;
       rateOverride?: number | null;
       notes?: string | null;
-      variable?: boolean | null;
       haulable?: boolean | null;
       acceptedLocationIds?: string[] | null;
       recommendationPending?: boolean;
@@ -307,7 +306,6 @@ export type BuybackCategory = {
   name: string;
   accepted: boolean;
   percentOffered: number;
-  variable: boolean;
   haulable: boolean;
   acceptedLocationIds: string[] | null;
 };
@@ -320,7 +318,6 @@ export type BuybackItem = {
   accepted: boolean | null;
   rateOverride: number | null;
   notes: string | null;
-  variable: boolean | null;
   haulable: boolean | null;
   acceptedLocationIds: string[] | null;
   packagedVolume: number | null;

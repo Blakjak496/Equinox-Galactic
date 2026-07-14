@@ -57,7 +57,6 @@ function formatRecommendedMeta(item: BuybackItem): string | null {
 type CategoryEdit = Partial<{
   accepted: boolean;
   percentOffered: string;
-  variable: boolean;
   haulable: boolean;
   acceptedLocationIds: string[] | null;
 }>;
@@ -65,7 +64,6 @@ type ItemEdit = Partial<{
   accepted: boolean | null;
   rateOverride: string;
   notes: string;
-  variable: boolean | null;
   haulable: boolean | null;
   acceptedLocationIds: string[] | null;
 }>;
@@ -131,8 +129,6 @@ const ItemRow = memo(function ItemRow(props: {
   const rateOverride =
     edit?.rateOverride ?? item.rateOverride?.toString() ?? "";
   const notes = edit?.notes ?? item.notes ?? "";
-  const variable =
-    edit?.variable !== undefined ? edit.variable : item.variable;
   const haulable =
     edit?.haulable !== undefined ? edit.haulable : item.haulable;
   const acceptedLocationIds =
@@ -217,23 +213,6 @@ const ItemRow = memo(function ItemRow(props: {
       </td>
       <td>
         <select
-          value={acceptedToValue(variable)}
-          onChange={(e) =>
-            onEdit(item._id, {
-              variable:
-                e.target.value === "inherit" ? null : e.target.value === "true",
-            })
-          }
-        >
-          {ACCEPTED_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </td>
-      <td>
-        <select
           value={acceptedToValue(haulable)}
           onChange={(e) =>
             onEdit(item._id, {
@@ -299,8 +278,6 @@ const CategoryRow = memo(function CategoryRow(props: {
     edit?.accepted !== undefined ? edit.accepted : category.accepted;
   const percentOffered =
     edit?.percentOffered ?? category.percentOffered.toString();
-  const variable =
-    edit?.variable !== undefined ? edit.variable : category.variable;
   const haulable =
     edit?.haulable !== undefined ? edit.haulable : category.haulable;
   const acceptedLocationIds =
@@ -367,15 +344,6 @@ const CategoryRow = memo(function CategoryRow(props: {
         <td>
           <input
             type="checkbox"
-            checked={variable}
-            onChange={(e) =>
-              onCategoryEdit(category._id, { variable: e.target.checked })
-            }
-          />
-        </td>
-        <td>
-          <input
-            type="checkbox"
             checked={haulable}
             onChange={(e) =>
               onCategoryEdit(category._id, { haulable: e.target.checked })
@@ -407,7 +375,6 @@ const CategoryRow = memo(function CategoryRow(props: {
                       <th>Rate Override</th>
                       <th>Recommended Rate</th>
                       <th>Notes</th>
-                      <th>Variable</th>
                       <th>Haulable</th>
                       <th>Locations</th>
                     </tr>
@@ -704,14 +671,12 @@ export default function BuybackPricing() {
         const payload: {
           accepted?: boolean;
           percentOffered?: number;
-          variable?: boolean;
           haulable?: boolean;
           acceptedLocationIds?: string[] | null;
         } = {};
         if (edit.accepted !== undefined) payload.accepted = edit.accepted;
         if (edit.percentOffered !== undefined)
           payload.percentOffered = Number(edit.percentOffered);
-        if (edit.variable !== undefined) payload.variable = edit.variable;
         if (edit.haulable !== undefined) payload.haulable = edit.haulable;
         if (edit.acceptedLocationIds !== undefined)
           payload.acceptedLocationIds = edit.acceptedLocationIds;
@@ -726,7 +691,6 @@ export default function BuybackPricing() {
           accepted?: boolean | null;
           rateOverride?: number | null;
           notes?: string | null;
-          variable?: boolean | null;
           haulable?: boolean | null;
           acceptedLocationIds?: string[] | null;
         } = {};
@@ -736,7 +700,6 @@ export default function BuybackPricing() {
             edit.rateOverride.trim() === "" ? null : Number(edit.rateOverride);
         if (edit.notes !== undefined)
           payload.notes = edit.notes.trim() === "" ? null : edit.notes;
-        if (edit.variable !== undefined) payload.variable = edit.variable;
         if (edit.haulable !== undefined) payload.haulable = edit.haulable;
         if (edit.acceptedLocationIds !== undefined)
           payload.acceptedLocationIds = edit.acceptedLocationIds;
@@ -806,7 +769,7 @@ export default function BuybackPricing() {
           <h2 className={styles.sectionTitle}>Buyback Pricing</h2>
           <p className={styles.hint}>
             Every category and item shown here is currently accepted by the
-            buyback. Set rates, variable/haulable flags, notes and pickup
+            buyback. Set rates, the haulable flag, notes and pickup
             locations here. The Recommended Rate column is advisory only -
             it never changes what a quote offers until you click Accept.
             Turning Accepted off and saving removes an item from this page;
@@ -858,7 +821,6 @@ export default function BuybackPricing() {
                       <th>Rate Override</th>
                       <th>Recommended Rate</th>
                       <th>Notes</th>
-                      <th>Variable</th>
                       <th>Haulable</th>
                       <th>Locations</th>
                     </tr>
@@ -906,7 +868,6 @@ export default function BuybackPricing() {
                         <th>Name</th>
                         <th>Accepted</th>
                         <th>% Offered</th>
-                        <th>Variable</th>
                         <th>Haulable</th>
                         <th>Locations</th>
                       </tr>
