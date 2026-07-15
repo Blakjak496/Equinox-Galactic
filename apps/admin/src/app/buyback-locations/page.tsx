@@ -10,7 +10,7 @@ const EMPTY_FORM = {
   name: "",
   isHub: false,
   distance: 0,
-  distanceFromHub: "",
+  pickupRatePerM3: "",
 };
 
 export default function BuybackLocations() {
@@ -39,9 +39,9 @@ export default function BuybackLocations() {
       name: location.name,
       isHub: location.isHub,
       distance: location.distance,
-      distanceFromHub:
-        location.distanceFromHub != null
-          ? String(location.distanceFromHub)
+      pickupRatePerM3:
+        location.pickupRatePerM3 != null
+          ? String(location.pickupRatePerM3)
           : "",
     });
     setError(null);
@@ -75,10 +75,10 @@ export default function BuybackLocations() {
       name: form.name.trim(),
       isHub: form.isHub,
       distance: Number(form.distance),
-      distanceFromHub:
-        form.distanceFromHub.trim() === ""
+      pickupRatePerM3:
+        form.pickupRatePerM3.trim() === ""
           ? null
-          : Number(form.distanceFromHub),
+          : Number(form.pickupRatePerM3),
     };
 
     try {
@@ -131,13 +131,13 @@ export default function BuybackLocations() {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label>Pickup Distance</label>
+              <label>Pickup Rate (ISK/m³)</label>
               <input
                 type="number"
                 step="0.01"
-                value={form.distanceFromHub}
+                value={form.pickupRatePerM3}
                 onChange={(e) =>
-                  setForm({ ...form, distanceFromHub: e.target.value })
+                  setForm({ ...form, pickupRatePerM3: e.target.value })
                 }
                 placeholder="Leave blank for no pickup service"
               />
@@ -157,8 +157,9 @@ export default function BuybackLocations() {
           </div>
 
           <p className={styles.hint}>
-            Pickup Distance is the LY from this location to its hub. Only set
-            it for satellite locations with a pickup service - leave it
+            Pickup Rate is charged per m³ of fee-eligible volume to collect a
+            contract from this location and bring it back to the hub. Only
+            set it for satellite locations with a pickup service - leave it
             blank for hubs or locations you don&apos;t offer pickup from.
           </p>
 
@@ -199,7 +200,7 @@ export default function BuybackLocations() {
                   <th>Name</th>
                   <th>Hub</th>
                   <th>Distance</th>
-                  <th>Pickup Distance</th>
+                  <th>Pickup Rate (ISK/m³)</th>
                   <th></th>
                 </tr>
               </thead>
@@ -209,7 +210,7 @@ export default function BuybackLocations() {
                     <td>{location.name}</td>
                     <td>{location.isHub ? "Yes" : "No"}</td>
                     <td>{location.distance}</td>
-                    <td>{location.distanceFromHub ?? "—"}</td>
+                    <td>{location.pickupRatePerM3 ?? "—"}</td>
                     <td className={styles.actions}>
                       <Button
                         callback={() => handleEdit(location)}
