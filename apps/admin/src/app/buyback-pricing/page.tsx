@@ -42,7 +42,11 @@ function ignoreRecommendationPatch(item: BuybackItem) {
 }
 
 function formatRecommendedMeta(item: BuybackItem): string | null {
-  if (item.recommendedRateUpdatedAt === null) return null;
+  // Items never processed by a pricing run don't just have this null -
+  // they can be missing the field entirely (undefined), since it didn't
+  // exist in the schema when they were first seeded and Mongoose's
+  // aggregate() (unlike find()) never backfills schema defaults.
+  if (item.recommendedRateUpdatedAt == null) return null;
   const ageMs = Date.now() - new Date(item.recommendedRateUpdatedAt).getTime();
   const ageHours = Math.round(ageMs / (60 * 60 * 1000));
   const age =
@@ -173,7 +177,7 @@ const ItemRow = memo(function ItemRow(props: {
         />
       </td>
       <td className={styles.recommendedCell}>
-        {item.recommendedRate === null ? (
+        {item.recommendedRate == null ? (
           <span className={styles.muted}>Not yet computed</span>
         ) : (
           <span className={styles.recommendedRate}>
@@ -534,7 +538,7 @@ export default function BuybackPricing() {
   }, []);
 
   const handleAccept = async (item: BuybackItem) => {
-    if (item.recommendedRate === null) return;
+    if (item.recommendedRate == null) return;
     setActionPendingIds((prev) => new Set(prev).add(item._id));
     setError(null);
     try {
