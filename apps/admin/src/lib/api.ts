@@ -44,6 +44,8 @@ export const api = {
         maxCollateral: number;
         isotopePrice: number;
         salesTaxRate: number;
+        runnersEnabled: boolean;
+        cartelEnabled: boolean;
       };
     }>("/admin/config"),
 
@@ -51,6 +53,8 @@ export const api = {
     maxCollateral?: number;
     isotopePrice?: number;
     salesTaxRate?: number;
+    runnersEnabled?: boolean;
+    cartelEnabled?: boolean;
   }) =>
     apiFetch<{ ok: boolean }>("/admin/config", {
       method: "PATCH",
@@ -192,6 +196,7 @@ export const api = {
       acceptedLocationIds?: string[] | null;
       recommendationPending?: boolean;
       dismissedRecommendedRate?: number | null;
+      reprocessingCategory?: "ore_ice" | "gas" | "scrap" | null;
     },
   ) =>
     apiFetch<{ ok: boolean; data: BuybackItem }>(
@@ -227,6 +232,28 @@ export const api = {
   deleteBuybackLocation: (id: string) =>
     apiFetch<{ ok: boolean }>(`/admin/buyback-locations/${id}`, {
       method: "DELETE",
+    }),
+
+  searchStructures: (q: string) =>
+    apiFetch<{ ok: boolean; data: StructureSearchResult[] }>(
+      `/admin/structures/search?q=${encodeURIComponent(q)}`,
+    ),
+
+  getBuybackStock: () =>
+    apiFetch<{ ok: boolean; data: BuybackStockItem[] }>("/admin/buyback-stock"),
+
+  getBuyOrders: (status?: string) =>
+    apiFetch<{ ok: boolean; data: BuyOrder[] }>(
+      `/admin/buy-orders${status ? `?status=${status}` : ""}`,
+    ),
+
+  updateBuyOrder: (
+    id: string,
+    update: { status: "pending_contract" | "contract_created" | "completed" | "cancelled" },
+  ) =>
+    apiFetch<{ ok: boolean; data: BuyOrder }>(`/admin/buy-orders/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(update),
     }),
 };
 
@@ -330,6 +357,7 @@ export type BuybackItem = {
   recommendedRateUpdatedAt: string | null;
   recommendationPending: boolean;
   dismissedRecommendedRate: number | null;
+  reprocessingCategory: "ore_ice" | "gas" | "scrap" | null;
 };
 
 export type BuybackLocation = {
@@ -338,6 +366,15 @@ export type BuybackLocation = {
   isHub: boolean;
   distance: number;
   pickupRatePerM3: number | null;
+  stockLocationId: number | null;
+  stockLocationName: string | null;
+  stockLocationSystemName: string | null;
+};
+
+export type StructureSearchResult = {
+  id: number;
+  name: string | null;
+  systemName: string | null;
 };
 
 export type BuybackQuoteItem = {
@@ -369,6 +406,41 @@ export type BuybackQuote = {
   status: "pending_contract" | "matched" | "expired";
   discrepancy: boolean;
   matchedContractId: number | null;
+  createdAt: string;
+  expiresAt: string;
+};
+
+export type BuybackStockItem = {
+  _id: string;
+  typeId: number;
+  name: string;
+  locationId: string;
+  locationName: string;
+  quantityOnHand: number;
+  availableQuantity: number;
+  stockUpdatedAt: string | null;
+  oldestUnsoldAcquiredAt: string | null;
+};
+
+export type BuyOrderItem = {
+  typeId: number;
+  name: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+};
+
+export type BuyOrder = {
+  _id: string;
+  referenceId: string;
+  customerCharacterName: string;
+  locationId: string;
+  locationName: string;
+  items: BuyOrderItem[];
+  totalPrice: number;
+  status: "pending_contract" | "contract_created" | "completed" | "cancelled";
+  matchedContractId: number | null;
+  completedAt: string | null;
   createdAt: string;
   expiresAt: string;
 };

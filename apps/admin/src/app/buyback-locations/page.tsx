@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
-import { api, BuybackLocation } from "@/lib/api";
+import { api, BuybackLocation, StructureSearchResult } from "@/lib/api";
 import styles from "./BuybackLocations.module.css";
 
 const EMPTY_FORM = {
@@ -11,6 +11,9 @@ const EMPTY_FORM = {
   isHub: false,
   distance: 0,
   pickupRatePerM3: "",
+  stockLocationId: null as number | null,
+  stockLocationName: null as string | null,
+  stockLocationSystemName: null as string | null,
 };
 
 export default function BuybackLocations() {
@@ -20,6 +23,11 @@ export default function BuybackLocations() {
   const [editTarget, setEditTarget] = useState<BuybackLocation | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [structureQuery, setStructureQuery] = useState("");
+  const [structureResults, setStructureResults] = useState<
+    StructureSearchResult[]
+  >([]);
+  const [searchingStructures, setSearchingStructures] = useState(false);
 
   const fetchLocations = () => {
     api
@@ -33,6 +41,24 @@ export default function BuybackLocations() {
     fetchLocations();
   }, []);
 
+  useEffect(() => {
+    if (structureQuery.trim().length < 2) {
+      setStructureResults([]);
+      return;
+    }
+
+    setSearchingStructures(true);
+    const timeout = setTimeout(() => {
+      api
+        .searchStructures(structureQuery.trim())
+        .then(({ data }) => setStructureResults(data))
+        .catch(() => setStructureResults([]))
+        .finally(() => setSearchingStructures(false));
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [structureQuery]);
+
   const handleEdit = (location: BuybackLocation) => {
     setEditTarget(location);
     setForm({
@@ -43,14 +69,41 @@ export default function BuybackLocations() {
         location.pickupRatePerM3 != null
           ? String(location.pickupRatePerM3)
           : "",
+      stockLocationId: location.stockLocationId,
+      stockLocationName: location.stockLocationName,
+      stockLocationSystemName: location.stockLocationSystemName,
     });
+    setStructureQuery("");
+    setStructureResults([]);
     setError(null);
   };
 
   const handleCancelEdit = () => {
     setEditTarget(null);
     setForm(EMPTY_FORM);
+    setStructureQuery("");
+    setStructureResults([]);
     setError(null);
+  };
+
+  const handleSelectStructure = (result: StructureSearchResult) => {
+    setForm({
+      ...form,
+      stockLocationId: result.id,
+      stockLocationName: result.name,
+      stockLocationSystemName: result.systemName,
+    });
+    setStructureQuery("");
+    setStructureResults([]);
+  };
+
+  const handleClearStructure = () => {
+    setForm({
+      ...form,
+      stockLocationId: null,
+      stockLocationName: null,
+      stockLocationSystemName: null,
+    });
   };
 
   const handleDelete = async (location: BuybackLocation) => {
@@ -79,6 +132,9 @@ export default function BuybackLocations() {
         form.pickupRatePerM3.trim() === ""
           ? null
           : Number(form.pickupRatePerM3),
+      stockLocationId: form.stockLocationId,
+      stockLocationName: form.stockLocationName,
+      stockLocationSystemName: form.stockLocationSystemName,
     };
 
     try {
@@ -147,9 +203,23 @@ export default function BuybackLocations() {
                 <input
                   type="checkbox"
                   checked={form.isHub}
-                  onChange={(e) =>
-                    setForm({ ...form, isHub: e.target.checked })
-                  }
+                  onChange={(e) => {
+                    const isHub = e.target.checked;
+                    setForm({
+                      ...form,
+                      isHub,
+                      // A stock location only makes sense on a hub - clear
+                      // it rather than let a save fail against the backend
+                      // validation.
+                      ...(isHub
+                        ? {}
+                        : {
+                            stockLocationId: null,
+                            stockLocationName: null,
+                            stockLocationSystemName: null,
+                          }),
+                    });
+                  }}
                 />
                 Trade hub
               </label>
@@ -162,6 +232,61 @@ export default function BuybackLocations() {
             set it for satellite locations with a pickup service - leave it
             blank for hubs or locations you don&apos;t offer pickup from.
           </p>
+
+          <div className={styles.inputGroup}>
+            <label>Stock Location (Division 6 hangar)</label>
+            {!form.isHub ? (
+              <span className={styles.hint}>
+                Only hub locations can be a stock location - check
+                &quot;Trade hub&quot; above first.
+              </span>
+            ) : form.stockLocationId != null ? (
+              <div className={styles.structureSelected}>
+                <span>
+                  {form.stockLocationName ?? `ID ${form.stockLocationId}`}
+                  {form.stockLocationSystemName
+                    ? ` (${form.stockLocationSystemName})`
+                    : ""}
+                </span>
+                <Button callback={handleClearStructure} color="red">
+                  Clear
+                </Button>
+              </div>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  value={structureQuery}
+                  onChange={(e) => setStructureQuery(e.target.value)}
+                  placeholder="Search cached stations/structures by name…"
+                />
+                {searchingStructures && (
+                  <span className={styles.muted}>Searching…</span>
+                )}
+                {structureResults.length > 0 && (
+                  <div className={styles.structureResults}>
+                    {structureResults.map((result) => (
+                      <button
+                        key={result.id}
+                        type="button"
+                        className={styles.structureResult}
+                        onClick={() => handleSelectStructure(result)}
+                      >
+                        {result.name ?? `ID ${result.id}`}
+                        {result.systemName ? ` (${result.systemName})` : ""}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <span className={styles.hint}>
+                  Only needed for the location(s) holding sellable buyback
+                  stock. Results come from stations/structures already seen
+                  on a synced contract - if the right one isn&apos;t showing
+                  up, it hasn&apos;t appeared on a contract yet.
+                </span>
+              </>
+            )}
+          </div>
 
           {error && <p className={styles.error}>{error}</p>}
 
@@ -201,6 +326,7 @@ export default function BuybackLocations() {
                   <th>Hub</th>
                   <th>Distance</th>
                   <th>Pickup Rate (ISK/m³)</th>
+                  <th>Stock Location</th>
                   <th></th>
                 </tr>
               </thead>
@@ -211,6 +337,7 @@ export default function BuybackLocations() {
                     <td>{location.isHub ? "Yes" : "No"}</td>
                     <td>{location.distance}</td>
                     <td>{location.pickupRatePerM3 ?? "—"}</td>
+                    <td>{location.stockLocationName ?? "—"}</td>
                     <td className={styles.actions}>
                       <Button
                         callback={() => handleEdit(location)}

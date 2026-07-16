@@ -94,6 +94,34 @@ const zh = {
     "本次提交的净总额超过 20,000,000,000 ISK 上限。请拆分为多次提交并分别提交。",
 
   buybackErrorGeneric: "获取报价时出现问题，请重试。",
+
+  purchasePageTitle: "购买库存",
+  purchasePageSubtitle: "从军团购买物品",
+  purchaseNoStock: "目前没有可购买的库存。",
+  purchaseLocation: "地点",
+  purchaseNoLocations: "目前没有可购买的地点。",
+  purchasePricingNote:
+    "所有物品均按 Jita 收购价定价；矿石/冰按精炼后材料的 Jita 收购价定价。",
+  getCartTotal: "计算总价",
+  cartTotalPending: "点击“计算总价”查看价格。",
+  colAvailable: "可购买数量",
+  colUnitPrice: "单价",
+  addToCart: "加入购物车",
+  cartButton: "购物车 ({count})",
+  cartTitle: "您的购物车",
+  cartEmpty: "购物车是空的。",
+  removeFromCart: "移除",
+  quantityLabel: "数量",
+  characterName: "EVE 角色名称",
+  characterNamePlaceholder: "例如 John Doe",
+  cartTotal: "总计",
+  submitOrder: "提交订单",
+  closeCart: "关闭",
+  purchaseErrorGeneric: "提交订单时出现问题，请重试。",
+  orderConfirmedTitle: "订单已提交",
+  orderReferenceNote: "管理员联系您完成合同交易时，请提供此参考编号。",
+  orderExpiresNote: "此预留将于以下时间过期",
+  orderTotalPrice: "总价",
 } as const;
 
 export default zh;

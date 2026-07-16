@@ -97,6 +97,20 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
             Buyback Quotes
           </NavItem>
           <NavItem
+            active={pathname === "/buyback-stock"}
+            route="/buyback-stock"
+            onClick={() => setOpen(false)}
+          >
+            Buyback Stock
+          </NavItem>
+          <NavItem
+            active={pathname === "/customer-buy-orders"}
+            route="/customer-buy-orders"
+            onClick={() => setOpen(false)}
+          >
+            Customer Buy Orders
+          </NavItem>
+          <NavItem
             active={pathname === "/settings"}
             route="/settings"
             onClick={() => setOpen(false)}

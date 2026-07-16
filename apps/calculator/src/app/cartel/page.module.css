@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +8,6 @@
   min-height: 100vh;
   padding: var(--page-padding);
   row-gap: var(--space-7);
-  background: var(--bg);
 }
 
 .bannerWrapper {
@@ -40,7 +40,6 @@
 }
 
 .tile {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,42 +61,6 @@
 .tile:hover {
   background: var(--surface-elevated);
   border-color: var(--primary);
-}
-
-.tileDisabled {
-  position: relative;
-  justify-content: flex-start;
-  padding-top: var(--space-6);
-  cursor: not-allowed;
-  opacity: 0.55;
-}
-
-.tileDisabled:hover {
-  background: var(--surface);
-  border-color: var(--card-border);
-}
-
-.tileOverlay {
-  position: absolute;
-  left: var(--space-3);
-  right: var(--space-3);
-  bottom: var(--space-5);
-  display: flex;
-  justify-content: center;
-}
-
-.tileOverlayText {
-  padding: var(--space-2) var(--space-3);
-  background: var(--surface-elevated);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
-  font-family: var(--font-heading);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text);
-  text-align: center;
 }
 
 .tileTitle {

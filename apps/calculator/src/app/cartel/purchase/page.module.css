@@ -1,0 +1,300 @@
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: var(--page-padding);
+  row-gap: var(--space-5);
+}
+
+.bannerWrapper {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: var(--space-3);
+}
+
+.crest {
+  height: 3.5rem;
+  width: auto;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-5);
+  width: 100%;
+  max-width: var(--container-max);
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+}
+
+.pricingNote {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.quotePending {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.cartToggle {
+  position: fixed;
+  top: var(--page-padding);
+  right: var(--page-padding);
+  z-index: 3;
+  padding: var(--space-2) var(--space-4);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    min-width: 32rem;
+  }
+
+  .tableHead {
+    background: var(--surface-elevated);
+  }
+
+  tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 3rem;
+    width: 100%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td,
+  th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-2);
+  }
+
+  td:nth-child(1),
+  th:nth-child(1) {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: var(--space-4);
+  }
+
+  td:nth-child(2),
+  th:nth-child(2) {
+    flex: 0 0 6rem;
+  }
+
+  td:nth-child(3),
+  th:nth-child(3) {
+    flex: 0 0 8rem;
+  }
+
+  td:nth-child(4),
+  th:nth-child(4) {
+    flex: 0 0 6rem;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  padding: var(--space-4);
+}
+
+.modal {
+  width: 100%;
+  max-width: 32rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.cartLines {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+}
+
+.cartLine {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.cartLineName {
+  flex: 1 1 auto;
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.qtyInput {
+  width: 4rem;
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text);
+  text-align: center;
+}
+
+.cartLinePrice {
+  flex: 0 0 auto;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.removeButton {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.locationWrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.locationLabel {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.locationSelect {
+  height: 3.25rem;
+  padding: var(--space-3) 0.9rem;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.locationSelect:hover {
+  border-color: var(--primary-hover);
+  cursor: pointer;
+}
+
+.characterInput {
+  height: 3rem;
+  padding: var(--space-2) 0.9rem;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.modalButtons {
+  display: flex;
+  column-gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.summaryLabel {
+  font-size: var(--text-md);
+  color: var(--text);
+}
+
+.summaryValue {
+  font-size: var(--text-md);
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.valueGroup {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-3);
+}
+
+.referenceIdNote {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.summaryRowFinal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.summaryValueFinal {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--success);
+}
+
+@media only screen and (max-width: 768px) {
+  .page {
+    padding: var(--space-4);
+  }
+}

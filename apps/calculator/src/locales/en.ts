@@ -100,6 +100,36 @@ const en = {
 
   buybackErrorGeneric:
     "Something went wrong getting your quote. Please try again.",
+
+  purchasePageTitle: "Purchase Stock",
+  purchasePageSubtitle: "Buy items back from the corp",
+  purchaseNoStock: "No stock currently available.",
+  purchaseLocation: "Location",
+  purchaseNoLocations: "No purchase locations are currently configured.",
+  purchasePricingNote:
+    "All items priced at Jita Buy Value, or Reprocessed Jita Buy Value for Ore/Ice.",
+  getCartTotal: "Get Cart Total",
+  cartTotalPending: "Click “Get Cart Total” to see pricing.",
+  colAvailable: "Available",
+  colUnitPrice: "Unit Price",
+  addToCart: "Add",
+  cartButton: "Cart ({count})",
+  cartTitle: "Your Cart",
+  cartEmpty: "Your cart is empty.",
+  removeFromCart: "Remove",
+  quantityLabel: "Qty",
+  characterName: "EVE Character Name",
+  characterNamePlaceholder: "e.g. John Doe",
+  cartTotal: "Total",
+  submitOrder: "Submit Order",
+  closeCart: "Close",
+  purchaseErrorGeneric:
+    "Something went wrong submitting your order. Please try again.",
+  orderConfirmedTitle: "Order Submitted",
+  orderReferenceNote:
+    "Reference this ID when the admin contacts you to complete the trade contract.",
+  orderExpiresNote: "This reservation expires",
+  orderTotalPrice: "Total Price",
 } as const;
 
 export default en;

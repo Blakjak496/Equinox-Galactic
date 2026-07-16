@@ -101,6 +101,36 @@ const ru = {
 
   buybackErrorGeneric:
     "Что-то пошло не так при расчёте. Пожалуйста, попробуйте снова.",
+
+  purchasePageTitle: "Покупка со склада",
+  purchasePageSubtitle: "Купите предметы у корпорации",
+  purchaseNoStock: "Сейчас нет доступных товаров.",
+  purchaseLocation: "Локация",
+  purchaseNoLocations: "Сейчас нет доступных мест для покупки.",
+  purchasePricingNote:
+    "Все предметы оцениваются по Jita Buy Value, а руда/лёд - по стоимости переработанных материалов (Jita Buy Value).",
+  getCartTotal: "Рассчитать сумму",
+  cartTotalPending: "Нажмите «Рассчитать сумму», чтобы увидеть цену.",
+  colAvailable: "Доступно",
+  colUnitPrice: "Цена за шт.",
+  addToCart: "Добавить",
+  cartButton: "Корзина ({count})",
+  cartTitle: "Ваша корзина",
+  cartEmpty: "Ваша корзина пуста.",
+  removeFromCart: "Удалить",
+  quantityLabel: "Кол-во",
+  characterName: "Имя персонажа EVE",
+  characterNamePlaceholder: "например, John Doe",
+  cartTotal: "Итого",
+  submitOrder: "Оформить заказ",
+  closeCart: "Закрыть",
+  purchaseErrorGeneric:
+    "Что-то пошло не так при оформлении заказа. Пожалуйста, попробуйте снова.",
+  orderConfirmedTitle: "Заказ оформлен",
+  orderReferenceNote:
+    "Укажите этот номер, когда администратор свяжется с вами для оформления контракта.",
+  orderExpiresNote: "Срок действия резервации истекает",
+  orderTotalPrice: "Итоговая цена",
 } as const;
 
 export default ru;

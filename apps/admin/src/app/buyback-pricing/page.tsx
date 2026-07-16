@@ -22,6 +22,25 @@ function acceptedToValue(accepted: boolean | null): string {
   return String(accepted);
 }
 
+const REPROCESSING_OPTIONS = [
+  { value: "none", label: "None (normal pricing)" },
+  { value: "ore_ice", label: "Ore / Ice" },
+  { value: "gas", label: "Gas" },
+  { value: "scrap", label: "Scrap" },
+];
+
+function reprocessingToValue(
+  category: "ore_ice" | "gas" | "scrap" | null,
+): string {
+  return category ?? "none";
+}
+
+function reprocessingFromValue(
+  value: string,
+): "ore_ice" | "gas" | "scrap" | null {
+  return value === "none" ? null : (value as "ore_ice" | "gas" | "scrap");
+}
+
 function resolveAccepted(item: BuybackItem): boolean {
   return (item.accepted ?? item.categoryId.accepted) === true;
 }
@@ -70,6 +89,7 @@ type ItemEdit = Partial<{
   notes: string;
   haul: boolean | null;
   acceptedLocationIds: string[] | null;
+  reprocessingCategory: "ore_ice" | "gas" | "scrap" | null;
 }>;
 
 const LocationsCheckboxList = memo(function LocationsCheckboxList(props: {
@@ -138,6 +158,10 @@ const ItemRow = memo(function ItemRow(props: {
     edit?.acceptedLocationIds !== undefined
       ? edit.acceptedLocationIds
       : item.acceptedLocationIds;
+  const reprocessingCategory =
+    edit?.reprocessingCategory !== undefined
+      ? edit.reprocessingCategory
+      : item.reprocessingCategory;
   const isDirty = Boolean(edit);
   const rowClass = item.recommendationPending
     ? styles.rowPending
@@ -237,6 +261,22 @@ const ItemRow = memo(function ItemRow(props: {
           acceptedLocationIds={acceptedLocationIds}
           onChange={(ids) => onEdit(item._id, { acceptedLocationIds: ids })}
         />
+      </td>
+      <td>
+        <select
+          value={reprocessingToValue(reprocessingCategory)}
+          onChange={(e) =>
+            onEdit(item._id, {
+              reprocessingCategory: reprocessingFromValue(e.target.value),
+            })
+          }
+        >
+          {REPROCESSING_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </td>
     </tr>
   );
@@ -379,6 +419,7 @@ const CategoryRow = memo(function CategoryRow(props: {
                       <th>Notes</th>
                       <th>Haul</th>
                       <th>Locations</th>
+                      <th>Reprocessing</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -695,6 +736,7 @@ export default function BuybackPricing() {
           notes?: string | null;
           haul?: boolean | null;
           acceptedLocationIds?: string[] | null;
+          reprocessingCategory?: "ore_ice" | "gas" | "scrap" | null;
         } = {};
         if (edit.accepted !== undefined) payload.accepted = edit.accepted;
         if (edit.rateOverride !== undefined)
@@ -705,6 +747,8 @@ export default function BuybackPricing() {
         if (edit.haul !== undefined) payload.haul = edit.haul;
         if (edit.acceptedLocationIds !== undefined)
           payload.acceptedLocationIds = edit.acceptedLocationIds;
+        if (edit.reprocessingCategory !== undefined)
+          payload.reprocessingCategory = edit.reprocessingCategory;
         return api.updateBuybackItem(id, payload);
       }),
     );
@@ -825,6 +869,7 @@ export default function BuybackPricing() {
                       <th>Notes</th>
                       <th>Haul</th>
                       <th>Locations</th>
+                      <th>Reprocessing</th>
                     </tr>
                   </thead>
                   <tbody>

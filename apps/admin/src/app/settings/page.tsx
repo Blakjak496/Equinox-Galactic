@@ -10,6 +10,8 @@ export default function Settings() {
   const [maxCollateral, setMaxCollateral] = useState<number>(0);
   const [isotopePrice, setIsotopePrice] = useState<number>(0);
   const [salesTaxPercent, setSalesTaxPercent] = useState<number>(0);
+  const [runnersEnabled, setRunnersEnabled] = useState<boolean>(true);
+  const [cartelEnabled, setCartelEnabled] = useState<boolean>(true);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +26,8 @@ export default function Settings() {
         // undefined until an admin saves a value here for the first time
         setIsotopePrice(data.isotopePrice ?? 650);
         setSalesTaxPercent((data.salesTaxRate ?? 0.042) * 100);
+        setRunnersEnabled(data.runnersEnabled ?? true);
+        setCartelEnabled(data.cartelEnabled ?? true);
       })
       .catch(() => setError("Failed to load config"))
       .finally(() => setLoading(false));
@@ -39,6 +43,8 @@ export default function Settings() {
         maxCollateral,
         isotopePrice,
         salesTaxRate: salesTaxPercent / 100,
+        runnersEnabled,
+        cartelEnabled,
       });
       setSaved(true);
     } catch {
@@ -102,6 +108,36 @@ export default function Settings() {
                 <span className={styles.hint}>
                   Used only for the buyback margin safety net, not a direct
                   deduction
+                </span>
+              </div>
+
+              <div className={styles.checkboxGroup}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={runnersEnabled}
+                    onChange={(e) => {
+                      setRunnersEnabled(e.target.checked);
+                      setSaved(false);
+                    }}
+                  />
+                  Runners in service
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={cartelEnabled}
+                    onChange={(e) => {
+                      setCartelEnabled(e.target.checked);
+                      setSaved(false);
+                    }}
+                  />
+                  Cartel in service
+                </label>
+                <span className={styles.hint}>
+                  Unchecking a service hides it behind a &quot;Not Currently
+                  In Service&quot; overlay on the home page and blocks direct
+                  navigation to its pages.
                 </span>
               </div>
 

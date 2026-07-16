@@ -130,3 +130,41 @@ export type BuybackLocation = {
   name: string;
   isHub: boolean;
 };
+
+export type StockLocation = {
+  _id: string;
+  name: string;
+};
+
+export type StockItem = {
+  typeId: number;
+  name: string;
+  availableQuantity: number;
+};
+
+export type CartQuoteItem = {
+  typeId: number;
+  name: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+};
+
+export type CartQuote = {
+  items: CartQuoteItem[];
+  totalPrice: number;
+};
+
+export type BuyOrderResponse = {
+  referenceId: string;
+  locationName: string;
+  items: {
+    typeId: number;
+    name: string;
+    quantity: number;
+    unitPrice: number;
+    totalPrice: number;
+  }[];
+  totalPrice: number;
+  expiresAt: string;
+};
