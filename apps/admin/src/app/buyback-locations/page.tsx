@@ -243,10 +243,13 @@ export default function BuybackLocations() {
             ) : form.stockLocationId != null ? (
               <div className={styles.structureSelected}>
                 <span>
-                  {form.stockLocationName ?? `ID ${form.stockLocationId}`}
+                  {form.stockLocationName ?? "Unnamed"}
                   {form.stockLocationSystemName
                     ? ` (${form.stockLocationSystemName})`
-                    : ""}
+                    : ""}{" "}
+                  <span className={styles.muted}>
+                    ID: {form.stockLocationId}
+                  </span>
                 </span>
                 <Button callback={handleClearStructure} color="red">
                   Clear
@@ -272,8 +275,9 @@ export default function BuybackLocations() {
                         className={styles.structureResult}
                         onClick={() => handleSelectStructure(result)}
                       >
-                        {result.name ?? `ID ${result.id}`}
-                        {result.systemName ? ` (${result.systemName})` : ""}
+                        {result.name ?? "Unnamed"}
+                        {result.systemName ? ` (${result.systemName})` : ""}{" "}
+                        <span className={styles.muted}>ID: {result.id}</span>
                       </button>
                     ))}
                   </div>
@@ -282,7 +286,12 @@ export default function BuybackLocations() {
                   Only needed for the location(s) holding sellable buyback
                   stock. Results come from stations/structures already seen
                   on a synced contract - if the right one isn&apos;t showing
-                  up, it hasn&apos;t appeared on a contract yet.
+                  up, it hasn&apos;t appeared on a contract yet. If a
+                  structure was destroyed and rebuilt under the same name,
+                  both the old (now-inaccessible) and new entries can show up
+                  here with identical names - check the ID against what the
+                  corp asset sync's diagnostic log reports if you&apos;re not
+                  sure which is current.
                 </span>
               </>
             )}
@@ -337,7 +346,18 @@ export default function BuybackLocations() {
                     <td>{location.isHub ? "Yes" : "No"}</td>
                     <td>{location.distance}</td>
                     <td>{location.pickupRatePerM3 ?? "—"}</td>
-                    <td>{location.stockLocationName ?? "—"}</td>
+                    <td>
+                      {location.stockLocationId != null ? (
+                        <>
+                          {location.stockLocationName ?? "Unnamed"}{" "}
+                          <span className={styles.muted}>
+                            (ID: {location.stockLocationId})
+                          </span>
+                        </>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
                     <td className={styles.actions}>
                       <Button
                         callback={() => handleEdit(location)}
