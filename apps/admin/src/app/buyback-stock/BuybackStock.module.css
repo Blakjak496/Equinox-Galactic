@@ -30,6 +30,18 @@
   margin-bottom: var(--space-3);
 }
 
+.success {
+  color: var(--primary);
+  font-size: 0.875rem;
+}
+
+.syncBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
 .muted {
   color: var(--muted);
   font-size: 0.875rem;

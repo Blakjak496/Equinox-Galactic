@@ -242,6 +242,19 @@ export const api = {
   getBuybackStock: () =>
     apiFetch<{ ok: boolean; data: BuybackStockItem[] }>("/admin/buyback-stock"),
 
+  runStockSync: () =>
+    apiFetch<{
+      ok: boolean;
+      message?: string;
+      data?: {
+        assetsScanned: number;
+        hubLocationCount: number;
+        itemsChanged: number;
+        itemsTotal: number;
+        durationSec: number;
+      };
+    }>("/admin/buyback-stock/sync", { method: "POST" }),
+
   getBuyOrders: (status?: string) =>
     apiFetch<{ ok: boolean; data: BuyOrder[] }>(
       `/admin/buy-orders${status ? `?status=${status}` : ""}`,

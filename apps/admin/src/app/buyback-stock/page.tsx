@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
+import Button from "@/components/Button/Button";
 import { api, BuybackStockItem } from "@/lib/api";
 import styles from "./BuybackStock.module.css";
 
@@ -24,14 +25,42 @@ export default function BuybackStock() {
   const [items, setItems] = useState<BuybackStockItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<string | null>(null);
+  const [syncMessageIsError, setSyncMessageIsError] = useState(false);
 
-  useEffect(() => {
+  const fetchStock = () => {
     api
       .getBuybackStock()
       .then(({ data }) => setItems(data))
       .catch(() => setError("Failed to load buyback stock"))
       .finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(fetchStock, []);
+
+  const handleSync = async () => {
+    setSyncing(true);
+    setSyncMessage(null);
+    try {
+      const res = await api.runStockSync();
+      if (!res.ok) {
+        setSyncMessageIsError(true);
+        setSyncMessage(res.message ?? "Sync failed");
+      } else if (res.data) {
+        setSyncMessageIsError(false);
+        setSyncMessage(
+          `Scanned ${res.data.assetsScanned} assets across ${res.data.hubLocationCount} hub location(s) - ${res.data.itemsChanged}/${res.data.itemsTotal} items changed (${res.data.durationSec.toFixed(1)}s).`,
+        );
+        fetchStock();
+      }
+    } catch {
+      setSyncMessageIsError(true);
+      setSyncMessage("Sync failed");
+    } finally {
+      setSyncing(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -41,8 +70,23 @@ export default function BuybackStock() {
           <p className={styles.hint}>
             Live totals from the Division 6 hangar at configured stock
             locations. Available quantity already accounts for outstanding
-            Purchase Stock orders.
+            Purchase Stock orders. ESI caches hangar contents for 24h, so
+            this normally only refreshes once a day - use the button below
+            to check a fix without waiting for the next scheduled run.
           </p>
+
+          <div className={styles.syncBar}>
+            <Button callback={handleSync} color="orange" disabled={syncing}>
+              {syncing ? "Syncing…" : "Run Sync Now"}
+            </Button>
+            {syncMessage && (
+              <span
+                className={syncMessageIsError ? styles.error : styles.success}
+              >
+                {syncMessage}
+              </span>
+            )}
+          </div>
 
           {error && <p className={styles.error}>{error}</p>}
 
