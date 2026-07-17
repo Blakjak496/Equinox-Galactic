@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import styles from "./AppShell.module.css";
 import { useEffect, useState } from "react";
 import { auth, app } from "@/firebase";
+import { apiFetch } from "@/lib/api";
 import {
   GoogleAuthProvider,
   onAuthStateChanged,
@@ -50,15 +51,26 @@ export default function AppShell(props: { children: ReactNode }) {
         return;
       }
 
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/eve`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          code,
-          codeVerifier: verifier,
-          redirectUri: "https://equinox-galactic-admin.web.app/",
-        }),
-      });
+      try {
+        // apiFetch (not a bare fetch) so this actually carries the
+        // x-admin-secret header the backend's adminAuth middleware
+        // requires - a bare fetch here previously meant every reconnect
+        // silently 401'd before the token exchange ever ran, leaving the
+        // old (narrower-scoped) refresh token in place indefinitely.
+        await apiFetch<{ ok: boolean }>("/auth/eve", {
+          method: "POST",
+          body: JSON.stringify({
+            code,
+            codeVerifier: verifier,
+            redirectUri: "https://equinox-galactic-admin.web.app/",
+          }),
+        });
+      } catch (err) {
+        console.error("EVE SSO exchange failed:", err);
+        alert(
+          "EVE SSO reconnect failed - check the console and try again. The corp's ESI connection was not updated.",
+        );
+      }
 
       // cleanup
       sessionStorage.removeItem("eve_state");
