@@ -74,3 +74,20 @@
 .rowStale td {
   background: rgba(224, 82, 82, 0.08);
 }
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.editInput {
+  width: 6rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}

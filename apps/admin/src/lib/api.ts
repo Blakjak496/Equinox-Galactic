@@ -248,6 +248,12 @@ export const api = {
   getBuybackStock: () =>
     apiFetch<{ ok: boolean; data: BuybackStockItem[] }>("/admin/buyback-stock"),
 
+  updateBuybackStock: (itemId: string, locationId: string, quantity: number) =>
+    apiFetch<{ ok: boolean; message?: string; data?: unknown }>(
+      `/admin/buyback-stock/${itemId}/${locationId}`,
+      { method: "PATCH", body: JSON.stringify({ quantity }) },
+    ),
+
   runStockSync: () =>
     apiFetch<{
       ok: boolean;
@@ -431,6 +437,7 @@ export type BuybackQuote = {
 
 export type BuybackStockItem = {
   _id: string;
+  itemId: string;
   typeId: number;
   name: string;
   locationId: string;

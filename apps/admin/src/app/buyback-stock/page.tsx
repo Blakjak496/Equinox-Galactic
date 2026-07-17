@@ -28,6 +28,9 @@ export default function BuybackStock() {
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const [syncMessageIsError, setSyncMessageIsError] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState("");
+  const [savingEdit, setSavingEdit] = useState(false);
 
   const fetchStock = () => {
     api
@@ -38,6 +41,36 @@ export default function BuybackStock() {
   };
 
   useEffect(fetchStock, []);
+
+  const handleStartEdit = (item: BuybackStockItem) => {
+    setEditingId(item._id);
+    setEditValue(String(item.quantityOnHand));
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditValue("");
+  };
+
+  const handleSaveEdit = async (item: BuybackStockItem) => {
+    const quantity = Number(editValue);
+    if (!Number.isFinite(quantity) || quantity < 0) {
+      setError("Quantity must be a non-negative number");
+      return;
+    }
+
+    setSavingEdit(true);
+    setError(null);
+    try {
+      await api.updateBuybackStock(item.itemId, item.locationId, quantity);
+      setEditingId(null);
+      fetchStock();
+    } catch {
+      setError("Failed to update stock quantity");
+    } finally {
+      setSavingEdit(false);
+    }
+  };
 
   const handleSync = async () => {
     setSyncing(true);
@@ -104,17 +137,33 @@ export default function BuybackStock() {
                   <th>Available</th>
                   <th>Updated</th>
                   <th>Sitting</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 {items.map((item) => {
                   const days = sittingDays(item.oldestUnsoldAcquiredAt);
                   const isStale = days !== null && days >= STALE_DAYS_THRESHOLD;
+                  const isEditing = editingId === item._id;
                   return (
                     <tr key={item._id} className={isStale ? styles.rowStale : ""}>
                       <td>{item.name}</td>
                       <td>{item.locationName}</td>
-                      <td>{item.quantityOnHand.toLocaleString()}</td>
+                      <td>
+                        {isEditing ? (
+                          <input
+                            type="number"
+                            min={0}
+                            step={1}
+                            className={styles.editInput}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            autoFocus
+                          />
+                        ) : (
+                          item.quantityOnHand.toLocaleString()
+                        )}
+                      </td>
                       <td>{item.availableQuantity.toLocaleString()}</td>
                       <td>{formatFreshness(item.stockUpdatedAt)}</td>
                       <td>
@@ -123,6 +172,33 @@ export default function BuybackStock() {
                           : isStale
                             ? `⚠ ${days}d`
                             : `${days}d`}
+                      </td>
+                      <td className={styles.actions}>
+                        {isEditing ? (
+                          <>
+                            <Button
+                              callback={() => handleSaveEdit(item)}
+                              color="green"
+                              disabled={savingEdit}
+                            >
+                              {savingEdit ? "Saving…" : "Save"}
+                            </Button>
+                            <Button
+                              callback={handleCancelEdit}
+                              color="orange"
+                              disabled={savingEdit}
+                            >
+                              Cancel
+                            </Button>
+                          </>
+                        ) : (
+                          <Button
+                            callback={() => handleStartEdit(item)}
+                            color="orange"
+                          >
+                            Edit
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   );
