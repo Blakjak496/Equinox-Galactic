@@ -28,6 +28,9 @@ export default function BuybackLocations() {
     StructureSearchResult[]
   >([]);
   const [searchingStructures, setSearchingStructures] = useState(false);
+  const [fetchIdInput, setFetchIdInput] = useState("");
+  const [fetchingById, setFetchingById] = useState(false);
+  const [fetchByIdError, setFetchByIdError] = useState<string | null>(null);
 
   const fetchLocations = () => {
     api
@@ -75,6 +78,8 @@ export default function BuybackLocations() {
     });
     setStructureQuery("");
     setStructureResults([]);
+    setFetchIdInput("");
+    setFetchByIdError(null);
     setError(null);
   };
 
@@ -83,6 +88,8 @@ export default function BuybackLocations() {
     setForm(EMPTY_FORM);
     setStructureQuery("");
     setStructureResults([]);
+    setFetchIdInput("");
+    setFetchByIdError(null);
     setError(null);
   };
 
@@ -95,6 +102,31 @@ export default function BuybackLocations() {
     });
     setStructureQuery("");
     setStructureResults([]);
+    setFetchIdInput("");
+    setFetchByIdError(null);
+  };
+
+  const handleFetchStructureById = async () => {
+    const locationId = Number(fetchIdInput.trim());
+    if (!Number.isFinite(locationId) || locationId <= 0) {
+      setFetchByIdError("Enter a valid numeric ID");
+      return;
+    }
+
+    setFetchingById(true);
+    setFetchByIdError(null);
+    try {
+      const { ok, data, message } = await api.fetchStructureById(locationId);
+      if (!ok || !data) {
+        setFetchByIdError(message ?? "Structure/station not found");
+        return;
+      }
+      handleSelectStructure(data);
+    } catch {
+      setFetchByIdError("Failed to fetch from ESI");
+    } finally {
+      setFetchingById(false);
+    }
   };
 
   const handleClearStructure = () => {
@@ -292,6 +324,32 @@ export default function BuybackLocations() {
                   here with identical names - check the ID against what the
                   corp asset sync's diagnostic log reports if you&apos;re not
                   sure which is current.
+                </span>
+
+                <div className={styles.structureFetchById}>
+                  <input
+                    type="text"
+                    value={fetchIdInput}
+                    onChange={(e) => setFetchIdInput(e.target.value)}
+                    placeholder="Or enter a known structure/station ID…"
+                  />
+                  <Button
+                    callback={handleFetchStructureById}
+                    color="orange"
+                    disabled={fetchingById || !fetchIdInput.trim()}
+                  >
+                    {fetchingById ? "Fetching…" : "Fetch"}
+                  </Button>
+                </div>
+                {fetchByIdError && (
+                  <span className={styles.error}>{fetchByIdError}</span>
+                )}
+                <span className={styles.hint}>
+                  Use this when the correct structure doesn&apos;t show up in
+                  search above (e.g. a rebuilt structure whose new ID hasn't
+                  appeared on any contract yet) - it queries ESI directly by
+                  ID and caches the result, rather than relying on the
+                  name-matched cache.
                 </span>
               </>
             )}

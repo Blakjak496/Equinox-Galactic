@@ -165,3 +165,13 @@
 .structureResult:hover {
   background: var(--surface-elevated, var(--hairline-soft));
 }
+
+.structureFetchById {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.structureFetchById input {
+  flex: 1;
+}

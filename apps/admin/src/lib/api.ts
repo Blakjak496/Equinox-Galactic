@@ -239,6 +239,12 @@ export const api = {
       `/admin/structures/search?q=${encodeURIComponent(q)}`,
     ),
 
+  fetchStructureById: (locationId: number) =>
+    apiFetch<{ ok: boolean; message?: string; data?: StructureSearchResult }>(
+      "/admin/structures/fetch",
+      { method: "POST", body: JSON.stringify({ locationId }) },
+    ),
+
   getBuybackStock: () =>
     apiFetch<{ ok: boolean; data: BuybackStockItem[] }>("/admin/buyback-stock"),
 
