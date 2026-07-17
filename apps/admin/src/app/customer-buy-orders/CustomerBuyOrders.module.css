@@ -128,3 +128,9 @@
   padding: var(--space-1) var(--space-2);
   border-bottom: 1px solid var(--hairline-soft);
 }
+
+.detailActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-3);
+}

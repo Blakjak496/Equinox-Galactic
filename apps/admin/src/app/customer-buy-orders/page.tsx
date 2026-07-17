@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
+import Button from "@/components/Button/Button";
 import { api, BuyOrder } from "@/lib/api";
 import styles from "./CustomerBuyOrders.module.css";
 
@@ -30,15 +31,40 @@ export default function CustomerBuyOrders() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchOrders = () => {
     setLoading(true);
     api
       .getBuyOrders(status || undefined)
       .then(({ data }) => setOrders(data))
       .catch(() => setError("Failed to load buy orders"))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
+
+  const handleCancel = async (order: BuyOrder) => {
+    if (
+      !confirm(
+        `Cancel order ${order.referenceId} for ${order.customerCharacterName}?`,
+      )
+    )
+      return;
+
+    setCancellingId(order._id);
+    try {
+      await api.updateBuyOrder(order._id, { status: "cancelled" });
+      fetchOrders();
+    } catch {
+      setError("Failed to cancel buy order");
+    } finally {
+      setCancellingId(null);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -126,6 +152,20 @@ export default function CustomerBuyOrders() {
                               ))}
                             </tbody>
                           </table>
+                          {order.status !== "completed" &&
+                            order.status !== "cancelled" && (
+                              <div className={styles.detailActions}>
+                                <Button
+                                  callback={() => handleCancel(order)}
+                                  color="red"
+                                  disabled={cancellingId === order._id}
+                                >
+                                  {cancellingId === order._id
+                                    ? "Cancelling…"
+                                    : "Cancel Order"}
+                                </Button>
+                              </div>
+                            )}
                         </td>
                       </tr>
                     )}
