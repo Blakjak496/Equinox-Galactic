@@ -18,11 +18,11 @@ export default function Cartel() {
       <div className={styles.tiles}>
         <Link href="/cartel/buyback" className={styles.tile}>
           <span className={styles.tileTitle}>Buyback</span>
-          <span className={styles.tileSubtitle}>Sell items to the corp</span>
+          <span className={styles.tileSubtitle}>Sell items</span>
         </Link>
         <Link href="/cartel/purchase" className={styles.tile}>
           <span className={styles.tileTitle}>Purchase Stock</span>
-          <span className={styles.tileSubtitle}>Buy items from the corp</span>
+          <span className={styles.tileSubtitle}>Buy items</span>
         </Link>
       </div>
     </div>
