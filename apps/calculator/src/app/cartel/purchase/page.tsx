@@ -43,9 +43,18 @@ function groupByCategory(
 type CartLine = {
   typeId: number;
   name: string;
-  quantity: number;
+  // "" is a distinct, valid state for "the input is currently empty" -
+  // treating it as the number 0 while the user is typing would force the
+  // input to redisplay "0" mid-edit, breaking the normal clear-then-type
+  // flow for entering a new quantity. Only resolved to 0 when a request
+  // payload is actually built (see toPayloadQuantity).
+  quantity: number | "";
   availableQuantity: number;
 };
+
+function toPayloadQuantity(quantity: number | ""): number {
+  return quantity === "" ? 0 : quantity;
+}
 
 export default function PurchaseStock() {
   const [locations, setLocations] = useState<StockLocation[]>([]);
@@ -95,7 +104,10 @@ export default function PurchaseStock() {
       .finally(() => setLoadingStock(false));
   }, [locationId]);
 
-  const cartCount = cart.reduce((sum, line) => sum + line.quantity, 0);
+  const cartCount = cart.reduce(
+    (sum, line) => sum + toPayloadQuantity(line.quantity),
+    0,
+  );
 
   // Any change to what's in the cart invalidates a previously fetched
   // quote - pricing only ever runs on an explicit "Get Cart Total" click,
@@ -110,7 +122,7 @@ export default function PurchaseStock() {
       const existing = prev.find((line) => line.typeId === item.typeId);
       if (existing) {
         const nextQty = Math.min(
-          existing.quantity + 1,
+          toPayloadQuantity(existing.quantity) + 1,
           item.availableQuantity,
         );
         return prev.map((line) =>
@@ -131,21 +143,25 @@ export default function PurchaseStock() {
     setCartOpen(true);
   };
 
-  const updateQuantity = (typeId: number, quantity: number) => {
+  // raw is the input's literal text - kept as "" rather than coerced to 0
+  // so the field can sit empty while the user is mid-edit (e.g. backspacing
+  // before typing a new multi-digit quantity) without the input fighting
+  // back with a forced "0". A line is never removed just because its
+  // quantity dropped to 0/empty - only the explicit Remove button does that.
+  const updateQuantity = (typeId: number, raw: string) => {
     setCart((prev) =>
-      prev
-        .map((line) =>
-          line.typeId === typeId
-            ? {
-                ...line,
-                quantity: Math.max(
-                  0,
-                  Math.min(quantity, line.availableQuantity),
-                ),
-              }
-            : line,
-        )
-        .filter((line) => line.quantity > 0),
+      prev.map((line) => {
+        if (line.typeId !== typeId) return line;
+        if (raw === "") return { ...line, quantity: "" };
+
+        const parsed = Number(raw);
+        if (!Number.isFinite(parsed)) return line;
+
+        return {
+          ...line,
+          quantity: Math.max(0, Math.min(parsed, line.availableQuantity)),
+        };
+      }),
     );
     invalidateQuote();
   };
@@ -163,7 +179,10 @@ export default function PurchaseStock() {
 
     const result = await quoteCart(
       locationId,
-      cart.map((line) => ({ typeId: line.typeId, quantity: line.quantity })),
+      cart.map((line) => ({
+        typeId: line.typeId,
+        quantity: toPayloadQuantity(line.quantity),
+      })),
     );
 
     if (!result.ok) {
@@ -185,7 +204,10 @@ export default function PurchaseStock() {
     const result = await submitBuyOrder(
       characterName.trim(),
       locationId,
-      cart.map((line) => ({ typeId: line.typeId, quantity: line.quantity })),
+      cart.map((line) => ({
+        typeId: line.typeId,
+        quantity: toPayloadQuantity(line.quantity),
+      })),
     );
 
     if (!result.ok) {
@@ -375,19 +397,21 @@ export default function PurchaseStock() {
                           <span className={styles.cartLineName}>
                             {line.name}
                           </span>
-                          <input
-                            type="number"
-                            className={styles.qtyInput}
-                            min={1}
-                            max={line.availableQuantity}
-                            value={line.quantity}
-                            onChange={(e) =>
-                              updateQuantity(
-                                line.typeId,
-                                Number(e.target.value),
-                              )
-                            }
-                          />
+                          <label className={styles.qtyGroup}>
+                            <span className={styles.qtyLabel}>
+                              {t("colQuantity")}
+                            </span>
+                            <input
+                              type="number"
+                              className={styles.qtyInput}
+                              min={0}
+                              max={line.availableQuantity}
+                              value={line.quantity}
+                              onChange={(e) =>
+                                updateQuantity(line.typeId, e.target.value)
+                              }
+                            />
+                          </label>
                           {quoteItem && (
                             <span className={styles.cartLinePrice}>
                               {formatIsk(quoteItem.totalPrice)}
