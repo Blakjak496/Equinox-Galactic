@@ -6,18 +6,28 @@
   min-height: 100vh;
   position: relative;
   overflow-y: scroll;
-  padding: var(--page-padding);
+  padding: var(--space-4);
   row-gap: var(--space-5);
   background: var(--bg);
 }
 
 .bannerWrapper {
   z-index: 1;
-  width: 30%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   column-gap: var(--space-3);
+}
+
+@media only screen and (min-width: 768px) {
+  .page {
+    padding: var(--page-padding);
+  }
+
+  .bannerWrapper {
+    width: 30%;
+  }
 }
 
 .crest {

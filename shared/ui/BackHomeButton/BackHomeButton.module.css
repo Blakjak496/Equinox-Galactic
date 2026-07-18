@@ -1,7 +1,6 @@
 .button {
-  position: absolute;
-  top: var(--page-padding);
-  left: var(--page-padding);
+  position: static;
+  align-self: flex-start;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -26,9 +25,10 @@
   border-color: var(--primary);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
   .button {
-    position: static;
-    align-self: flex-start;
+    position: absolute;
+    top: var(--page-padding);
+    left: var(--page-padding);
   }
 }

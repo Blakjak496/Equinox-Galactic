@@ -6,7 +6,7 @@
   min-height: 100vh;
   position: relative;
   overflow-y: auto;
-  padding: var(--page-padding);
+  padding: var(--space-4);
   row-gap: var(--space-5);
 }
 
@@ -26,8 +26,9 @@
 
 .grid {
   display: flex;
-  /* grid-template-columns: 1.2fr 1fr; */
+  flex-direction: column;
   column-gap: var(--space-6);
+  row-gap: var(--space-5);
   width: 100%;
   max-width: var(--container-max);
   justify-content: center;
@@ -46,7 +47,7 @@
 }
 
 .columnRight {
-  width: 30%;
+  width: 100%;
 }
 
 .cardContent {
@@ -61,6 +62,7 @@
   align-items: center;
   justify-content: center;
   column-gap: var(--space-3);
+  width: 100%;
 }
 
 .banner {
@@ -97,14 +99,16 @@
 .contractValues,
 .contractLocations {
   display: flex;
+  flex-direction: column;
   column-gap: var(--space-5);
+  row-gap: var(--space-5);
 }
 
 .inputWrapper {
   display: flex;
   flex-direction: column;
   row-gap: var(--space-1);
-  width: 50%;
+  width: 100%;
 
   label {
     display: flex;
@@ -322,12 +326,11 @@
 }
 
 .languageSelectWrapper {
-  position: absolute;
-  top: var(--page-padding);
-  right: var(--page-padding);
+  position: relative;
+  top: 0;
+  right: 0;
   display: flex;
   column-gap: var(--space-4);
-  display: flex;
   align-items: center;
 }
 
@@ -352,53 +355,80 @@
   flex-direction: column;
   row-gap: var(--space-4);
   width: 100%;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   font-family: var(--font-body);
   z-index: 1;
-
-  .tableHead {
-    background: var(--surface-elevated);
-  }
-
-  tr {
-    display: flex;
-    justify-content: space-evenly;
-    min-height: 3rem;
-    width: 100%;
-    border-bottom: 1px solid var(--border);
-  }
-
-  td,
-  th {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 14%;
-    white-space: nowrap;
-    padding: 0 var(--space-2);
-  }
-
-  td:first-child,
-  th:first-child {
-    width: 30%;
-    justify-content: flex-start;
-    padding-left: var(--space-4);
-  }
 }
 
 .tableScroll {
   width: 100%;
-  overflow-x: auto;
+}
 
-  table {
-    width: 100%;
-    min-width: 50rem;
-  }
+.tableScroll table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableScroll tbody {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+}
+
+/* Mobile: the header row is replaced by a per-field label (via data-label +
+   ::before) on each card, so it's redundant here rather than useful. */
+.tableScroll .tableHead {
+  display: none;
+}
+
+.tableScroll tr {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.tableScroll td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  white-space: normal;
+  text-align: right;
+}
+
+.tableScroll td::before {
+  content: attr(data-label);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-align: left;
+  margin-right: var(--space-3);
+}
+
+/* First column (route name) reads as the card's title, not a labelled
+   field - no redundant "Route:" prefix needed. */
+.tableScroll td:first-child {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  justify-content: flex-start;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
+  border-bottom: 1px solid var(--border);
+}
+
+.tableScroll td:first-child::before {
+  content: none;
 }
 
 .tableRowAlt {
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .routesBanner {
@@ -415,56 +445,95 @@
   color: var(--primary);
 }
 
-@media only screen and (max-width: 768px) {
+/* Tablet+: form fields that only need two-up space (not full desktop
+   real estate) pair up, and the language switcher moves back into the
+   fixed corner now there's room for it. */
+@media only screen and (min-width: 768px) {
   .dashboard {
-    padding: var(--space-4);
-  }
-
-  .bannerWrapper {
-    width: 100%;
-  }
-
-  .grid {
-    flex-direction: column;
-    grid-template-columns: 100%;
-    row-gap: var(--space-5);
-  }
-
-  .columnRight {
-    width: 100%;
+    padding: var(--page-padding);
   }
 
   .contractValues,
   .contractLocations {
-    flex-direction: column;
-    row-gap: var(--space-5);
+    flex-direction: row;
   }
 
   .inputWrapper {
-    width: 100%;
-  }
-
-  .toggle {
-    width: 2rem;
-    height: 1rem;
-  }
-
-  .slider::before {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 50%;
   }
 
   .languageSelectWrapper {
-    position: relative;
-    top: 0;
-    right: 0;
+    position: absolute;
+    top: var(--page-padding);
+    right: var(--page-padding);
+  }
+}
+
+/* Desktop: the contract-details/contract-settings two-column layout and
+   the full routes table (6 columns) both need real width to not feel
+   cramped, so they wait for the wider breakpoint rather than 768px. */
+@media only screen and (min-width: 1024px) {
+  .grid {
+    flex-direction: row;
   }
 
-  .routes {
-    table {
-      tr {
-        margin-bottom: var(--space-2);
-      }
-    }
+  .columnRight {
+    width: 30%;
+  }
+
+  .tableScroll {
+    overflow-x: auto;
+  }
+
+  .tableScroll table {
+    min-width: 50rem;
+  }
+
+  .tableScroll tbody {
+    row-gap: 0;
+  }
+
+  .tableScroll .tableHead {
+    display: flex;
+    background: var(--surface-elevated);
+  }
+
+  .tableScroll tr {
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-height: 3rem;
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+  }
+
+  .tableScroll td,
+  .tableScroll th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14%;
+    white-space: nowrap;
+    padding: 0 var(--space-2);
+  }
+
+  .tableScroll td::before {
+    content: none;
+  }
+
+  .tableScroll td:first-child,
+  .tableScroll th:first-child {
+    width: 30%;
+    justify-content: flex-start;
+    padding-left: var(--space-4);
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-regular);
+    color: inherit;
   }
 }

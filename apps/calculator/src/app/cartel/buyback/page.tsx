@@ -142,14 +142,14 @@ export default function BuybackDashboard() {
                         key={idx}
                         className={`${idx % 2 === 1 ? styles.tableRowAlt : ""} ${!item.accepted ? styles.rejectedRow : ""}`}
                       >
-                        <td>{item.name}</td>
-                        <td>{formatVolume(item.volume)}</td>
-                        <td>{item.quantity.toLocaleString()}</td>
-                        <td>{formatIsk(item.jbvPerUnit)}</td>
-                        <td>{formatIsk(item.totalJbv)}</td>
-                        <td>{item.accepted ? `${item.percentOffered}%` : "—"}</td>
-                        <td>{item.accepted ? formatIsk(item.offerValue) : "—"}</td>
-                        <td>
+                        <td data-label={t("colItem")}>{item.name}</td>
+                        <td data-label={t("colVolume")}>{formatVolume(item.volume)}</td>
+                        <td data-label={t("colQuantity")}>{item.quantity.toLocaleString()}</td>
+                        <td data-label={t("colJbvPerUnit")}>{formatIsk(item.jbvPerUnit)}</td>
+                        <td data-label={t("colTotalJbv")}>{formatIsk(item.totalJbv)}</td>
+                        <td data-label={t("colPercentOffered")}>{item.accepted ? `${item.percentOffered}%` : "—"}</td>
+                        <td data-label={t("colOfferValue")}>{item.accepted ? formatIsk(item.offerValue) : "—"}</td>
+                        <td data-label={t("colAccepted")}>
                           <span
                             className={
                               item.accepted

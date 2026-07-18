@@ -638,12 +638,12 @@ export default function Dashboard() {
                   const terms = getRouteTerms(r);
                   return (
                     <tr key={idx} className={idx % 2 === 1 ? styles.tableRowAlt : ""}>
-                      <td>{`${r.systems[0]} ${r.oneWay ? "→" : "↔"} ${r.systems[1]}`}</td>
-                      <td>{terms.rate > 0 ? `${terms.rate.toLocaleString()} ISK/m³` : "—"}</td>
-                      <td>{formatIsk(terms.minReward)}</td>
-                      <td>{formatIsk(terms.rushPrice)}</td>
-                      <td>{terms.collateralFeePercent > 0 ? `${terms.collateralFeePercent}%` : "—"}</td>
-                      <td>{formatIsk(terms.maxVolume)} m³</td>
+                      <td data-label={t("route")}>{`${r.systems[0]} ${r.oneWay ? "→" : "↔"} ${r.systems[1]}`}</td>
+                      <td data-label={t("ratePerM3Table")}>{terms.rate > 0 ? `${terms.rate.toLocaleString()} ISK/m³` : "—"}</td>
+                      <td data-label={t("minimumReward")}>{formatIsk(terms.minReward)}</td>
+                      <td data-label={t("rushPrice")}>{formatIsk(terms.rushPrice)}</td>
+                      <td data-label={t("collateralFee")}>{terms.collateralFeePercent > 0 ? `${terms.collateralFeePercent}%` : "—"}</td>
+                      <td data-label={t("maxVolume")}>{formatIsk(terms.maxVolume)} m³</td>
                     </tr>
                   );
                 })}

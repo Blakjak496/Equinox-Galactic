@@ -6,7 +6,7 @@
   width: 100vw;
   min-height: 100vh;
   overflow-y: auto;
-  padding: var(--page-padding);
+  padding: var(--space-4);
   row-gap: var(--space-5);
 }
 
@@ -83,70 +83,101 @@
 
 .tableScroll {
   width: 100%;
-  overflow-x: auto;
+}
 
-  table {
-    width: 100%;
-    min-width: 32rem;
-  }
+.tableScroll table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .tableHead {
-    background: var(--surface-elevated);
-  }
+.tableScroll tbody {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+}
 
-  tr {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    min-height: 3rem;
-    width: 100%;
-    border-bottom: 1px solid var(--border);
-  }
+/* Mobile: each field gets its own label via data-label + ::before, so the
+   header row would just be redundant here. */
+.tableScroll .tableHead {
+  display: none;
+}
 
-  td,
-  th {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: var(--space-2);
-  }
+.tableScroll tr {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
 
-  td:nth-child(1),
-  th:nth-child(1) {
-    flex: 1 1 auto;
-    justify-content: flex-start;
-    text-align: left;
-    padding-left: var(--space-4);
-  }
+.tableScroll td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: right;
+  padding: 0;
+}
 
-  td:nth-child(2),
-  th:nth-child(2) {
-    flex: 0 0 6rem;
-  }
+.tableScroll td::before {
+  content: attr(data-label);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-align: left;
+  margin-right: var(--space-3);
+}
 
-  td:nth-child(3),
-  th:nth-child(3) {
-    flex: 0 0 8rem;
-  }
+/* First column (item name) reads as the card's title, not a labelled
+   field. */
+.tableScroll td:nth-child(1) {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  justify-content: flex-start;
+}
 
-  td:nth-child(4),
-  th:nth-child(4) {
-    flex: 0 0 6rem;
-  }
+.tableScroll td:nth-child(1)::before {
+  content: none;
+}
 
-  .categoryRow {
-    min-height: 2.25rem;
-    background: var(--surface);
-  }
+/* The action column (Add to cart) has no label - it gets its own full-width
+   row so the button is an easy, thumb-sized tap target on mobile. */
+.tableScroll .actionCell {
+  padding-top: var(--space-1);
+}
 
-  .categoryRow td {
-    font-family: var(--font-heading);
-    font-size: var(--text-xs);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
+.tableScroll .actionCell::before {
+  content: none;
+}
+
+.tableScroll .actionCell button {
+  width: 100%;
+}
+
+/* The category divider is a plain section heading, not an item card - undo
+   the card styling .tableScroll tr applies to every other row. */
+.tableScroll .categoryRow {
+  display: block;
+  width: auto;
+  padding: var(--space-3) var(--space-1) 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+.tableScroll .categoryRow td {
+  display: block;
+  width: auto;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .modalOverlay {
@@ -173,21 +204,30 @@
   row-gap: var(--space-3);
 }
 
+/* Mobile-first: name+remove on one line, qty+price on the next - a plain
+   flex row doesn't have room for all four at once on a narrow viewport. */
 .cartLine {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "name remove"
+    "qty price";
   align-items: center;
   column-gap: var(--space-3);
+  row-gap: var(--space-2);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--border);
 }
 
 .cartLineName {
-  flex: 1 1 auto;
+  grid-area: name;
   font-size: var(--text-sm);
   color: var(--text);
 }
 
 .qtyInput {
+  grid-area: qty;
+  justify-self: start;
   width: 4rem;
   padding: var(--space-1) var(--space-2);
   background: var(--surface-elevated);
@@ -200,14 +240,16 @@
 }
 
 .cartLinePrice {
-  flex: 0 0 auto;
+  grid-area: price;
+  justify-self: end;
   font-size: var(--text-sm);
   color: var(--text-muted);
   white-space: nowrap;
 }
 
 .removeButton {
-  flex: 0 0 auto;
+  grid-area: remove;
+  justify-self: end;
   background: none;
   border: none;
   color: var(--danger);
@@ -306,8 +348,113 @@
   color: var(--success);
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
   .page {
-    padding: var(--space-4);
+    padding: var(--page-padding);
+  }
+
+  /* Enough width in the (always-narrow, max-width:32rem) cart modal for
+     the original single-row layout to not feel cramped. */
+  .cartLine {
+    display: flex;
+    align-items: center;
+    column-gap: var(--space-3);
+  }
+
+  .cartLineName {
+    flex: 1 1 auto;
+  }
+
+  .qtyInput {
+    flex: 0 0 auto;
+  }
+
+  .cartLinePrice,
+  .removeButton {
+    flex: 0 0 auto;
+  }
+}
+
+/* Desktop: the stock listing table (3 columns) needs real width to not
+   feel cramped, so it waits for the wider breakpoint rather than 768px. */
+@media only screen and (min-width: 1024px) {
+  .tableScroll {
+    overflow-x: auto;
+  }
+
+  .tableScroll table {
+    min-width: 32rem;
+  }
+
+  .tableScroll tbody {
+    row-gap: 0;
+  }
+
+  .tableScroll .tableHead {
+    display: flex;
+    background: var(--surface-elevated);
+  }
+
+  .tableScroll tr {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 3rem;
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+  }
+
+  .tableScroll td,
+  .tableScroll th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-2);
+  }
+
+  .tableScroll td::before {
+    content: none;
+  }
+
+  .tableScroll td:nth-child(1),
+  .tableScroll th:nth-child(1) {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-regular);
+    color: inherit;
+  }
+
+  .tableScroll td:nth-child(2),
+  .tableScroll th:nth-child(2) {
+    flex: 0 0 6rem;
+  }
+
+  .tableScroll .actionCell {
+    flex: 0 0 8rem;
+    padding-top: var(--space-2);
+  }
+
+  .tableScroll .actionCell button {
+    width: auto;
+  }
+
+  .tableScroll .categoryRow {
+    display: flex;
+    min-height: 2.25rem;
+    background: var(--surface);
+    align-items: center;
+  }
+
+  .tableScroll .categoryRow td {
+    display: flex;
+    width: 100%;
   }
 }

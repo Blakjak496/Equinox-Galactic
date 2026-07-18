@@ -325,11 +325,11 @@ export default function PurchaseStock() {
                           </tr>
                           {group.items.map((item) => (
                             <tr key={item.typeId}>
-                              <td>{item.name}</td>
-                              <td>
+                              <td data-label={t("colItem")}>{item.name}</td>
+                              <td data-label={t("colAvailable")}>
                                 {item.availableQuantity.toLocaleString()}
                               </td>
-                              <td>
+                              <td className={styles.actionCell}>
                                 <Button
                                   type={2}
                                   onClick={() => addToCart(item)}
