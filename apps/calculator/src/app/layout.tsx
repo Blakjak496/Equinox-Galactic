@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Equinox Galactic",
-  description: "Jump Freighter Hauling",
+  description: "Eve Online Buyback and Freight",
 };
 
 export default function RootLayout({
