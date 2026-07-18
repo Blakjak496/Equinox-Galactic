@@ -95,6 +95,8 @@ const zh = {
 
   buybackErrorGeneric: "获取报价时出现问题，请重试。",
 
+  backToCartel: "← 返回",
+
   purchasePageTitle: "购买库存",
   purchasePageSubtitle: "从军团购买物品",
   purchaseNoStock: "目前没有可购买的库存。",

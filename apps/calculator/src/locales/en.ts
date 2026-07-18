@@ -101,6 +101,8 @@ const en = {
   buybackErrorGeneric:
     "Something went wrong getting your quote. Please try again.",
 
+  backToCartel: "← Back",
+
   purchasePageTitle: "Purchase Stock",
   purchasePageSubtitle: "Buy items back from the corp",
   purchaseNoStock: "No stock currently available.",

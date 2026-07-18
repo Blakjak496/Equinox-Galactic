@@ -61,7 +61,7 @@ export default function BuybackDashboard() {
 
   return (
     <div className={styles.dashboard}>
-      <BackHomeButton />
+      <BackHomeButton href="/cartel" label={t("backToCartel")} />
       <div className={styles.bannerWrapper}>
         <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
         <span className={styles.wordmark}>

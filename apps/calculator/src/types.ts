@@ -139,6 +139,7 @@ export type StockLocation = {
 export type StockItem = {
   typeId: number;
   name: string;
+  categoryName: string;
   availableQuantity: number;
 };
 

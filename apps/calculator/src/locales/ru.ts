@@ -102,6 +102,8 @@ const ru = {
   buybackErrorGeneric:
     "Что-то пошло не так при расчёте. Пожалуйста, попробуйте снова.",
 
+  backToCartel: "← Назад",
+
   purchasePageTitle: "Покупка со склада",
   purchasePageSubtitle: "Купите предметы у корпорации",
   purchaseNoStock: "Сейчас нет доступных товаров.",

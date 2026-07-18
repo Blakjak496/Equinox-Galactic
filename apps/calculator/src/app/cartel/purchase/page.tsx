@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
 import Button from "@shared/ui/Button/Button";
@@ -24,6 +24,20 @@ const t = createTranslator("en");
 
 function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
+}
+
+function groupByCategory(
+  items: StockItem[],
+): { categoryName: string; items: StockItem[] }[] {
+  const groups = new Map<string, StockItem[]>();
+  for (const item of items) {
+    const group = groups.get(item.categoryName);
+    if (group) group.push(item);
+    else groups.set(item.categoryName, [item]);
+  }
+  return Array.from(groups.entries())
+    .map(([categoryName, items]) => ({ categoryName, items }))
+    .sort((a, b) => a.categoryName.localeCompare(b.categoryName));
 }
 
 type CartLine = {
@@ -190,7 +204,7 @@ export default function PurchaseStock() {
   if (orderResult) {
     return (
       <div className={styles.page}>
-        <BackHomeButton />
+        <BackHomeButton href="/cartel" label={t("backToCartel")} />
         <div className={styles.stack}>
           <Card mainTitle={t("orderConfirmedTitle")}>
             <div className={styles.summaryRow}>
@@ -242,7 +256,7 @@ export default function PurchaseStock() {
 
   return (
     <div className={styles.page}>
-      <BackHomeButton />
+      <BackHomeButton href="/cartel" label={t("backToCartel")} />
       <div className={styles.bannerWrapper}>
         <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
         <span className={styles.wordmark}>
@@ -304,20 +318,29 @@ export default function PurchaseStock() {
                         <th>{t("colAvailable")}</th>
                         <th></th>
                       </tr>
-                      {stock.map((item) => (
-                        <tr key={item.typeId}>
-                          <td>{item.name}</td>
-                          <td>{item.availableQuantity.toLocaleString()}</td>
-                          <td>
-                            <Button
-                              type={2}
-                              onClick={() => addToCart(item)}
-                              disabled={item.availableQuantity <= 0}
-                            >
-                              {t("addToCart")}
-                            </Button>
-                          </td>
-                        </tr>
+                      {groupByCategory(stock).map((group) => (
+                        <Fragment key={group.categoryName}>
+                          <tr className={styles.categoryRow}>
+                            <td colSpan={3}>{group.categoryName}</td>
+                          </tr>
+                          {group.items.map((item) => (
+                            <tr key={item.typeId}>
+                              <td>{item.name}</td>
+                              <td>
+                                {item.availableQuantity.toLocaleString()}
+                              </td>
+                              <td>
+                                <Button
+                                  type={2}
+                                  onClick={() => addToCart(item)}
+                                  disabled={item.availableQuantity <= 0}
+                                >
+                                  {t("addToCart")}
+                                </Button>
+                              </td>
+                            </tr>
+                          ))}
+                        </Fragment>
                       ))}
                     </tbody>
                   </table>
