@@ -425,8 +425,7 @@ export type BuybackQuote = {
   blendedPercent: number;
   locationId: string;
   locationName: string;
-  haulingRatePerM3: number;
-  haulingFee: number;
+  pickupFee: number;
   netTotalPrice: number;
   status: "pending_contract" | "matched" | "expired";
   discrepancy: boolean;

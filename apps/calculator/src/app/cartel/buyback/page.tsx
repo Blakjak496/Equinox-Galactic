@@ -226,14 +226,6 @@ export default function BuybackDashboard() {
                       {formatIsk(acceptedTotalJbv)}
                     </span>
                   </div>
-                  <div className={styles.summaryRow}>
-                    <span className={styles.summaryLabel}>
-                      {t("haulingFee")}
-                    </span>
-                    <span className={styles.summaryValue}>
-                      {formatIsk(result.haulingFee)}
-                    </span>
-                  </div>
                   {result.pickupFee > 0 && (
                     <div className={styles.summaryRow}>
                       <span className={styles.summaryLabel}>

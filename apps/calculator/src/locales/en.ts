@@ -84,7 +84,6 @@ const en = {
   itemsAccepted: "Items Accepted",
   volumeAccepted: "Volume (Accepted)",
   totalJbvAccepted: "Total JBV (Accepted)",
-  haulingFee: "M³ Fee",
   pickupFee: "Pickup Fee",
   totalOfferFinal: "Total Offer",
 

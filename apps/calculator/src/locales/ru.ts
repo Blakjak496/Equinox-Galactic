@@ -85,7 +85,6 @@ const ru = {
   itemsAccepted: "Принято предметов",
   volumeAccepted: "Объём (принятые)",
   totalJbvAccepted: "Итого JBV (принятые)",
-  haulingFee: "Плата за м³",
   pickupFee: "Плата за забор груза",
   totalOfferFinal: "Итоговое предложение",
 
