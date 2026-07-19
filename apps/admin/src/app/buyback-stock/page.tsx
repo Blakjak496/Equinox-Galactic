@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
-import { api, BuybackStockItem } from "@/lib/api";
+import { api, BuybackItem, BuybackLocation, BuybackStockItem } from "@/lib/api";
 import styles from "./BuybackStock.module.css";
 
 const STALE_DAYS_THRESHOLD = 7;
@@ -32,6 +32,17 @@ export default function BuybackStock() {
   const [editValue, setEditValue] = useState("");
   const [savingEdit, setSavingEdit] = useState(false);
 
+  const [hubLocations, setHubLocations] = useState<BuybackLocation[]>([]);
+  const [itemQuery, setItemQuery] = useState("");
+  const [itemResults, setItemResults] = useState<BuybackItem[]>([]);
+  const [searchingItems, setSearchingItems] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<BuybackItem | null>(null);
+  const [addLocationId, setAddLocationId] = useState("");
+  const [addQuantity, setAddQuantity] = useState("");
+  const [adding, setAdding] = useState(false);
+  const [addError, setAddError] = useState<string | null>(null);
+  const [addSuccess, setAddSuccess] = useState<string | null>(null);
+
   const fetchStock = () => {
     api
       .getBuybackStock()
@@ -41,6 +52,86 @@ export default function BuybackStock() {
   };
 
   useEffect(fetchStock, []);
+
+  useEffect(() => {
+    api
+      .getBuybackLocations()
+      .then(({ data }) =>
+        setHubLocations(
+          data.filter((loc) => loc.isHub && loc.stockLocationId != null),
+        ),
+      )
+      .catch(() => setHubLocations([]));
+  }, []);
+
+  useEffect(() => {
+    if (itemQuery.trim().length < 2) {
+      setItemResults([]);
+      return;
+    }
+
+    setSearchingItems(true);
+    const timeout = setTimeout(() => {
+      api
+        .searchBuybackItems({ q: itemQuery.trim() })
+        .then(({ data }) => setItemResults(data))
+        .catch(() => setItemResults([]))
+        .finally(() => setSearchingItems(false));
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [itemQuery]);
+
+  const handleSelectItem = (item: BuybackItem) => {
+    setSelectedItem(item);
+    setItemQuery("");
+    setItemResults([]);
+  };
+
+  const handleClearSelectedItem = () => {
+    setSelectedItem(null);
+  };
+
+  const handleAddStock = async () => {
+    const quantity = Number(addQuantity);
+    if (!selectedItem) {
+      setAddError("Search for and select an item first");
+      return;
+    }
+    if (!addLocationId) {
+      setAddError("Select a location");
+      return;
+    }
+    if (!Number.isFinite(quantity) || quantity <= 0) {
+      setAddError("Quantity must be a positive number");
+      return;
+    }
+
+    setAdding(true);
+    setAddError(null);
+    setAddSuccess(null);
+    try {
+      const res = await api.addBuybackStock(
+        selectedItem.typeId,
+        addLocationId,
+        quantity,
+      );
+      if (!res.ok) {
+        setAddError(res.message ?? "Failed to add stock");
+        return;
+      }
+      setAddSuccess(
+        `Added ${quantity.toLocaleString()}x ${selectedItem.name}.`,
+      );
+      setSelectedItem(null);
+      setAddQuantity("");
+      fetchStock();
+    } catch {
+      setAddError("Failed to add stock");
+    } finally {
+      setAdding(false);
+    }
+  };
 
   const handleStartEdit = (item: BuybackStockItem) => {
     setEditingId(item._id);
@@ -119,6 +210,88 @@ export default function BuybackStock() {
                 {syncMessage}
               </span>
             )}
+          </div>
+
+          <div className={styles.addStockSection}>
+            <h3 className={styles.addStockTitle}>Add Stock</h3>
+            <p className={styles.hint}>
+              For items you&apos;ve physically acquired since the last sync -
+              the next asset sync always overwrites this with the real ESI
+              count, so this is just a stopgap to make new stock purchasable
+              right away instead of waiting up to a day.
+            </p>
+
+            <div className={styles.addStockRow}>
+              <div className={styles.addStockItem}>
+                {selectedItem ? (
+                  <div className={styles.selectedItem}>
+                    <span>{selectedItem.name}</span>
+                    <Button
+                      callback={handleClearSelectedItem}
+                      color="red"
+                    >
+                      Clear
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      value={itemQuery}
+                      onChange={(e) => setItemQuery(e.target.value)}
+                      placeholder="Search items by name…"
+                    />
+                    {searchingItems && (
+                      <span className={styles.muted}>Searching…</span>
+                    )}
+                    {itemResults.length > 0 && (
+                      <div className={styles.itemResults}>
+                        {itemResults.map((result) => (
+                          <button
+                            key={result._id}
+                            type="button"
+                            className={styles.itemResult}
+                            onClick={() => handleSelectItem(result)}
+                          >
+                            {result.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              <select
+                className={styles.addStockLocationSelect}
+                value={addLocationId}
+                onChange={(e) => setAddLocationId(e.target.value)}
+              >
+                <option value="">Select location…</option>
+                {hubLocations.map((loc) => (
+                  <option key={loc._id} value={loc._id}>
+                    {loc.name}
+                  </option>
+                ))}
+              </select>
+
+              <input
+                type="number"
+                min={1}
+                step={1}
+                className={styles.addStockQtyInput}
+                value={addQuantity}
+                onChange={(e) => setAddQuantity(e.target.value)}
+                placeholder="Qty"
+              />
+
+              <Button callback={handleAddStock} color="green" disabled={adding}>
+                {adding ? "Adding…" : "Add Stock"}
+              </Button>
+            </div>
+
+            {addError && <p className={styles.error}>{addError}</p>}
+            {addSuccess && <p className={styles.success}>{addSuccess}</p>}
           </div>
 
           {error && <p className={styles.error}>{error}</p>}

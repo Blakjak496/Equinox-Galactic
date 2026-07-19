@@ -69,7 +69,7 @@ export default function BuybackQuotes() {
                 <tr>
                   <th>Reference</th>
                   <th>Status</th>
-                  <th>Total Offer Value</th>
+                  <th>Net Total</th>
                   <th>Items</th>
                   <th>Created</th>
                   <th>Expires</th>
@@ -102,7 +102,7 @@ export default function BuybackQuotes() {
                           </span>
                         )}
                       </td>
-                      <td>{formatIsk(quote.totalOfferValue)}</td>
+                      <td>{formatIsk(quote.netTotalPrice)}</td>
                       <td>{quote.items.length}</td>
                       <td>{new Date(quote.createdAt).toLocaleString()}</td>
                       <td>{new Date(quote.expiresAt).toLocaleDateString()}</td>

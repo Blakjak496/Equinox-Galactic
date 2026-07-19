@@ -254,6 +254,12 @@ export const api = {
       { method: "PATCH", body: JSON.stringify({ quantity }) },
     ),
 
+  addBuybackStock: (typeId: number, locationId: string, quantity: number) =>
+    apiFetch<{ ok: boolean; message?: string; data?: unknown }>(
+      "/admin/buyback-stock/add",
+      { method: "POST", body: JSON.stringify({ typeId, locationId, quantity }) },
+    ),
+
   runStockSync: () =>
     apiFetch<{
       ok: boolean;

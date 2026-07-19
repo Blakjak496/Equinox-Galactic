@@ -91,3 +91,108 @@
   font-family: var(--font-body);
   font-size: 0.875rem;
 }
+
+.addStockSection {
+  padding: var(--space-4) 0;
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.addStockTitle {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+
+.addStockRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.addStockItem {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 12rem;
+}
+
+.addStockItem input[type="text"] {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.itemResults {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.itemResult {
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline-soft);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.itemResult:last-child {
+  border-bottom: none;
+}
+
+.itemResult:hover {
+  background: var(--surface-elevated, var(--hairline-soft));
+}
+
+.selectedItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+.addStockLocationSelect {
+  flex: 0 0 12rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.addStockQtyInput {
+  flex: 0 0 6rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
