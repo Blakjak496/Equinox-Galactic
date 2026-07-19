@@ -2,8 +2,7 @@
 
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
-import BackHomeButton from "@shared/ui/BackHomeButton/BackHomeButton";
-import { ChangeEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { contractPriceCalc } from "@shared/quote/calculations";
 import PillCard from "@shared/ui/PillCard/PillCard";
 import {
@@ -26,9 +25,8 @@ import { handleGetAppraisal } from "@/app/api/janice";
 import { JaniceAppraisal } from "@/types";
 import { Switch } from "@mui/material";
 import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
-import { createTranslator, type Locale } from "@/lib/i18n";
+import { useLocale } from "@/lib/LocaleContext";
 
-const STORAGE_KEY = "contract-calculator-locale";
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
 const formatIsk = (n: number): string => {
@@ -56,7 +54,7 @@ export default function Dashboard() {
   const [appraisalRef, setAppraisalRef] = useState<string>("");
   const [maxVolume, setMaxVolume] = useState<number>(375000);
   const [route, setRoute] = useState<Route | null>(null);
-  const [locale, setLocale] = useState<Locale>("en");
+  const { t } = useLocale();
 
   const MAX_COLLATERAL = 15_000_000_000;
 
@@ -66,31 +64,6 @@ export default function Dashboard() {
       .then((json) => setRoutes(json.data ?? []))
       .catch(() => {});
   }, []);
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
-
-    if (saved === "en" || saved === "ru" || saved === "zh") {
-      setLocale(saved);
-      return;
-    }
-
-    const browserLang = navigator.language.toLowerCase();
-
-    if (browserLang.startsWith("ru")) {
-      setLocale("ru");
-      return;
-    }
-
-    if (browserLang.startsWith("zh")) {
-      setLocale("zh");
-      return;
-    }
-
-    setLocale("en");
-  }, []);
-
-  const t = useMemo(() => createTranslator(locale), [locale]);
 
   useEffect(() => {
     if (route && destination) {
@@ -107,11 +80,6 @@ export default function Dashboard() {
       setCollateralFeePercent(terms.collateralFeePercent);
     }
   }, [route]);
-
-  const handleLocaleChange = (nextLocale: Locale) => {
-    setLocale(nextLocale);
-    window.localStorage.setItem(STORAGE_KEY, nextLocale);
-  };
 
   const resetValues = (): void => {
     setMinimumFee(0);
@@ -230,32 +198,6 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboard}>
-      <BackHomeButton />
-      <div className={styles.languageSelectWrapper}>
-        <label htmlFor="language" className={styles.languageSelectLabel}>
-          {t("language")}
-        </label>
-        <select
-          id="language"
-          name="languages"
-          value={locale}
-          onChange={(e) => handleLocaleChange(e.target.value as Locale)}
-          className={styles.languageSelect}
-        >
-          <option value="en">English</option>
-          <option value="ru">Русский</option>
-          <option value="zh">简体中文</option>
-        </select>
-      </div>
-      <div className={styles.bannerWrapper}>
-        <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
-        <span className={styles.wordmark}>
-          Equinox
-          <br />
-          Runners
-        </span>
-      </div>
-
       <div className={styles.grid}>
         <div className={styles.columnLeft}>
           <Card

@@ -4,13 +4,10 @@ import { ChangeEvent, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
 import Button from "@shared/ui/Button/Button";
-import BackHomeButton from "@shared/ui/BackHomeButton/BackHomeButton";
 import IconButton from "@shared/ui/IconButton/IconButton";
 import { getBuybackQuote, getBuybackLocations } from "@/app/api/buybackQuote";
 import { BuybackLocation, BuybackQuoteResponse } from "@/types";
-import { createTranslator } from "@/lib/i18n";
-
-const t = createTranslator("en");
+import { useLocale } from "@/lib/LocaleContext";
 
 function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
@@ -31,6 +28,7 @@ export default function BuybackDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<BuybackQuoteResponse | null>(null);
+  const { t } = useLocale();
 
   useEffect(() => {
     getBuybackLocations()
@@ -61,15 +59,6 @@ export default function BuybackDashboard() {
 
   return (
     <div className={styles.dashboard}>
-      <BackHomeButton href="/cartel" label={t("backToCartel")} />
-      <div className={styles.bannerWrapper}>
-        <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
-        <span className={styles.wordmark}>
-          Equinox
-          <br />
-          Cartel
-        </span>
-      </div>
 
       <div className={styles.stack}>
         <Card
@@ -226,16 +215,22 @@ export default function BuybackDashboard() {
                       {formatIsk(acceptedTotalJbv)}
                     </span>
                   </div>
-                  {result.pickupFee > 0 && (
-                    <div className={styles.summaryRow}>
-                      <span className={styles.summaryLabel}>
-                        {t("pickupFee")}
-                      </span>
-                      <span className={styles.summaryValue}>
-                        {formatIsk(result.pickupFee)}
-                      </span>
-                    </div>
-                  )}
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("totalOfferValueGross")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {formatIsk(result.totalOfferValue)}
+                    </span>
+                  </div>
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryLabel}>
+                      {t("pickupFee")}
+                    </span>
+                    <span className={styles.summaryValue}>
+                      {formatIsk(result.pickupFee)}
+                    </span>
+                  </div>
                   <div className={styles.summaryRowFinal}>
                     <span className={styles.summaryLabel}>
                       {t("totalOfferFinal")}

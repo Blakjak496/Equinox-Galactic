@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Orbitron, Inter } from "next/font/google";
+import { LocaleProvider } from "@/lib/LocaleContext";
+import TopBar from "@shared/ui/TopBar/TopBar";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -28,7 +30,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${orbitron.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <LocaleProvider>
+          <TopBar />
+          {children}
+        </LocaleProvider>
+      </body>
     </html>
   );
 }

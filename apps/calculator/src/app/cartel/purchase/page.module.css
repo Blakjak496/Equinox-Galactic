@@ -4,32 +4,10 @@
   flex-direction: column;
   align-items: center;
   max-width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--nav-height));
   overflow-y: auto;
   padding: var(--space-4);
   row-gap: var(--space-5);
-}
-
-.bannerWrapper {
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  column-gap: var(--space-3);
-}
-
-.crest {
-  height: 3.5rem;
-  width: auto;
-}
-
-.wordmark {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  line-height: 1.15;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text);
 }
 
 .stack {
@@ -66,7 +44,7 @@
 
 .cartToggle {
   position: fixed;
-  top: var(--page-padding);
+  top: calc(var(--nav-height) + var(--space-3));
   right: var(--page-padding);
   z-index: 3;
   padding: var(--space-2) var(--space-4);

@@ -84,6 +84,7 @@ const en = {
   itemsAccepted: "Items Accepted",
   volumeAccepted: "Volume (Accepted)",
   totalJbvAccepted: "Total JBV (Accepted)",
+  totalOfferValueGross: "Total Offer Value (Gross)",
   pickupFee: "Pickup Fee",
   totalOfferFinal: "Total Offer",
 

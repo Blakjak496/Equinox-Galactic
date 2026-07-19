@@ -24,15 +24,6 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.bannerWrapper}>
-        <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
-        <span className={styles.wordmark}>
-          Equinox
-          <br />
-          Galactic
-        </span>
-      </div>
-
       <div className={styles.tiles}>
         {config.runnersEnabled ? (
           <Link href="/runners" className={styles.tile}>

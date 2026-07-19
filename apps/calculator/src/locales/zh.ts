@@ -79,6 +79,7 @@ const zh = {
   itemsAccepted: "已接受物品数",
   volumeAccepted: "体积（已接受）",
   totalJbvAccepted: "总 JBV（已接受）",
+  totalOfferValueGross: "报价总额（毛额）",
   pickupFee: "取件费",
   totalOfferFinal: "总回收金额",
 

@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   max-width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--nav-height));
   position: relative;
   overflow-y: scroll;
   padding: var(--space-4);

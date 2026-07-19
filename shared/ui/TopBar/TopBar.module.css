@@ -1,0 +1,215 @@
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--nav-height);
+  padding: var(--space-3) var(--space-4);
+  background: var(--nav-bg);
+  backdrop-filter: blur(var(--nav-blur));
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  column-gap: var(--space-2);
+  text-decoration: none;
+  z-index: 11;
+}
+
+.crest {
+  height: 2.5rem;
+  width: auto;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.burgerButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.3rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 11;
+}
+
+.burgerButton span {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--text);
+  transition:
+    transform 150ms ease,
+    opacity 150ms ease;
+}
+
+.burgerOpen span:nth-child(1) {
+  transform: translateY(0.45rem) rotate(45deg);
+}
+
+.burgerOpen span:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerOpen span:nth-child(3) {
+  transform: translateY(-0.45rem) rotate(-45deg);
+}
+
+/* Mobile: a collapsible dropdown panel beneath the bar - hidden by default,
+   revealed (and animated open) when .navOpen is toggled on. */
+.nav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--nav-bg);
+  backdrop-filter: blur(var(--nav-blur));
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--space-4);
+  row-gap: var(--space-5);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    max-height 200ms ease,
+    opacity 150ms ease,
+    padding 200ms ease;
+}
+
+.navOpen {
+  max-height: 30rem;
+  opacity: 1;
+  visibility: visible;
+  padding: var(--space-4);
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+  list-style: none;
+}
+
+.navLink {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: var(--space-1) 0;
+}
+
+.navLink:hover {
+  color: var(--text);
+}
+
+.navLinkActive {
+  color: var(--primary);
+}
+
+.navActions {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--space-3);
+}
+
+.discordButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-4);
+  background: #5865f2;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+
+.discordButton:hover {
+  background: #4752c4;
+}
+
+.localeSelect {
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* Desktop: the collapsible-panel styling above is dropped entirely - .nav
+   becomes display:contents so its two children (navList, navActions) sit
+   directly in the top bar's own grid as the centered nav and right-aligned
+   actions, instead of a hidden mobile dropdown. */
+@media only screen and (min-width: 768px) {
+  .topBar {
+    padding: var(--space-3) var(--page-padding);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: var(--space-4);
+  }
+
+  .brand {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .burgerButton {
+    display: none;
+  }
+
+  /* display:contents drops .nav's own box, but visibility/opacity are
+     inherited properties - without resetting them here, the mobile
+     drawer's closed state (visibility:hidden etc.) leaks through onto
+     .navList/.navActions even though .nav itself no longer renders a box. */
+  .nav {
+    display: contents;
+    position: static;
+    max-height: none;
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    padding: 0;
+  }
+
+  .navList {
+    grid-column: 2;
+    flex-direction: row;
+    column-gap: var(--space-6);
+    justify-self: center;
+  }
+
+  .navActions {
+    grid-column: 3;
+    flex-direction: row;
+    align-items: center;
+    column-gap: var(--space-3);
+    justify-self: end;
+  }
+}

@@ -4,7 +4,6 @@ import { Fragment, useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Card from "@shared/ui/Card/Card";
 import Button from "@shared/ui/Button/Button";
-import BackHomeButton from "@shared/ui/BackHomeButton/BackHomeButton";
 import IconButton from "@shared/ui/IconButton/IconButton";
 import {
   getStock,
@@ -18,9 +17,7 @@ import {
   StockItem,
   StockLocation,
 } from "@/types";
-import { createTranslator } from "@/lib/i18n";
-
-const t = createTranslator("en");
+import { useLocale } from "@/lib/LocaleContext";
 
 function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
@@ -73,6 +70,7 @@ export default function PurchaseStock() {
   const [orderResult, setOrderResult] = useState<BuyOrderResponse | null>(
     null,
   );
+  const { t } = useLocale();
 
   useEffect(() => {
     getStockLocations()
@@ -226,7 +224,6 @@ export default function PurchaseStock() {
   if (orderResult) {
     return (
       <div className={styles.page}>
-        <BackHomeButton href="/cartel" label={t("backToCartel")} />
         <div className={styles.stack}>
           <Card mainTitle={t("orderConfirmedTitle")}>
             <div className={styles.summaryRow}>
@@ -278,16 +275,6 @@ export default function PurchaseStock() {
 
   return (
     <div className={styles.page}>
-      <BackHomeButton href="/cartel" label={t("backToCartel")} />
-      <div className={styles.bannerWrapper}>
-        <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
-        <span className={styles.wordmark}>
-          Equinox
-          <br />
-          Cartel
-        </span>
-      </div>
-
       <button className={styles.cartToggle} onClick={() => setCartOpen(true)}>
         {t("cartButton", { count: cartCount })}
       </button>
