@@ -122,8 +122,29 @@ const zh = {
   purchaseErrorGeneric: "提交订单时出现问题，请重试。",
   orderConfirmedTitle: "订单已提交",
   orderReferenceNote: "管理员联系您完成合同交易时，请提供此参考编号。",
-  orderExpiresNote: "此预留将于以下时间过期",
   orderTotalPrice: "总价",
+
+  navHome: "首页",
+  navRunners: "Runners",
+  navCartel: "Cartel",
+  navBuyback: "回收",
+  navPurchase: "购买",
+  brandEquinox: "Equinox",
+  brandGalactic: "Galactic",
+
+  homeRunnersSubtitle: "运输报价",
+  homeCartelSubtitle: "回收报价",
+
+  cartelTileBuybackTitle: "回收",
+  cartelTileBuybackSubtitle: "出售物品",
+  cartelTileStockTitle: "购买库存",
+  cartelTileStockSubtitle: "购买物品",
+
+  serviceUnavailableTitle: "当前不可用",
+  serviceUnavailableBody: "{service} 目前不可用，请稍后再来查看。",
+
+  contractRuleNoFittedShips: "禁止装配舰船",
+  contractRuleNoContainers: "禁止使用容器",
 } as const;
 
 export default zh;

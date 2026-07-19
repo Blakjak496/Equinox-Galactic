@@ -4,34 +4,34 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useLocale } from "@/lib/LocaleContext";
-import type { Locale } from "@/lib/i18n";
+import type { Locale, TranslationKey } from "@/lib/i18n";
 import styles from "./TopBar.module.css";
 
-const NAV_ITEMS: { label: string; href: string }[] = [
-  { label: "Home", href: "/" },
-  { label: "Runners", href: "/runners" },
-  { label: "Cartel", href: "/cartel" },
-  { label: "Buyback", href: "/cartel/buyback" },
-  { label: "Purchase", href: "/cartel/purchase" },
+const NAV_ITEMS: { key: TranslationKey; href: string }[] = [
+  { key: "navHome", href: "/" },
+  { key: "navRunners", href: "/runners" },
+  { key: "navCartel", href: "/cartel" },
+  { key: "navBuyback", href: "/cartel/buyback" },
+  { key: "navPurchase", href: "/cartel/purchase" },
 ];
 
 const SECTION_TITLES: {
   match: (path: string) => boolean;
-  lines: [string, string];
+  lines: [TranslationKey, TranslationKey];
 }[] = [
-  { match: (p) => p === "/runners", lines: ["Equinox", "Runners"] },
-  { match: (p) => p.startsWith("/cartel"), lines: ["Equinox", "Cartel"] },
-  { match: () => true, lines: ["Equinox", "Galactic"] },
+  { match: (p) => p === "/runners", lines: ["brandEquinox", "navRunners"] },
+  { match: (p) => p.startsWith("/cartel"), lines: ["brandEquinox", "navCartel"] },
+  { match: () => true, lines: ["brandEquinox", "brandGalactic"] },
 ];
 
-function getTitleLines(pathname: string): [string, string] {
+function getTitleLines(pathname: string): [TranslationKey, TranslationKey] {
   const section = SECTION_TITLES.find((s) => s.match(pathname));
   return section ? section.lines : SECTION_TITLES[SECTION_TITLES.length - 1].lines;
 }
 
 export default function TopBar() {
   const pathname = usePathname() ?? "/";
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, t } = useLocale();
   const [open, setOpen] = useState(false);
   const [titleLine1, titleLine2] = getTitleLines(pathname);
   // Discord invite button disabled for now - no invite link configured yet.
@@ -46,9 +46,9 @@ export default function TopBar() {
       <Link href="/" className={styles.brand} onClick={closeMenu}>
         <img src="/crest.png" alt="Equinox crest" className={styles.crest} />
         <span className={styles.wordmark}>
-          {titleLine1}
+          {t(titleLine1)}
           <br />
-          {titleLine2}
+          {t(titleLine2)}
         </span>
       </Link>
 
@@ -63,7 +63,7 @@ export default function TopBar() {
                 }`}
                 onClick={closeMenu}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             </li>
           ))}

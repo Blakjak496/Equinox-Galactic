@@ -166,5 +166,4 @@ export type BuyOrderResponse = {
     totalPrice: number;
   }[];
   totalPrice: number;
-  expiresAt: string;
 };

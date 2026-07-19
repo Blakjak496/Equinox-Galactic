@@ -1,16 +1,22 @@
+"use client";
+
 import Card from "../Card/Card";
 import BackHomeButton from "../BackHomeButton/BackHomeButton";
+import { useLocale } from "@/lib/LocaleContext";
 import styles from "./ServiceUnavailable.module.css";
 
 export default function ServiceUnavailable(props: { serviceName: string }) {
+  const { t } = useLocale();
+
   return (
     <div className={styles.page}>
       <Card>
         <div className={styles.content}>
-          <span className={styles.title}>Not Currently In Service</span>
+          <span className={styles.title}>
+            {t("serviceUnavailableTitle")}
+          </span>
           <span className={styles.body}>
-            {props.serviceName} isn&apos;t available right now. Please check
-            back later.
+            {t("serviceUnavailableBody", { service: props.serviceName })}
           </span>
         </div>
       </Card>

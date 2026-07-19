@@ -553,8 +553,8 @@ export default function Dashboard() {
             </div>
 
             <ul className={styles.contractRules}>
-              <li>No fitted ships</li>
-              <li>No containers</li>
+              <li>{t("contractRuleNoFittedShips")}</li>
+              <li>{t("contractRuleNoContainers")}</li>
             </ul>
           </Card>
         </div>

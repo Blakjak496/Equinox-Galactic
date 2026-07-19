@@ -21,8 +21,15 @@ const STATUS_LABELS: Record<string, string> = {
   cancelled: "cancelled",
 };
 
+const STALE_DAYS_THRESHOLD = 7;
+
 function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
+}
+
+function pendingDays(order: BuyOrder): number | null {
+  if (order.status !== "pending_contract") return null;
+  return Math.floor((Date.now() - new Date(order.createdAt).getTime()) / 86_400_000);
 }
 
 export default function CustomerBuyOrders() {
@@ -101,13 +108,17 @@ export default function CustomerBuyOrders() {
                   <th>Total Price</th>
                   <th>Items</th>
                   <th>Created</th>
-                  <th>Expires</th>
+                  <th>Pending</th>
                 </tr>
               </thead>
               <tbody>
-                {orders.map((order) => (
+                {orders.map((order) => {
+                  const days = pendingDays(order);
+                  const isStale = days !== null && days >= STALE_DAYS_THRESHOLD;
+                  return (
                   <Fragment key={order._id}>
                     <tr
+                      className={isStale ? styles.rowStale : ""}
                       onClick={() =>
                         setExpandedId(
                           expandedId === order._id ? null : order._id,
@@ -127,7 +138,9 @@ export default function CustomerBuyOrders() {
                       <td>{formatIsk(order.totalPrice)}</td>
                       <td>{order.items.length}</td>
                       <td>{new Date(order.createdAt).toLocaleString()}</td>
-                      <td>{new Date(order.expiresAt).toLocaleDateString()}</td>
+                      <td>
+                        {days === null ? "—" : isStale ? `⚠ ${days}d` : `${days}d`}
+                      </td>
                     </tr>
                     {expandedId === order._id && (
                       <tr>
@@ -170,7 +183,8 @@ export default function CustomerBuyOrders() {
                       </tr>
                     )}
                   </Fragment>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           )}

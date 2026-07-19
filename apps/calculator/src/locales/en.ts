@@ -130,8 +130,30 @@ const en = {
   orderConfirmedTitle: "Order Submitted",
   orderReferenceNote:
     "Reference this ID when the admin contacts you to complete the trade contract.",
-  orderExpiresNote: "This reservation expires",
   orderTotalPrice: "Total Price",
+
+  navHome: "Home",
+  navRunners: "Runners",
+  navCartel: "Cartel",
+  navBuyback: "Buyback",
+  navPurchase: "Purchase",
+  brandEquinox: "Equinox",
+  brandGalactic: "Galactic",
+
+  homeRunnersSubtitle: "Hauling Quotes",
+  homeCartelSubtitle: "Buyback Quotes",
+
+  cartelTileBuybackTitle: "Buyback",
+  cartelTileBuybackSubtitle: "Sell items",
+  cartelTileStockTitle: "Purchase Stock",
+  cartelTileStockSubtitle: "Buy items",
+
+  serviceUnavailableTitle: "Not Currently In Service",
+  serviceUnavailableBody:
+    "{service} isn't available right now. Please check back later.",
+
+  contractRuleNoFittedShips: "No fitted ships",
+  contractRuleNoContainers: "No containers",
 } as const;
 
 export default en;

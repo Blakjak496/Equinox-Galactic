@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getPublicConfig, PublicConfig } from "./api/config";
+import { useLocale } from "@/lib/LocaleContext";
 import styles from "./page.module.css";
 
 // This app is a static export (no Node server at runtime), so the service
@@ -15,6 +16,7 @@ const DEFAULT_CONFIG: PublicConfig = {
 
 export default function Home() {
   const [config, setConfig] = useState<PublicConfig>(DEFAULT_CONFIG);
+  const { t } = useLocale();
 
   useEffect(() => {
     getPublicConfig()
@@ -22,37 +24,48 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
+  const runnersTitle = `${t("brandEquinox")} ${t("navRunners")}`;
+  const cartelTitle = `${t("brandEquinox")} ${t("navCartel")}`;
+
   return (
     <div className={styles.page}>
       <div className={styles.tiles}>
         {config.runnersEnabled ? (
           <Link href="/runners" className={styles.tile}>
-            <span className={styles.tileTitle}>Equinox Runners</span>
-            <span className={styles.tileSubtitle}>Hauling Quotes</span>
+            <span className={styles.tileTitle}>{runnersTitle}</span>
+            <span className={styles.tileSubtitle}>
+              {t("homeRunnersSubtitle")}
+            </span>
           </Link>
         ) : (
           <div className={`${styles.tile} ${styles.tileDisabled}`}>
-            <span className={styles.tileTitle}>Equinox Runners</span>
-            <span className={styles.tileSubtitle}>Hauling Quotes</span>
+            <span className={styles.tileTitle}>{runnersTitle}</span>
+            <span className={styles.tileSubtitle}>
+              {t("homeRunnersSubtitle")}
+            </span>
             <div className={styles.tileOverlay}>
               <span className={styles.tileOverlayText}>
-                Not Currently In Service
+                {t("serviceUnavailableTitle")}
               </span>
             </div>
           </div>
         )}
         {config.cartelEnabled ? (
           <Link href="/cartel" className={styles.tile}>
-            <span className={styles.tileTitle}>Equinox Cartel</span>
-            <span className={styles.tileSubtitle}>Buyback Quotes</span>
+            <span className={styles.tileTitle}>{cartelTitle}</span>
+            <span className={styles.tileSubtitle}>
+              {t("homeCartelSubtitle")}
+            </span>
           </Link>
         ) : (
           <div className={`${styles.tile} ${styles.tileDisabled}`}>
-            <span className={styles.tileTitle}>Equinox Cartel</span>
-            <span className={styles.tileSubtitle}>Buyback Quotes</span>
+            <span className={styles.tileTitle}>{cartelTitle}</span>
+            <span className={styles.tileSubtitle}>
+              {t("homeCartelSubtitle")}
+            </span>
             <div className={styles.tileOverlay}>
               <span className={styles.tileOverlayText}>
-                Not Currently In Service
+                {t("serviceUnavailableTitle")}
               </span>
             </div>
           </div>

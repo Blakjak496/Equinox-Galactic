@@ -259,14 +259,6 @@ export default function PurchaseStock() {
                 {formatIsk(orderResult.totalPrice)}
               </span>
             </div>
-            <div className={styles.summaryRow}>
-              <span className={styles.summaryLabel}>
-                {t("orderExpiresNote")}
-              </span>
-              <span className={styles.summaryValue}>
-                {new Date(orderResult.expiresAt).toLocaleString()}
-              </span>
-            </div>
           </Card>
         </div>
       </div>

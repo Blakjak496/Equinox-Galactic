@@ -473,5 +473,4 @@ export type BuyOrder = {
   matchedContractId: number | null;
   completedAt: string | null;
   createdAt: string;
-  expiresAt: string;
 };

@@ -131,8 +131,30 @@ const ru = {
   orderConfirmedTitle: "Заказ оформлен",
   orderReferenceNote:
     "Укажите этот номер, когда администратор свяжется с вами для оформления контракта.",
-  orderExpiresNote: "Срок действия резервации истекает",
   orderTotalPrice: "Итоговая цена",
+
+  navHome: "Главная",
+  navRunners: "Runners",
+  navCartel: "Cartel",
+  navBuyback: "Скупка",
+  navPurchase: "Покупка",
+  brandEquinox: "Equinox",
+  brandGalactic: "Galactic",
+
+  homeRunnersSubtitle: "Расчёт доставки",
+  homeCartelSubtitle: "Расчёт скупки",
+
+  cartelTileBuybackTitle: "Скупка",
+  cartelTileBuybackSubtitle: "Продать предметы",
+  cartelTileStockTitle: "Покупка со склада",
+  cartelTileStockSubtitle: "Купить предметы",
+
+  serviceUnavailableTitle: "Временно недоступно",
+  serviceUnavailableBody:
+    "{service} сейчас недоступен. Пожалуйста, зайдите позже.",
+
+  contractRuleNoFittedShips: "Без снаряжённых кораблей",
+  contractRuleNoContainers: "Без контейнеров",
 } as const;
 
 export default ru;

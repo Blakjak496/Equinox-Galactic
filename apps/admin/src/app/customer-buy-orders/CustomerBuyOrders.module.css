@@ -80,6 +80,10 @@
   border-bottom: 1px solid var(--hairline-soft);
 }
 
+.rowStale td {
+  background: rgba(224, 82, 82, 0.08);
+}
+
 .statusPill {
   display: inline-block;
   padding: 0.125rem var(--space-2);
