@@ -10,6 +10,7 @@ import {
   KnownKeepstar,
   ShipCategory,
 } from "@/lib/api";
+import SystemMap from "./SystemMap";
 import styles from "./KeepstarPlanner.module.css";
 
 export default function KeepstarPlanner() {
@@ -332,6 +333,11 @@ export default function KeepstarPlanner() {
                     .join(" → ")}
                 </p>
                 <p>Total distance: {planResult.totalDistanceLY.toFixed(2)} LY</p>
+                <SystemMap
+                  bounds={planResult.bounds}
+                  systems={planResult.systemsInView}
+                  routePath={planResult.routePath}
+                />
               </div>
             )}
 

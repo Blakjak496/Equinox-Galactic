@@ -377,9 +377,34 @@ export type KeepstarRouteStop = {
   keepstarName: string;
 };
 
+export type KeepstarMapBounds = {
+  minX: number;
+  maxX: number;
+  minZ: number;
+  maxZ: number;
+};
+
+export type KeepstarMapSystem = {
+  systemId: number;
+  name: string;
+  x: number;
+  z: number;
+  securityStatus: number | null;
+  isOnRoute: boolean;
+  keepstarName: string | null;
+};
+
+export type KeepstarMapPoint = {
+  x: number;
+  z: number;
+};
+
 export type KeepstarRoutePlan = {
   stops: KeepstarRouteStop[];
   totalDistanceLY: number;
+  bounds: KeepstarMapBounds;
+  systemsInView: KeepstarMapSystem[];
+  routePath: KeepstarMapPoint[];
 };
 
 export type RouteCostOption = {
