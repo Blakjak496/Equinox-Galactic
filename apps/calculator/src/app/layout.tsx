@@ -19,8 +19,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Equinox Galactic",
-  description: "Eve Online Buyback and Freight",
+  title: "Equinox Galactic | Buyback & Purchase",
+  description: "EVE Online buyback service and cheap shopping",
 };
 
 export default function RootLayout({
