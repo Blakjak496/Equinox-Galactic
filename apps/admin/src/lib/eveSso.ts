@@ -31,6 +31,7 @@ export async function startEveSso() {
     "esi-contracts.read_corporation_contracts.v1",
     "esi-universe.read_structures.v1",
     "esi-assets.read_corporation_assets.v1",
+    "esi-search.search_structures.v1",
   ].join(" ");
   const params = new URLSearchParams({
     response_type: "code",

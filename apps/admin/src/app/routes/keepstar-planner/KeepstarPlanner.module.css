@@ -1,0 +1,213 @@
+.container {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: var(--space-4);
+}
+
+.section {
+  width: 100%;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.formSection {
+  width: 100%;
+  padding: var(--space-4);
+  position: relative;
+}
+
+.fieldsetReset {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  z-index: 10;
+}
+
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--hairline);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.discoverRow {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.discoverRow input {
+  flex: 1 1 20rem;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.formRow {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.inputGroup label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inputGroup select {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  min-width: 200px;
+}
+
+.waypointList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.waypointRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.waypointRow select {
+  flex: 1 1 auto;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+}
+
+.waypointIndex {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-family: var(--font-heading);
+  width: 1.5rem;
+}
+
+.waypointBtn {
+  flex: 0 0 auto;
+  width: 5.5rem;
+}
+
+.formButtons {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.error {
+  color: var(--danger, #e05252);
+  font-size: 0.875rem;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  margin-bottom: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+}
+
+.table th {
+  text-align: left;
+  color: var(--muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.table td {
+  padding: var(--space-2) var(--space-3);
+  color: var(--text);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.rowKeepstar td {
+  background: rgba(82, 224, 130, 0.08);
+}

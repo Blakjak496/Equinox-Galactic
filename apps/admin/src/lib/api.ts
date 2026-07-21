@@ -156,6 +156,26 @@ export const api = {
       body: JSON.stringify({ waypointNames, shipCategoryId }),
     }),
 
+  discoverKeepstars: (searchQuery: string) =>
+    apiFetch<{ ok: boolean; message?: string; data?: KeepstarDiscoveryResponse }>(
+      "/admin/keepstar-routes/discover",
+      { method: "POST", body: JSON.stringify({ searchQuery }) },
+    ),
+
+  getKnownKeepstars: () =>
+    apiFetch<{ ok: boolean; data: KnownKeepstar[] }>(
+      "/admin/keepstar-routes/known",
+    ),
+
+  planKeepstarRoute: (waypointStructureIds: string[], shipCategoryId: string) =>
+    apiFetch<{ ok: boolean; message?: string; data?: KeepstarRoutePlan }>(
+      "/admin/keepstar-routes/plan",
+      {
+        method: "POST",
+        body: JSON.stringify({ waypointStructureIds, shipCategoryId }),
+      },
+    ),
+
   getBuybackCategories: () =>
     apiFetch<{ ok: boolean; data: BuybackCategory[] }>(
       "/admin/buyback-categories",
@@ -321,6 +341,44 @@ export type ShipCategory = {
 
 export type JumpRoutePlan = {
   path: string[];
+  totalDistanceLY: number;
+};
+
+export type KeepstarDiscoveryOutcome =
+  | "keepstar"
+  | "other_structure"
+  | "no_access"
+  | "error";
+
+export type KeepstarDiscoveryResult = {
+  structureId: number;
+  outcome: KeepstarDiscoveryOutcome;
+  name: string | null;
+  typeName: string | null;
+  systemName: string | null;
+  detail: string | null;
+};
+
+export type KeepstarDiscoveryResponse = {
+  searchQuery: string;
+  totalFound: number;
+  results: KeepstarDiscoveryResult[];
+};
+
+export type KnownKeepstar = {
+  structureId: number;
+  name: string | null;
+  systemId: number | null;
+  systemName: string | null;
+};
+
+export type KeepstarRouteStop = {
+  systemName: string;
+  keepstarName: string;
+};
+
+export type KeepstarRoutePlan = {
+  stops: KeepstarRouteStop[];
   totalDistanceLY: number;
 };
 

@@ -41,32 +41,11 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
             Dashboard
           </NavItem>
           <NavItem
-            active={pathname === "/routes"}
+            active={pathname?.startsWith("/routes") ?? false}
             route="/routes"
             onClick={() => setOpen(false)}
           >
             Routes
-          </NavItem>
-          <NavItem
-            active={pathname === "/main-routes"}
-            route="/main-routes"
-            onClick={() => setOpen(false)}
-          >
-            Main Routes
-          </NavItem>
-          <NavItem
-            active={pathname === "/ship-categories"}
-            route="/ship-categories"
-            onClick={() => setOpen(false)}
-          >
-            Ship Categories
-          </NavItem>
-          <NavItem
-            active={pathname === "/jump-planner"}
-            route="/jump-planner"
-            onClick={() => setOpen(false)}
-          >
-            Jump Planner
           </NavItem>
           <NavItem
             active={pathname === "/buyback-locations"}
