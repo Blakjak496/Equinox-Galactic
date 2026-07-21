@@ -159,7 +159,11 @@ export default function JumpPlanner() {
 
           {result && (
             <div className={styles.result}>
-              <p>{result.path.join(" → ")}</p>
+              <ol className={styles.routeList}>
+                {result.path.map((name, index) => (
+                  <li key={index}>{name}</li>
+                ))}
+              </ol>
               <p>Total distance: {result.totalDistanceLY.toFixed(2)} LY</p>
             </div>
           )}

@@ -390,11 +390,19 @@ export type KeepstarMapSystem = {
   x: number;
   z: number;
   securityStatus: number | null;
+  regionId: number | null;
   isOnRoute: boolean;
   keepstarName: string | null;
 };
 
 export type KeepstarMapPoint = {
+  x: number;
+  z: number;
+};
+
+export type KeepstarMapRegion = {
+  regionId: number;
+  name: string;
   x: number;
   z: number;
 };
@@ -405,6 +413,7 @@ export type KeepstarRoutePlan = {
   bounds: KeepstarMapBounds;
   systemsInView: KeepstarMapSystem[];
   routePath: KeepstarMapPoint[];
+  regions: KeepstarMapRegion[];
 };
 
 export type RouteCostOption = {

@@ -337,16 +337,19 @@ export default function KeepstarPlanner() {
 
             {planResult && (
               <div className={styles.result}>
-                <p>
-                  {planResult.stops
-                    .map((s) => `${s.systemName} – ${s.keepstarName}`)
-                    .join(" → ")}
-                </p>
+                <ol className={styles.routeList}>
+                  {planResult.stops.map((stop, index) => (
+                    <li key={index}>
+                      {stop.systemName} – {stop.keepstarName}
+                    </li>
+                  ))}
+                </ol>
                 <p>Total distance: {planResult.totalDistanceLY.toFixed(2)} LY</p>
                 <SystemMap
                   bounds={planResult.bounds}
                   systems={planResult.systemsInView}
                   routePath={planResult.routePath}
+                  regions={planResult.regions}
                 />
               </div>
             )}

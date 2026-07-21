@@ -338,7 +338,14 @@ export default function Routes() {
               </p>
               {calcResult.options[0].mode === "detour" &&
                 calcResult.options[0].detail.path && (
-                  <p>Route: {calcResult.options[0].detail.path.join(" → ")}</p>
+                  <>
+                    <p>Route:</p>
+                    <ol className={styles.routeList}>
+                      {calcResult.options[0].detail.path.map((name, index) => (
+                        <li key={index}>{name}</li>
+                      ))}
+                    </ol>
+                  </>
                 )}
               <p>
                 Suggested rate {calcResult.options[0].pricePerM3.toFixed(2)} ISK/m³,
@@ -388,7 +395,14 @@ export default function Routes() {
                       )}
                     </p>
                     {option.mode === "detour" && option.detail.path && (
-                      <p>Route: {option.detail.path.join(" → ")}</p>
+                      <>
+                        <p>Route:</p>
+                        <ol className={styles.routeList}>
+                          {option.detail.path.map((name, index) => (
+                            <li key={index}>{name}</li>
+                          ))}
+                        </ol>
+                      </>
                     )}
                     <p>
                       Suggested rate {option.pricePerM3.toFixed(2)} ISK/m³, minimum{" "}
