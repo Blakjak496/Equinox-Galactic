@@ -52,9 +52,17 @@ export default function KeepstarPlanner() {
   }, []);
 
   const handleDiscover = async () => {
-    setDiscovering(true);
     setDiscoveryError(null);
     setDiscoveryResult(null);
+
+    if (searchQuery.trim() === "") {
+      setDiscoveryError(
+        "Enter a search term - confirmed live against ESI, a blank query is rejected outright (400 'search is required'), it doesn't just return everything.",
+      );
+      return;
+    }
+
+    setDiscovering(true);
     try {
       const res = await api.discoverKeepstars(searchQuery);
       if (!res.ok || !res.data) {
@@ -134,10 +142,12 @@ export default function KeepstarPlanner() {
           <p className={styles.hint}>
             ESI has no endpoint listing every structure you can dock at -
             this searches your connected character&apos;s known structures
-            (the same list as your in-game Structure Browser). Try a blank
-            query first; if ESI rejects that or returns nothing, retry with
-            a substring matching your coalition&apos;s Keepstar naming
-            convention.
+            (the same list as your in-game Structure Browser). A search term
+            is required - ESI rejects a blank query outright (confirmed
+            live) rather than returning everything - so enter a substring
+            matching your coalition&apos;s Keepstar naming convention. Run
+            it more than once with different substrings to build up the
+            full list.
           </p>
 
           <div className={styles.discoverRow}>
@@ -145,7 +155,7 @@ export default function KeepstarPlanner() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search query (try blank first)"
+              placeholder="Search query, e.g. a shared name substring"
             />
             <Button
               callback={handleDiscover}
