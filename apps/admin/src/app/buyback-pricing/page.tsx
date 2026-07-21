@@ -172,9 +172,11 @@ const ItemRow = memo(function ItemRow(props: {
 
   return (
     <tr className={rowClass}>
-      <td>{item.name}</td>
-      {showCategory && <td>{item.categoryId.name}</td>}
-      <td>
+      <td data-label="Name">{item.name}</td>
+      {showCategory && (
+        <td data-label="Category">{item.categoryId.name}</td>
+      )}
+      <td data-label="Accepted">
         <select
           value={acceptedToValue(accepted)}
           onChange={(e) =>
@@ -191,7 +193,7 @@ const ItemRow = memo(function ItemRow(props: {
           ))}
         </select>
       </td>
-      <td>
+      <td data-label="Rate Override">
         <input
           type="number"
           className={styles.rateInput}
@@ -200,7 +202,7 @@ const ItemRow = memo(function ItemRow(props: {
           onChange={(e) => onEdit(item._id, { rateOverride: e.target.value })}
         />
       </td>
-      <td className={styles.recommendedCell}>
+      <td data-label="Recommended Rate" className={styles.recommendedCell}>
         {item.recommendedRate == null ? (
           <span className={styles.muted}>Not yet computed</span>
         ) : (
@@ -230,7 +232,7 @@ const ItemRow = memo(function ItemRow(props: {
           </div>
         )}
       </td>
-      <td>
+      <td data-label="Notes">
         <input
           type="text"
           className={styles.notesInput}
@@ -238,7 +240,7 @@ const ItemRow = memo(function ItemRow(props: {
           onChange={(e) => onEdit(item._id, { notes: e.target.value })}
         />
       </td>
-      <td>
+      <td data-label="Haul">
         <select
           value={acceptedToValue(haul)}
           onChange={(e) =>
@@ -255,14 +257,14 @@ const ItemRow = memo(function ItemRow(props: {
           ))}
         </select>
       </td>
-      <td>
+      <td data-label="Locations">
         <LocationsCheckboxList
           locations={locations}
           acceptedLocationIds={acceptedLocationIds}
           onChange={(ids) => onEdit(item._id, { acceptedLocationIds: ids })}
         />
       </td>
-      <td>
+      <td data-label="Reprocessing">
         <select
           value={reprocessingToValue(reprocessingCategory)}
           onChange={(e) =>
@@ -340,7 +342,7 @@ const CategoryRow = memo(function CategoryRow(props: {
             {expanded ? "▾" : "▸"}
           </button>
         </td>
-        <td>
+        <td data-label="Name">
           {category.name}
           {pendingCount > 0 && (
             <span className={styles.pendingBadge}>{pendingCount} pending</span>
@@ -364,7 +366,7 @@ const CategoryRow = memo(function CategoryRow(props: {
             </div>
           )}
         </td>
-        <td>
+        <td data-label="Accepted">
           <input
             type="checkbox"
             checked={accepted}
@@ -373,7 +375,7 @@ const CategoryRow = memo(function CategoryRow(props: {
             }
           />
         </td>
-        <td>
+        <td data-label="% Offered">
           <input
             type="number"
             className={styles.rateInput}
@@ -383,7 +385,7 @@ const CategoryRow = memo(function CategoryRow(props: {
             }
           />
         </td>
-        <td>
+        <td data-label="Haul">
           <input
             type="checkbox"
             checked={haul}
@@ -392,7 +394,7 @@ const CategoryRow = memo(function CategoryRow(props: {
             }
           />
         </td>
-        <td>
+        <td data-label="Locations">
           <LocationsCheckboxList
             locations={locations}
             acceptedLocationIds={acceptedLocationIds}

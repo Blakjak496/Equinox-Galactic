@@ -30,45 +30,21 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <div className={styles.tiles}>
-        {config.runnersEnabled ? (
+        {config.runnersEnabled && (
           <Link href="/runners" className={styles.tile}>
             <span className={styles.tileTitle}>{runnersTitle}</span>
             <span className={styles.tileSubtitle}>
               {t("homeRunnersSubtitle")}
             </span>
           </Link>
-        ) : (
-          <div className={`${styles.tile} ${styles.tileDisabled}`}>
-            <span className={styles.tileTitle}>{runnersTitle}</span>
-            <span className={styles.tileSubtitle}>
-              {t("homeRunnersSubtitle")}
-            </span>
-            <div className={styles.tileOverlay}>
-              <span className={styles.tileOverlayText}>
-                {t("serviceUnavailableTitle")}
-              </span>
-            </div>
-          </div>
         )}
-        {config.cartelEnabled ? (
+        {config.cartelEnabled && (
           <Link href="/cartel" className={styles.tile}>
             <span className={styles.tileTitle}>{cartelTitle}</span>
             <span className={styles.tileSubtitle}>
               {t("homeCartelSubtitle")}
             </span>
           </Link>
-        ) : (
-          <div className={`${styles.tile} ${styles.tileDisabled}`}>
-            <span className={styles.tileTitle}>{cartelTitle}</span>
-            <span className={styles.tileSubtitle}>
-              {t("homeCartelSubtitle")}
-            </span>
-            <div className={styles.tileOverlay}>
-              <span className={styles.tileOverlayText}>
-                {t("serviceUnavailableTitle")}
-              </span>
-            </div>
-          </div>
         )}
       </div>
     </div>

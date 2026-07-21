@@ -125,20 +125,26 @@ export default function CustomerBuyOrders() {
                         )
                       }
                     >
-                      <td>{order.referenceId}</td>
-                      <td>{order.customerCharacterName}</td>
-                      <td>{order.locationName}</td>
-                      <td>
+                      <td data-label="Reference">{order.referenceId}</td>
+                      <td data-label="Character">
+                        {order.customerCharacterName}
+                      </td>
+                      <td data-label="Location">{order.locationName}</td>
+                      <td data-label="Status">
                         <span
                           className={`${styles.statusPill} ${styles[`status-${order.status}`]}`}
                         >
                           {STATUS_LABELS[order.status] ?? order.status}
                         </span>
                       </td>
-                      <td>{formatIsk(order.totalPrice)}</td>
-                      <td>{order.items.length}</td>
-                      <td>{new Date(order.createdAt).toLocaleString()}</td>
-                      <td>
+                      <td data-label="Total Price">
+                        {formatIsk(order.totalPrice)}
+                      </td>
+                      <td data-label="Items">{order.items.length}</td>
+                      <td data-label="Created">
+                        {new Date(order.createdAt).toLocaleString()}
+                      </td>
+                      <td data-label="Pending">
                         {days === null ? "—" : isStale ? `⚠ ${days}d` : `${days}d`}
                       </td>
                     </tr>
@@ -157,10 +163,16 @@ export default function CustomerBuyOrders() {
                             <tbody>
                               {order.items.map((item, idx) => (
                                 <tr key={idx}>
-                                  <td>{item.name}</td>
-                                  <td>{item.quantity.toLocaleString()}</td>
-                                  <td>{formatIsk(item.unitPrice)}</td>
-                                  <td>{formatIsk(item.totalPrice)}</td>
+                                  <td data-label="Item">{item.name}</td>
+                                  <td data-label="Qty">
+                                    {item.quantity.toLocaleString()}
+                                  </td>
+                                  <td data-label="Unit Price">
+                                    {formatIsk(item.unitPrice)}
+                                  </td>
+                                  <td data-label="Total">
+                                    {formatIsk(item.totalPrice)}
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>

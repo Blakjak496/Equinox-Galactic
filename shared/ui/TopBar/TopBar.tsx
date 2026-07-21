@@ -2,18 +2,31 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale } from "@/lib/LocaleContext";
 import type { Locale, TranslationKey } from "@/lib/i18n";
+import { getPublicConfig, PublicConfig } from "@/app/api/config";
 import styles from "./TopBar.module.css";
 
-const NAV_ITEMS: { key: TranslationKey; href: string }[] = [
+const NAV_ITEMS: {
+  key: TranslationKey;
+  href: string;
+  configKey?: keyof PublicConfig;
+}[] = [
   { key: "navHome", href: "/" },
-  { key: "navRunners", href: "/runners" },
-  { key: "navCartel", href: "/cartel" },
-  { key: "navBuyback", href: "/cartel/buyback" },
-  { key: "navPurchase", href: "/cartel/purchase" },
+  { key: "navRunners", href: "/runners", configKey: "runnersEnabled" },
+  { key: "navCartel", href: "/cartel", configKey: "cartelEnabled" },
+  { key: "navBuyback", href: "/cartel/buyback", configKey: "cartelEnabled" },
+  { key: "navPurchase", href: "/cartel/purchase", configKey: "cartelEnabled" },
 ];
+
+// This app is a static export (no Node server at runtime), so the service
+// toggle can't be checked server-side per-request - it's fetched client-side
+// on mount instead, same as every other data fetch in this app.
+const DEFAULT_CONFIG: PublicConfig = {
+  runnersEnabled: true,
+  cartelEnabled: true,
+};
 
 const SECTION_TITLES: {
   match: (path: string) => boolean;
@@ -33,7 +46,18 @@ export default function TopBar() {
   const pathname = usePathname() ?? "/";
   const { locale, setLocale, t } = useLocale();
   const [open, setOpen] = useState(false);
+  const [config, setConfig] = useState<PublicConfig>(DEFAULT_CONFIG);
   const [titleLine1, titleLine2] = getTitleLines(pathname);
+
+  useEffect(() => {
+    getPublicConfig()
+      .then(setConfig)
+      .catch(() => {});
+  }, []);
+
+  const visibleNavItems = NAV_ITEMS.filter(
+    (item) => !item.configKey || config[item.configKey],
+  );
   // Discord invite button disabled for now - no invite link configured yet.
   // Uncomment this line (and the button below) once
   // NEXT_PUBLIC_DISCORD_INVITE_URL is set to re-enable it.
@@ -54,7 +78,7 @@ export default function TopBar() {
 
       <nav className={`${styles.nav} ${open ? styles.navOpen : ""}`}>
         <ul className={styles.navList}>
-          {NAV_ITEMS.map((item) => (
+          {visibleNavItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}

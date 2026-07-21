@@ -82,6 +82,7 @@
 
 .saveBar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   gap: var(--space-3);
@@ -178,7 +179,9 @@
   gap: 0.2rem;
   max-height: 5.5rem;
   overflow-y: auto;
+  overflow-x: auto;
   width: 11rem;
+  max-width: 100%;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
@@ -269,4 +272,45 @@
   padding: 0.0625rem 0.4375rem;
   font-size: 0.6875rem;
   font-family: var(--font-heading);
+}
+
+/* Cells here hold much busier content than the simpler admin tables
+   (selects, a checkbox list, a multi-line recommended-rate block with its
+   own badge/buttons) - label-above-value reads better than trying to
+   squeeze that next to a label on one line. */
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: var(--space-3);
+  }
+
+  .table thead,
+  .itemsTable thead {
+    display: none;
+  }
+
+  .table tr,
+  .itemsTable tr {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-2);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .table td,
+  .itemsTable td {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .table td::before,
+  .itemsTable td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
 }

@@ -1,7 +1,10 @@
 .wrapper {
   position: relative;
-  flex: 1;
-  min-width: 0;
+  flex: 1 1 12rem;
+  /* A real min-width, not 0 - min-width:0 tells flexbox this item can
+     shrink infinitely, which starves it toward unusable width instead of
+     ever triggering the parent row's flex-wrap. */
+  min-width: 10rem;
 }
 
 .wrapper input {

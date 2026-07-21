@@ -79,3 +79,9 @@
   color: var(--text);
   font-family: var(--font-body);
 }
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: var(--space-3);
+  }
+}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import IconButton from "@/components/IconButton/IconButton";
 import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
 import { api, MainRoute } from "@/lib/api";
 import styles from "./MainRoutes.module.css";
@@ -206,33 +207,27 @@ export default function MainRoutes() {
                   onChange={(value) => setWaypoint(index, value)}
                   placeholder="System name, e.g. Jita"
                 />
-                <div className={styles.waypointBtn}>
-                  <Button
-                    callback={() => moveWaypoint(index, -1)}
-                    color="blue"
-                    disabled={index === 0}
-                  >
-                    ↑
-                  </Button>
-                </div>
-                <div className={styles.waypointBtn}>
-                  <Button
-                    callback={() => moveWaypoint(index, 1)}
-                    color="blue"
-                    disabled={index === form.waypoints.length - 1}
-                  >
-                    ↓
-                  </Button>
-                </div>
-                <div className={styles.waypointBtn}>
-                  <Button
-                    callback={() => removeWaypoint(index)}
-                    color="red"
-                    disabled={form.waypoints.length <= 2}
-                  >
-                    Remove
-                  </Button>
-                </div>
+                <IconButton
+                  icon="up"
+                  ariaLabel="Move waypoint up"
+                  callback={() => moveWaypoint(index, -1)}
+                  color="blue"
+                  disabled={index === 0}
+                />
+                <IconButton
+                  icon="down"
+                  ariaLabel="Move waypoint down"
+                  callback={() => moveWaypoint(index, 1)}
+                  color="blue"
+                  disabled={index === form.waypoints.length - 1}
+                />
+                <IconButton
+                  icon="delete"
+                  ariaLabel="Remove waypoint"
+                  callback={() => removeWaypoint(index)}
+                  color="red"
+                  disabled={form.waypoints.length <= 2}
+                />
               </div>
             ))}
           </div>
@@ -282,24 +277,27 @@ export default function MainRoutes() {
               <tbody>
                 {mainRoutes.map((route) => (
                   <tr key={route._id}>
-                    <td>{route.name}</td>
-                    <td>
+                    <td data-label="Name">{route.name}</td>
+                    <td data-label="Waypoints">
                       {route.waypoints
                         .map((systemId) => systemNames[systemId] ?? `#${systemId}`)
                         .join(" → ")}
                     </td>
-                    <td>{route.active ? "Yes" : "No"}</td>
+                    <td data-label="Active">{route.active ? "Yes" : "No"}</td>
                     <td className={styles.actions}>
-                      <Button callback={() => handleEdit(route)} color="orange">
-                        Edit
-                      </Button>
-                      <Button
+                      <IconButton
+                        icon="edit"
+                        ariaLabel={`Edit ${route.name}`}
+                        callback={() => handleEdit(route)}
+                        color="orange"
+                      />
+                      <IconButton
+                        icon="delete"
+                        ariaLabel={`Delete ${route.name}`}
                         callback={() => handleDelete(route)}
                         color="red"
                         disabled={saving}
-                      >
-                        Delete
-                      </Button>
+                      />
                     </td>
                   </tr>
                 ))}

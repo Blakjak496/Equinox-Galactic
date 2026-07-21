@@ -86,8 +86,8 @@ export default function BuybackQuotes() {
                         )
                       }
                     >
-                      <td>{quote.referenceId}</td>
-                      <td>
+                      <td data-label="Reference">{quote.referenceId}</td>
+                      <td data-label="Status">
                         <span
                           className={`${styles.statusPill} ${styles[`status-${quote.status}`]}`}
                         >
@@ -102,10 +102,16 @@ export default function BuybackQuotes() {
                           </span>
                         )}
                       </td>
-                      <td>{formatIsk(quote.netTotalPrice)}</td>
-                      <td>{quote.items.length}</td>
-                      <td>{new Date(quote.createdAt).toLocaleString()}</td>
-                      <td>{new Date(quote.expiresAt).toLocaleDateString()}</td>
+                      <td data-label="Net Total">
+                        {formatIsk(quote.netTotalPrice)}
+                      </td>
+                      <td data-label="Items">{quote.items.length}</td>
+                      <td data-label="Created">
+                        {new Date(quote.createdAt).toLocaleString()}
+                      </td>
+                      <td data-label="Expires">
+                        {new Date(quote.expiresAt).toLocaleDateString()}
+                      </td>
                     </tr>
                     {expandedId === quote._id && (
                       <tr>
@@ -125,13 +131,21 @@ export default function BuybackQuotes() {
                             <tbody>
                               {quote.items.map((item, idx) => (
                                 <tr key={idx}>
-                                  <td>{item.name}</td>
-                                  <td>{item.categoryName}</td>
-                                  <td>{item.quantity.toLocaleString()}</td>
-                                  <td>{formatIsk(item.totalJbv)}</td>
-                                  <td>{item.percentOffered}%</td>
-                                  <td>{formatIsk(item.offerValue)}</td>
-                                  <td>
+                                  <td data-label="Item">{item.name}</td>
+                                  <td data-label="Category">
+                                    {item.categoryName}
+                                  </td>
+                                  <td data-label="Qty">
+                                    {item.quantity.toLocaleString()}
+                                  </td>
+                                  <td data-label="JBV">
+                                    {formatIsk(item.totalJbv)}
+                                  </td>
+                                  <td data-label="%">{item.percentOffered}%</td>
+                                  <td data-label="Offer">
+                                    {formatIsk(item.offerValue)}
+                                  </td>
+                                  <td data-label="Accepted">
                                     {item.accepted
                                       ? "Yes"
                                       : (item.rejectReason ?? "No")}

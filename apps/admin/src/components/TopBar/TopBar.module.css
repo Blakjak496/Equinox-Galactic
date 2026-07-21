@@ -22,6 +22,12 @@
 }
 
 @media only screen and (max-width: 768px) {
+  /* Deliberately not var(--space-5), the value AppShell.module.css's .main
+     uses at this breakpoint - that one just reclaims the space the sidebar
+     vacates. This one has a different job: leaving enough room for the
+     fixed-position BurgerMenu button so the title text doesn't sit under
+     it. Different purpose, so a different value is correct here, not a
+     duplication to collapse into one. */
   .bar {
     padding-left: calc(var(--space-6) * 2 + 2.5rem);
   }

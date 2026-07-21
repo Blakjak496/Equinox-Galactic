@@ -99,6 +99,7 @@
 
 .formButtons {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-3);
 }
 
@@ -192,4 +193,41 @@
   gap: var(--space-1);
   margin: 0;
   padding-left: 1.25rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: var(--space-3);
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tr {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-1);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .table td.actions {
+    justify-content: flex-start;
+  }
 }

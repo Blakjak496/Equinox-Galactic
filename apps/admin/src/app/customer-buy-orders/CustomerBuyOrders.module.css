@@ -8,6 +8,7 @@
 .section {
   width: 100%;
   padding: var(--space-4);
+  overflow-x: auto;
 }
 
 .sectionTitle {
@@ -19,6 +20,7 @@
 
 .filterRow {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
@@ -137,4 +139,41 @@
   display: flex;
   justify-content: flex-end;
   margin-top: var(--space-3);
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: var(--space-3);
+  }
+
+  .table thead,
+  .itemsTable thead {
+    display: none;
+  }
+
+  .table tr,
+  .itemsTable tr {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-1);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .table td,
+  .itemsTable td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .table td::before,
+  .itemsTable td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
 }

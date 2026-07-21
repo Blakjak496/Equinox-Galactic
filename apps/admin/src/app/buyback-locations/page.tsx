@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import IconButton from "@/components/IconButton/IconButton";
 import { api, BuybackLocation, StructureSearchResult } from "@/lib/api";
 import styles from "./BuybackLocations.module.css";
 
@@ -283,9 +284,12 @@ export default function BuybackLocations() {
                     ID: {form.stockLocationId}
                   </span>
                 </span>
-                <Button callback={handleClearStructure} color="red">
-                  Clear
-                </Button>
+                <IconButton
+                  icon="clear"
+                  ariaLabel="Clear selected structure"
+                  callback={handleClearStructure}
+                  color="red"
+                />
               </div>
             ) : (
               <>
@@ -400,11 +404,13 @@ export default function BuybackLocations() {
               <tbody>
                 {locations.map((location) => (
                   <tr key={location._id}>
-                    <td>{location.name}</td>
-                    <td>{location.isHub ? "Yes" : "No"}</td>
-                    <td>{location.distance}</td>
-                    <td>{location.pickupRatePerM3 ?? "—"}</td>
-                    <td>
+                    <td data-label="Name">{location.name}</td>
+                    <td data-label="Hub">{location.isHub ? "Yes" : "No"}</td>
+                    <td data-label="Distance">{location.distance}</td>
+                    <td data-label="Pickup Rate (ISK/m³)">
+                      {location.pickupRatePerM3 ?? "—"}
+                    </td>
+                    <td data-label="Stock Location">
                       {location.stockLocationId != null ? (
                         <>
                           {location.stockLocationName ?? "Unnamed"}{" "}
@@ -417,19 +423,19 @@ export default function BuybackLocations() {
                       )}
                     </td>
                     <td className={styles.actions}>
-                      <Button
+                      <IconButton
+                        icon="edit"
+                        ariaLabel={`Edit ${location.name}`}
                         callback={() => handleEdit(location)}
                         color="orange"
-                      >
-                        Edit
-                      </Button>
-                      <Button
+                      />
+                      <IconButton
+                        icon="delete"
+                        ariaLabel={`Delete ${location.name}`}
                         callback={() => handleDelete(location)}
                         color="red"
                         disabled={saving}
-                      >
-                        Delete
-                      </Button>
+                      />
                     </td>
                   </tr>
                 ))}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import IconButton from "@/components/IconButton/IconButton";
 import { api, ShipCategory } from "@/lib/api";
 import styles from "./ShipCategories.module.css";
 
@@ -163,22 +164,24 @@ export default function ShipCategories() {
               <tbody>
                 {shipCategories.map((shipCategory) => (
                   <tr key={shipCategory._id}>
-                    <td>{shipCategory.name}</td>
-                    <td>{shipCategory.jumpRangeLY}</td>
+                    <td data-label="Name">{shipCategory.name}</td>
+                    <td data-label="Jump Range (LY)">
+                      {shipCategory.jumpRangeLY}
+                    </td>
                     <td className={styles.actions}>
-                      <Button
+                      <IconButton
+                        icon="edit"
+                        ariaLabel={`Edit ${shipCategory.name}`}
                         callback={() => handleEdit(shipCategory)}
                         color="orange"
-                      >
-                        Edit
-                      </Button>
-                      <Button
+                      />
+                      <IconButton
+                        icon="delete"
+                        ariaLabel={`Delete ${shipCategory.name}`}
                         callback={() => handleDelete(shipCategory)}
                         color="red"
                         disabled={saving}
-                      >
-                        Delete
-                      </Button>
+                      />
                     </td>
                   </tr>
                 ))}

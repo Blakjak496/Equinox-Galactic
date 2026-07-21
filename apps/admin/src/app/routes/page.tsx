@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import IconButton from "@/components/IconButton/IconButton";
 import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
 import {
   api,
@@ -473,25 +474,34 @@ export default function Routes() {
               <tbody>
                 {routes.map((r) => (
                   <tr key={r._id ?? r.systems.join("-")}>
-                    <td>
+                    <td data-label="Route">
                       {r.systems[0]} {r.oneWay ? "→" : "↔"} {r.systems[1]}
                     </td>
-                    <td>{r.terms.rate.toLocaleString()}</td>
-                    <td>{r.terms.minReward.toLocaleString()}</td>
-                    <td>{r.terms.rushPrice.toLocaleString()}</td>
-                    <td>{r.terms.maxVolume.toLocaleString()}</td>
-                    <td>{r.terms.collateralFeePercent}%</td>
+                    <td data-label="Rate">{r.terms.rate.toLocaleString()}</td>
+                    <td data-label="Min Reward">
+                      {r.terms.minReward.toLocaleString()}
+                    </td>
+                    <td data-label="Rush Price">
+                      {r.terms.rushPrice.toLocaleString()}
+                    </td>
+                    <td data-label="Max Vol">
+                      {r.terms.maxVolume.toLocaleString()}
+                    </td>
+                    <td data-label="Col %">{r.terms.collateralFeePercent}%</td>
                     <td className={styles.actions}>
-                      <Button callback={() => handleEdit(r)} color="orange">
-                        Edit
-                      </Button>
-                      <Button
+                      <IconButton
+                        icon="edit"
+                        ariaLabel="Edit route"
+                        callback={() => handleEdit(r)}
+                        color="orange"
+                      />
+                      <IconButton
+                        icon="delete"
+                        ariaLabel="Delete route"
                         callback={() => handleDelete(r)}
                         color="red"
                         disabled={saving}
-                      >
-                        Delete
-                      </Button>
+                      />
                     </td>
                   </tr>
                 ))}

@@ -40,9 +40,11 @@ const ItemRow = memo(function ItemRow(props: {
 
   return (
     <tr className={isDirty ? styles.rowDirty : ""}>
-      <td>{item.name}</td>
-      {showCategory && <td>{item.categoryId.name}</td>}
-      <td>
+      <td data-label="Name">{item.name}</td>
+      {showCategory && (
+        <td data-label="Category">{item.categoryId.name}</td>
+      )}
+      <td data-label="Accepted">
         <select
           value={acceptedToValue(accepted)}
           onChange={(e) =>
@@ -101,8 +103,8 @@ const CategoryRow = memo(function CategoryRow(props: {
             {expanded ? "▾" : "▸"}
           </button>
         </td>
-        <td>{category.name}</td>
-        <td>
+        <td data-label="Name">{category.name}</td>
+        <td data-label="Accepted">
           <input
             type="checkbox"
             checked={accepted}

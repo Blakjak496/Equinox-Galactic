@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import IconButton from "@/components/IconButton/IconButton";
 import {
   api,
   KeepstarDiscoveryResponse,
@@ -214,9 +215,12 @@ export default function KeepstarPlanner() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Known Keepstars</h2>
           <div>
-            <Button callback={fetchKnownKeepstars} color="blue">
-              Refresh
-            </Button>
+            <IconButton
+              icon="refresh"
+              ariaLabel="Refresh known Keepstars"
+              callback={fetchKnownKeepstars}
+              color="blue"
+            />
           </div>
 
           {loadingKnown ? (
@@ -296,33 +300,27 @@ export default function KeepstarPlanner() {
                       </option>
                     ))}
                   </select>
-                  <div className={styles.waypointBtn}>
-                    <Button
-                      callback={() => moveWaypoint(index, -1)}
-                      color="blue"
-                      disabled={index === 0}
-                    >
-                      ↑
-                    </Button>
-                  </div>
-                  <div className={styles.waypointBtn}>
-                    <Button
-                      callback={() => moveWaypoint(index, 1)}
-                      color="blue"
-                      disabled={index === waypoints.length - 1}
-                    >
-                      ↓
-                    </Button>
-                  </div>
-                  <div className={styles.waypointBtn}>
-                    <Button
-                      callback={() => removeWaypoint(index)}
-                      color="red"
-                      disabled={waypoints.length <= 2}
-                    >
-                      Remove
-                    </Button>
-                  </div>
+                  <IconButton
+                    icon="up"
+                    ariaLabel="Move waypoint up"
+                    callback={() => moveWaypoint(index, -1)}
+                    color="blue"
+                    disabled={index === 0}
+                  />
+                  <IconButton
+                    icon="down"
+                    ariaLabel="Move waypoint down"
+                    callback={() => moveWaypoint(index, 1)}
+                    color="blue"
+                    disabled={index === waypoints.length - 1}
+                  />
+                  <IconButton
+                    icon="delete"
+                    ariaLabel="Remove waypoint"
+                    callback={() => removeWaypoint(index)}
+                    color="red"
+                    disabled={waypoints.length <= 2}
+                  />
                 </div>
               ))}
             </div>

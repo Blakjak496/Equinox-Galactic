@@ -101,15 +101,15 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
       <div className={styles.buttons}>
         {signedIn ? (
           [
-            <Button key={0} callback={() => startEveSso()} color="orange">
+            <Button key={0} callback={() => startEveSso()} color="orange" fullWidth>
               Eve SSO
             </Button>,
-            <Button key={1} callback={() => logout()} color="red">
+            <Button key={1} callback={() => logout()} color="red" fullWidth>
               Logout
             </Button>,
           ]
         ) : (
-          <Button callback={() => login()} color="red">
+          <Button callback={() => login()} color="red" fullWidth>
             Login
           </Button>
         )}

@@ -131,11 +131,13 @@
 .waypointRow {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
 }
 
 .waypointRow select {
-  flex: 1 1 auto;
+  flex: 1 1 12rem;
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
@@ -150,11 +152,6 @@
   font-size: 0.75rem;
   font-family: var(--font-heading);
   width: 1.5rem;
-}
-
-.waypointBtn {
-  flex: 0 0 auto;
-  width: 5.5rem;
 }
 
 .formButtons {
@@ -218,4 +215,10 @@
 
 .rowKeepstar td {
   background: rgba(82, 224, 130, 0.08);
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: var(--space-3);
+  }
 }

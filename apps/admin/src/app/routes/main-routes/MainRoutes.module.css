@@ -65,6 +65,7 @@
 .waypointRow {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: var(--space-2);
 }
 
@@ -73,11 +74,6 @@
   font-size: 0.75rem;
   font-family: var(--font-heading);
   width: 1.5rem;
-}
-
-.waypointBtn {
-  flex: 0 0 auto;
-  width: 5.5rem;
 }
 
 .formButtons {
@@ -129,4 +125,41 @@
 .muted {
   color: var(--muted);
   font-size: 0.875rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: var(--space-3);
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tr {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--space-1);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0;
+    border-bottom: none;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+
+  .table td.actions {
+    justify-content: flex-start;
+  }
 }

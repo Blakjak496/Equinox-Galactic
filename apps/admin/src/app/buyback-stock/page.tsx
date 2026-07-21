@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
+import IconButton from "@/components/IconButton/IconButton";
 import { api, BuybackItem, BuybackLocation, BuybackStockItem } from "@/lib/api";
 import styles from "./BuybackStock.module.css";
 
@@ -226,12 +227,12 @@ export default function BuybackStock() {
                 {selectedItem ? (
                   <div className={styles.selectedItem}>
                     <span>{selectedItem.name}</span>
-                    <Button
+                    <IconButton
+                      icon="clear"
+                      ariaLabel="Clear selected item"
                       callback={handleClearSelectedItem}
                       color="red"
-                    >
-                      Clear
-                    </Button>
+                    />
                   </div>
                 ) : (
                   <>
@@ -320,9 +321,9 @@ export default function BuybackStock() {
                   const isEditing = editingId === item._id;
                   return (
                     <tr key={item._id} className={isStale ? styles.rowStale : ""}>
-                      <td>{item.name}</td>
-                      <td>{item.locationName}</td>
-                      <td>
+                      <td data-label="Item">{item.name}</td>
+                      <td data-label="Location">{item.locationName}</td>
+                      <td data-label="On Hand">
                         {isEditing ? (
                           <input
                             type="number"
@@ -337,9 +338,13 @@ export default function BuybackStock() {
                           item.quantityOnHand.toLocaleString()
                         )}
                       </td>
-                      <td>{item.availableQuantity.toLocaleString()}</td>
-                      <td>{formatFreshness(item.stockUpdatedAt)}</td>
-                      <td>
+                      <td data-label="Available">
+                        {item.availableQuantity.toLocaleString()}
+                      </td>
+                      <td data-label="Updated">
+                        {formatFreshness(item.stockUpdatedAt)}
+                      </td>
+                      <td data-label="Sitting">
                         {days === null
                           ? "—"
                           : isStale
@@ -365,12 +370,12 @@ export default function BuybackStock() {
                             </Button>
                           </>
                         ) : (
-                          <Button
+                          <IconButton
+                            icon="edit"
+                            ariaLabel={`Edit ${item.name}`}
                             callback={() => handleStartEdit(item)}
                             color="orange"
-                          >
-                            Edit
-                          </Button>
+                          />
                         )}
                       </td>
                     </tr>
