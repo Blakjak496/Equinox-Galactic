@@ -74,7 +74,7 @@ const zh = {
 
   summaryTitle: "报价汇总",
   notAcceptedWarning:
-    "您列表中有 {count} 件物品当前不被接受。请查看上方的逐项结果，并在创建合同前将其移除。",
+    "您列表中有 {count} 件物品当前不被接受。请查看下方的逐项结果，并在创建合同前将其移除。",
   itemsNotAccepted: "未接受物品数",
   itemsAccepted: "已接受物品数",
   volumeAccepted: "体积（已接受）",
@@ -82,6 +82,7 @@ const zh = {
   totalOfferValueGross: "报价总额（毛额）",
   pickupFee: "取件费",
   totalOfferFinal: "总回收金额",
+  janiceAppraisalLink: "查看 Janice 估价",
 
   referenceIdRejectedNote:
     "请将此参考编号粘贴到合同的描述中。缺少此编号的合同将被拒绝。",

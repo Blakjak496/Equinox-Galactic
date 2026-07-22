@@ -79,7 +79,7 @@ const en = {
 
   summaryTitle: "Quote Summary",
   notAcceptedWarning:
-    "{count} item(s) in your list are not currently accepted. Check the itemised results above and remove them before creating your contract.",
+    "{count} item(s) in your list are not currently accepted. Check the itemised results below and remove them before creating your contract.",
   itemsNotAccepted: "Items Not Accepted",
   itemsAccepted: "Items Accepted",
   volumeAccepted: "Volume (Accepted)",
@@ -87,6 +87,7 @@ const en = {
   totalOfferValueGross: "Total Offer Value (Gross)",
   pickupFee: "Pickup Fee",
   totalOfferFinal: "Total Offer",
+  janiceAppraisalLink: "View Janice Appraisal",
 
   referenceIdRejectedNote:
     "Paste this reference ID into your contract's description. Contracts missing it will be rejected.",

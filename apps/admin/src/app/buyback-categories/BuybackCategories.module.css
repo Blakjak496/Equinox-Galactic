@@ -237,4 +237,18 @@
     color: var(--muted);
     font-size: var(--text-xs);
   }
+
+  /* The expand/collapse detail cell wraps a nested table, not a label:value
+     pair - it has no data-label and must stay full-width, not be squeezed
+     into the space-between row layout every other td gets. */
+  .table td.detailCell,
+  .itemsTable td.detailCell {
+    display: block;
+    width: 100%;
+  }
+
+  .table td.detailCell::before,
+  .itemsTable td.detailCell::before {
+    content: none;
+  }
 }

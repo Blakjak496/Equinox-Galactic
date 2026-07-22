@@ -210,6 +210,21 @@
   font-style: italic;
 }
 
+.janiceLinkRow {
+  margin-bottom: var(--space-3);
+}
+
+.janiceLink {
+  color: var(--primary);
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  width: fit-content;
+}
+
+.janiceLink:hover {
+  color: var(--primary-hover);
+}
+
 .notAcceptedWarning {
   padding: var(--space-3);
   background: rgba(196, 64, 48, 0.1);

@@ -112,65 +112,12 @@ export default function BuybackDashboard() {
 
         {result && !result.capExceeded && (
           <>
-            <Card mainTitle={t("itemizedTitle")}>
-              <div className={styles.tableScroll}>
-                <table>
-                  <tbody>
-                    <tr className={styles.tableHead}>
-                      <th>{t("colItem")}</th>
-                      <th>{t("colVolume")}</th>
-                      <th>{t("colQuantity")}</th>
-                      <th>{t("colJbvPerUnit")}</th>
-                      <th>{t("colTotalJbv")}</th>
-                      <th>{t("colPercentOffered")}</th>
-                      <th>{t("colOfferValue")}</th>
-                      <th>{t("colAccepted")}</th>
-                    </tr>
-                    {result.items.map((item, idx) => (
-                      <tr
-                        key={idx}
-                        className={`${idx % 2 === 1 ? styles.tableRowAlt : ""} ${!item.accepted ? styles.rejectedRow : ""}`}
-                      >
-                        <td data-label={t("colItem")}>{item.name}</td>
-                        <td data-label={t("colVolume")}>{formatVolume(item.volume)}</td>
-                        <td data-label={t("colQuantity")}>{item.quantity.toLocaleString()}</td>
-                        <td data-label={t("colJbvPerUnit")}>{formatIsk(item.jbvPerUnit)}</td>
-                        <td data-label={t("colTotalJbv")}>{formatIsk(item.totalJbv)}</td>
-                        <td data-label={t("colPercentOffered")}>{item.accepted ? `${item.percentOffered}%` : "—"}</td>
-                        <td data-label={t("colOfferValue")}>{item.accepted ? formatIsk(item.offerValue) : "—"}</td>
-                        <td data-label={t("colAccepted")}>
-                          <span
-                            className={
-                              item.accepted
-                                ? styles.statusIconAccepted
-                                : styles.statusIconRejected
-                            }
-                            title={
-                              item.accepted
-                                ? t("statusAccepted")
-                                : (item.rejectReason ?? t("statusNotAccepted"))
-                            }
-                          >
-                            {item.accepted ? "✓" : "✗"}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-
             {(() => {
               const acceptedItems = result.items.filter(
                 (item) => item.accepted,
               );
               const acceptedCount = acceptedItems.length;
               const rejectedCount = result.items.length - acceptedCount;
-              const acceptedTotalJbv = acceptedItems.reduce(
-                (sum, item) => sum + item.totalJbv,
-                0,
-              );
               const acceptedVolume = acceptedItems.reduce(
                 (sum, item) => sum + item.volume,
                 0,
@@ -178,6 +125,18 @@ export default function BuybackDashboard() {
 
               return (
                 <Card mainTitle={t("summaryTitle")}>
+                  {result.janiceUrl && (
+                    <div className={styles.janiceLinkRow}>
+                      <a
+                        className={styles.janiceLink}
+                        href={result.janiceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {t("janiceAppraisalLink")}
+                      </a>
+                    </div>
+                  )}
                   {rejectedCount > 0 && (
                     <p className={styles.notAcceptedWarning}>
                       {t("notAcceptedWarning", { count: rejectedCount })}
@@ -212,7 +171,7 @@ export default function BuybackDashboard() {
                       {t("totalJbvAccepted")}
                     </span>
                     <span className={styles.summaryValue}>
-                      {formatIsk(acceptedTotalJbv)}
+                      {formatIsk(result.totalJbv)}
                     </span>
                   </div>
                   <div className={styles.summaryRow}>
@@ -298,6 +257,55 @@ export default function BuybackDashboard() {
                 <span className={styles.summaryValue}>
                   {t("buybackExpirationValue")}
                 </span>
+              </div>
+            </Card>
+
+            <Card mainTitle={t("itemizedTitle")}>
+              <div className={styles.tableScroll}>
+                <table>
+                  <tbody>
+                    <tr className={styles.tableHead}>
+                      <th>{t("colItem")}</th>
+                      <th>{t("colVolume")}</th>
+                      <th>{t("colQuantity")}</th>
+                      <th>{t("colJbvPerUnit")}</th>
+                      <th>{t("colTotalJbv")}</th>
+                      <th>{t("colPercentOffered")}</th>
+                      <th>{t("colOfferValue")}</th>
+                      <th>{t("colAccepted")}</th>
+                    </tr>
+                    {result.items.map((item, idx) => (
+                      <tr
+                        key={idx}
+                        className={`${idx % 2 === 1 ? styles.tableRowAlt : ""} ${!item.accepted ? styles.rejectedRow : ""}`}
+                      >
+                        <td data-label={t("colItem")}>{item.name}</td>
+                        <td data-label={t("colVolume")}>{formatVolume(item.volume)}</td>
+                        <td data-label={t("colQuantity")}>{item.quantity.toLocaleString()}</td>
+                        <td data-label={t("colJbvPerUnit")}>{formatIsk(item.jbvPerUnit)}</td>
+                        <td data-label={t("colTotalJbv")}>{formatIsk(item.totalJbv)}</td>
+                        <td data-label={t("colPercentOffered")}>{item.accepted ? `${item.percentOffered}%` : "—"}</td>
+                        <td data-label={t("colOfferValue")}>{item.accepted ? formatIsk(item.offerValue) : "—"}</td>
+                        <td data-label={t("colAccepted")}>
+                          <span
+                            className={
+                              item.accepted
+                                ? styles.statusIconAccepted
+                                : styles.statusIconRejected
+                            }
+                            title={
+                              item.accepted
+                                ? t("statusAccepted")
+                                : (item.rejectReason ?? t("statusNotAccepted"))
+                            }
+                          >
+                            {item.accepted ? "✓" : "✗"}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </Card>
           </>

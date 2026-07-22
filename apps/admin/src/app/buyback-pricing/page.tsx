@@ -6,13 +6,14 @@ import Button from "@/components/Button/Button";
 import {
   api,
   BuybackCategory,
+  BuybackGroup,
   BuybackItem,
   BuybackLocation,
 } from "@/lib/api";
 import styles from "./BuybackPricing.module.css";
 
 const ACCEPTED_OPTIONS = [
-  { value: "inherit", label: "Inherit from category" },
+  { value: "inherit", label: "Inherit" },
   { value: "true", label: "Accepted" },
   { value: "false", label: "Not accepted" },
 ];
@@ -42,7 +43,9 @@ function reprocessingFromValue(
 }
 
 function resolveAccepted(item: BuybackItem): boolean {
-  return (item.accepted ?? item.categoryId.accepted) === true;
+  return (
+    item.accepted ?? item.groupId.accepted ?? item.groupId.categoryId.accepted
+  ) === true;
 }
 
 function acceptRecommendationPatch(item: BuybackItem) {
@@ -81,6 +84,12 @@ type CategoryEdit = Partial<{
   accepted: boolean;
   percentOffered: string;
   haul: boolean;
+  acceptedLocationIds: string[] | null;
+}>;
+type GroupEdit = Partial<{
+  accepted: boolean | null;
+  percentOffered: string;
+  haul: boolean | null;
   acceptedLocationIds: string[] | null;
 }>;
 type ItemEdit = Partial<{
@@ -132,7 +141,7 @@ const LocationsCheckboxList = memo(function LocationsCheckboxList(props: {
 const ItemRow = memo(function ItemRow(props: {
   item: BuybackItem;
   edit: ItemEdit | undefined;
-  showCategory: boolean;
+  showGroup: boolean;
   locations: BuybackLocation[];
   actionPending: boolean;
   onEdit: (itemId: string, edit: ItemEdit) => void;
@@ -142,7 +151,7 @@ const ItemRow = memo(function ItemRow(props: {
   const {
     item,
     edit,
-    showCategory,
+    showGroup,
     locations,
     actionPending,
     onEdit,
@@ -173,9 +182,7 @@ const ItemRow = memo(function ItemRow(props: {
   return (
     <tr className={rowClass}>
       <td data-label="Name">{item.name}</td>
-      {showCategory && (
-        <td data-label="Category">{item.categoryId.name}</td>
-      )}
+      {showGroup && <td data-label="Group">{item.groupId.name}</td>}
       <td data-label="Accepted">
         <select
           value={acceptedToValue(accepted)}
@@ -284,39 +291,252 @@ const ItemRow = memo(function ItemRow(props: {
   );
 });
 
-const CategoryRow = memo(function CategoryRow(props: {
-  category: BuybackCategory;
-  edit: CategoryEdit | undefined;
+const GroupRow = memo(function GroupRow(props: {
+  group: BuybackGroup;
+  edit: GroupEdit | undefined;
   locations: BuybackLocation[];
   expanded: boolean;
   items: BuybackItem[];
   itemEdits: Record<string, ItemEdit>;
   actionPendingIds: Set<string>;
-  categoryActionPending: boolean;
-  onToggleExpanded: (categoryId: string) => void;
-  onCategoryEdit: (categoryId: string, edit: CategoryEdit) => void;
+  groupActionPending: boolean;
+  resetPending: boolean;
+  onToggleExpanded: (groupId: string) => void;
+  onGroupEdit: (groupId: string, edit: GroupEdit) => void;
   onItemEdit: (itemId: string, edit: ItemEdit) => void;
   onAccept: (item: BuybackItem) => void;
   onIgnore: (item: BuybackItem) => void;
-  onAcceptCategory: (categoryId: string, items: BuybackItem[]) => void;
-  onIgnoreCategory: (categoryId: string, items: BuybackItem[]) => void;
+  onAcceptGroup: (groupId: string, items: BuybackItem[]) => void;
+  onIgnoreGroup: (groupId: string, items: BuybackItem[]) => void;
+  onResetToInherit: (group: BuybackGroup) => void;
 }) {
   const {
-    category,
+    group,
     edit,
     locations,
     expanded,
     items,
     itemEdits,
     actionPendingIds,
-    categoryActionPending,
+    groupActionPending,
+    resetPending,
     onToggleExpanded,
-    onCategoryEdit,
+    onGroupEdit,
     onItemEdit,
     onAccept,
     onIgnore,
+    onAcceptGroup,
+    onIgnoreGroup,
+    onResetToInherit,
+  } = props;
+
+  const accepted = edit?.accepted !== undefined ? edit.accepted : group.accepted;
+  const percentOffered =
+    edit?.percentOffered ?? group.percentOffered?.toString() ?? "";
+  const haul = edit?.haul !== undefined ? edit.haul : group.haul;
+  const acceptedLocationIds =
+    edit?.acceptedLocationIds !== undefined
+      ? edit.acceptedLocationIds
+      : group.acceptedLocationIds;
+  const isDirty = Boolean(edit);
+  const pendingCount = items.filter((i) => i.recommendationPending).length;
+
+  return (
+    <Fragment>
+      <tr className={isDirty ? styles.rowDirty : ""}>
+        <td>
+          <button
+            className={styles.expandButton}
+            onClick={() => onToggleExpanded(group._id)}
+          >
+            {expanded ? "▾" : "▸"}
+          </button>
+        </td>
+        <td data-label="Name">
+          {group.name}
+          {pendingCount > 0 && (
+            <span className={styles.pendingBadge}>{pendingCount} pending</span>
+          )}
+          <div className={styles.recommendationActions}>
+            {pendingCount > 0 && (
+              <>
+                <button
+                  className={styles.acceptBtn}
+                  disabled={groupActionPending}
+                  onClick={() => onAcceptGroup(group._id, items)}
+                >
+                  Accept All
+                </button>
+                <button
+                  className={styles.ignoreBtn}
+                  disabled={groupActionPending}
+                  onClick={() => onIgnoreGroup(group._id, items)}
+                >
+                  Ignore All
+                </button>
+              </>
+            )}
+            <button
+              className={styles.ignoreBtn}
+              disabled={resetPending}
+              onClick={() => onResetToInherit(group)}
+              title="Clear this group's settings so it inherits from its category"
+            >
+              Reset to inherit
+            </button>
+          </div>
+        </td>
+        <td data-label="Accepted">
+          <select
+            value={acceptedToValue(accepted)}
+            onChange={(e) =>
+              onGroupEdit(group._id, {
+                accepted:
+                  e.target.value === "inherit" ? null : e.target.value === "true",
+              })
+            }
+          >
+            {ACCEPTED_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td data-label="% Offered">
+          <input
+            type="number"
+            className={styles.rateInput}
+            placeholder="inherit"
+            value={percentOffered}
+            onChange={(e) =>
+              onGroupEdit(group._id, { percentOffered: e.target.value })
+            }
+          />
+        </td>
+        <td data-label="Haul">
+          <select
+            value={acceptedToValue(haul)}
+            onChange={(e) =>
+              onGroupEdit(group._id, {
+                haul:
+                  e.target.value === "inherit" ? null : e.target.value === "true",
+              })
+            }
+          >
+            {ACCEPTED_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td data-label="Locations">
+          <LocationsCheckboxList
+            locations={locations}
+            acceptedLocationIds={acceptedLocationIds}
+            onChange={(ids) =>
+              onGroupEdit(group._id, { acceptedLocationIds: ids })
+            }
+          />
+        </td>
+      </tr>
+      {expanded && (
+        <tr>
+          <td colSpan={6} className={styles.detailCell}>
+            {items.length === 0 ? (
+              <p className={styles.muted}>No accepted items in this group.</p>
+            ) : (
+              <div className={styles.tableScroll}>
+                <table className={styles.itemsTable}>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Accepted</th>
+                      <th>Rate Override</th>
+                      <th>Recommended Rate</th>
+                      <th>Notes</th>
+                      <th>Haul</th>
+                      <th>Locations</th>
+                      <th>Reprocessing</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items.map((item) => (
+                      <ItemRow
+                        key={item._id}
+                        item={item}
+                        edit={itemEdits[item._id]}
+                        showGroup={false}
+                        locations={locations}
+                        actionPending={actionPendingIds.has(item._id)}
+                        onEdit={onItemEdit}
+                        onAccept={onAccept}
+                        onIgnore={onIgnore}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </td>
+        </tr>
+      )}
+    </Fragment>
+  );
+});
+
+const CategoryRow = memo(function CategoryRow(props: {
+  category: BuybackCategory;
+  edit: CategoryEdit | undefined;
+  locations: BuybackLocation[];
+  expanded: boolean;
+  groups: { group: BuybackGroup; items: BuybackItem[] }[];
+  expandedGroupIds: Set<string>;
+  groupEdits: Record<string, GroupEdit>;
+  itemEdits: Record<string, ItemEdit>;
+  actionPendingIds: Set<string>;
+  categoryActionPending: boolean;
+  groupActionPendingIds: Set<string>;
+  groupResetPendingIds: Set<string>;
+  onToggleExpanded: (categoryId: string) => void;
+  onToggleGroupExpanded: (groupId: string) => void;
+  onCategoryEdit: (categoryId: string, edit: CategoryEdit) => void;
+  onGroupEdit: (groupId: string, edit: GroupEdit) => void;
+  onItemEdit: (itemId: string, edit: ItemEdit) => void;
+  onAccept: (item: BuybackItem) => void;
+  onIgnore: (item: BuybackItem) => void;
+  onAcceptGroup: (groupId: string, items: BuybackItem[]) => void;
+  onIgnoreGroup: (groupId: string, items: BuybackItem[]) => void;
+  onAcceptCategory: (categoryId: string, items: BuybackItem[]) => void;
+  onIgnoreCategory: (categoryId: string, items: BuybackItem[]) => void;
+  onResetGroupToInherit: (group: BuybackGroup) => void;
+}) {
+  const {
+    category,
+    edit,
+    locations,
+    expanded,
+    groups,
+    expandedGroupIds,
+    groupEdits,
+    itemEdits,
+    actionPendingIds,
+    categoryActionPending,
+    groupActionPendingIds,
+    groupResetPendingIds,
+    onToggleExpanded,
+    onToggleGroupExpanded,
+    onCategoryEdit,
+    onGroupEdit,
+    onItemEdit,
+    onAccept,
+    onIgnore,
+    onAcceptGroup,
+    onIgnoreGroup,
     onAcceptCategory,
     onIgnoreCategory,
+    onResetGroupToInherit,
   } = props;
 
   const accepted =
@@ -329,7 +549,8 @@ const CategoryRow = memo(function CategoryRow(props: {
       ? edit.acceptedLocationIds
       : category.acceptedLocationIds;
   const isDirty = Boolean(edit);
-  const pendingCount = items.filter((i) => i.recommendationPending).length;
+  const allItems = groups.flatMap((g) => g.items);
+  const pendingCount = allItems.filter((i) => i.recommendationPending).length;
 
   return (
     <Fragment>
@@ -352,14 +573,14 @@ const CategoryRow = memo(function CategoryRow(props: {
               <button
                 className={styles.acceptBtn}
                 disabled={categoryActionPending}
-                onClick={() => onAcceptCategory(category._id, items)}
+                onClick={() => onAcceptCategory(category._id, allItems)}
               >
                 Accept All
               </button>
               <button
                 className={styles.ignoreBtn}
                 disabled={categoryActionPending}
-                onClick={() => onIgnoreCategory(category._id, items)}
+                onClick={() => onIgnoreCategory(category._id, allItems)}
               >
                 Ignore All
               </button>
@@ -406,36 +627,43 @@ const CategoryRow = memo(function CategoryRow(props: {
       </tr>
       {expanded && (
         <tr>
-          <td colSpan={7} className={styles.detailCell}>
-            {items.length === 0 ? (
-              <p className={styles.muted}>No accepted items in this category.</p>
+          <td colSpan={6} className={styles.detailCell}>
+            {groups.length === 0 ? (
+              <p className={styles.muted}>No accepted groups in this category.</p>
             ) : (
               <div className={styles.tableScroll}>
-                <table className={styles.itemsTable}>
+                <table className={styles.table}>
                   <thead>
                     <tr>
+                      <th></th>
                       <th>Name</th>
                       <th>Accepted</th>
-                      <th>Rate Override</th>
-                      <th>Recommended Rate</th>
-                      <th>Notes</th>
+                      <th>% Offered</th>
                       <th>Haul</th>
                       <th>Locations</th>
-                      <th>Reprocessing</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {items.map((item) => (
-                      <ItemRow
-                        key={item._id}
-                        item={item}
-                        edit={itemEdits[item._id]}
-                        showCategory={false}
+                    {groups.map(({ group, items }) => (
+                      <GroupRow
+                        key={group._id}
+                        group={group}
+                        edit={groupEdits[group._id]}
                         locations={locations}
-                        actionPending={actionPendingIds.has(item._id)}
-                        onEdit={onItemEdit}
+                        expanded={expandedGroupIds.has(group._id)}
+                        items={items}
+                        itemEdits={itemEdits}
+                        actionPendingIds={actionPendingIds}
+                        groupActionPending={groupActionPendingIds.has(group._id)}
+                        resetPending={groupResetPendingIds.has(group._id)}
+                        onToggleExpanded={onToggleGroupExpanded}
+                        onGroupEdit={onGroupEdit}
+                        onItemEdit={onItemEdit}
                         onAccept={onAccept}
                         onIgnore={onIgnore}
+                        onAcceptGroup={onAcceptGroup}
+                        onIgnoreGroup={onIgnoreGroup}
+                        onResetToInherit={onResetGroupToInherit}
                       />
                     ))}
                   </tbody>
@@ -457,15 +685,27 @@ export default function BuybackPricing() {
   const [categorySearch, setCategorySearch] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [expandedCategoryIds, setExpandedCategoryIds] = useState<Set<string>>(
+    new Set(),
+  );
+  const [expandedGroupIds, setExpandedGroupIds] = useState<Set<string>>(
+    new Set(),
+  );
   const [categoryEdits, setCategoryEdits] = useState<
     Record<string, CategoryEdit>
   >({});
+  const [groupEdits, setGroupEdits] = useState<Record<string, GroupEdit>>({});
   const [itemEdits, setItemEdits] = useState<Record<string, ItemEdit>>({});
   const [actionPendingIds, setActionPendingIds] = useState<Set<string>>(
     new Set(),
   );
   const [categoryActionPendingIds, setCategoryActionPendingIds] = useState<
+    Set<string>
+  >(new Set());
+  const [groupActionPendingIds, setGroupActionPendingIds] = useState<
+    Set<string>
+  >(new Set());
+  const [groupResetPendingIds, setGroupResetPendingIds] = useState<
     Set<string>
   >(new Set());
 
@@ -499,29 +739,64 @@ export default function BuybackPricing() {
   }, [pendingOnly]);
 
   const categoryGroups = useMemo(() => {
-    const map = new Map<string, { category: BuybackCategory; items: BuybackItem[] }>();
+    const groupMap = new Map<
+      string,
+      { group: BuybackGroup; items: BuybackItem[] }
+    >();
     for (const item of items) {
-      const catId = item.categoryId._id;
-      const existing = map.get(catId);
+      const gId = item.groupId._id;
+      const existing = groupMap.get(gId);
       if (existing) {
         existing.items.push(item);
       } else {
-        map.set(catId, { category: item.categoryId, items: [item] });
+        groupMap.set(gId, { group: item.groupId, items: [item] });
       }
     }
-    return Array.from(map.values()).sort((a, b) =>
-      a.category.name.localeCompare(b.category.name),
-    );
+
+    const categoryMap = new Map<
+      string,
+      {
+        category: BuybackCategory;
+        groups: { group: BuybackGroup; items: BuybackItem[] }[];
+      }
+    >();
+    for (const entry of groupMap.values()) {
+      const cId = entry.group.categoryId._id;
+      const existing = categoryMap.get(cId);
+      if (existing) {
+        existing.groups.push(entry);
+      } else {
+        categoryMap.set(cId, {
+          category: entry.group.categoryId,
+          groups: [entry],
+        });
+      }
+    }
+
+    return Array.from(categoryMap.values())
+      .map((c) => ({
+        ...c,
+        groups: c.groups.sort((a, b) => a.group.name.localeCompare(b.group.name)),
+      }))
+      .sort((a, b) => a.category.name.localeCompare(b.category.name));
   }, [items]);
 
   const filteredCategoryGroups = useMemo(() => {
     if (!categorySearch.trim()) return categoryGroups;
     const q = categorySearch.trim().toLowerCase();
-    return categoryGroups.filter(
-      (group) =>
-        group.category.name.toLowerCase().includes(q) ||
-        group.items.some((item) => item.name.toLowerCase().includes(q)),
-    );
+    return categoryGroups
+      .map((c) => {
+        const categoryMatches = c.category.name.toLowerCase().includes(q);
+        const groups = categoryMatches
+          ? c.groups
+          : c.groups.filter(
+              (g) =>
+                g.group.name.toLowerCase().includes(q) ||
+                g.items.some((item) => item.name.toLowerCase().includes(q)),
+            );
+        return { ...c, groups };
+      })
+      .filter((c) => c.groups.length > 0);
   }, [categoryGroups, categorySearch]);
 
   const totalPendingCount = useMemo(
@@ -530,16 +805,26 @@ export default function BuybackPricing() {
   );
 
   const dirtyCount =
-    Object.keys(categoryEdits).length + Object.keys(itemEdits).length;
+    Object.keys(categoryEdits).length +
+    Object.keys(groupEdits).length +
+    Object.keys(itemEdits).length;
 
-  const toggleExpanded = useCallback((categoryId: string) => {
-    setExpandedIds((prev) => {
+  // Stable references (no deps) so Category/GroupRow's memoization isn't
+  // invalidated for every row just because some other row was toggled.
+  const toggleCategoryExpanded = useCallback((categoryId: string) => {
+    setExpandedCategoryIds((prev) => {
       const next = new Set(prev);
-      if (next.has(categoryId)) {
-        next.delete(categoryId);
-      } else {
-        next.add(categoryId);
-      }
+      if (next.has(categoryId)) next.delete(categoryId);
+      else next.add(categoryId);
+      return next;
+    });
+  }, []);
+
+  const toggleGroupExpanded = useCallback((groupId: string) => {
+    setExpandedGroupIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(groupId)) next.delete(groupId);
+      else next.add(groupId);
       return next;
     });
   }, []);
@@ -554,6 +839,13 @@ export default function BuybackPricing() {
     [],
   );
 
+  const setGroupEdit = useCallback((groupId: string, edit: GroupEdit) => {
+    setGroupEdits((prev) => ({
+      ...prev,
+      [groupId]: { ...prev[groupId], ...edit },
+    }));
+  }, []);
+
   const setItemEdit = useCallback((itemId: string, edit: ItemEdit) => {
     setItemEdits((prev) => ({
       ...prev,
@@ -561,17 +853,16 @@ export default function BuybackPricing() {
     }));
   }, []);
 
-  // Merges a saved item back into local state, preserving its existing
-  // categoryId subdocument (the item-level PATCH response only populates a
-  // partial category shape - category fields never change from this
-  // endpoint anyway). Drops the item entirely if it no longer resolves
-  // accepted, per the "flip accepted off -> disappears immediately" rule.
+  // The item PATCH response now comes back with a fully nested-populated
+  // groupId (group -> its category), since the backend's populate select
+  // list covers every inheritable field - no need to manually re-attach the
+  // old item's groupId anymore. Drops the item entirely if it no longer
+  // resolves accepted, per the "flip accepted off -> disappears
+  // immediately" rule.
   const mergeItem = useCallback((updated: BuybackItem) => {
     setItems((prev) => {
       const withMerge = prev.map((item) =>
-        item._id === updated._id
-          ? { ...item, ...updated, categoryId: item.categoryId }
-          : item,
+        item._id === updated._id ? updated : item,
       );
       return withMerge.filter(resolveAccepted);
     });
@@ -626,21 +917,18 @@ export default function BuybackPricing() {
     }
   };
 
-  // Shared by both category-level batch actions below: fires one PATCH per
-  // pending item in the category in parallel, rather than requiring the
-  // operator to click Accept/Ignore on each row individually.
-  const runCategoryRecommendationAction = async (
-    categoryId: string,
-    categoryItems: BuybackItem[],
+  // Shared by group- and category-level batch actions below: fires one
+  // PATCH per pending item in parallel, rather than requiring the operator
+  // to click Accept/Ignore on each row individually.
+  const runRecommendationAction = async (
+    scopeItems: BuybackItem[],
     buildPatch: (item: BuybackItem) => Record<string, unknown>,
     actionLabel: string,
+    scopeLabel: string,
   ) => {
-    const pendingItems = categoryItems.filter(
-      (item) => item.recommendationPending,
-    );
+    const pendingItems = scopeItems.filter((item) => item.recommendationPending);
     if (pendingItems.length === 0) return;
 
-    setCategoryActionPendingIds((prev) => new Set(prev).add(categoryId));
     setActionPendingIds((prev) => {
       const next = new Set(prev);
       pendingItems.forEach((item) => next.add(item._id));
@@ -671,15 +959,10 @@ export default function BuybackPricing() {
 
     if (failures > 0) {
       setError(
-        `Failed to ${actionLabel} ${failures} recommendation${failures === 1 ? "" : "s"} in this category.`,
+        `Failed to ${actionLabel} ${failures} recommendation${failures === 1 ? "" : "s"} in this ${scopeLabel}.`,
       );
     }
 
-    setCategoryActionPendingIds((prev) => {
-      const next = new Set(prev);
-      next.delete(categoryId);
-      return next;
-    });
     setActionPendingIds((prev) => {
       const next = new Set(prev);
       pendingItems.forEach((item) => next.delete(item._id));
@@ -687,27 +970,116 @@ export default function BuybackPricing() {
     });
   };
 
-  const handleAcceptCategory = (categoryId: string, categoryItems: BuybackItem[]) =>
-    runCategoryRecommendationAction(
-      categoryId,
+  const handleAcceptGroup = async (groupId: string, groupItems: BuybackItem[]) => {
+    setGroupActionPendingIds((prev) => new Set(prev).add(groupId));
+    await runRecommendationAction(
+      groupItems,
+      acceptRecommendationPatch,
+      "accept",
+      "group",
+    );
+    setGroupActionPendingIds((prev) => {
+      const next = new Set(prev);
+      next.delete(groupId);
+      return next;
+    });
+  };
+
+  const handleIgnoreGroup = async (groupId: string, groupItems: BuybackItem[]) => {
+    setGroupActionPendingIds((prev) => new Set(prev).add(groupId));
+    await runRecommendationAction(
+      groupItems,
+      ignoreRecommendationPatch,
+      "ignore",
+      "group",
+    );
+    setGroupActionPendingIds((prev) => {
+      const next = new Set(prev);
+      next.delete(groupId);
+      return next;
+    });
+  };
+
+  const handleAcceptCategory = async (
+    categoryId: string,
+    categoryItems: BuybackItem[],
+  ) => {
+    setCategoryActionPendingIds((prev) => new Set(prev).add(categoryId));
+    await runRecommendationAction(
       categoryItems,
       acceptRecommendationPatch,
       "accept",
+      "category",
     );
+    setCategoryActionPendingIds((prev) => {
+      const next = new Set(prev);
+      next.delete(categoryId);
+      return next;
+    });
+  };
 
-  const handleIgnoreCategory = (categoryId: string, categoryItems: BuybackItem[]) =>
-    runCategoryRecommendationAction(
-      categoryId,
+  const handleIgnoreCategory = async (
+    categoryId: string,
+    categoryItems: BuybackItem[],
+  ) => {
+    setCategoryActionPendingIds((prev) => new Set(prev).add(categoryId));
+    await runRecommendationAction(
       categoryItems,
       ignoreRecommendationPatch,
       "ignore",
+      "category",
     );
+    setCategoryActionPendingIds((prev) => {
+      const next = new Set(prev);
+      next.delete(categoryId);
+      return next;
+    });
+  };
+
+  // One-click consolidation: clears every override on a group so it starts
+  // inheriting from its category immediately, instead of requiring the
+  // operator to null out all four fields by hand. This is what actually
+  // makes "change the price for all ore in one place" achievable, since
+  // every existing group starts with concrete migrated-over values.
+  const handleResetGroupToInherit = async (group: BuybackGroup) => {
+    setGroupResetPendingIds((prev) => new Set(prev).add(group._id));
+    setError(null);
+    try {
+      const { data } = await api.updateBuybackGroup(group._id, {
+        accepted: null,
+        percentOffered: null,
+        haul: null,
+        acceptedLocationIds: null,
+      });
+      setItems((prev) =>
+        prev
+          .map((item) =>
+            item.groupId._id === group._id ? { ...item, groupId: data } : item,
+          )
+          .filter(resolveAccepted),
+      );
+      setGroupEdits((prev) => {
+        const next = { ...prev };
+        delete next[group._id];
+        return next;
+      });
+    } catch {
+      setError(`Failed to reset ${group.name} to inherit from its category`);
+    } finally {
+      setGroupResetPendingIds((prev) => {
+        const next = new Set(prev);
+        next.delete(group._id);
+        return next;
+      });
+    }
+  };
 
   const handleSaveChanges = async () => {
     setSaving(true);
     setError(null);
 
     const categoryIds = Object.keys(categoryEdits);
+    const groupIds = Object.keys(groupEdits);
     const itemIds = Object.keys(itemEdits);
 
     const categoryResults = await Promise.allSettled(
@@ -726,6 +1098,26 @@ export default function BuybackPricing() {
         if (edit.acceptedLocationIds !== undefined)
           payload.acceptedLocationIds = edit.acceptedLocationIds;
         return api.updateBuybackCategory(id, payload);
+      }),
+    );
+
+    const groupResults = await Promise.allSettled(
+      groupIds.map((id) => {
+        const edit = groupEdits[id];
+        const payload: {
+          accepted?: boolean | null;
+          percentOffered?: number | null;
+          haul?: boolean | null;
+          acceptedLocationIds?: string[] | null;
+        } = {};
+        if (edit.accepted !== undefined) payload.accepted = edit.accepted;
+        if (edit.percentOffered !== undefined)
+          payload.percentOffered =
+            edit.percentOffered.trim() === "" ? null : Number(edit.percentOffered);
+        if (edit.haul !== undefined) payload.haul = edit.haul;
+        if (edit.acceptedLocationIds !== undefined)
+          payload.acceptedLocationIds = edit.acceptedLocationIds;
+        return api.updateBuybackGroup(id, payload);
       }),
     );
 
@@ -765,12 +1157,35 @@ export default function BuybackPricing() {
         // Category fields never resolve individual item acceptance by
         // themselves - re-filter afterward so items that only inherited
         // acceptance disappear the moment the category flips off, while
-        // items with an explicit accepted=true override stay visible.
+        // items with an explicit override anywhere below stay visible.
         setItems((prev) =>
           prev
             .map((item) =>
-              item.categoryId._id === categoryId
-                ? { ...item, categoryId: updatedCategory }
+              item.groupId.categoryId._id === categoryId
+                ? {
+                    ...item,
+                    groupId: { ...item.groupId, categoryId: updatedCategory },
+                  }
+                : item,
+            )
+            .filter(resolveAccepted),
+        );
+      } else {
+        failures++;
+      }
+    });
+
+    const succeededGroupIds = new Set<string>();
+    groupResults.forEach((result, idx) => {
+      if (result.status === "fulfilled") {
+        const groupId = groupIds[idx];
+        succeededGroupIds.add(groupId);
+        const updatedGroup = result.value.data;
+        setItems((prev) =>
+          prev
+            .map((item) =>
+              item.groupId._id === groupId
+                ? { ...item, groupId: updatedGroup }
                 : item,
             )
             .filter(resolveAccepted),
@@ -795,6 +1210,11 @@ export default function BuybackPricing() {
       succeededCategoryIds.forEach((id) => delete next[id]);
       return next;
     });
+    setGroupEdits((prev) => {
+      const next = { ...prev };
+      succeededGroupIds.forEach((id) => delete next[id]);
+      return next;
+    });
     setItemEdits((prev) => {
       const next = { ...prev };
       succeededItemIds.forEach((id) => delete next[id]);
@@ -816,12 +1236,15 @@ export default function BuybackPricing() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Buyback Pricing</h2>
           <p className={styles.hint}>
-            Every category and item shown here is currently accepted by the
-            buyback. Set rates, the Haul flag, notes and pickup
-            locations here. The Recommended Rate column is advisory only -
-            it never changes what a quote offers until you click Accept.
-            Turning Accepted off and saving removes an item from this page;
-            re-accept it from the Buyback Acceptance page to bring it back.
+            Every category, group and item shown here is currently accepted
+            by the buyback. Set rates, the Haul flag, notes and pickup
+            locations here - a category setting applies to every group
+            underneath it that hasn&apos;t been individually overridden, and a
+            group setting applies to every item underneath it the same way.
+            The Recommended Rate column is advisory only - it never changes
+            what a quote offers until you click Accept. Turning Accepted off
+            and saving removes an item from this page; re-accept it from the
+            Buyback Acceptance page to bring it back.
           </p>
 
           <div className={styles.saveBar}>
@@ -864,7 +1287,7 @@ export default function BuybackPricing() {
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Category</th>
+                      <th>Group</th>
                       <th>Accepted</th>
                       <th>Rate Override</th>
                       <th>Recommended Rate</th>
@@ -880,7 +1303,7 @@ export default function BuybackPricing() {
                         key={item._id}
                         item={item}
                         edit={itemEdits[item._id]}
-                        showCategory={true}
+                        showGroup={true}
                         locations={locations}
                         actionPending={actionPendingIds.has(item._id)}
                         onEdit={setItemEdit}
@@ -897,7 +1320,7 @@ export default function BuybackPricing() {
               <input
                 type="text"
                 className={styles.search}
-                placeholder="Filter categories or items…"
+                placeholder="Filter categories, groups or items…"
                 value={categorySearch}
                 onChange={(e) => setCategorySearch(e.target.value)}
               />
@@ -922,26 +1345,35 @@ export default function BuybackPricing() {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredCategoryGroups.map((group) => (
+                      {filteredCategoryGroups.map((c) => (
                         <CategoryRow
-                          key={group.category._id}
-                          category={group.category}
-                          edit={categoryEdits[group.category._id]}
+                          key={c.category._id}
+                          category={c.category}
+                          edit={categoryEdits[c.category._id]}
                           locations={locations}
-                          expanded={expandedIds.has(group.category._id)}
-                          items={group.items}
+                          expanded={expandedCategoryIds.has(c.category._id)}
+                          groups={c.groups}
+                          expandedGroupIds={expandedGroupIds}
+                          groupEdits={groupEdits}
                           itemEdits={itemEdits}
                           actionPendingIds={actionPendingIds}
                           categoryActionPending={categoryActionPendingIds.has(
-                            group.category._id,
+                            c.category._id,
                           )}
-                          onToggleExpanded={toggleExpanded}
+                          groupActionPendingIds={groupActionPendingIds}
+                          groupResetPendingIds={groupResetPendingIds}
+                          onToggleExpanded={toggleCategoryExpanded}
+                          onToggleGroupExpanded={toggleGroupExpanded}
                           onCategoryEdit={setCategoryEdit}
+                          onGroupEdit={setGroupEdit}
                           onItemEdit={setItemEdit}
                           onAccept={handleAccept}
                           onIgnore={handleIgnore}
+                          onAcceptGroup={handleAcceptGroup}
+                          onIgnoreGroup={handleIgnoreGroup}
                           onAcceptCategory={handleAcceptCategory}
                           onIgnoreCategory={handleIgnoreCategory}
+                          onResetGroupToInherit={handleResetGroupToInherit}
                         />
                       ))}
                     </tbody>

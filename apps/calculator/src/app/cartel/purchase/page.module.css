@@ -160,6 +160,26 @@
   color: var(--text-muted);
 }
 
+/* Sub-heading under a category row - same reset, indented and lighter so
+   it reads as a level below the category rather than a peer of it. */
+.tableScroll .groupRow {
+  display: block;
+  width: auto;
+  padding: var(--space-2) var(--space-1) 0 var(--space-3);
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+.tableScroll .groupRow td {
+  display: block;
+  width: auto;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -445,6 +465,18 @@
   }
 
   .tableScroll .categoryRow td {
+    display: flex;
+    width: 100%;
+  }
+
+  .tableScroll .groupRow {
+    display: flex;
+    min-height: 2rem;
+    align-items: center;
+    padding-left: var(--space-4);
+  }
+
+  .tableScroll .groupRow td {
     display: flex;
     width: 100%;
   }

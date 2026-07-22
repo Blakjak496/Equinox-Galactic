@@ -183,22 +183,49 @@ export const api = {
 
   updateBuybackCategory: (
     id: string,
-    update: { accepted?: boolean; percentOffered?: number },
+    update: {
+      accepted?: boolean;
+      percentOffered?: number;
+      haul?: boolean;
+      acceptedLocationIds?: string[] | null;
+    },
   ) =>
     apiFetch<{ ok: boolean; data: BuybackCategory }>(
       `/admin/buyback-categories/${id}`,
       { method: "PATCH", body: JSON.stringify(update) },
     ),
 
+  getBuybackGroups: (params: { categoryId?: string } = {}) => {
+    const query = new URLSearchParams();
+    if (params.categoryId) query.set("categoryId", params.categoryId);
+    return apiFetch<{ ok: boolean; data: BuybackGroup[] }>(
+      `/admin/buyback-groups?${query.toString()}`,
+    );
+  },
+
+  updateBuybackGroup: (
+    id: string,
+    update: {
+      accepted?: boolean | null;
+      percentOffered?: number | null;
+      haul?: boolean | null;
+      acceptedLocationIds?: string[] | null;
+    },
+  ) =>
+    apiFetch<{ ok: boolean; data: BuybackGroup }>(
+      `/admin/buyback-groups/${id}`,
+      { method: "PATCH", body: JSON.stringify(update) },
+    ),
+
   searchBuybackItems: (params: {
     q?: string;
-    categoryId?: string;
+    groupId?: string;
     recommendationPending?: boolean;
     accepted?: boolean;
   }) => {
     const query = new URLSearchParams();
     if (params.q) query.set("q", params.q);
-    if (params.categoryId) query.set("categoryId", params.categoryId);
+    if (params.groupId) query.set("groupId", params.groupId);
     if (params.recommendationPending) query.set("recommendationPending", "true");
     if (params.accepted) query.set("accepted", "true");
     return apiFetch<{ ok: boolean; data: BuybackItem[] }>(
@@ -452,7 +479,7 @@ export type Route = {
 
 export type BuybackCategory = {
   _id: string;
-  groupId: number;
+  categoryId: number;
   name: string;
   accepted: boolean;
   percentOffered: number;
@@ -460,11 +487,23 @@ export type BuybackCategory = {
   acceptedLocationIds: string[] | null;
 };
 
+export type BuybackGroup = {
+  _id: string;
+  groupId: number;
+  name: string;
+  categoryId: BuybackCategory;
+  // null on any of these four means "inherit from category"
+  accepted: boolean | null;
+  percentOffered: number | null;
+  haul: boolean | null;
+  acceptedLocationIds: string[] | null;
+};
+
 export type BuybackItem = {
   _id: string;
   typeId: number;
   name: string;
-  categoryId: BuybackCategory;
+  groupId: BuybackGroup;
   accepted: boolean | null;
   rateOverride: number | null;
   notes: string | null;

@@ -23,17 +23,35 @@ function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
 }
 
+// Display-only nesting (Category -> Group -> Item) so items are easier to
+// find in a long list - no cart/pricing logic involved, purely how the
+// browsable list is organized.
 function groupByCategory(
   items: StockItem[],
-): { categoryName: string; items: StockItem[] }[] {
-  const groups = new Map<string, StockItem[]>();
+): { categoryName: string; groups: { groupName: string; items: StockItem[] }[] }[] {
+  const byGroup = new Map<string, StockItem[]>();
   for (const item of items) {
-    const group = groups.get(item.categoryName);
+    const group = byGroup.get(item.groupName);
     if (group) group.push(item);
-    else groups.set(item.categoryName, [item]);
+    else byGroup.set(item.groupName, [item]);
   }
-  return Array.from(groups.entries())
-    .map(([categoryName, items]) => ({ categoryName, items }))
+
+  const byCategory = new Map<
+    string,
+    { groupName: string; items: StockItem[] }[]
+  >();
+  for (const [groupName, groupItems] of byGroup.entries()) {
+    const categoryName = groupItems[0].categoryName;
+    const list = byCategory.get(categoryName);
+    if (list) list.push({ groupName, items: groupItems });
+    else byCategory.set(categoryName, [{ groupName, items: groupItems }]);
+  }
+
+  return Array.from(byCategory.entries())
+    .map(([categoryName, groups]) => ({
+      categoryName,
+      groups: groups.sort((a, b) => a.groupName.localeCompare(b.groupName)),
+    }))
     .sort((a, b) => a.categoryName.localeCompare(b.categoryName));
 }
 
@@ -319,27 +337,34 @@ export default function PurchaseStock() {
                         <th>{t("colAvailable")}</th>
                         <th></th>
                       </tr>
-                      {groupByCategory(stock).map((group) => (
-                        <Fragment key={group.categoryName}>
+                      {groupByCategory(stock).map((category) => (
+                        <Fragment key={category.categoryName}>
                           <tr className={styles.categoryRow}>
-                            <td colSpan={3}>{group.categoryName}</td>
+                            <td colSpan={3}>{category.categoryName}</td>
                           </tr>
-                          {group.items.map((item) => (
-                            <tr key={item.typeId}>
-                              <td data-label={t("colItem")}>{item.name}</td>
-                              <td data-label={t("colAvailable")}>
-                                {item.availableQuantity.toLocaleString()}
-                              </td>
-                              <td className={styles.actionCell}>
-                                <Button
-                                  type={2}
-                                  onClick={() => addToCart(item)}
-                                  disabled={item.availableQuantity <= 0}
-                                >
-                                  {t("addToCart")}
-                                </Button>
-                              </td>
-                            </tr>
+                          {category.groups.map((group) => (
+                            <Fragment key={group.groupName}>
+                              <tr className={styles.groupRow}>
+                                <td colSpan={3}>{group.groupName}</td>
+                              </tr>
+                              {group.items.map((item) => (
+                                <tr key={item.typeId}>
+                                  <td data-label={t("colItem")}>{item.name}</td>
+                                  <td data-label={t("colAvailable")}>
+                                    {item.availableQuantity.toLocaleString()}
+                                  </td>
+                                  <td className={styles.actionCell}>
+                                    <Button
+                                      type={2}
+                                      onClick={() => addToCart(item)}
+                                      disabled={item.availableQuantity <= 0}
+                                    >
+                                      {t("addToCart")}
+                                    </Button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </Fragment>
                           ))}
                         </Fragment>
                       ))}

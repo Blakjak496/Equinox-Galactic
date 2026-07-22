@@ -116,6 +116,9 @@ export type BuybackQuoteResponse =
   | {
       capExceeded: false;
       referenceId: string;
+      // Appraisal scoped to only the accepted items below (null if nothing
+      // was accepted).
+      janiceUrl: string | null;
       items: BuybackQuoteItem[];
       totalJbv: number;
       totalOfferValue: number;
@@ -139,6 +142,7 @@ export type StockItem = {
   typeId: number;
   name: string;
   categoryName: string;
+  groupName: string;
   availableQuantity: number;
 };
 
