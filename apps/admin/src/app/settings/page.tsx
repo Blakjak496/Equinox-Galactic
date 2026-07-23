@@ -10,6 +10,7 @@ export default function Settings() {
   const [maxCollateral, setMaxCollateral] = useState<number>(0);
   const [isotopePrice, setIsotopePrice] = useState<number>(0);
   const [salesTaxPercent, setSalesTaxPercent] = useState<number>(0);
+  const [marginFloorPercent, setMarginFloorPercent] = useState<number>(5);
   const [runnersEnabled, setRunnersEnabled] = useState<boolean>(true);
   const [cartelEnabled, setCartelEnabled] = useState<boolean>(true);
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export default function Settings() {
         // undefined until an admin saves a value here for the first time
         setIsotopePrice(data.isotopePrice ?? 650);
         setSalesTaxPercent((data.salesTaxRate ?? 0.042) * 100);
+        setMarginFloorPercent(data.marginFloorPercent ?? 5);
         setRunnersEnabled(data.runnersEnabled ?? true);
         setCartelEnabled(data.cartelEnabled ?? true);
       })
@@ -43,6 +45,7 @@ export default function Settings() {
         maxCollateral,
         isotopePrice,
         salesTaxRate: salesTaxPercent / 100,
+        marginFloorPercent,
         runnersEnabled,
         cartelEnabled,
       });
@@ -108,6 +111,24 @@ export default function Settings() {
                 <span className={styles.hint}>
                   Used only for the buyback margin safety net, not a direct
                   deduction
+                </span>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Margin Floor (percentage points)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={marginFloorPercent}
+                  onChange={(e) => {
+                    setMarginFloorPercent(Number(e.target.value));
+                    setSaved(false);
+                  }}
+                />
+                <span className={styles.hint}>
+                  Minimum headroom a buyback rate must leave below the
+                  post-tax ceiling. Any rate that doesn&apos;t clear this is
+                  automatically reduced to the ceiling minus this value.
                 </span>
               </div>
 

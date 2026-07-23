@@ -44,6 +44,7 @@ export const api = {
         maxCollateral: number;
         isotopePrice: number;
         salesTaxRate: number;
+        marginFloorPercent: number;
         runnersEnabled: boolean;
         cartelEnabled: boolean;
       };
@@ -53,6 +54,7 @@ export const api = {
     maxCollateral?: number;
     isotopePrice?: number;
     salesTaxRate?: number;
+    marginFloorPercent?: number;
     runnersEnabled?: boolean;
     cartelEnabled?: boolean;
   }) =>
