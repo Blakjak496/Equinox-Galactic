@@ -10,7 +10,7 @@ const TABS = [
   { href: "/routes/main-routes", label: "Main Routes" },
   { href: "/routes/ship-categories", label: "Ship Categories" },
   { href: "/routes/jump-planner", label: "Jump Planner" },
-  { href: "/routes/keepstar-planner", label: "Keepstar Planner" },
+  { href: "/routes/structure-discovery", label: "Structure Discovery" },
 ];
 
 export default function RoutesLayout({ children }: { children: ReactNode }) {

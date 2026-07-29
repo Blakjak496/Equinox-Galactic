@@ -89,6 +89,16 @@
   min-width: 200px;
 }
 
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--text);
+  margin-bottom: var(--space-2);
+  width: fit-content;
+}
+
 .waypointList {
   display: flex;
   flex-direction: column;
@@ -136,6 +146,7 @@
 .muted {
   color: var(--muted);
   font-size: 0.875rem;
+  margin-bottom: var(--space-4);
 }
 
 .routeList {

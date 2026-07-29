@@ -5,6 +5,8 @@ import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
 import IconButton from "@/components/IconButton/IconButton";
 import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
+import SystemMap from "@/components/SystemMap/SystemMap";
+import { formatStructureLabel } from "@/lib/mapLabels";
 import { api, JumpRoutePlan, ShipCategory } from "@/lib/api";
 import styles from "./JumpPlanner.module.css";
 
@@ -12,6 +14,7 @@ export default function JumpPlanner() {
   const [shipCategories, setShipCategories] = useState<ShipCategory[]>([]);
   const [shipCategoryId, setShipCategoryId] = useState("");
   const [waypoints, setWaypoints] = useState(["", ""]);
+  const [restrictToKeepstars, setRestrictToKeepstars] = useState(false);
   const [result, setResult] = useState<JumpRoutePlan | null>(null);
   const [planning, setPlanning] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -67,8 +70,12 @@ export default function JumpPlanner() {
         return;
       }
 
-      const { data } = await api.planJumpRoute(names, shipCategoryId);
-      setResult(data);
+      const res = await api.planJumpRoute(names, shipCategoryId, restrictToKeepstars);
+      if (!res.ok || !res.data) {
+        setError(res.message ?? "Failed to plan jump route");
+        return;
+      }
+      setResult(res.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to plan jump route");
     } finally {
@@ -109,6 +116,25 @@ export default function JumpPlanner() {
               </select>
             </div>
           </div>
+
+          <label className={styles.checkboxRow}>
+            <input
+              type="checkbox"
+              checked={restrictToKeepstars}
+              onChange={(e) => {
+                setRestrictToKeepstars(e.target.checked);
+                setResult(null);
+              }}
+            />
+            Restrict to known Keepstars
+          </label>
+          {restrictToKeepstars && (
+            <p className={styles.muted}>
+              Every waypoint must be a system hosting a known Keepstar, and
+              the route can only pass through known Keepstar systems - see
+              Structure Discovery to find and record more of them.
+            </p>
+          )}
 
           <div className={styles.waypointList}>
             {waypoints.map((waypoint, index) => (
@@ -155,11 +181,19 @@ export default function JumpPlanner() {
           {result && (
             <div className={styles.result}>
               <ol className={styles.routeList}>
-                {result.path.map((name, index) => (
-                  <li key={index}>{name}</li>
+                {result.stops.map((stop, index) => (
+                  <li key={index}>
+                    {formatStructureLabel(stop.systemName, stop.keepstarName)}
+                  </li>
                 ))}
               </ol>
               <p>Total distance: {result.totalDistanceLY.toFixed(2)} LY</p>
+              <SystemMap
+                bounds={result.bounds}
+                systems={result.systemsInView}
+                routePath={result.routePath}
+                regions={result.regions}
+              />
             </div>
           )}
 

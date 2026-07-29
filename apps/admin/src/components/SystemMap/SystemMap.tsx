@@ -4,13 +4,24 @@ import {
   KeepstarMapRegion,
   KeepstarMapSystem,
 } from "@/lib/api";
+import { formatStructureLabel } from "@/lib/mapLabels";
 import styles from "./SystemMap.module.css";
+
+type JumpBridgeConnection = {
+  a: KeepstarMapPoint;
+  b: KeepstarMapPoint;
+  systemAName: string;
+  systemBName: string;
+};
 
 type Props = {
   bounds: KeepstarMapBounds;
   systems: KeepstarMapSystem[];
-  routePath: KeepstarMapPoint[];
+  // Optional - the jump-bridge map view has no single connected route, just
+  // independent A<->B connections (see jumpBridgeConnections below).
+  routePath?: KeepstarMapPoint[];
   regions: KeepstarMapRegion[];
+  jumpBridgeConnections?: JumpBridgeConnection[];
 };
 
 // EVE community convention for a 2D starmap projection: drop y, plot x/z -
@@ -59,17 +70,6 @@ function buildArcPath(points: { x: number; y: number }[]): string {
   return d;
 }
 
-// The structure's actual in-game name commonly already has the system name
-// baked in as a prefix (an owner naming convention, not something this app
-// controls) - e.g. "1DQ1-A - Keepstar". Prepending the system name again
-// unconditionally produced "1DQ1-A (1DQ1-A - Keepstar)". Only prepend it
-// when the keepstar name doesn't already start with it.
-function buildLabel(system: KeepstarMapSystem): string {
-  if (!system.keepstarName) return system.name;
-  if (system.keepstarName.startsWith(system.name)) return system.keepstarName;
-  return `${system.name} (${system.keepstarName})`;
-}
-
 // Percentage position within the bounding box, matching the SVG arc's own
 // (x, -z) flip below - world "up" (+z) reads as visually up.
 function positionPercent(
@@ -84,19 +84,26 @@ function positionPercent(
   return { left: `${left}%`, top: `${top}%` };
 }
 
-export default function SystemMap({ bounds, systems, routePath, regions }: Props) {
+export default function SystemMap({
+  bounds,
+  systems,
+  routePath = [],
+  regions,
+  jumpBridgeConnections = [],
+}: Props) {
   const width = bounds.maxX - bounds.minX;
   const height = bounds.maxZ - bounds.minZ;
 
   // SVG y grows downward, so world z is negated when plotting - "up" in the
-  // rendered map corresponds to increasing z. This is the arc line only now
-  // - dots and labels are plain HTML positioned by percentage (see below),
-  // so their size is real, fixed CSS pixels regardless of how big or small
-  // this container ends up being on a given device. Sizing dots/text as a
-  // fraction of the SVG's own coordinate span (the previous approach)
-  // mathematically cancels out to "a fraction of the container's pixel
-  // width" - fine on one specific screen size, wrong on every other one
-  // (huge on a wide desktop panel, needlessly tiny on a narrow phone).
+  // rendered map corresponds to increasing z. This is the arc/connection
+  // lines only now - dots and labels are plain HTML positioned by
+  // percentage (see below), so their size is real, fixed CSS pixels
+  // regardless of how big or small this container ends up being on a given
+  // device. Sizing dots/text as a fraction of the SVG's own coordinate span
+  // (the previous approach) mathematically cancels out to "a fraction of
+  // the container's pixel width" - fine on one specific screen size, wrong
+  // on every other one (huge on a wide desktop panel, needlessly tiny on a
+  // narrow phone).
   const viewBox = `${bounds.minX} ${-bounds.maxZ} ${width} ${height}`;
   const pathD = buildArcPath(routePath.map((p) => ({ x: p.x, y: -p.z })));
 
@@ -123,6 +130,19 @@ export default function SystemMap({ bounds, systems, routePath, regions }: Props
               vectorEffect="non-scaling-stroke"
             />
           )}
+          {jumpBridgeConnections.map((connection, index) => (
+            <line
+              key={index}
+              x1={connection.a.x}
+              y1={-connection.a.z}
+              x2={connection.b.x}
+              y2={-connection.b.z}
+              stroke="var(--warning)"
+              strokeWidth={2}
+              strokeDasharray="6 4"
+              vectorEffect="non-scaling-stroke"
+            />
+          ))}
         </svg>
 
         {backgroundSystems.map((system) => {
@@ -139,7 +159,9 @@ export default function SystemMap({ bounds, systems, routePath, regions }: Props
                 }}
               />
               {system.keepstarName && (
-                <span className={styles.label}>{buildLabel(system)}</span>
+                <span className={styles.label}>
+                  {formatStructureLabel(system.name, system.keepstarName)}
+                </span>
               )}
             </div>
           );
@@ -151,7 +173,7 @@ export default function SystemMap({ bounds, systems, routePath, regions }: Props
             <div
               key={region.regionId}
               className={styles.regionLabel}
-              style={{ ...pos, color: regionColor(region.regionId) }}
+              style={pos}
             >
               {region.name}
             </div>
@@ -174,7 +196,9 @@ export default function SystemMap({ bounds, systems, routePath, regions }: Props
                     : "none",
                 }}
               />
-              <span className={styles.label}>{buildLabel(system)}</span>
+              <span className={styles.label}>
+                {formatStructureLabel(system.name, system.keepstarName)}
+              </span>
             </div>
           );
         })}
@@ -188,12 +212,21 @@ export default function SystemMap({ bounds, systems, routePath, regions }: Props
           />
           On route
         </span>
+        {jumpBridgeConnections.length > 0 && (
+          <span className={styles.legendItem}>
+            <span
+              className={styles.legendDot}
+              style={{ background: "var(--warning)" }}
+            />
+            Jump bridge
+          </span>
+        )}
         <span className={styles.legendItem}>
           <span className={`${styles.legendDot} ${styles.legendDotRinged}`} />
           Known Keepstar
         </span>
         <span className={styles.legendItem}>
-          Dot color = region (see labels on map)
+          Dot color = region (see labels on map, hover a system for its name)
         </span>
       </div>
     </div>

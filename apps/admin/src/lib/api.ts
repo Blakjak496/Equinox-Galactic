@@ -152,11 +152,18 @@ export const api = {
       method: "DELETE",
     }),
 
-  planJumpRoute: (waypointNames: string[], shipCategoryId: string) =>
-    apiFetch<{ ok: boolean; data: JumpRoutePlan }>("/admin/jump-routes/plan", {
-      method: "POST",
-      body: JSON.stringify({ waypointNames, shipCategoryId }),
-    }),
+  planJumpRoute: (
+    waypointNames: string[],
+    shipCategoryId: string,
+    restrictToKeepstars: boolean,
+  ) =>
+    apiFetch<{ ok: boolean; message?: string; data?: JumpRoutePlan }>(
+      "/admin/jump-routes/plan",
+      {
+        method: "POST",
+        body: JSON.stringify({ waypointNames, shipCategoryId, restrictToKeepstars }),
+      },
+    ),
 
   discoverKeepstars: (searchQuery: string) =>
     apiFetch<{ ok: boolean; message?: string; data?: KeepstarDiscoveryResponse }>(
@@ -169,14 +176,42 @@ export const api = {
       "/admin/keepstar-routes/known",
     ),
 
-  planKeepstarRoute: (waypointStructureIds: string[], shipCategoryId: string) =>
-    apiFetch<{ ok: boolean; message?: string; data?: KeepstarRoutePlan }>(
-      "/admin/keepstar-routes/plan",
-      {
-        method: "POST",
-        body: JSON.stringify({ waypointStructureIds, shipCategoryId }),
-      },
+  discoverJumpBridges: (searchQuery: string) =>
+    apiFetch<{ ok: boolean; message?: string; data?: JumpBridgeDiscoveryResponse }>(
+      "/admin/jump-bridges/discover",
+      { method: "POST", body: JSON.stringify({ searchQuery }) },
     ),
+
+  getKnownJumpBridges: () =>
+    apiFetch<{ ok: boolean; data: JumpBridgePair[] }>("/admin/jump-bridges/known"),
+
+  getJumpBridgeMap: () =>
+    apiFetch<{ ok: boolean; data: JumpBridgeMapResponse }>("/admin/jump-bridges/map"),
+
+  // The export route returns a raw text file, not JSON, and needs the same
+  // admin-secret header as every other admin request - a plain <a href>
+  // download link can't carry that header, so this fetches the file client-
+  // side and triggers the download itself via a temporary object URL.
+  downloadJumpBridgeExport: async (format: "rift" | "smt") => {
+    const res = await fetch(`${API_URL}/admin/jump-bridges/export?format=${format}`, {
+      headers: adminHeaders,
+    });
+
+    if (!res.ok) {
+      const json = await res.json().catch(() => null);
+      throw new Error(json?.message ?? `API error ${res.status}`);
+    }
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `jump-bridges-${format}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  },
 
   getBuybackCategories: () =>
     apiFetch<{ ok: boolean; data: BuybackCategory[] }>(
@@ -368,9 +403,18 @@ export type ShipCategory = {
   jumpRangeLY: number;
 };
 
+export type JumpRouteStop = {
+  systemName: string;
+  keepstarName: string | null;
+};
+
 export type JumpRoutePlan = {
-  path: string[];
+  stops: JumpRouteStop[];
   totalDistanceLY: number;
+  bounds: KeepstarMapBounds;
+  systemsInView: KeepstarMapSystem[];
+  routePath: KeepstarMapPoint[];
+  regions: KeepstarMapRegion[];
 };
 
 export type KeepstarDiscoveryOutcome =
@@ -399,11 +443,6 @@ export type KnownKeepstar = {
   name: string | null;
   systemId: number | null;
   systemName: string | null;
-};
-
-export type KeepstarRouteStop = {
-  systemName: string;
-  keepstarName: string;
 };
 
 export type KeepstarMapBounds = {
@@ -436,13 +475,45 @@ export type KeepstarMapRegion = {
   z: number;
 };
 
-export type KeepstarRoutePlan = {
-  stops: KeepstarRouteStop[];
-  totalDistanceLY: number;
+export type JumpBridgeDiscoveryOutcome =
+  | "jump_bridge"
+  | "jump_bridge_ambiguous"
+  | "other_structure"
+  | "no_access"
+  | "error";
+
+export type JumpBridgeDiscoveryResult = {
+  structureId: number;
+  outcome: JumpBridgeDiscoveryOutcome;
+  name: string | null;
+  systemName: string | null;
+  detail: string | null;
+};
+
+export type JumpBridgeDiscoveryResponse = {
+  searchQuery: string;
+  totalFound: number;
+  results: JumpBridgeDiscoveryResult[];
+};
+
+export type JumpBridgePair = {
+  systemAName: string;
+  systemBName: string;
+};
+
+export type JumpBridgeMapConnection = {
+  a: KeepstarMapPoint;
+  b: KeepstarMapPoint;
+  systemAName: string;
+  systemBName: string;
+};
+
+export type JumpBridgeMapResponse = {
   bounds: KeepstarMapBounds;
   systemsInView: KeepstarMapSystem[];
   routePath: KeepstarMapPoint[];
   regions: KeepstarMapRegion[];
+  connections: JumpBridgeMapConnection[];
 };
 
 export type RouteCostOption = {
