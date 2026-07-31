@@ -118,6 +118,24 @@
   padding: var(--space-3) !important;
 }
 
+.detailMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.janiceLink {
+  color: var(--primary);
+  font-size: 0.875rem;
+  width: fit-content;
+}
+
+.reasonList {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
 .itemsTable {
   width: 100%;
   border-collapse: collapse;

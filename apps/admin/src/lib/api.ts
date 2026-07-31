@@ -629,6 +629,7 @@ export type BuybackQuoteItem = {
 export type BuybackQuote = {
   _id: string;
   referenceId: string;
+  janiceUrl: string | null;
   items: BuybackQuoteItem[];
   totalJbv: number;
   totalOfferValue: number;
@@ -639,6 +640,8 @@ export type BuybackQuote = {
   netTotalPrice: number;
   status: "pending_contract" | "matched" | "expired";
   discrepancy: boolean;
+  discrepancyReasons: string[];
+  matchedContractPrice: number | null;
   matchedContractId: number | null;
   createdAt: string;
   expiresAt: string;

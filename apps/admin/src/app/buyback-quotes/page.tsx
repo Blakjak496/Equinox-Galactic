@@ -23,6 +23,19 @@ function formatIsk(n: number): string {
   return `${Math.round(n).toLocaleString()} ISK`;
 }
 
+// discrepancyReasons are raw cause codes from buybackContractMatch.ts -
+// "value_mismatch" or "missing_item:<typeId>" / "extra_item:<typeId>".
+// Item reasons keep the raw typeId (no catalogue lookup is loaded on this
+// page) rather than guessing a name.
+function formatDiscrepancyReason(reason: string): string {
+  if (reason === "value_mismatch") return "Contract price doesn't match the quote's net total";
+  const missing = reason.match(/^missing_item:(\d+)$/);
+  if (missing) return `Contract is missing an accepted item (type ${missing[1]})`;
+  const extra = reason.match(/^extra_item:(\d+)$/);
+  if (extra) return `Contract has an item not in the quote (type ${extra[1]})`;
+  return reason;
+}
+
 export default function BuybackQuotes() {
   const [quotes, setQuotes] = useState<BuybackQuote[]>([]);
   const [status, setStatus] = useState("matched");
@@ -96,7 +109,13 @@ export default function BuybackQuotes() {
                         {quote.discrepancy && (
                           <span
                             className={styles.discrepancyBadge}
-                            title="Contract contents or value don't match this quote"
+                            title={
+                              quote.discrepancyReasons.length > 0
+                                ? quote.discrepancyReasons
+                                    .map(formatDiscrepancyReason)
+                                    .join("; ")
+                                : "Contract contents or value don't match this quote"
+                            }
                           >
                             ⚠ needs attention
                           </span>
@@ -116,6 +135,40 @@ export default function BuybackQuotes() {
                     {expandedId === quote._id && (
                       <tr>
                         <td colSpan={6} className={styles.detailCell}>
+                          <div className={styles.detailMeta}>
+                            {quote.janiceUrl && (
+                              <a
+                                href={quote.janiceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.janiceLink}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                View Janice appraisal ↗
+                              </a>
+                            )}
+                            {quote.discrepancy && (
+                              <div className={styles.error}>
+                                {quote.discrepancyReasons.length > 0 ? (
+                                  <ul className={styles.reasonList}>
+                                    {quote.discrepancyReasons.map((reason) => (
+                                      <li key={reason}>
+                                        {formatDiscrepancyReason(reason)}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                ) : (
+                                  "Contract contents or value don't match this quote"
+                                )}
+                                {quote.discrepancyReasons.includes("value_mismatch") && (
+                                  <p>
+                                    Contract price: {formatIsk(quote.matchedContractPrice ?? 0)}{" "}
+                                    vs quote net total: {formatIsk(quote.netTotalPrice)}
+                                  </p>
+                                )}
+                              </div>
+                            )}
+                          </div>
                           <table className={styles.itemsTable}>
                             <thead>
                               <tr>
