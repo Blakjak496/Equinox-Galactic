@@ -57,14 +57,23 @@ export default function AppShell(props: { children: ReactNode }) {
         // requires - a bare fetch here previously meant every reconnect
         // silently 401'd before the token exchange ever ran, leaving the
         // old (narrower-scoped) refresh token in place indefinitely.
-        await apiFetch<{ ok: boolean }>("/auth/eve", {
-          method: "POST",
-          body: JSON.stringify({
-            code,
-            codeVerifier: verifier,
-            redirectUri: "https://equinox-galactic-admin.web.app/",
-          }),
-        });
+        const result = await apiFetch<{ ok: boolean; characterName: string | null }>(
+          "/auth/eve",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              code,
+              codeVerifier: verifier,
+              redirectUri: "https://equinox-galactic-admin.web.app/",
+            }),
+          },
+        );
+        // Success was previously silent - the only feedback this flow ever
+        // gave was an alert() on failure, which made it impossible to tell
+        // a real connect from a no-op.
+        alert(
+          `EVE character connected: ${result.characterName ?? "(unknown name)"}`,
+        );
       } catch (err) {
         console.error("EVE SSO exchange failed:", err);
         alert(

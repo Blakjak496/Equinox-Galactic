@@ -47,6 +47,8 @@ export const api = {
         marginFloorPercent: number;
         runnersEnabled: boolean;
         cartelEnabled: boolean;
+        businessCharacterId: string | null;
+        structureCharacterId: string | null;
       };
     }>("/admin/config"),
 
@@ -57,11 +59,22 @@ export const api = {
     marginFloorPercent?: number;
     runnersEnabled?: boolean;
     cartelEnabled?: boolean;
+    businessCharacterId?: string | null;
+    structureCharacterId?: string | null;
   }) =>
     apiFetch<{ ok: boolean }>("/admin/config", {
       method: "PATCH",
       body: JSON.stringify(data),
     }),
+
+  getEsiCharacters: () =>
+    apiFetch<{ ok: boolean; data: EsiCharacter[] }>("/admin/esi-characters"),
+
+  deleteEsiCharacter: (characterId: string) =>
+    apiFetch<{ ok: boolean; message?: string }>(
+      `/admin/esi-characters/${characterId}`,
+      { method: "DELETE" },
+    ),
 
   getRoutes: () =>
     apiFetch<{ ok: boolean; data: Route[] }>("/routes"),
@@ -381,6 +394,15 @@ export type TrendPoint = {
 export type SystemNameMatch = {
   systemId: number;
   name: string;
+};
+
+export type EsiCharacter = {
+  characterId: string;
+  characterName: string | null;
+  corporationId: string;
+  corporationName: string;
+  needsReconnect: boolean;
+  connectedAt: string;
 };
 
 export type SystemLookup = {

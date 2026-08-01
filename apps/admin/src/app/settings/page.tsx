@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
-import { api } from "@/lib/api";
+import IconButton from "@/components/IconButton/IconButton";
+import { api, EsiCharacter } from "@/lib/api";
+import { startEveSso } from "@/lib/eveSso";
 import styles from "./Settings.module.css";
 
 export default function Settings() {
@@ -13,10 +15,25 @@ export default function Settings() {
   const [marginFloorPercent, setMarginFloorPercent] = useState<number>(5);
   const [runnersEnabled, setRunnersEnabled] = useState<boolean>(true);
   const [cartelEnabled, setCartelEnabled] = useState<boolean>(true);
+  const [businessCharacterId, setBusinessCharacterId] = useState<string | null>(null);
+  const [structureCharacterId, setStructureCharacterId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+
+  const [characters, setCharacters] = useState<EsiCharacter[]>([]);
+  const [loadingCharacters, setLoadingCharacters] = useState(true);
+  const [removingCharacterId, setRemovingCharacterId] = useState<string | null>(null);
+
+  const fetchCharacters = () => {
+    setLoadingCharacters(true);
+    api
+      .getEsiCharacters()
+      .then(({ data }) => setCharacters(data))
+      .catch(() => {})
+      .finally(() => setLoadingCharacters(false));
+  };
 
   useEffect(() => {
     api
@@ -30,9 +47,13 @@ export default function Settings() {
         setMarginFloorPercent(data.marginFloorPercent ?? 5);
         setRunnersEnabled(data.runnersEnabled ?? true);
         setCartelEnabled(data.cartelEnabled ?? true);
+        setBusinessCharacterId(data.businessCharacterId ?? null);
+        setStructureCharacterId(data.structureCharacterId ?? null);
       })
       .catch(() => setError("Failed to load config"))
       .finally(() => setLoading(false));
+
+    fetchCharacters();
   }, []);
 
   const handleSave = async () => {
@@ -48,12 +69,38 @@ export default function Settings() {
         marginFloorPercent,
         runnersEnabled,
         cartelEnabled,
+        businessCharacterId,
+        structureCharacterId,
       });
       setSaved(true);
     } catch {
       setError("Failed to save config");
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleRemoveCharacter = async (character: EsiCharacter) => {
+    if (
+      !confirm(
+        `Disconnect "${character.characterName ?? character.characterId}"? Any role currently assigned to it will fall back to whichever character is connected.`,
+      )
+    )
+      return;
+
+    setRemovingCharacterId(character.characterId);
+    try {
+      await api.deleteEsiCharacter(character.characterId);
+      fetchCharacters();
+      // A removed character can no longer be a valid role assignment - stay
+      // in sync with the backend's own cleanup rather than waiting for a
+      // page reload to notice.
+      if (businessCharacterId === character.characterId) setBusinessCharacterId(null);
+      if (structureCharacterId === character.characterId) setStructureCharacterId(null);
+    } catch {
+      setError("Failed to remove character");
+    } finally {
+      setRemovingCharacterId(null);
     }
   };
 
@@ -162,6 +209,54 @@ export default function Settings() {
                 </span>
               </div>
 
+              <div className={styles.inputGroup}>
+                <label>Business Character</label>
+                <select
+                  value={businessCharacterId ?? ""}
+                  onChange={(e) => {
+                    setBusinessCharacterId(e.target.value || null);
+                    setSaved(false);
+                  }}
+                >
+                  <option value="">Auto (currently connected)</option>
+                  {characters.map((character) => (
+                    <option key={character.characterId} value={character.characterId}>
+                      {character.characterName ?? character.characterId} ({character.corporationName})
+                    </option>
+                  ))}
+                </select>
+                <span className={styles.hint}>
+                  Character used for contract sync, corp asset sync, and
+                  buyback/purchase-order contract matching.
+                </span>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Structure Discovery Character</label>
+                <select
+                  value={structureCharacterId ?? ""}
+                  onChange={(e) => {
+                    setStructureCharacterId(e.target.value || null);
+                    setSaved(false);
+                  }}
+                >
+                  <option value="">Auto (currently connected)</option>
+                  {characters.map((character) => (
+                    <option key={character.characterId} value={character.characterId}>
+                      {character.characterName ?? character.characterId} ({character.corporationName})
+                    </option>
+                  ))}
+                </select>
+                <span className={styles.hint}>
+                  Character used for Structure Discovery&apos;s Keepstar/Jump
+                  Bridge search and the Jump Planner&apos;s structure
+                  lookups. ESI only lets a character resolve structures it
+                  has personally docked at, regardless of corp roles - if a
+                  structure won&apos;t resolve, try assigning a character
+                  here that has actually been there.
+                </span>
+              </div>
+
               {error && <p className={styles.error}>{error}</p>}
               {saved && <p className={styles.success}>Saved.</p>}
 
@@ -170,6 +265,69 @@ export default function Settings() {
               </Button>
             </div>
           )}
+        </div>
+      </Panel>
+
+      <Panel>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Connected Characters</h2>
+
+          {loadingCharacters ? (
+            <p className={styles.muted}>Loading…</p>
+          ) : characters.length === 0 ? (
+            <p className={styles.muted}>
+              No characters connected yet - add one below.
+            </p>
+          ) : (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Character</th>
+                  <th>Corporation</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {characters.map((character) => (
+                  <tr key={character.characterId}>
+                    <td data-label="Character">
+                      {character.characterName ?? `Unknown (${character.characterId})`}
+                    </td>
+                    <td data-label="Corporation">{character.corporationName}</td>
+                    <td data-label="Status">
+                      {character.needsReconnect ? (
+                        <span className={styles.error}>⚠ Needs reconnect</span>
+                      ) : (
+                        "Connected"
+                      )}
+                    </td>
+                    <td className={styles.actions}>
+                      <IconButton
+                        icon="delete"
+                        ariaLabel={`Disconnect ${character.characterName ?? character.characterId}`}
+                        callback={() => handleRemoveCharacter(character)}
+                        color="red"
+                        disabled={removingCharacterId === character.characterId}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          <Button callback={() => startEveSso()} color="orange">
+            Add Character
+          </Button>
+
+          <span className={styles.hint}>
+            Adding a character not already connected here adds it alongside
+            the others - reconnecting a character already in the list just
+            refreshes its token. A character needing docking access to a
+            structure the current business/structure character can&apos;t
+            see is the reason to add another one and assign it above.
+          </span>
         </div>
       </Panel>
     </div>

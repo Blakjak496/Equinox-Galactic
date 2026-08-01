@@ -4,7 +4,6 @@ import Button from "../Button/Button";
 import NavItem from "./components/NavItem/NavItem";
 import styles from "./Sidebar.module.css";
 import { UserCredential } from "firebase/auth";
-import { startEveSso } from "@/lib/eveSso";
 import { usePathname } from "next/navigation";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import { useState } from "react";
@@ -100,14 +99,9 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
       )}
       <div className={styles.buttons}>
         {signedIn ? (
-          [
-            <Button key={0} callback={() => startEveSso()} color="orange" fullWidth>
-              Eve SSO
-            </Button>,
-            <Button key={1} callback={() => logout()} color="red" fullWidth>
-              Logout
-            </Button>,
-          ]
+          <Button callback={() => logout()} color="red" fullWidth>
+            Logout
+          </Button>
         ) : (
           <Button callback={() => login()} color="red" fullWidth>
             Login
