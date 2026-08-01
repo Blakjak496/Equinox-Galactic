@@ -458,6 +458,8 @@ export type KeepstarDiscoveryResponse = {
   searchQuery: string;
   totalFound: number;
   results: KeepstarDiscoveryResult[];
+  characterId: string;
+  characterName: string | null;
 };
 
 export type KnownKeepstar = {
@@ -516,6 +518,8 @@ export type JumpBridgeDiscoveryResponse = {
   searchQuery: string;
   totalFound: number;
   results: JumpBridgeDiscoveryResult[];
+  characterId: string;
+  characterName: string | null;
 };
 
 export type JumpBridgePair = {

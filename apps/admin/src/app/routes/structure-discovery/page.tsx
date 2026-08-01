@@ -189,6 +189,15 @@ export default function StructureDiscovery() {
           {discoveryResult && (
             <>
               <p className={styles.muted}>
+                Searched as{" "}
+                <strong>
+                  {discoveryResult.characterName ?? discoveryResult.characterId}
+                </strong>{" "}
+                - confirm this is the character you assigned as
+                &quot;Structure Discovery Character&quot; in Settings if
+                results look wrong.
+              </p>
+              <p className={styles.muted}>
                 {discoveryResult.totalFound} candidate structure(s) found for
                 query &quot;{discoveryResult.searchQuery}&quot;.
               </p>
@@ -299,6 +308,15 @@ export default function StructureDiscovery() {
 
           {jbDiscoveryResult && (
             <>
+              <p className={styles.muted}>
+                Searched as{" "}
+                <strong>
+                  {jbDiscoveryResult.characterName ?? jbDiscoveryResult.characterId}
+                </strong>{" "}
+                - confirm this is the character you assigned as
+                &quot;Structure Discovery Character&quot; in Settings if
+                results look wrong.
+              </p>
               <p className={styles.muted}>
                 {jbDiscoveryResult.totalFound} candidate structure(s) found for
                 query &quot;{jbDiscoveryResult.searchQuery}&quot;.
