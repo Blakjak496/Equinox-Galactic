@@ -176,10 +176,15 @@ export const api = {
 
   getKnownJumpBridges: () => apiFetch<{ ok: boolean; data: JumpBridgePair[] }>("/tools/jump-bridges/known"),
 
-  planJumpRoute: (waypointNames: string[], shipCategoryId: string, restrictToKeepstars: boolean) =>
+  planJumpRoute: (
+    waypointNames: string[],
+    shipCategoryId: string,
+    restrictToKeepstars: boolean,
+    skillLevel: number,
+  ) =>
     apiFetch<{ ok: boolean; message?: string; data?: JumpRoutePlan }>("/tools/jump-routes/plan", {
       method: "POST",
-      body: JSON.stringify({ waypointNames, shipCategoryId, restrictToKeepstars }),
+      body: JSON.stringify({ waypointNames, shipCategoryId, restrictToKeepstars, skillLevel }),
     }),
 
   // The export route returns a raw text file, not JSON, and needs the same
@@ -216,7 +221,7 @@ export type SystemNameMatch = {
 export type ShipCategory = {
   _id?: string;
   name: string;
-  jumpRangeLY: number;
+  baseRangeLY: number;
 };
 
 export type JumpRouteStop = {

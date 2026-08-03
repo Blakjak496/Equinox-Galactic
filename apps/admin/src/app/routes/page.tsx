@@ -236,7 +236,7 @@ export default function Routes() {
                 {shipCategories.length === 0 && <option value="">—</option>}
                 {shipCategories.map((sc) => (
                   <option key={sc._id} value={sc._id}>
-                    {sc.name} ({sc.jumpRangeLY} LY)
+                    {sc.name} ({(sc.baseRangeLY * 2).toFixed(1)} LY at Jump Drive Calibration 5)
                   </option>
                 ))}
               </select>

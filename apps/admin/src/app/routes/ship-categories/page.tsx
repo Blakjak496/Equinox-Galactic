@@ -9,7 +9,7 @@ import styles from "./ShipCategories.module.css";
 
 const EMPTY_FORM = {
   name: "",
-  jumpRangeLY: 10,
+  baseRangeLY: 10,
 };
 
 export default function ShipCategories() {
@@ -36,7 +36,7 @@ export default function ShipCategories() {
     setEditTarget(shipCategory);
     setForm({
       name: shipCategory.name,
-      jumpRangeLY: shipCategory.jumpRangeLY,
+      baseRangeLY: shipCategory.baseRangeLY,
     });
     setError(null);
   };
@@ -68,7 +68,7 @@ export default function ShipCategories() {
 
     const payload = {
       name: form.name.trim(),
-      jumpRangeLY: Number(form.jumpRangeLY),
+      baseRangeLY: Number(form.baseRangeLY),
     };
 
     try {
@@ -110,15 +110,20 @@ export default function ShipCategories() {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label>Jump Range (LY)</label>
+              <label>Base Jump Range (LY, unskilled)</label>
               <input
                 type="number"
                 step="0.1"
-                value={form.jumpRangeLY}
+                value={form.baseRangeLY}
                 onChange={(e) =>
-                  setForm({ ...form, jumpRangeLY: Number(e.target.value) })
+                  setForm({ ...form, baseRangeLY: Number(e.target.value) })
                 }
               />
+              <span className={styles.hint}>
+                Range at Jump Drive Calibration level 0 - the Jump Planner
+                applies whichever skill level the user selects (+20% per
+                level) on top of this.
+              </span>
             </div>
           </div>
 
@@ -157,7 +162,7 @@ export default function ShipCategories() {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Jump Range (LY)</th>
+                  <th>Base Range (LY)</th>
                   <th></th>
                 </tr>
               </thead>
@@ -165,8 +170,8 @@ export default function ShipCategories() {
                 {shipCategories.map((shipCategory) => (
                   <tr key={shipCategory._id}>
                     <td data-label="Name">{shipCategory.name}</td>
-                    <td data-label="Jump Range (LY)">
-                      {shipCategory.jumpRangeLY}
+                    <td data-label="Base Range (LY)">
+                      {shipCategory.baseRangeLY}
                     </td>
                     <td className={styles.actions}>
                       <IconButton

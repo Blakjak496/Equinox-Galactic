@@ -171,12 +171,13 @@ export const api = {
     waypointNames: string[],
     shipCategoryId: string,
     restrictToKeepstars: boolean,
+    skillLevel: number,
   ) =>
     apiFetch<{ ok: boolean; message?: string; data?: JumpRoutePlan }>(
       "/admin/jump-routes/plan",
       {
         method: "POST",
-        body: JSON.stringify({ waypointNames, shipCategoryId, restrictToKeepstars }),
+        body: JSON.stringify({ waypointNames, shipCategoryId, restrictToKeepstars, skillLevel }),
       },
     ),
 
@@ -435,7 +436,7 @@ export type MainRoute = {
 export type ShipCategory = {
   _id?: string;
   name: string;
-  jumpRangeLY: number;
+  baseRangeLY: number;
 };
 
 export type JumpRouteStop = {

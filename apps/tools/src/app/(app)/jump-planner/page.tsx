@@ -10,9 +10,12 @@ import { formatStructureLabel } from "@/lib/mapLabels";
 import { api, JumpRoutePlan, ShipCategory } from "@/lib/api";
 import styles from "./JumpPlanner.module.css";
 
+const JUMP_DRIVE_CALIBRATION_BONUS_PER_LEVEL = 0.2;
+
 export default function JumpPlanner() {
   const [shipCategories, setShipCategories] = useState<ShipCategory[]>([]);
   const [shipCategoryId, setShipCategoryId] = useState("");
+  const [skillLevel, setSkillLevel] = useState(5);
   const [waypoints, setWaypoints] = useState(["", ""]);
   const [restrictToKeepstars, setRestrictToKeepstars] = useState(false);
   const [result, setResult] = useState<JumpRoutePlan | null>(null);
@@ -70,7 +73,7 @@ export default function JumpPlanner() {
         return;
       }
 
-      const res = await api.planJumpRoute(names, shipCategoryId, restrictToKeepstars);
+      const res = await api.planJumpRoute(names, shipCategoryId, restrictToKeepstars, skillLevel);
       if (!res.ok || !res.data) {
         setError(res.message ?? "Failed to plan jump route");
         return;
@@ -110,12 +113,41 @@ export default function JumpPlanner() {
                 {shipCategories.length === 0 && <option value="">—</option>}
                 {shipCategories.map((sc) => (
                   <option key={sc._id} value={sc._id}>
-                    {sc.name} ({sc.jumpRangeLY} LY)
+                    {sc.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.inputGroup}>
+              <label>Jump Drive Calibration</label>
+              <select
+                value={skillLevel}
+                onChange={(e) => {
+                  setSkillLevel(Number(e.target.value));
+                  setResult(null);
+                }}
+              >
+                {[1, 2, 3, 4, 5].map((level) => (
+                  <option key={level} value={level}>
+                    Level {level}
                   </option>
                 ))}
               </select>
             </div>
           </div>
+
+          {(() => {
+            const selected = shipCategories.find((sc) => sc._id === shipCategoryId);
+            if (!selected) return null;
+            const effectiveRangeLY =
+              selected.baseRangeLY * (1 + JUMP_DRIVE_CALIBRATION_BONUS_PER_LEVEL * skillLevel);
+            return (
+              <p className={styles.muted}>
+                Effective range: {effectiveRangeLY.toFixed(1)} LY ({selected.baseRangeLY} LY base
+                +{skillLevel * 20}%)
+              </p>
+            );
+          })()}
 
           <label className={styles.checkboxRow}>
             <input
