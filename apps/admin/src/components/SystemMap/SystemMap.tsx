@@ -225,9 +225,6 @@ export default function SystemMap({
           <span className={`${styles.legendDot} ${styles.legendDotRinged}`} />
           Known Keepstar
         </span>
-        <span className={styles.legendItem}>
-          Dot color = region (see labels on map, hover a system for its name)
-        </span>
       </div>
     </div>
   );
