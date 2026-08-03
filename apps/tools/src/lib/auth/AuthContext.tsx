@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from "react";
-import { toolsAuth, setOnSessionInvalid, loadPersistedAccessToken, ToolsCharacter } from "@/lib/api";
+import { toolsAuth, setOnSessionInvalid, loadPersistedAccessToken, ToolsCharacter, ApiError } from "@/lib/api";
 import { startEveSso } from "@/lib/eveSso";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
@@ -15,7 +15,7 @@ type AuthContextValue = {
     code: string,
     codeVerifier: string,
     redirectUri: string,
-  ) => Promise<{ ok: boolean; message?: string }>;
+  ) => Promise<{ ok: boolean; message?: string; reason?: string }>;
   logout: () => Promise<void>;
   logoutEverywhere: () => Promise<void>;
 };
@@ -71,9 +71,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setMessage(null);
           return { ok: true };
         }
-        return { ok: false, message: result.message };
+        return { ok: false, message: result.message, reason: result.reason };
       } catch (err) {
-        return { ok: false, message: err instanceof Error ? err.message : "Login failed." };
+        return {
+          ok: false,
+          message: err instanceof Error ? err.message : "Login failed.",
+          reason: err instanceof ApiError ? err.reason : undefined,
+        };
       }
     },
     [],

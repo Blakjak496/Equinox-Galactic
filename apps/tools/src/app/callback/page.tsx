@@ -10,6 +10,7 @@ export default function Callback() {
   const { completeLogin } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [unauthorized, setUnauthorized] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -39,6 +40,7 @@ export default function Callback() {
 
         const result = await completeLogin(code, verifier, TOOLS_REDIRECT_URI);
         if (!result.ok) {
+          setUnauthorized(result.reason === "corp_not_allowed");
           setError(result.message ?? "Login failed.");
           return;
         }
@@ -54,10 +56,17 @@ export default function Callback() {
     <div className={styles.container}>
       <div className={styles.content}>
         {error ? (
-          <>
-            <p className={styles.error}>{error}</p>
-            <a className={styles.backLink} href="/">Back to login</a>
-          </>
+          unauthorized ? (
+            <>
+              <p className={styles.notice}>{error}</p>
+              <a className={styles.backLink} href="/">Log in with a different character</a>
+            </>
+          ) : (
+            <>
+              <p className={styles.error}>{error}</p>
+              <a className={styles.backLink} href="/">Back to login</a>
+            </>
+          )
         ) : (
           <p className={styles.muted}>Logging in…</p>
         )}

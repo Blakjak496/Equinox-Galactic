@@ -48,12 +48,25 @@ export function loadPersistedAccessToken(): string | null {
 
 type LoginResponse = {
   ok: boolean;
+  reason?: string;
   message?: string;
   accessToken?: string;
   expiresIn?: number;
   refreshToken?: string;
   character?: ToolsCharacter;
 };
+
+// Carries the backend's machine-readable `reason` (e.g. "corp_not_allowed")
+// alongside the human-readable message, so callers can distinguish "the
+// request itself failed" from "it succeeded in telling you no" without
+// string-matching the message text.
+export class ApiError extends Error {
+  reason?: string;
+  constructor(message: string, reason?: string) {
+    super(message);
+    this.reason = reason;
+  }
+}
 
 async function rawPost<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`${API_URL}${path}`, {
@@ -63,8 +76,7 @@ async function rawPost<T>(path: string, body: unknown): Promise<T> {
   });
   const json = await res.json().catch(() => null);
   if (!res.ok) {
-    const message = json?.message ?? `API error ${res.status}`;
-    throw new Error(message);
+    throw new ApiError(json?.message ?? `API error ${res.status}`, json?.reason);
   }
   return json as T;
 }

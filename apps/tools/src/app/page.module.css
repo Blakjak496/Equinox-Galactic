@@ -54,6 +54,13 @@
   font-size: var(--text-sm);
 }
 
+/* Distinct from .error - this isn't a failure, it's the tool correctly
+   telling an unauthorized character no. Calmer color, no alarm. */
+.notice {
+  color: var(--warning);
+  font-size: var(--text-sm);
+}
+
 .backLink {
   color: var(--primary);
   font-size: var(--text-sm);
