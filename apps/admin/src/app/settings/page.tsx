@@ -17,6 +17,8 @@ export default function Settings() {
   const [cartelEnabled, setCartelEnabled] = useState<boolean>(true);
   const [businessCharacterId, setBusinessCharacterId] = useState<string | null>(null);
   const [structureCharacterId, setStructureCharacterId] = useState<string | null>(null);
+  const [allowedCorpIds, setAllowedCorpIds] = useState<string[]>([]);
+  const [newCorpId, setNewCorpId] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,6 +51,7 @@ export default function Settings() {
         setCartelEnabled(data.cartelEnabled ?? true);
         setBusinessCharacterId(data.businessCharacterId ?? null);
         setStructureCharacterId(data.structureCharacterId ?? null);
+        setAllowedCorpIds(data.allowedCorpIds ?? []);
       })
       .catch(() => setError("Failed to load config"))
       .finally(() => setLoading(false));
@@ -71,6 +74,7 @@ export default function Settings() {
         cartelEnabled,
         businessCharacterId,
         structureCharacterId,
+        allowedCorpIds,
       });
       setSaved(true);
     } catch {
@@ -78,6 +82,19 @@ export default function Settings() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleAddCorpId = () => {
+    const id = newCorpId.trim();
+    if (!id || !/^\d+$/.test(id) || allowedCorpIds.includes(id)) return;
+    setAllowedCorpIds([...allowedCorpIds, id]);
+    setNewCorpId("");
+    setSaved(false);
+  };
+
+  const handleRemoveCorpId = (id: string) => {
+    setAllowedCorpIds(allowedCorpIds.filter((existing) => existing !== id));
+    setSaved(false);
   };
 
   const handleRemoveCharacter = async (character: EsiCharacter) => {
@@ -254,6 +271,48 @@ export default function Settings() {
                   has personally docked at, regardless of corp roles - if a
                   structure won&apos;t resolve, try assigning a character
                   here that has actually been there.
+                </span>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Allowed Corporations (Tools app)</label>
+                <div className={styles.discoverRow}>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    value={newCorpId}
+                    onChange={(e) => setNewCorpId(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddCorpId();
+                      }
+                    }}
+                    placeholder="Corporation ID"
+                  />
+                  <Button callback={handleAddCorpId} color="blue">
+                    Add
+                  </Button>
+                </div>
+                {allowedCorpIds.length > 0 && (
+                  <ul className={styles.corpIdList}>
+                    {allowedCorpIds.map((id) => (
+                      <li key={id}>
+                        {id}
+                        <IconButton
+                          icon="delete"
+                          ariaLabel={`Remove corporation ${id}`}
+                          callback={() => handleRemoveCorpId(id)}
+                          color="red"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <span className={styles.hint}>
+                  Corporation IDs allowed to log into the read-only Tools app
+                  (tools.equinoxgalactic.com) via EVE SSO. Checked at login
+                  and again on every session refresh.
                 </span>
               </div>
 

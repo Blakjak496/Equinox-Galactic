@@ -1,0 +1,131 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  /* Markers are absolutely positioned children of this box - without
+     visible, a label on a system sitting near the box edge gets clipped
+     instead of spilling slightly outside it. */
+  overflow: visible;
+}
+
+.arcLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marker {
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* A hover target - labels only reveal on hover (see .label below), so
+     the marker needs to actually receive pointer events now. */
+  pointer-events: auto;
+  /* Comfortable hit area around the small dot itself. */
+  padding: 6px;
+}
+
+.markerOnRoute {
+  z-index: 3;
+}
+
+.dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.dotOnRoute {
+  width: 9px;
+  height: 9px;
+  background: var(--primary);
+}
+
+.label {
+  margin-top: 2px;
+  font-size: 0.6rem;
+  line-height: 1.2;
+  color: var(--text);
+  white-space: nowrap;
+  text-shadow:
+    0 0 3px var(--surface),
+    0 0 3px var(--surface);
+  /* Only systems in the route or with a known Keepstar even get a .label
+     element rendered (see SystemMap.tsx) - among those, only reveal it on
+     hover, rather than cluttering the map with every eligible label at
+     once. */
+  opacity: 0;
+  transition: opacity 0.1s ease;
+  pointer-events: none;
+}
+
+.marker:hover .label {
+  opacity: 1;
+}
+
+/* Behind the system dots/labels (z-index 0 vs. their 1/3) - a broad area
+   label shouldn't visually compete with the actual route/system markers,
+   only give the color-coded scatter a name to anchor to. Always visible
+   (no hover gating) - same color token as .label so it reads as the same
+   family as system labels rather than blending into the region-hued dots. */
+.regionLabel {
+  position: absolute;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow:
+    0 0 4px var(--surface),
+    0 0 4px var(--surface),
+    0 0 4px var(--surface);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.legendDot {
+  display: inline-block;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: #666666;
+}
+
+.legendDotRinged {
+  border: 2px solid #ffffff;
+}

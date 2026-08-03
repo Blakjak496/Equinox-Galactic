@@ -1,0 +1,53 @@
+.btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+
+.btn:focus-visible {
+  outline: 0.125rem solid var(--primary);
+  outline-offset: 0.125rem;
+}
+
+.btn:hover {
+  background: var(--surface-elevated);
+  color: var(--text);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.blue:hover {
+  color: var(--primary);
+  background: var(--primary-hover);
+}
+
+.green:hover {
+  color: var(--success);
+  background: rgba(96, 176, 150, 0.18);
+}
+
+.orange:hover {
+  color: var(--text);
+  background: var(--surface-elevated);
+}
+
+.red:hover {
+  color: var(--danger);
+  background: rgba(214, 92, 76, 0.18);
+}

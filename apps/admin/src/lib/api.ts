@@ -49,6 +49,7 @@ export const api = {
         cartelEnabled: boolean;
         businessCharacterId: string | null;
         structureCharacterId: string | null;
+        allowedCorpIds: string[];
       };
     }>("/admin/config"),
 
@@ -61,6 +62,7 @@ export const api = {
     cartelEnabled?: boolean;
     businessCharacterId?: string | null;
     structureCharacterId?: string | null;
+    allowedCorpIds?: string[];
   }) =>
     apiFetch<{ ok: boolean }>("/admin/config", {
       method: "PATCH",

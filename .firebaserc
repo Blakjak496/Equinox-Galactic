@@ -10,6 +10,9 @@
         ],
         "admin": [
           "equinox-galactic-admin"
+        ],
+        "tools": [
+          "equinox-galactic-tools"
         ]
       }
     }

@@ -7,8 +7,10 @@
   "scripts": {
     "build:calculator": "npm -w apps/calculator run build",
     "build:admin": "npm -w apps/admin run build",
+    "build:tools": "npm -w apps/tools run build",
     "deploy:calculator": "npm run build:calculator && firebase deploy --only hosting:calculator",
-    "deploy:admin": "npm run build:admin && firebase deploy --only hosting:admin"
+    "deploy:admin": "npm run build:admin && firebase deploy --only hosting:admin",
+    "deploy:tools": "npm run build:tools && firebase deploy --only hosting:tools"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

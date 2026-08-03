@@ -13,6 +13,13 @@
       "cleanUrls": true,
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": []
+    },
+    {
+      "target": "tools",
+      "public": "apps/tools/out",
+      "cleanUrls": true,
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": []
     }
   ]
 }

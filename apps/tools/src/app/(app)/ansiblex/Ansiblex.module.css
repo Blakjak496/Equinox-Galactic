@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  color: var(--text);
+  margin-bottom: var(--space-4);
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.error {
+  color: var(--danger, #e05252);
+  font-size: 0.875rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 var(--space-2);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+}
+
+.table th {
+  text-align: left;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: var(--space-2) var(--space-3);
+}
+
+.table td {
+  padding: var(--space-3);
+  color: var(--text);
+  background: var(--surface-elevated);
+}
+
+.table tr td:first-child {
+  border-top-left-radius: var(--radius-sm);
+  border-bottom-left-radius: var(--radius-sm);
+}
+
+.table tr td:last-child {
+  border-top-right-radius: var(--radius-sm);
+  border-bottom-right-radius: var(--radius-sm);
+}
+
+.formButtons {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+

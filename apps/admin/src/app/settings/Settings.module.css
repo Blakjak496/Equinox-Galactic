@@ -111,6 +111,38 @@
   font-family: var(--font-body);
 }
 
+.discoverRow {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.discoverRow input {
+  flex: 1;
+}
+
+.corpIdList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.corpIdList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     padding: var(--space-3);

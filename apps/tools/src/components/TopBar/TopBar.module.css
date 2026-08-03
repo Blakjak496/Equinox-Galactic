@@ -1,0 +1,88 @@
+.topBar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-6);
+  background: var(--surface);
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  color: var(--text);
+}
+
+.brand strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-5);
+  flex: 1 1 auto;
+}
+
+.navLink {
+  position: relative;
+  padding: var(--space-2) 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.navLink:hover {
+  color: var(--text);
+}
+
+.navLinkActive {
+  color: var(--text);
+}
+
+.navLinkActive::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.characterName {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.linkButton {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.linkButton:hover {
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .topBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -14,6 +14,13 @@
       "runtimeArgs": ["run", "dev", "-w", "apps/calculator"],
       "port": 3001,
       "autoPort": true
+    },
+    {
+      "name": "tools",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "-w", "apps/tools"],
+      "port": 3002,
+      "autoPort": true
     }
   ]
 }
