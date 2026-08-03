@@ -62,15 +62,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const completeLogin = useCallback(
     async (code: string, codeVerifier: string, redirectUri: string) => {
-      const result = await toolsAuth.login(code, codeVerifier, redirectUri);
-      if (result.ok && result.character) {
-        setCharacter(result.character);
-        setStatus("authenticated");
-        setMessage(null);
-        return { ok: true };
-      }
       setStatus("unauthenticated");
-      return { ok: false, message: result.message };
+      try {
+        const result = await toolsAuth.login(code, codeVerifier, redirectUri);
+        if (result.ok && result.character) {
+          setCharacter(result.character);
+          setStatus("authenticated");
+          setMessage(null);
+          return { ok: true };
+        }
+        return { ok: false, message: result.message };
+      } catch (err) {
+        return { ok: false, message: err instanceof Error ? err.message : "Login failed." };
+      }
     },
     [],
   );

@@ -29,6 +29,11 @@
   font-size: 0.875rem;
 }
 
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .table {
   width: 100%;
   border-collapse: separate;
@@ -66,5 +71,6 @@
   display: flex;
   gap: var(--space-3);
   align-items: center;
+  flex-wrap: wrap;
 }
 

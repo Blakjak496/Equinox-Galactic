@@ -75,22 +75,24 @@ export default function Ansiblex() {
           ) : knownJumpBridges.length === 0 ? (
             <p className={styles.muted}>No jump bridges known yet.</p>
           ) : (
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Connection</th>
-                </tr>
-              </thead>
-              <tbody>
-                {knownJumpBridges.map((jb) => (
-                  <tr key={`${jb.systemAName}|${jb.systemBName}`}>
-                    <td>
-                      {jb.systemAName} ↔ {jb.systemBName}
-                    </td>
+            <div className={styles.tableScroll}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Connection</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {knownJumpBridges.map((jb) => (
+                    <tr key={`${jb.systemAName}|${jb.systemBName}`}>
+                      <td>
+                        {jb.systemAName} ↔ {jb.systemBName}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </Panel>

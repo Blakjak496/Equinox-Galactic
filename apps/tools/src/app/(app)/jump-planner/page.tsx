@@ -144,27 +144,29 @@ export default function JumpPlanner() {
                   onChange={(value) => setWaypoint(index, value)}
                   placeholder="System name, e.g. Jita"
                 />
-                <IconButton
-                  icon="up"
-                  ariaLabel="Move waypoint up"
-                  callback={() => moveWaypoint(index, -1)}
-                  color="blue"
-                  disabled={index === 0}
-                />
-                <IconButton
-                  icon="down"
-                  ariaLabel="Move waypoint down"
-                  callback={() => moveWaypoint(index, 1)}
-                  color="blue"
-                  disabled={index === waypoints.length - 1}
-                />
-                <IconButton
-                  icon="delete"
-                  ariaLabel="Remove waypoint"
-                  callback={() => removeWaypoint(index)}
-                  color="red"
-                  disabled={waypoints.length <= 2}
-                />
+                <div className={styles.waypointActions}>
+                  <IconButton
+                    icon="up"
+                    ariaLabel="Move waypoint up"
+                    callback={() => moveWaypoint(index, -1)}
+                    color="blue"
+                    disabled={index === 0}
+                  />
+                  <IconButton
+                    icon="down"
+                    ariaLabel="Move waypoint down"
+                    callback={() => moveWaypoint(index, 1)}
+                    color="blue"
+                    disabled={index === waypoints.length - 1}
+                  />
+                  <IconButton
+                    icon="delete"
+                    ariaLabel="Remove waypoint"
+                    callback={() => removeWaypoint(index)}
+                    color="red"
+                    disabled={waypoints.length <= 2}
+                  />
+                </div>
               </div>
             ))}
           </div>
