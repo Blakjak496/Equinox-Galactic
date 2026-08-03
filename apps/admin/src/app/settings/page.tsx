@@ -84,6 +84,10 @@ export default function Settings() {
     }
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   const handleAddCorpId = () => {
     const id = newCorpId.trim();
     if (!id || !/^\d+$/.test(id) || allowedCorpIds.includes(id)) return;
@@ -343,6 +347,7 @@ export default function Settings() {
                 <tr>
                   <th>Character</th>
                   <th>Corporation</th>
+                  <th>Corp ID</th>
                   <th>Status</th>
                   <th></th>
                 </tr>
@@ -354,6 +359,17 @@ export default function Settings() {
                       {character.characterName ?? `Unknown (${character.characterId})`}
                     </td>
                     <td data-label="Corporation">{character.corporationName}</td>
+                    <td data-label="Corp ID">
+                      <span className={styles.corpIdCell}>
+                        {character.corporationId}
+                        <IconButton
+                          icon="copy"
+                          ariaLabel={`Copy corporation ID ${character.corporationId}`}
+                          callback={() => copyToClipboard(character.corporationId)}
+                          color="blue"
+                        />
+                      </span>
+                    </td>
                     <td data-label="Status">
                       {character.needsReconnect ? (
                         <span className={styles.error}>⚠ Needs reconnect</span>
