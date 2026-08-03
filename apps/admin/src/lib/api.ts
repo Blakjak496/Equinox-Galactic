@@ -198,6 +198,17 @@ export const api = {
   getKnownJumpBridges: () =>
     apiFetch<{ ok: boolean; data: JumpBridgePair[] }>("/admin/jump-bridges/known"),
 
+  addManualJumpBridge: (data: {
+    structureId: number;
+    name: string;
+    homeSystemName: string;
+    remoteSystemName: string;
+  }) =>
+    apiFetch<{ ok: boolean; message?: string }>("/admin/jump-bridges/manual", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+
   getJumpBridgeMap: () =>
     apiFetch<{ ok: boolean; data: JumpBridgeMapResponse }>("/admin/jump-bridges/map"),
 

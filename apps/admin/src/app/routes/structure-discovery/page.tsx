@@ -5,6 +5,7 @@ import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
 import IconButton from "@/components/IconButton/IconButton";
 import SystemMap from "@/components/SystemMap/SystemMap";
+import SystemAutocomplete from "@/components/SystemAutocomplete/SystemAutocomplete";
 import {
   api,
   KeepstarDiscoveryResponse,
@@ -86,6 +87,58 @@ export default function StructureDiscovery() {
       );
     } finally {
       setJbDiscovering(false);
+    }
+  };
+
+  // Some alliances configure their Ansiblexes such that ESI can never
+  // resolve them for a character that hasn't docked there - confirmed
+  // against a real case, not just a search-visibility gap. There's no ESI
+  // fallback for this, so this is a fully manual entry point, same as
+  // SMT's own workaround for the identical limitation.
+  const [manualStructureId, setManualStructureId] = useState("");
+  const [manualName, setManualName] = useState("");
+  const [manualHomeSystem, setManualHomeSystem] = useState("");
+  const [manualRemoteSystem, setManualRemoteSystem] = useState("");
+  const [savingManual, setSavingManual] = useState(false);
+  const [manualError, setManualError] = useState<string | null>(null);
+  const [manualSaved, setManualSaved] = useState(false);
+
+  const handleAddManualJumpBridge = async () => {
+    setManualError(null);
+    setManualSaved(false);
+
+    const structureId = Number(manualStructureId.trim());
+    if (!Number.isFinite(structureId) || structureId <= 0) {
+      setManualError("Enter a valid structure ID (the number after // in the copied structure link)");
+      return;
+    }
+    if (!manualName.trim() || !manualHomeSystem.trim() || !manualRemoteSystem.trim()) {
+      setManualError("Name, home system, and remote system are all required");
+      return;
+    }
+
+    setSavingManual(true);
+    try {
+      const res = await api.addManualJumpBridge({
+        structureId,
+        name: manualName.trim(),
+        homeSystemName: manualHomeSystem.trim(),
+        remoteSystemName: manualRemoteSystem.trim(),
+      });
+      if (!res.ok) {
+        setManualError(res.message ?? "Failed to save jump bridge");
+        return;
+      }
+      setManualSaved(true);
+      setManualStructureId("");
+      setManualName("");
+      setManualHomeSystem("");
+      setManualRemoteSystem("");
+      fetchKnownJumpBridges();
+    } catch (err) {
+      setManualError(err instanceof Error ? err.message : "Failed to save jump bridge");
+    } finally {
+      setSavingManual(false);
     }
   };
 
@@ -352,6 +405,70 @@ export default function StructureDiscovery() {
               )}
             </>
           )}
+        </div>
+      </Panel>
+
+      <Panel>
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Add Jump Bridge Manually</h2>
+          <p className={styles.hint}>
+            Some alliances configure their Ansiblexes so ESI can never
+            resolve them for a character that hasn&apos;t docked there -
+            having real access (even coalition-wide) isn&apos;t enough, and
+            there&apos;s no ESI workaround. In-game, right-click the
+            structure and Copy (or drag its Show Info into a chat window) to
+            get a link like{" "}
+            <code>showinfo:35841//1053334558503</code> - the number after
+            the <code>//</code> is the structure ID.
+          </p>
+
+          <div className={styles.formGrid}>
+            <div className={styles.inputGroup}>
+              <label>Structure ID</label>
+              <input
+                type="text"
+                value={manualStructureId}
+                onChange={(e) => setManualStructureId(e.target.value)}
+                placeholder="e.g. 1053334558503"
+              />
+            </div>
+            <div className={styles.inputGroup}>
+              <label>Gate Name</label>
+              <input
+                type="text"
+                value={manualName}
+                onChange={(e) => setManualName(e.target.value)}
+                placeholder="e.g. Coalition Highway"
+              />
+            </div>
+            <div className={styles.inputGroup}>
+              <label>Home System (where the structure is)</label>
+              <SystemAutocomplete
+                value={manualHomeSystem}
+                onChange={setManualHomeSystem}
+                placeholder="System name"
+              />
+            </div>
+            <div className={styles.inputGroup}>
+              <label>Remote System (the other end)</label>
+              <SystemAutocomplete
+                value={manualRemoteSystem}
+                onChange={setManualRemoteSystem}
+                placeholder="System name"
+              />
+            </div>
+          </div>
+
+          {manualError && <p className={styles.error}>{manualError}</p>}
+          {manualSaved && <p className={styles.muted}>Saved.</p>}
+
+          <Button
+            callback={handleAddManualJumpBridge}
+            color="green"
+            disabled={savingManual}
+          >
+            {savingManual ? "Saving…" : "Add Jump Bridge"}
+          </Button>
         </div>
       </Panel>
 
