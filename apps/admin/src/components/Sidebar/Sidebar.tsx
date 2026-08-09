@@ -89,6 +89,13 @@ export default function Sidebar({ signedIn, login, logout }: Props) {
             Customer Buy Orders
           </NavItem>
           <NavItem
+            active={pathname === "/manufacturing-structures"}
+            route="/manufacturing-structures"
+            onClick={() => setOpen(false)}
+          >
+            Build Structures
+          </NavItem>
+          <NavItem
             active={pathname === "/settings"}
             route="/settings"
             onClick={() => setOpen(false)}

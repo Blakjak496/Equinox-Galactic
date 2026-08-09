@@ -187,6 +187,33 @@ export const api = {
       body: JSON.stringify({ waypointNames, shipCategoryId, restrictToKeepstars, skillLevel }),
     }),
 
+  searchItems: (q: string) =>
+    apiFetch<{ ok: boolean; data: ItemSearchMatch[] }>(`/tools/build/items/search?q=${encodeURIComponent(q)}`),
+
+  getBuildStructures: (activity: "manufacturing" | "reaction") =>
+    apiFetch<{ ok: boolean; data: BuildStructureOption[] }>(`/tools/build/structures?activity=${activity}`),
+
+  getStructurePreference: () =>
+    apiFetch<{ ok: boolean; data: StructurePreference }>("/tools/build/structure-preference"),
+
+  setStructurePreference: (activity: string, structureId: number) =>
+    apiFetch<{ ok: boolean }>("/tools/build/structure-preference", {
+      method: "PUT",
+      body: JSON.stringify({ activity, structureId }),
+    }),
+
+  resolveBuild: (params: {
+    targetItem: number;
+    quantity: number;
+    assumedME: number;
+    buyPriceSource: "buy" | "split";
+    haulRatePerM3: number;
+  }) =>
+    apiFetch<{ ok: boolean; message?: string; data?: BuildResolveResult }>("/tools/build/resolve", {
+      method: "POST",
+      body: JSON.stringify(params),
+    }),
+
   // The export route returns a raw text file, not JSON, and needs the same
   // bearer header as every other tools request - a plain <a href> download
   // link can't carry that header, so this fetches the file client-side and
@@ -271,4 +298,71 @@ export type KeepstarMapRegion = {
 export type JumpBridgePair = {
   systemAName: string;
   systemBName: string;
+};
+
+export type ItemSearchMatch = {
+  typeId: number;
+  name: string;
+};
+
+export type IndustryActivity = "manufacturing" | "reaction" | "research" | "copying" | "invention";
+
+export type IndustryProfile = {
+  activity: IndustryActivity;
+  structureType: string;
+  rigs: string[];
+  securityClass: "highsec" | "lowsec" | "nullsec" | "wormhole";
+  materialReduction: number | null;
+  timeReduction: number | null;
+  costReduction: number | null;
+};
+
+export type BuildStructureOption = {
+  structureId: number;
+  name: string | null;
+  systemName: string | null;
+  profile: IndustryProfile | null;
+};
+
+export type StructurePreferenceEntry = {
+  structureId: number;
+  name: string | null;
+  systemName: string | null;
+  profile: IndustryProfile | null;
+} | null;
+
+export type StructurePreference = Record<IndustryActivity, StructurePreferenceEntry>;
+
+export type BuildTreeNode = {
+  typeId: number;
+  name: string;
+  decision: "build" | "buy";
+  quantity: number;
+  unitCost: number;
+  subtotal: number;
+  children?: BuildTreeNode[];
+};
+
+export type ShoppingListEntry = {
+  typeId: number;
+  name: string;
+  quantity: number;
+  unitCost: number;
+  subtotal: number;
+  volumeM3: number;
+};
+
+export type BuildResolveResult = {
+  target: { typeId: number; name: string; quantity: number };
+  summary: {
+    totalBuildCost: number;
+    totalBuyEverythingCost: number;
+    iskSaved: number;
+    percentSaved: number;
+    jobCount: number;
+    totalBuyVolumeM3: number;
+  };
+  tree: BuildTreeNode;
+  shoppingList: ShoppingListEntry[];
+  warnings: string[];
 };

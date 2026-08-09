@@ -1,0 +1,107 @@
+.tree {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.headerRow .colName {
+  flex: 1 1 auto;
+  /* Lines up with the row's icon-button + badge + name cluster below. */
+  margin-left: calc(2.25rem + 3.5rem + var(--space-2) * 2);
+}
+
+.colQty,
+.colUnit,
+.colSubtotal {
+  flex: 0 0 7rem;
+  text-align: right;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.spacer {
+  display: inline-block;
+  width: 2.25rem;
+  flex: 0 0 auto;
+}
+
+.badge {
+  flex: 0 0 3.5rem;
+  text-align: center;
+  padding: 0.125rem var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badgeBuild {
+  background: rgba(96, 176, 150, 0.18);
+  color: var(--success);
+}
+
+.badgeBuy {
+  background: rgba(214, 168, 82, 0.18);
+  color: var(--warning);
+}
+
+.name {
+  flex: 1 1 auto;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qty,
+.unit,
+.subtotal {
+  flex: 0 0 7rem;
+  text-align: right;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.subtotal {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 768px) {
+  .headerRow {
+    display: none;
+  }
+
+  .colQty,
+  .qty {
+    display: none;
+  }
+
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .name {
+    white-space: normal;
+  }
+}

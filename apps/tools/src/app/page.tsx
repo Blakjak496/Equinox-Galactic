@@ -19,11 +19,8 @@ export default function Home() {
       <div className={styles.content}>
         <span className={styles.eyebrow}>Nox Tools</span>
         <h1 className={styles.title}>
-          EVE Online <span className={styles.titleAccent}>navigation tools</span>
+          EVE Online <span className={styles.titleAccent}>companion tools</span>
         </h1>
-        <p className={styles.subtitle}>
-          Jump Planner and known Ansiblex bridges.
-        </p>
 
         {status === "loading" ? (
           <p className={styles.muted}>Checking your session…</p>

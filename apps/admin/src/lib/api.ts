@@ -397,6 +397,21 @@ export const api = {
       method: "PATCH",
       body: JSON.stringify(update),
     }),
+
+  getIndustryStructures: () =>
+    apiFetch<{ ok: boolean; data: IndustryStructure[] }>("/admin/structures/industry"),
+
+  upsertIndustryProfile: (structureId: number, profile: IndustryProfile) =>
+    apiFetch<{ ok: boolean; data: IndustryStructure }>(
+      `/admin/structures/${structureId}/industry-profile`,
+      { method: "PUT", body: JSON.stringify(profile) },
+    ),
+
+  deleteIndustryProfile: (structureId: number, activity: string) =>
+    apiFetch<{ ok: boolean }>(
+      `/admin/structures/${structureId}/industry-profile/${activity}`,
+      { method: "DELETE" },
+    ),
 };
 
 export type TrendPoint = {
@@ -650,6 +665,25 @@ export type StructureSearchResult = {
   id: number;
   name: string | null;
   systemName: string | null;
+};
+
+export type IndustryActivity = "manufacturing" | "reaction" | "research" | "copying" | "invention";
+
+export type IndustryProfile = {
+  activity: IndustryActivity;
+  structureType: string;
+  rigs: string[];
+  securityClass: "highsec" | "lowsec" | "nullsec" | "wormhole";
+  materialReduction: number | null;
+  timeReduction: number | null;
+  costReduction: number | null;
+};
+
+export type IndustryStructure = {
+  structureId: number;
+  name: string | null;
+  systemName: string | null;
+  industryProfiles: IndustryProfile[];
 };
 
 export type BuybackQuoteItem = {
