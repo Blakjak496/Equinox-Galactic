@@ -96,6 +96,11 @@
   font-size: 0.75rem;
 }
 
+.bonusMissing {
+  color: var(--warning);
+  font-size: 0.75rem;
+}
+
 .formButtons {
   display: flex;
   gap: var(--space-3);

@@ -307,28 +307,33 @@ export type ItemSearchMatch = {
 
 export type IndustryActivity = "manufacturing" | "reaction" | "research" | "copying" | "invention";
 
-export type IndustryProfile = {
+// The real bonus % behind a structure's rigs is item-dependent (category-
+// scoped - see the backend's services/industryCategory.ts), so this only
+// ever describes what's physically fitted (names), not a single flat
+// number - the actual effective bonus only shows up once an item is
+// resolved, in the Build Tree/Shopping List themselves.
+export type DescribedIndustryProfile = {
   activity: IndustryActivity;
-  structureType: string;
-  rigs: string[];
   securityClass: "highsec" | "lowsec" | "nullsec" | "wormhole";
-  materialReduction: number | null;
-  timeReduction: number | null;
-  costReduction: number | null;
+  facilityTaxPercent: number;
+  structureTypeId: number;
+  structureTypeName: string | null;
+  rigTypeIds: number[];
+  rigNames: string[];
 };
 
 export type BuildStructureOption = {
   structureId: number;
   name: string | null;
   systemName: string | null;
-  profile: IndustryProfile | null;
+  profile: DescribedIndustryProfile | null;
 };
 
 export type StructurePreferenceEntry = {
   structureId: number;
   name: string | null;
   systemName: string | null;
-  profile: IndustryProfile | null;
+  profile: DescribedIndustryProfile | null;
 } | null;
 
 export type StructurePreference = Record<IndustryActivity, StructurePreferenceEntry>;

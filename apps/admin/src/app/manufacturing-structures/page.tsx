@@ -1,37 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Panel from "@/components/Panel/Panel";
 import Button from "@/components/Button/Button";
 import IconButton from "@/components/IconButton/IconButton";
 import {
   api,
   IndustryActivity,
+  IndustryBonusTypeOption,
   IndustryProfile,
   IndustryStructure,
   StructureSearchResult,
 } from "@/lib/api";
 import styles from "./ManufacturingStructures.module.css";
 
-const ACTIVITIES: IndustryActivity[] = [
-  "manufacturing",
-  "reaction",
-  "research",
-  "copying",
-  "invention",
-];
+// Real industry bonus data (models/IndustryBonusType.ts) only ever gets
+// seeded for the two activities the Manufacturing Planner actually
+// resolves - research/copying/invention have no rig/structure bonus data
+// to pick from, so they're not offered here.
+const ACTIVITIES: IndustryActivity[] = ["manufacturing", "reaction"];
 
 const SECURITY_CLASSES = ["highsec", "lowsec", "nullsec", "wormhole"] as const;
 
 const EMPTY_FORM = {
   activity: "manufacturing" as IndustryActivity,
-  structureType: "",
-  rigs: "",
+  structureTypeId: "" as number | "",
+  rigTypeIds: [] as number[],
   securityClass: "nullsec" as (typeof SECURITY_CLASSES)[number],
-  materialReduction: "",
-  timeReduction: "",
-  costReduction: "",
+  facilityTaxPercent: "0",
 };
+
+function formatBonus(option: IndustryBonusTypeOption): string {
+  const parts: string[] = [];
+  if (option.materialBonusPercent) parts.push(`Mat ${option.materialBonusPercent}%`);
+  if (option.timeBonusPercent) parts.push(`Time ${option.timeBonusPercent}%`);
+  if (option.costBonusPercent) parts.push(`Cost ${option.costBonusPercent}%`);
+  return parts.length > 0 ? parts.join(" · ") : "no bonus";
+}
 
 export default function ManufacturingStructures() {
   const [structures, setStructures] = useState<IndustryStructure[]>([]);
@@ -47,6 +52,32 @@ export default function ManufacturingStructures() {
   };
 
   useEffect(fetchStructures, []);
+
+  // --- Real structure/rig types to pick from, seeded from the SDE ---
+  const [bonusTypes, setBonusTypes] = useState<IndustryBonusTypeOption[]>([]);
+
+  useEffect(() => {
+    Promise.all([
+      api.getIndustryBonusTypes("structure", "manufacturing"),
+      api.getIndustryBonusTypes("rig", "manufacturing"),
+      api.getIndustryBonusTypes("structure", "reaction"),
+      api.getIndustryBonusTypes("rig", "reaction"),
+    ])
+      .then(([structuresManu, rigsManu, structuresReact, rigsReact]) => {
+        setBonusTypes([
+          ...structuresManu.data,
+          ...rigsManu.data,
+          ...structuresReact.data,
+          ...rigsReact.data,
+        ]);
+      })
+      .catch(() => {});
+  }, []);
+
+  const bonusTypeById = useMemo(
+    () => new Map(bonusTypes.map((b) => [b.typeId, b])),
+    [bonusTypes],
+  );
 
   // --- Find/select a real, ESI-backed structure to attach a profile to ---
   const [searchQuery, setSearchQuery] = useState("");
@@ -104,16 +135,39 @@ export default function ManufacturingStructures() {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
+  const structureOptions = useMemo(
+    () => bonusTypes.filter((b) => b.kind === "structure" && b.activity === form.activity),
+    [bonusTypes, form.activity],
+  );
+  const rigOptions = useMemo(
+    () => bonusTypes.filter((b) => b.kind === "rig" && b.activity === form.activity),
+    [bonusTypes, form.activity],
+  );
+
+  const handleActivityChange = (activity: IndustryActivity) => {
+    // Structure/rig options are entirely different per activity - stale
+    // IDs from the previous activity would silently reference the wrong
+    // real type, so they're cleared rather than carried over.
+    setForm({ ...form, activity, structureTypeId: "", rigTypeIds: [] });
+  };
+
+  const toggleRig = (typeId: number, checked: boolean) => {
+    setForm({
+      ...form,
+      rigTypeIds: checked
+        ? [...form.rigTypeIds, typeId]
+        : form.rigTypeIds.filter((id) => id !== typeId),
+    });
+  };
+
   const handleEditProfile = (structure: IndustryStructure, profile: IndustryProfile) => {
     setSelected({ id: structure.structureId, name: structure.name, systemName: structure.systemName });
     setForm({
       activity: profile.activity,
-      structureType: profile.structureType,
-      rigs: profile.rigs.join(", "),
+      structureTypeId: profile.structureTypeId,
+      rigTypeIds: profile.rigTypeIds,
       securityClass: profile.securityClass,
-      materialReduction: profile.materialReduction != null ? String(profile.materialReduction) : "",
-      timeReduction: profile.timeReduction != null ? String(profile.timeReduction) : "",
-      costReduction: profile.costReduction != null ? String(profile.costReduction) : "",
+      facilityTaxPercent: String(profile.facilityTaxPercent),
     });
     setFormError(null);
   };
@@ -122,8 +176,8 @@ export default function ManufacturingStructures() {
     if (!selected) return;
     setFormError(null);
 
-    if (!form.structureType.trim()) {
-      setFormError("Structure type is required (e.g. Sotiyo, Athanor)");
+    if (form.structureTypeId === "") {
+      setFormError("Select a structure type");
       return;
     }
 
@@ -131,15 +185,10 @@ export default function ManufacturingStructures() {
     try {
       await api.upsertIndustryProfile(selected.id, {
         activity: form.activity,
-        structureType: form.structureType.trim(),
-        rigs: form.rigs
-          .split(",")
-          .map((r) => r.trim())
-          .filter(Boolean),
+        structureTypeId: form.structureTypeId,
+        rigTypeIds: form.rigTypeIds,
         securityClass: form.securityClass,
-        materialReduction: form.materialReduction === "" ? null : Number(form.materialReduction),
-        timeReduction: form.timeReduction === "" ? null : Number(form.timeReduction),
-        costReduction: form.costReduction === "" ? null : Number(form.costReduction),
+        facilityTaxPercent: form.facilityTaxPercent === "" ? 0 : Number(form.facilityTaxPercent),
       });
       setForm(EMPTY_FORM);
       setSelected(null);
@@ -248,7 +297,7 @@ export default function ManufacturingStructures() {
                   <label>Activity</label>
                   <select
                     value={form.activity}
-                    onChange={(e) => setForm({ ...form, activity: e.target.value as IndustryActivity })}
+                    onChange={(e) => handleActivityChange(e.target.value as IndustryActivity)}
                   >
                     {ACTIVITIES.map((a) => (
                       <option key={a} value={a}>
@@ -259,12 +308,19 @@ export default function ManufacturingStructures() {
                 </div>
                 <div className={styles.inputGroup}>
                   <label>Structure Type</label>
-                  <input
-                    type="text"
-                    value={form.structureType}
-                    onChange={(e) => setForm({ ...form, structureType: e.target.value })}
-                    placeholder="e.g. Sotiyo, Azbel, Athanor, Tatara"
-                  />
+                  <select
+                    value={form.structureTypeId}
+                    onChange={(e) => setForm({ ...form, structureTypeId: Number(e.target.value) })}
+                  >
+                    <option value="" disabled>
+                      — Select —
+                    </option>
+                    {structureOptions.map((opt) => (
+                      <option key={opt.typeId} value={opt.typeId}>
+                        {opt.name} ({formatBonus(opt)})
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className={styles.inputGroup}>
                   <label>Security Class</label>
@@ -285,44 +341,41 @@ export default function ManufacturingStructures() {
                   </select>
                 </div>
                 <div className={styles.inputGroup}>
-                  <label>Rigs (comma-separated)</label>
-                  <input
-                    type="text"
-                    value={form.rigs}
-                    onChange={(e) => setForm({ ...form, rigs: e.target.value })}
-                    placeholder="e.g. L-Set Basic Ship Manufacturing"
-                  />
-                </div>
-                <div className={styles.inputGroup}>
-                  <label>Material Reduction %</label>
+                  <label>Facility Tax %</label>
                   <input
                     type="number"
                     step="0.1"
-                    value={form.materialReduction}
-                    onChange={(e) => setForm({ ...form, materialReduction: e.target.value })}
-                    placeholder="e.g. 2"
+                    value={form.facilityTaxPercent}
+                    onChange={(e) => setForm({ ...form, facilityTaxPercent: e.target.value })}
+                    placeholder="e.g. 0"
                   />
+                  <span className={styles.hint}>The profile tax rate set on the structure in-game.</span>
                 </div>
-                <div className={styles.inputGroup}>
-                  <label>Time Reduction %</label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={form.timeReduction}
-                    onChange={(e) => setForm({ ...form, timeReduction: e.target.value })}
-                    placeholder="e.g. 20"
-                  />
-                </div>
-                <div className={styles.inputGroup}>
-                  <label>Cost Reduction %</label>
-                  <input
-                    type="number"
-                    step="0.1"
-                    value={form.costReduction}
-                    onChange={(e) => setForm({ ...form, costReduction: e.target.value })}
-                    placeholder="e.g. 1"
-                  />
-                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Rigs Fitted</label>
+                <span className={styles.hint}>
+                  Only rigs actually fitted to this structure - check its Structure Browser info
+                  in-game if unsure. Each rig only bonuses its own production category, applied
+                  automatically at resolve time.
+                </span>
+                {rigOptions.length === 0 ? (
+                  <p className={styles.muted}>No known rigs for this activity.</p>
+                ) : (
+                  <div className={styles.checkboxList}>
+                    {rigOptions.map((rig) => (
+                      <label key={rig.typeId} className={styles.checkboxRow}>
+                        <input
+                          type="checkbox"
+                          checked={form.rigTypeIds.includes(rig.typeId)}
+                          onChange={(e) => toggleRig(rig.typeId, e.target.checked)}
+                        />
+                        {rig.name} — {formatBonus(rig)}
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {formError && <p className={styles.error}>{formError}</p>}
@@ -365,7 +418,7 @@ export default function ManufacturingStructures() {
                   <th>Activity</th>
                   <th>Type</th>
                   <th>Rigs</th>
-                  <th>ME / TE / Cost</th>
+                  <th>Facility Tax</th>
                   <th></th>
                 </tr>
               </thead>
@@ -376,12 +429,17 @@ export default function ManufacturingStructures() {
                       <td data-label="Structure">{structure.name ?? structure.structureId}</td>
                       <td data-label="System">{structure.systemName ?? "Unknown"}</td>
                       <td data-label="Activity">{profile.activity}</td>
-                      <td data-label="Type">{profile.structureType}</td>
-                      <td data-label="Rigs">{profile.rigs.join(", ") || "—"}</td>
-                      <td data-label="ME / TE / Cost">
-                        {profile.materialReduction ?? 0}% / {profile.timeReduction ?? 0}% /{" "}
-                        {profile.costReduction ?? 0}%
+                      <td data-label="Type">
+                        {bonusTypeById.get(profile.structureTypeId)?.name ?? profile.structureTypeId}
                       </td>
+                      <td data-label="Rigs">
+                        {profile.rigTypeIds.length === 0
+                          ? "—"
+                          : profile.rigTypeIds
+                              .map((id) => bonusTypeById.get(id)?.name ?? `Type ${id}`)
+                              .join(", ")}
+                      </td>
+                      <td data-label="Facility Tax">{profile.facilityTaxPercent}%</td>
                       <td className={styles.actions}>
                         <IconButton
                           icon="edit"

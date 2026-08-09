@@ -401,6 +401,11 @@ export const api = {
   getIndustryStructures: () =>
     apiFetch<{ ok: boolean; data: IndustryStructure[] }>("/admin/structures/industry"),
 
+  getIndustryBonusTypes: (kind: "structure" | "rig", activity: IndustryActivity) =>
+    apiFetch<{ ok: boolean; data: IndustryBonusTypeOption[] }>(
+      `/admin/industry-bonus-types?kind=${kind}&activity=${activity}`,
+    ),
+
   upsertIndustryProfile: (structureId: number, profile: IndustryProfile) =>
     apiFetch<{ ok: boolean; data: IndustryStructure }>(
       `/admin/structures/${structureId}/industry-profile`,
@@ -669,14 +674,28 @@ export type StructureSearchResult = {
 
 export type IndustryActivity = "manufacturing" | "reaction" | "research" | "copying" | "invention";
 
+// Real EVE structure/rig types, seeded from the SDE (npm run
+// seed:industry-bonuses) - never hand-entered. Bonus percents are already
+// normalized (negative = reduction) but are informational only here; the
+// admin just needs to pick what's actually fitted, the resolver looks the
+// numbers up itself, category-scoped, at resolve time.
+export type IndustryBonusTypeOption = {
+  typeId: number;
+  name: string;
+  kind: "structure" | "rig";
+  activity: IndustryActivity;
+  category: string | null;
+  materialBonusPercent: number | null;
+  timeBonusPercent: number | null;
+  costBonusPercent: number | null;
+};
+
 export type IndustryProfile = {
   activity: IndustryActivity;
-  structureType: string;
-  rigs: string[];
+  structureTypeId: number;
+  rigTypeIds: number[];
   securityClass: "highsec" | "lowsec" | "nullsec" | "wormhole";
-  materialReduction: number | null;
-  timeReduction: number | null;
-  costReduction: number | null;
+  facilityTaxPercent: number;
 };
 
 export type IndustryStructure = {

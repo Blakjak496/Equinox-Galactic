@@ -199,10 +199,16 @@ function ManufacturingPlanner() {
                     </option>
                   ))}
                 </select>
-                {manufacturingBonus && (
+                {manufacturingBonus ? (
                   <span className={styles.bonus}>
-                    Material −{manufacturingBonus.materialReduction ?? 0}% · Time −
-                    {manufacturingBonus.timeReduction ?? 0}% · Cost −{manufacturingBonus.costReduction ?? 0}%
+                    {manufacturingBonus.structureTypeName ?? "Structure"}
+                    {manufacturingBonus.rigTypeIds.length > 0
+                      ? ` · Rigs: ${manufacturingBonus.rigNames.join(", ")}`
+                      : " · no rigs fitted"}
+                  </span>
+                ) : (
+                  <span className={styles.bonusMissing}>
+                    Nothing needing manufacturing will build - it'll price as buy-only.
                   </span>
                 )}
               </div>
@@ -221,10 +227,16 @@ function ManufacturingPlanner() {
                     </option>
                   ))}
                 </select>
-                {reactionBonus && (
+                {reactionBonus ? (
                   <span className={styles.bonus}>
-                    Material −{reactionBonus.materialReduction ?? 0}% · Time −{reactionBonus.timeReduction ?? 0}%
-                    · Cost −{reactionBonus.costReduction ?? 0}%
+                    {reactionBonus.structureTypeName ?? "Structure"}
+                    {reactionBonus.rigTypeIds.length > 0
+                      ? ` · Rigs: ${reactionBonus.rigNames.join(", ")}`
+                      : " · no rigs fitted"}
+                  </span>
+                ) : (
+                  <span className={styles.bonusMissing}>
+                    Nothing needing reactions will build - it'll price as buy-only.
                   </span>
                 )}
               </div>
