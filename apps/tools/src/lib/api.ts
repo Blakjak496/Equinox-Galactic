@@ -314,7 +314,6 @@ export type IndustryActivity = "manufacturing" | "reaction" | "research" | "copy
 // resolved, in the Build Tree/Shopping List themselves.
 export type DescribedIndustryProfile = {
   activity: IndustryActivity;
-  securityClass: "highsec" | "lowsec" | "nullsec" | "wormhole";
   facilityTaxPercent: number;
   structureTypeId: number;
   structureTypeName: string | null;

@@ -20,13 +20,10 @@ import styles from "./ManufacturingStructures.module.css";
 // to pick from, so they're not offered here.
 const ACTIVITIES: IndustryActivity[] = ["manufacturing", "reaction"];
 
-const SECURITY_CLASSES = ["highsec", "lowsec", "nullsec", "wormhole"] as const;
-
 const EMPTY_FORM = {
   activity: "manufacturing" as IndustryActivity,
   structureTypeId: "" as number | "",
   rigTypeIds: [] as number[],
-  securityClass: "nullsec" as (typeof SECURITY_CLASSES)[number],
   facilityTaxPercent: "0",
 };
 
@@ -57,19 +54,13 @@ export default function ManufacturingStructures() {
   const [bonusTypes, setBonusTypes] = useState<IndustryBonusTypeOption[]>([]);
 
   useEffect(() => {
-    Promise.all([
-      api.getIndustryBonusTypes("structure", "manufacturing"),
-      api.getIndustryBonusTypes("rig", "manufacturing"),
-      api.getIndustryBonusTypes("structure", "reaction"),
-      api.getIndustryBonusTypes("rig", "reaction"),
-    ])
-      .then(([structuresManu, rigsManu, structuresReact, rigsReact]) => {
-        setBonusTypes([
-          ...structuresManu.data,
-          ...rigsManu.data,
-          ...structuresReact.data,
-          ...rigsReact.data,
-        ]);
+    // Fetched once each, unfiltered by activity - both structures and rigs
+    // are offered as a full list regardless of which profile is being
+    // edited; a type that doesn't apply to the activity at hand (a Raitaru
+    // picked for a reaction profile, say) just contributes nothing.
+    Promise.all([api.getIndustryBonusTypes("structure"), api.getIndustryBonusTypes("rig")])
+      .then(([structures, rigs]) => {
+        setBonusTypes([...structures.data, ...rigs.data]);
       })
       .catch(() => {});
   }, []);
@@ -135,19 +126,17 @@ export default function ManufacturingStructures() {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  const structureOptions = useMemo(
-    () => bonusTypes.filter((b) => b.kind === "structure" && b.activity === form.activity),
-    [bonusTypes, form.activity],
-  );
-  const rigOptions = useMemo(
-    () => bonusTypes.filter((b) => b.kind === "rig" && b.activity === form.activity),
-    [bonusTypes, form.activity],
-  );
+  // Neither list is filtered by activity - the full real structure/rig
+  // roster is offered regardless of which profile is being edited (a
+  // Raitaru picked for a reaction profile just contributes nothing, same
+  // as a combat/EWAR rig picked for either).
+  const structureOptions = useMemo(() => bonusTypes.filter((b) => b.kind === "structure"), [bonusTypes]);
+  const rigOptions = useMemo(() => bonusTypes.filter((b) => b.kind === "rig"), [bonusTypes]);
 
   const handleActivityChange = (activity: IndustryActivity) => {
-    // Structure/rig options are entirely different per activity - stale
-    // IDs from the previous activity would silently reference the wrong
-    // real type, so they're cleared rather than carried over.
+    // Switching activity starts a different profile on the same
+    // structure, so the previous selection is cleared rather than carried
+    // over silently.
     setForm({ ...form, activity, structureTypeId: "", rigTypeIds: [] });
   };
 
@@ -166,7 +155,6 @@ export default function ManufacturingStructures() {
       activity: profile.activity,
       structureTypeId: profile.structureTypeId,
       rigTypeIds: profile.rigTypeIds,
-      securityClass: profile.securityClass,
       facilityTaxPercent: String(profile.facilityTaxPercent),
     });
     setFormError(null);
@@ -187,7 +175,6 @@ export default function ManufacturingStructures() {
         activity: form.activity,
         structureTypeId: form.structureTypeId,
         rigTypeIds: form.rigTypeIds,
-        securityClass: form.securityClass,
         facilityTaxPercent: form.facilityTaxPercent === "" ? 0 : Number(form.facilityTaxPercent),
       });
       setForm(EMPTY_FORM);
@@ -323,24 +310,6 @@ export default function ManufacturingStructures() {
                   </select>
                 </div>
                 <div className={styles.inputGroup}>
-                  <label>Security Class</label>
-                  <select
-                    value={form.securityClass}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        securityClass: e.target.value as (typeof SECURITY_CLASSES)[number],
-                      })
-                    }
-                  >
-                    {SECURITY_CLASSES.map((sc) => (
-                      <option key={sc} value={sc}>
-                        {sc}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className={styles.inputGroup}>
                   <label>Facility Tax %</label>
                   <input
                     type="number"
@@ -361,7 +330,7 @@ export default function ManufacturingStructures() {
                   automatically at resolve time.
                 </span>
                 {rigOptions.length === 0 ? (
-                  <p className={styles.muted}>No known rigs for this activity.</p>
+                  <p className={styles.muted}>No known rigs yet - run seed:industry-bonuses.</p>
                 ) : (
                   <div className={styles.checkboxList}>
                     {rigOptions.map((rig) => (

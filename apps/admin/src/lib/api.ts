@@ -401,9 +401,12 @@ export const api = {
   getIndustryStructures: () =>
     apiFetch<{ ok: boolean; data: IndustryStructure[] }>("/admin/structures/industry"),
 
-  getIndustryBonusTypes: (kind: "structure" | "rig", activity: IndustryActivity) =>
+  // Not filtered by activity for either kind - every real structure/rig
+  // type is pickable regardless of which profile is being edited, see the
+  // backend route.
+  getIndustryBonusTypes: (kind: "structure" | "rig") =>
     apiFetch<{ ok: boolean; data: IndustryBonusTypeOption[] }>(
-      `/admin/industry-bonus-types?kind=${kind}&activity=${activity}`,
+      `/admin/industry-bonus-types?kind=${kind}`,
     ),
 
   upsertIndustryProfile: (structureId: number, profile: IndustryProfile) =>
@@ -684,7 +687,7 @@ export type IndustryBonusTypeOption = {
   name: string;
   kind: "structure" | "rig";
   activity: IndustryActivity;
-  category: string | null;
+  category: string[];
   materialBonusPercent: number | null;
   timeBonusPercent: number | null;
   costBonusPercent: number | null;
@@ -694,7 +697,6 @@ export type IndustryProfile = {
   activity: IndustryActivity;
   structureTypeId: number;
   rigTypeIds: number[];
-  securityClass: "highsec" | "lowsec" | "nullsec" | "wormhole";
   facilityTaxPercent: number;
 };
 
