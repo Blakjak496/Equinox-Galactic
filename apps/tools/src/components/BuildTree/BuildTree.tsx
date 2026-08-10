@@ -11,6 +11,12 @@ import styles from "./BuildTree.module.css";
 // need an explicit expand, per the brief's layout notes.
 const AUTO_EXPAND_DEPTH = 2;
 
+const BADGE_CLASS: Record<BuildTreeNode["decision"], string> = {
+  build: "badgeBuild",
+  buy: "badgeBuy",
+  pooled: "badgePooled",
+};
+
 export default function BuildTree({ root }: { root: BuildTreeNode }) {
   return (
     <div className={styles.tree}>
@@ -42,9 +48,7 @@ function BuildTreeRow({ node, depth }: { node: BuildTreeNode; depth: number }) {
         ) : (
           <span className={styles.spacer} />
         )}
-        <span className={`${styles.badge} ${node.decision === "build" ? styles.badgeBuild : styles.badgeBuy}`}>
-          {node.decision}
-        </span>
+        <span className={`${styles.badge} ${styles[BADGE_CLASS[node.decision]]}`}>{node.decision}</span>
         <span className={styles.name}>{node.name}</span>
         <span className={styles.qty}>{formatNumber(node.quantity)}</span>
         <span className={styles.unit}>{formatIsk(node.unitCost)}</span>

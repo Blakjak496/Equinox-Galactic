@@ -340,7 +340,11 @@ export type StructurePreference = Record<IndustryActivity, StructurePreferenceEn
 export type BuildTreeNode = {
   typeId: number;
   name: string;
-  decision: "build" | "buy";
+  // "pooled" - this occurrence's material need is covered by one shared
+  // production run combined with the same item's demand from elsewhere in
+  // the tree (see the backend's buildResolver.ts) - it has no children of
+  // its own here, the pooled batch's materials are shown separately.
+  decision: "build" | "buy" | "pooled";
   quantity: number;
   unitCost: number;
   subtotal: number;
