@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BuildTreeNode } from "@/lib/api";
-import { formatIsk, formatNumber } from "@/lib/format";
+import { formatNumber } from "@/lib/format";
 import IconButton from "@/components/IconButton/IconButton";
 import styles from "./BuildTree.module.css";
 
@@ -24,9 +24,9 @@ export default function BuildTree({ root }: { root: BuildTreeNode }) {
       <div className={styles.headerRow}>
         <span className={styles.colName}>Item</span>
         <span className={styles.colQty}>Qty</span>
-        <span className={styles.colCost}>Input Cost</span>
-        <span className={styles.colCost}>Job Cost</span>
-        <span className={styles.colCost}>Total</span>
+        <span className={styles.colCost}>Input Cost (ISK)</span>
+        <span className={styles.colCost}>Job Cost (ISK)</span>
+        <span className={styles.colCost}>Total (ISK)</span>
       </div>
       <BuildTreeRow node={root} depth={0} />
     </div>
@@ -52,10 +52,17 @@ function BuildTreeRow({ node, depth }: { node: BuildTreeNode; depth: number }) {
         )}
         <span className={`${styles.badge} ${styles[BADGE_CLASS[node.decision]]}`}>{node.decision}</span>
         <span className={styles.name}>{node.name}</span>
-        <span className={styles.qty}>{formatNumber(node.quantity)}</span>
-        <span className={styles.cost}>{formatIsk(node.inputCost)}</span>
-        <span className={styles.cost}>{node.decision === "buy" ? "--" : formatIsk(node.jobCost)}</span>
-        <span className={styles.costTotal}>{formatIsk(node.totalCost)}</span>
+        <span className={styles.qty}>
+          {formatNumber(node.quantity)}
+          {node.decision === "hybrid" && node.buyQuantity !== undefined && (
+            <span className={styles.qtyDetail}>
+              {formatNumber(node.quantity - node.buyQuantity)} built + {formatNumber(node.buyQuantity)} bought
+            </span>
+          )}
+        </span>
+        <span className={styles.cost}>{formatNumber(node.inputCost)}</span>
+        <span className={styles.cost}>{node.decision === "buy" ? "--" : formatNumber(node.jobCost)}</span>
+        <span className={styles.costTotal}>{formatNumber(node.totalCost)}</span>
       </div>
       {hasChildren && expanded && (
         <div>

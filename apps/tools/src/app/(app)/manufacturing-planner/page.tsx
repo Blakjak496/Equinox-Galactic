@@ -6,7 +6,6 @@ import Button from "@/components/Button/Button";
 import ItemAutocomplete from "@/components/ItemAutocomplete/ItemAutocomplete";
 import BuildTree from "@/components/BuildTree/BuildTree";
 import ShoppingList from "@/components/ShoppingList/ShoppingList";
-import UnderConstruction from "@/components/UnderConstruction/UnderConstruction";
 import { formatIsk, formatNumber } from "@/lib/format";
 import {
   api,
@@ -19,11 +18,7 @@ import styles from "./ManufacturingPlanner.module.css";
 type Tab = "tree" | "list";
 
 export default function ManufacturingPlannerPage() {
-  return (
-    <UnderConstruction>
-      <ManufacturingPlanner />
-    </UnderConstruction>
-  );
+  return <ManufacturingPlanner />;
 }
 
 function ManufacturingPlanner() {

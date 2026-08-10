@@ -3,25 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth/AuthContext";
-import { canViewUnderConstruction } from "@/lib/underConstruction";
 import styles from "./TopBar.module.css";
 
 const TABS = [
   { href: "/jump-planner", label: "Jump Planner" },
   { href: "/ansiblex", label: "Ansiblex Bridges" },
-  // Only shown to the corp currently previewing it - see
-  // lib/underConstruction.ts and the matching <UnderConstruction> wrapper
-  // on the page itself. Drop this flag once the tool is ready for everyone.
-  { href: "/manufacturing-planner", label: "Manufacturing Planner", underConstruction: true },
+  { href: "/manufacturing-planner", label: "Manufacturing Planner" },
 ];
 
 export default function TopBar() {
   const pathname = usePathname() ?? "/";
   const { character, logout, logoutEverywhere } = useAuth();
-
-  const visibleTabs = TABS.filter(
-    (tab) => !tab.underConstruction || canViewUnderConstruction(character?.corporationId),
-  );
 
   return (
     <header className={styles.topBar}>
@@ -30,7 +22,7 @@ export default function TopBar() {
       </span>
 
       <nav className={styles.nav}>
-        {visibleTabs.map((tab) => (
+        {TABS.map((tab) => (
           <Link
             key={tab.href}
             href={tab.href}

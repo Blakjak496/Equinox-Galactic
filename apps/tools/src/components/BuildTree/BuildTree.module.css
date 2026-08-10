@@ -24,12 +24,16 @@
 }
 
 .colQty {
-  flex: 0 0 5rem;
+  flex: 0 0 6rem;
   text-align: right;
 }
 
 .colCost {
-  flex: 0 0 6.5rem;
+  /* Wider than Qty needs, and paid for by giving Item less of the row's
+     free space (Item is the only flex-grow column, so it absorbs whatever
+     the fixed columns don't take) - large ISK values (hundreds of
+     millions and up) need real room, not just what's left over. */
+  flex: 0 0 8rem;
   text-align: right;
 }
 
@@ -80,32 +84,53 @@
 
 .name {
   flex: 1 1 auto;
+  /* Without this, a flex item's default min-width:auto lets its content's
+     own min-content width win over flex-shrink, so a long item name
+     wouldn't actually shrink/ellipsize - it'd just push the fixed-width
+     numeric columns after it out of alignment instead. */
+  min-width: 0;
   color: var(--text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.qty {
-  flex: 0 0 5rem;
+.qty,
+.cost,
+.costTotal {
+  /* flex-shrink:0 alone doesn't stop a cell GROWING past its flex-basis
+     to fit unbreakable content (e.g. a long ISK figure with no spaces) -
+     that's still governed by the same min-width:auto default as above.
+     min-width:0 forces every numeric column to actually stay at its
+     declared width no matter the value, so columns can never bleed into
+     a neighbour or drift out of alignment with the header row above -
+     overflow-wrap is the fallback for when a value doesn't fit even the
+     widened column: it wraps onto a second line within its OWN column
+     (like the qtyDetail note already does) rather than overflowing. */
+  flex: 0 0 6rem;
+  min-width: 0;
+  overflow-wrap: break-word;
   text-align: right;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.cost {
-  flex: 0 0 6.5rem;
-  text-align: right;
+.cost,
+.costTotal {
+  flex-basis: 8rem;
+}
+
+.qtyDetail {
+  display: block;
+  font-size: 0.7rem;
   color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
+  white-space: normal;
+  font-variant-numeric: normal;
 }
 
 .costTotal {
-  flex: 0 0 6.5rem;
-  text-align: right;
   color: var(--text);
   font-weight: 500;
-  font-variant-numeric: tabular-nums;
 }
 
 @media only screen and (max-width: 768px) {
