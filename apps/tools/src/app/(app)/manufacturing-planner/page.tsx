@@ -31,7 +31,11 @@ function ManufacturingPlanner() {
   const [targetTypeId, setTargetTypeId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [assumedME, setAssumedME] = useState(10);
-  const [buyPriceSource, setBuyPriceSource] = useState<"buy" | "split">("buy");
+  // Defaults match how a serious manufacturer actually operates - buy
+  // orders for materials (lower, standing-order price), sell orders for
+  // the finished product (what it'd actually fetch on the market).
+  const [materialPriceSource, setMaterialPriceSource] = useState<"buy" | "sell">("buy");
+  const [productPriceSource, setProductPriceSource] = useState<"buy" | "sell">("sell");
   const [haulRatePerM3, setHaulRatePerM3] = useState(0);
 
   const [manufacturingOptions, setManufacturingOptions] = useState<BuildStructureOption[]>([]);
@@ -96,7 +100,8 @@ function ManufacturingPlanner() {
         targetItem: targetTypeId,
         quantity,
         assumedME,
-        buyPriceSource,
+        materialPriceSource,
+        productPriceSource,
         haulRatePerM3,
       });
       if (!res.ok || !res.data) {
@@ -163,13 +168,23 @@ function ManufacturingPlanner() {
                 />
               </div>
               <div className={styles.inputGroup}>
-                <label>Price Basis</label>
+                <label>Material Price Basis</label>
                 <select
-                  value={buyPriceSource}
-                  onChange={(e) => setBuyPriceSource(e.target.value as "buy" | "split")}
+                  value={materialPriceSource}
+                  onChange={(e) => setMaterialPriceSource(e.target.value as "buy" | "sell")}
                 >
-                  <option value="buy">Jita Buy</option>
-                  <option value="split">Jita Split</option>
+                  <option value="buy">Jita Buy Orders</option>
+                  <option value="sell">Jita Sell Orders</option>
+                </select>
+              </div>
+              <div className={styles.inputGroup}>
+                <label>Product Price Basis</label>
+                <select
+                  value={productPriceSource}
+                  onChange={(e) => setProductPriceSource(e.target.value as "buy" | "sell")}
+                >
+                  <option value="buy">Jita Buy Orders</option>
+                  <option value="sell">Jita Sell Orders</option>
                 </select>
               </div>
               <div className={styles.inputGroup}>

@@ -70,6 +70,11 @@
   color: var(--primary);
 }
 
+.badgeHybrid {
+  background: rgba(198, 214, 219, 0.18);
+  color: var(--secondary);
+}
+
 .name {
   flex: 1 1 auto;
   color: var(--text);
@@ -90,6 +95,13 @@
 .subtotal {
   color: var(--text);
   font-weight: 500;
+}
+
+.qtyDetail {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: normal;
 }
 
 @media only screen and (max-width: 768px) {

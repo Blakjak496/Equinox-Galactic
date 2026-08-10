@@ -206,7 +206,12 @@ export const api = {
     targetItem: number;
     quantity: number;
     assumedME: number;
-    buyPriceSource: "buy" | "split";
+    // Priced independently - materials at materialPriceSource (a serious
+    // manufacturer stands up buy orders for these), the target item's own
+    // informational market-alternative value at productPriceSource (what
+    // it'd sell for) - see the backend's buildResolver.ts.
+    materialPriceSource: "buy" | "sell";
+    productPriceSource: "buy" | "sell";
     haulRatePerM3: number;
   }) =>
     apiFetch<{ ok: boolean; message?: string; data?: BuildResolveResult }>("/tools/build/resolve", {
@@ -344,10 +349,17 @@ export type BuildTreeNode = {
   // production run combined with the same item's demand from elsewhere in
   // the tree (see the backend's buildResolver.ts) - it has no children of
   // its own here, the pooled batch's materials are shown separately.
-  decision: "build" | "buy" | "pooled";
+  //
+  // "hybrid" - demand didn't divide evenly into whole batches, so part of
+  // it was built (quantity - buyQuantity, at unitCost, with its own
+  // materials in children) and the rest (buyQuantity, at buyUnitCost) was
+  // bought directly rather than wasting a further batch on it.
+  decision: "build" | "buy" | "pooled" | "hybrid";
   quantity: number;
   unitCost: number;
   subtotal: number;
+  buyQuantity?: number;
+  buyUnitCost?: number;
   children?: BuildTreeNode[];
 };
 

@@ -15,6 +15,7 @@ const BADGE_CLASS: Record<BuildTreeNode["decision"], string> = {
   build: "badgeBuild",
   buy: "badgeBuy",
   pooled: "badgePooled",
+  hybrid: "badgeHybrid",
 };
 
 export default function BuildTree({ root }: { root: BuildTreeNode }) {
@@ -50,7 +51,14 @@ function BuildTreeRow({ node, depth }: { node: BuildTreeNode; depth: number }) {
         )}
         <span className={`${styles.badge} ${styles[BADGE_CLASS[node.decision]]}`}>{node.decision}</span>
         <span className={styles.name}>{node.name}</span>
-        <span className={styles.qty}>{formatNumber(node.quantity)}</span>
+        <span className={styles.qty}>
+          {formatNumber(node.quantity)}
+          {node.decision === "hybrid" && node.buyQuantity !== undefined && (
+            <span className={styles.qtyDetail}>
+              {formatNumber(node.quantity - node.buyQuantity)} built + {formatNumber(node.buyQuantity)} bought
+            </span>
+          )}
+        </span>
         <span className={styles.unit}>{formatIsk(node.unitCost)}</span>
         <span className={styles.subtotal}>{formatIsk(node.subtotal)}</span>
       </div>
