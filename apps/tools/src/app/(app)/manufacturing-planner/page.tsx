@@ -279,6 +279,7 @@ function ManufacturingPlanner() {
                 value={`${formatIsk(result.summary.iskSaved)} (${result.summary.percentSaved.toFixed(1)}%)`}
               />
               <SummaryStat label="Jobs" value={formatNumber(result.summary.jobCount)} />
+              <SummaryStat label="Job Installation Cost" value={formatIsk(result.summary.totalJobCost)} />
               <SummaryStat label="Buy Volume" value={`${formatNumber(result.summary.totalBuyVolumeM3)} m³`} />
             </div>
 
@@ -311,6 +312,21 @@ function ManufacturingPlanner() {
 
             {tab === "tree" ? <BuildTree root={result.tree} /> : <ShoppingList entries={result.shoppingList} />}
           </Panel>
+
+          {result.pooledBatches.length > 0 && (
+            <Panel>
+              <h3 className={styles.sectionTitle}>Shared Production Batches</h3>
+              <p className={styles.sectionHint}>
+                Items marked "pooled" above are covered by one shared production run built once here,
+                rather than repeating the same breakdown at every place they're used.
+              </p>
+              {result.pooledBatches.map((batch) => (
+                <div key={batch.typeId} className={styles.pooledBatch}>
+                  <BuildTree root={batch} />
+                </div>
+              ))}
+            </Panel>
+          )}
         </>
       )}
     </div>

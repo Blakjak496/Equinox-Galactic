@@ -348,9 +348,12 @@ export type BuildTreeNode = {
   // "pooled" - this occurrence's material need is covered by one shared
   // production run combined with the same item's demand from elsewhere in
   // the tree (see the backend's buildResolver.ts). quantity/unitCost/
-  // subtotal are still just THIS occurrence's own share - children and the
-  // pool* fields describe the shared batch as a whole (same for every
-  // occurrence of this item, wherever it shows up in the tree).
+  // subtotal are still just THIS occurrence's own share; the pool* fields
+  // summarize the shared batch as a whole (same numbers at every
+  // occurrence). An occurrence itself carries no children - the real,
+  // drillable breakdown for each pooled item lives once in
+  // BuildResolveResult.pooledBatches instead of being repeated at every
+  // occurrence.
   //
   // "hybrid" - demand didn't divide evenly into whole batches, so part of
   // it was built (quantity - buyQuantity, at unitCost, with its own
@@ -365,6 +368,10 @@ export type BuildTreeNode = {
   poolTotalQuantity?: number;
   poolBuildQuantity?: number;
   poolBuyQuantity?: number;
+  // Set on "build"/"hybrid" nodes only - this node's own real job/
+  // installation fee, already folded into subtotal, broken out so it can
+  // be shown/summed on its own.
+  jobCost?: number;
   children?: BuildTreeNode[];
 };
 
@@ -386,8 +393,13 @@ export type BuildResolveResult = {
     percentSaved: number;
     jobCount: number;
     totalBuyVolumeM3: number;
+    totalJobCost: number;
   };
   tree: BuildTreeNode;
+  // One entry per pooled typeId - the real, drillable breakdown of what
+  // each shared batch builds/buys, shown once here instead of repeated at
+  // every occurrence in tree above.
+  pooledBatches: BuildTreeNode[];
   shoppingList: ShoppingListEntry[];
   warnings: string[];
 };

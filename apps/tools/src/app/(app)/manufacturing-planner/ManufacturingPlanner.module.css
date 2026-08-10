@@ -12,6 +12,20 @@
   margin-bottom: var(--space-4);
 }
 
+.sectionHint {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  margin: calc(var(--space-4) * -1) 0 var(--space-4);
+}
+
+.pooledBatch {
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.pooledBatch:first-of-type {
+  border-top: none;
+}
+
 .formSection {
   width: 100%;
   position: relative;
