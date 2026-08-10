@@ -24,8 +24,9 @@ export default function BuildTree({ root }: { root: BuildTreeNode }) {
       <div className={styles.headerRow}>
         <span className={styles.colName}>Item</span>
         <span className={styles.colQty}>Qty</span>
-        <span className={styles.colUnit}>Unit Cost</span>
-        <span className={styles.colSubtotal}>Subtotal</span>
+        <span className={styles.colCost}>Input Cost</span>
+        <span className={styles.colCost}>Job Cost</span>
+        <span className={styles.colCost}>Total</span>
       </div>
       <BuildTreeRow node={root} depth={0} />
     </div>
@@ -51,22 +52,10 @@ function BuildTreeRow({ node, depth }: { node: BuildTreeNode; depth: number }) {
         )}
         <span className={`${styles.badge} ${styles[BADGE_CLASS[node.decision]]}`}>{node.decision}</span>
         <span className={styles.name}>{node.name}</span>
-        <span className={styles.qty}>
-          {formatNumber(node.quantity)}
-          {node.decision === "hybrid" && node.buyQuantity !== undefined && (
-            <span className={styles.qtyDetail}>
-              {formatNumber(node.quantity - node.buyQuantity)} built + {formatNumber(node.buyQuantity)} bought
-            </span>
-          )}
-          {node.decision === "pooled" && node.poolBuildQuantity !== undefined && node.poolBuyQuantity !== undefined && (
-            <span className={styles.qtyDetail}>
-              shared batch: {formatNumber(node.poolBuildQuantity)} built + {formatNumber(node.poolBuyQuantity)} bought
-              {" "}({formatNumber(node.poolTotalQuantity ?? 0)} total)
-            </span>
-          )}
-        </span>
-        <span className={styles.unit}>{formatIsk(node.unitCost)}</span>
-        <span className={styles.subtotal}>{formatIsk(node.subtotal)}</span>
+        <span className={styles.qty}>{formatNumber(node.quantity)}</span>
+        <span className={styles.cost}>{formatIsk(node.inputCost)}</span>
+        <span className={styles.cost}>{node.decision === "buy" ? "--" : formatIsk(node.jobCost)}</span>
+        <span className={styles.costTotal}>{formatIsk(node.totalCost)}</span>
       </div>
       {hasChildren && expanded && (
         <div>

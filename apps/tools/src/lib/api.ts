@@ -347,31 +347,36 @@ export type BuildTreeNode = {
   name: string;
   // "pooled" - this occurrence's material need is covered by one shared
   // production run combined with the same item's demand from elsewhere in
-  // the tree (see the backend's buildResolver.ts). quantity/unitCost/
-  // subtotal are still just THIS occurrence's own share; the pool* fields
-  // summarize the shared batch as a whole (same numbers at every
-  // occurrence). An occurrence itself carries no children - the real,
-  // drillable breakdown for each pooled item lives once in
-  // BuildResolveResult.pooledBatches instead of being repeated at every
-  // occurrence.
+  // the tree (see the backend's buildResolver.ts). quantity/inputCost/
+  // jobCost/totalCost are still just THIS occurrence's own proportional
+  // share; the pool* fields (bookkeeping, not their own UI column)
+  // summarize the shared batch as a whole. An occurrence itself carries no
+  // children - the real, drillable breakdown for each pooled item lives
+  // once in BuildResolveResult.pooledBatches instead of being repeated at
+  // every occurrence.
   //
   // "hybrid" - demand didn't divide evenly into whole batches, so part of
-  // it was built (quantity - buyQuantity, at unitCost, with its own
-  // materials in children) and the rest (buyQuantity, at buyUnitCost) was
-  // bought directly rather than wasting a further batch on it.
+  // it was built and the rest bought directly rather than wasting a
+  // further batch on it - inputCost already merges both pieces into one
+  // number (the row being "hybrid" already says a mix is happening).
+  // buyQuantity/buyUnitCost (bookkeeping, not their own UI column) are the
+  // bought portion specifically.
   decision: "build" | "buy" | "pooled" | "hybrid";
   quantity: number;
-  unitCost: number;
-  subtotal: number;
+  // All three are TOTALS for this row's quantity, not per-unit. inputCost
+  // - material cost (build) or purchase price (buy) or a blend (hybrid/
+  // pooled, see above). jobCost - the real installation fee for whatever
+  // was actually built here; always exactly 0 for "buy" (render as "--",
+  // not "0" - a deliberate absence, not a coincidentally-zero number).
+  // totalCost - inputCost + jobCost, always.
+  inputCost: number;
+  jobCost: number;
+  totalCost: number;
   buyQuantity?: number;
   buyUnitCost?: number;
   poolTotalQuantity?: number;
   poolBuildQuantity?: number;
   poolBuyQuantity?: number;
-  // Set on "build"/"hybrid" nodes only - this node's own real job/
-  // installation fee, already folded into subtotal, broken out so it can
-  // be shown/summed on its own.
-  jobCost?: number;
   children?: BuildTreeNode[];
 };
 
@@ -387,13 +392,14 @@ export type ShoppingListEntry = {
 export type BuildResolveResult = {
   target: { typeId: number; name: string; quantity: number };
   summary: {
-    totalBuildCost: number;
+    totalInputCost: number;
+    totalJobCost: number;
+    totalCost: number;
     totalBuyEverythingCost: number;
     iskSaved: number;
     percentSaved: number;
     jobCount: number;
     totalBuyVolumeM3: number;
-    totalJobCost: number;
   };
   tree: BuildTreeNode;
   // One entry per pooled typeId - the real, drillable breakdown of what

@@ -86,6 +86,22 @@
   flex: 1 1 16rem;
 }
 
+/* Quantity/ME are plain numbers, not free text like everything else in
+   this row - sized to what they actually need to hold (quantity up to
+   ~7 digits for large ammo/mineral runs, ME capped at 10 so 2 digits is
+   always enough) rather than sharing the same min-width as text inputs. */
+.inputGroupNarrow input {
+  min-width: 0;
+  width: 8ch;
+  flex: 0 0 auto;
+}
+
+.inputGroupNarrower input {
+  min-width: 0;
+  width: 3ch;
+  flex: 0 0 auto;
+}
+
 .inputGroup label {
   font-size: 0.8rem;
   font-weight: 500;
@@ -137,7 +153,22 @@
 .summaryStrip {
   display: flex;
   flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+/* Groups related stats (cost breakdown / market comparison / logistics)
+   instead of a single undifferentiated wrapping row of every stat. */
+.statGroup {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-5);
+  padding-right: var(--space-6);
+  border-right: 1px solid var(--hairline-soft);
+}
+
+.statGroup:last-child {
+  padding-right: 0;
+  border-right: none;
 }
 
 .stat {
@@ -201,6 +232,12 @@
 
 @media only screen and (max-width: 768px) {
   .summaryStrip {
+    gap: var(--space-4);
+  }
+
+  .statGroup {
+    padding-right: 0;
+    border-right: none;
     gap: var(--space-4);
   }
 }

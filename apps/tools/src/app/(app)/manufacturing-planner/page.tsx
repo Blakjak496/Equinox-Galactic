@@ -148,7 +148,7 @@ function ManufacturingPlanner() {
                   placeholder="Item name, e.g. Rorqual"
                 />
               </div>
-              <div className={styles.inputGroup}>
+              <div className={`${styles.inputGroup} ${styles.inputGroupNarrow}`}>
                 <label>Quantity</label>
                 <input
                   type="number"
@@ -157,7 +157,7 @@ function ManufacturingPlanner() {
                   onChange={(e) => setQuantity(Number(e.target.value))}
                 />
               </div>
-              <div className={styles.inputGroup}>
+              <div className={`${styles.inputGroup} ${styles.inputGroupNarrower}`}>
                 <label>Manufacturing ME %</label>
                 <input
                   type="number"
@@ -272,15 +272,22 @@ function ManufacturingPlanner() {
         <>
           <Panel>
             <div className={styles.summaryStrip}>
-              <SummaryStat label="Build Cost" value={formatIsk(result.summary.totalBuildCost)} />
-              <SummaryStat label="Buy Everything" value={formatIsk(result.summary.totalBuyEverythingCost)} />
-              <SummaryStat
-                label="ISK Saved"
-                value={`${formatIsk(result.summary.iskSaved)} (${result.summary.percentSaved.toFixed(1)}%)`}
-              />
-              <SummaryStat label="Jobs" value={formatNumber(result.summary.jobCount)} />
-              <SummaryStat label="Job Installation Cost" value={formatIsk(result.summary.totalJobCost)} />
-              <SummaryStat label="Buy Volume" value={`${formatNumber(result.summary.totalBuyVolumeM3)} m³`} />
+              <div className={styles.statGroup}>
+                <SummaryStat label="Input Cost" value={formatIsk(result.summary.totalInputCost)} />
+                <SummaryStat label="Job Cost" value={formatIsk(result.summary.totalJobCost)} />
+                <SummaryStat label="Total Cost" value={formatIsk(result.summary.totalCost)} />
+              </div>
+              <div className={styles.statGroup}>
+                <SummaryStat label="Buy Everything" value={formatIsk(result.summary.totalBuyEverythingCost)} />
+                <SummaryStat
+                  label="ISK Saved"
+                  value={`${formatIsk(result.summary.iskSaved)} (${result.summary.percentSaved.toFixed(1)}%)`}
+                />
+              </div>
+              <div className={styles.statGroup}>
+                <SummaryStat label="Jobs" value={formatNumber(result.summary.jobCount)} />
+                <SummaryStat label="Buy Volume" value={`${formatNumber(result.summary.totalBuyVolumeM3)} m³`} />
+              </div>
             </div>
 
             {result.warnings.length > 0 && (
@@ -313,7 +320,7 @@ function ManufacturingPlanner() {
             {tab === "tree" ? <BuildTree root={result.tree} /> : <ShoppingList entries={result.shoppingList} />}
           </Panel>
 
-          {result.pooledBatches.length > 0 && (
+          {tab === "tree" && result.pooledBatches.length > 0 && (
             <Panel>
               <h3 className={styles.sectionTitle}>Shared Production Batches</h3>
               <p className={styles.sectionHint}>

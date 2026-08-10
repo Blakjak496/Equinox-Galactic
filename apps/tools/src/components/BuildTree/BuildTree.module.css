@@ -23,10 +23,13 @@
   margin-left: calc(2.25rem + 3.5rem + var(--space-2) * 2);
 }
 
-.colQty,
-.colUnit,
-.colSubtotal {
-  flex: 0 0 7rem;
+.colQty {
+  flex: 0 0 5rem;
+  text-align: right;
+}
+
+.colCost {
+  flex: 0 0 6.5rem;
   text-align: right;
 }
 
@@ -83,25 +86,26 @@
   white-space: nowrap;
 }
 
-.qty,
-.unit,
-.subtotal {
-  flex: 0 0 7rem;
+.qty {
+  flex: 0 0 5rem;
   text-align: right;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.subtotal {
-  color: var(--text);
-  font-weight: 500;
+.cost {
+  flex: 0 0 6.5rem;
+  text-align: right;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.qtyDetail {
-  display: block;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  white-space: normal;
+.costTotal {
+  flex: 0 0 6.5rem;
+  text-align: right;
+  color: var(--text);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
 @media only screen and (max-width: 768px) {
@@ -110,7 +114,9 @@
   }
 
   .colQty,
-  .qty {
+  .qty,
+  .colCost,
+  .cost {
     display: none;
   }
 
