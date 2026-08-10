@@ -1,10 +1,13 @@
+/* Unlike SystemAutocomplete (used directly inside a row-direction flex
+   container, where flex-basis sets width), this sits inside .inputGroup -
+   a column-direction flex container in every place ItemAutocomplete is
+   used. A row-style `flex: 1 1 12rem` there would set flex-basis on the
+   column's main axis (height, not width), inflating the wrapper to 12rem
+   tall for no reason - width:100% is the correct equivalent here, and
+   height is left to its content (the input itself). */
 .wrapper {
   position: relative;
-  flex: 1 1 12rem;
-  /* A real min-width, not 0 - min-width:0 tells flexbox this item can
-     shrink infinitely, which starves it toward unusable width instead of
-     ever triggering the parent row's flex-wrap. */
-  min-width: 10rem;
+  width: 100%;
 }
 
 .wrapper input {
