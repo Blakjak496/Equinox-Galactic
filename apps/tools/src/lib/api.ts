@@ -347,8 +347,10 @@ export type BuildTreeNode = {
   name: string;
   // "pooled" - this occurrence's material need is covered by one shared
   // production run combined with the same item's demand from elsewhere in
-  // the tree (see the backend's buildResolver.ts) - it has no children of
-  // its own here, the pooled batch's materials are shown separately.
+  // the tree (see the backend's buildResolver.ts). quantity/unitCost/
+  // subtotal are still just THIS occurrence's own share - children and the
+  // pool* fields describe the shared batch as a whole (same for every
+  // occurrence of this item, wherever it shows up in the tree).
   //
   // "hybrid" - demand didn't divide evenly into whole batches, so part of
   // it was built (quantity - buyQuantity, at unitCost, with its own
@@ -360,6 +362,9 @@ export type BuildTreeNode = {
   subtotal: number;
   buyQuantity?: number;
   buyUnitCost?: number;
+  poolTotalQuantity?: number;
+  poolBuildQuantity?: number;
+  poolBuyQuantity?: number;
   children?: BuildTreeNode[];
 };
 

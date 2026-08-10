@@ -58,6 +58,12 @@ function BuildTreeRow({ node, depth }: { node: BuildTreeNode; depth: number }) {
               {formatNumber(node.quantity - node.buyQuantity)} built + {formatNumber(node.buyQuantity)} bought
             </span>
           )}
+          {node.decision === "pooled" && node.poolBuildQuantity !== undefined && node.poolBuyQuantity !== undefined && (
+            <span className={styles.qtyDetail}>
+              shared batch: {formatNumber(node.poolBuildQuantity)} built + {formatNumber(node.poolBuyQuantity)} bought
+              {" "}({formatNumber(node.poolTotalQuantity ?? 0)} total)
+            </span>
+          )}
         </span>
         <span className={styles.unit}>{formatIsk(node.unitCost)}</span>
         <span className={styles.subtotal}>{formatIsk(node.subtotal)}</span>
