@@ -278,21 +278,26 @@ function ManufacturingPlanner() {
         <>
           <Panel>
             <div className={styles.summaryStrip}>
-              <div className={styles.statGroup}>
+              {/* What the build tree calculated - the plan's own cost. */}
+              <div className={styles.summaryRow}>
                 <SummaryStat label="Input Cost" value={formatIsk(result.summary.totalInputCost)} />
                 <SummaryStat label="Job Cost" value={formatIsk(result.summary.totalJobCost)} />
                 <SummaryStat label="Total Cost" value={formatIsk(result.summary.totalCost)} />
               </div>
-              <div className={styles.statGroup}>
-                <SummaryStat label="Buy Everything" value={formatIsk(result.summary.totalBuyEverythingCost)} />
+              {/* What running that plan actually takes - jobs to queue,
+                  cargo to haul for whatever the plan says to buy. */}
+              <div className={styles.summaryRow}>
+                <SummaryStat label="Jobs" value={formatNumber(result.summary.jobCount)} />
+                <SummaryStat label="Buy Volume" value={`${formatNumber(result.summary.totalBuyVolumeM3)} m³`} />
+              </div>
+              {/* The alternative to following the plan at all - buying
+                  every component outright instead. */}
+              <div className={styles.summaryRow}>
+                <SummaryStat label="Buy Components" value={formatIsk(result.summary.totalBuyEverythingCost)} />
                 <SummaryStat
                   label="ISK Saved"
                   value={`${formatIsk(result.summary.iskSaved)} (${result.summary.percentSaved.toFixed(1)}%)`}
                 />
-              </div>
-              <div className={styles.statGroup}>
-                <SummaryStat label="Jobs" value={formatNumber(result.summary.jobCount)} />
-                <SummaryStat label="Buy Volume" value={`${formatNumber(result.summary.totalBuyVolumeM3)} m³`} />
               </div>
             </div>
 

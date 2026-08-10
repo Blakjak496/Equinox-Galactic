@@ -158,25 +158,34 @@
   font-size: 0.8125rem;
 }
 
+/* Three explicit, vertically stacked rows - the plan's own cost, what
+   running it takes, then the alternative-to-the-plan comparison. Each row
+   gets its own bottom border rather than relying on gap alone - at
+   narrower widths a row's own stats can wrap onto a second line (e.g.
+   "Total Cost" dropping below "Input Cost"/"Job Cost"), and without a
+   real separator that wrapped line reads as part of the row underneath it
+   instead of its own row - exactly the ambiguity this reorganization is
+   meant to remove. */
 .summaryStrip {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-6);
+  flex-direction: column;
 }
 
-/* Groups related stats (cost breakdown / market comparison / logistics)
-   instead of a single undifferentiated wrapping row of every stat. */
-.statGroup {
+.summaryRow {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-5);
-  padding-right: var(--space-6);
-  border-right: 1px solid var(--hairline-soft);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--hairline-soft);
 }
 
-.statGroup:last-child {
-  padding-right: 0;
-  border-right: none;
+.summaryRow:first-child {
+  padding-top: 0;
+}
+
+.summaryRow:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .stat {
@@ -239,13 +248,8 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .summaryStrip {
+  .summaryRow {
     gap: var(--space-4);
-  }
-
-  .statGroup {
-    padding-right: 0;
-    border-right: none;
-    gap: var(--space-4);
+    padding: var(--space-2) 0;
   }
 }
