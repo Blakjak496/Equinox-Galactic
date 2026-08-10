@@ -167,6 +167,9 @@ function ManufacturingPlanner() {
                   onChange={(e) => setAssumedME(Number(e.target.value))}
                 />
               </div>
+            </div>
+
+            <div className={styles.formRow}>
               <div className={styles.inputGroup}>
                 <label>Material Price Basis</label>
                 <select
@@ -178,7 +181,7 @@ function ManufacturingPlanner() {
                 </select>
               </div>
               <div className={styles.inputGroup}>
-                <label>Product Price Basis</label>
+                <label>Product Sell Price</label>
                 <select
                   value={productPriceSource}
                   onChange={(e) => setProductPriceSource(e.target.value as "buy" | "sell")}
@@ -187,8 +190,11 @@ function ManufacturingPlanner() {
                   <option value="sell">Jita Sell Orders</option>
                 </select>
               </div>
+            </div>
+
+            <div className={styles.formRow}>
               <div className={styles.inputGroup}>
-                <label>Haul Rate (ISK/m³)</label>
+                <label>Freight Cost (ISK/m³)</label>
                 <input
                   type="number"
                   min={0}

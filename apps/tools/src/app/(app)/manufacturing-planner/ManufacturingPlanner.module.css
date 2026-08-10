@@ -86,22 +86,6 @@
   flex: 1 1 16rem;
 }
 
-/* Quantity/ME are plain numbers, not free text like everything else in
-   this row - sized to what they actually need to hold (quantity up to
-   ~7 digits for large ammo/mineral runs, ME capped at 10 so 2 digits is
-   always enough) rather than sharing the same min-width as text inputs. */
-.inputGroupNarrow input {
-  min-width: 0;
-  width: 8ch;
-  flex: 0 0 auto;
-}
-
-.inputGroupNarrower input {
-  min-width: 0;
-  width: 3ch;
-  flex: 0 0 auto;
-}
-
 .inputGroup label {
   font-size: 0.8rem;
   font-weight: 500;
@@ -119,6 +103,24 @@
   font-family: var(--font-body);
   font-size: 0.875rem;
   min-width: 160px;
+}
+
+/* Quantity/ME are plain numbers, not free text like everything else in
+   this row - sized to what they actually need to hold (quantity up to
+   ~7 digits for large ammo/mineral runs, ME capped at 10 so 2 digits is
+   always enough) rather than sharing the same min-width as text inputs.
+   Declared AFTER the generic .inputGroup input rule above - same
+   specificity, so source order decides, and these need to win. */
+.inputGroupNarrow input {
+  min-width: 0;
+  width: 8ch;
+  flex: 0 0 auto;
+}
+
+.inputGroupNarrower input {
+  min-width: 0;
+  width: 3ch;
+  flex: 0 0 auto;
 }
 
 .bonus {
